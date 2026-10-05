@@ -37,7 +37,8 @@
     "total": 56807200000,
     "publicTotal": 56807200000,
     "gdp": 130459000000,
-    "population": 6423207
+    "population": 6423207,
+    "lists": true
   },
   {
     "id": "ministries-2026",
@@ -57,7 +58,29 @@
     "total": 13326470300,
     "publicTotal": 56807200000,
     "gdp": 130459000000,
-    "population": 6423207
+    "population": 6423207,
+    "lists": true
+  },
+  {
+    "id": "municipalities-2026",
+    "year": 2026,
+    "kind": "plan",
+    "stage": "law",
+    "family": "municipalities",
+    "title": {
+      "bg": "Общини 2026",
+      "en": "Municipalities 2026"
+    },
+    "subtitle": {
+      "bg": "Трансфери от централния бюджет към общините",
+      "en": "Transfers from the central budget to municipalities"
+    },
+    "file": "municipalities-2026.json",
+    "total": 4927964000,
+    "publicTotal": 56807200000,
+    "gdp": 130459000000,
+    "population": 6423207,
+    "lists": true
   },
   {
     "id": "budget-2025",
@@ -77,7 +100,8 @@
     "total": 49444992663,
     "publicTotal": 49444992663,
     "gdp": 116018300000,
-    "population": 6437360
+    "population": 6437360,
+    "lists": true
   },
   {
     "id": "report-2025",
@@ -97,7 +121,8 @@
     "total": 47508679180,
     "publicTotal": 47508679180,
     "gdp": 116018300000,
-    "population": 6437360
+    "population": 6437360,
+    "lists": true
   },
   {
     "id": "ministries-2025",
@@ -117,7 +142,8 @@
     "total": 12439481911,
     "publicTotal": 49444992663,
     "gdp": 116018300000,
-    "population": 6437360
+    "population": 6437360,
+    "lists": true
   },
   {
     "id": "ministries-report-2025",
@@ -137,7 +163,29 @@
     "total": 12225672096,
     "publicTotal": 47508679180,
     "gdp": 116018300000,
-    "population": 6437360
+    "population": 6437360,
+    "lists": true
+  },
+  {
+    "id": "municipalities-2025",
+    "year": 2025,
+    "kind": "plan",
+    "stage": "law",
+    "family": "municipalities",
+    "title": {
+      "bg": "Общини 2025",
+      "en": "Municipalities 2025"
+    },
+    "subtitle": {
+      "bg": "Трансфери от централния бюджет към общините",
+      "en": "Transfers from the central budget to municipalities"
+    },
+    "file": "municipalities-2025.json",
+    "total": 4563744855,
+    "publicTotal": 49444992663,
+    "gdp": 116018300000,
+    "population": 6437360,
+    "lists": true
   },
   {
     "id": "budget-2024",
@@ -157,7 +205,8 @@
     "total": 41674889944,
     "publicTotal": 41674889944,
     "gdp": 104767200000,
-    "population": 6445481
+    "population": 6445481,
+    "lists": true
   },
   {
     "id": "report-2024",
@@ -177,7 +226,8 @@
     "total": 39972185722,
     "publicTotal": 39972185722,
     "gdp": 104767200000,
-    "population": 6445481
+    "population": 6445481,
+    "lists": true
   },
   {
     "id": "ministries-2024",
@@ -197,7 +247,29 @@
     "total": 8738050749,
     "publicTotal": 41674889944,
     "gdp": 104767200000,
-    "population": 6445481
+    "population": 6445481,
+    "lists": true
+  },
+  {
+    "id": "municipalities-2024",
+    "year": 2024,
+    "kind": "plan",
+    "stage": "law",
+    "family": "municipalities",
+    "title": {
+      "bg": "Общини 2024",
+      "en": "Municipalities 2024"
+    },
+    "subtitle": {
+      "bg": "Трансфери от централния бюджет към общините",
+      "en": "Transfers from the central budget to municipalities"
+    },
+    "file": "municipalities-2024.json",
+    "total": 4025144005,
+    "publicTotal": 41674889944,
+    "gdp": 104767200000,
+    "population": 6445481,
+    "lists": true
   },
   {
     "id": "eurostat-2024",

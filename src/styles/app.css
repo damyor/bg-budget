@@ -355,6 +355,8 @@ a {
   border: 0;
   background: none;
   padding: 2px 0;
+  /* Long names of deep levels wrap like text. */
+  text-align: left;
   color: var(--text-secondary);
   cursor: pointer;
   text-decoration: underline;
@@ -372,6 +374,7 @@ a {
 }
 
 .crumb-key {
+  flex: none;
   width: 8px;
   height: 8px;
   border-radius: 2px;
@@ -769,18 +772,20 @@ li.selected .row-bar span {
 }
 
 @media (max-width: 720px) {
+  /* With the links on two rows the header is too tall to stay pinned on a phone. */
   .site-header {
+    position: static;
     flex-wrap: wrap;
     gap: 8px 12px;
     padding: 10px 16px;
   }
+  /* Every page stays in sight: the links wrap rather than scroll out of view. */
   .main-nav {
     order: 3;
     width: 100%;
     margin: 0;
     gap: 2px;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
   }
   .main-nav a {
     padding: 6px 10px;
@@ -1652,4 +1657,525 @@ li.selected .row-bar span {
   .hide-narrow {
     display: none;
   }
+}
+
+/* ---------- Lists (projects, payments …) ---------- */
+
+.lists-intro {
+  max-width: 820px;
+  margin: 0 0 16px;
+}
+
+.list-head {
+  margin: 4px 0 16px;
+  max-width: 860px;
+}
+
+.list-heading {
+  margin: 0 0 6px;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.list-description {
+  margin: 0 0 6px;
+}
+
+.list-toolbar {
+  align-items: flex-end;
+}
+
+.list-search {
+  flex: 2 1 280px;
+  max-width: none;
+  margin-left: 0;
+}
+
+.list-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 180px;
+  min-width: 0;
+  max-width: 320px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.list-filter select {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-1);
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.list-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 18px;
+  margin: 0 0 12px;
+}
+
+.list-summary p {
+  margin: 0;
+}
+
+.list-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.list-table th,
+.list-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--grid);
+  text-align: left;
+  vertical-align: top;
+}
+
+.list-table thead th {
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  vertical-align: bottom;
+}
+
+.list-table .num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-table thead .num .sort-btn {
+  justify-content: flex-end;
+}
+
+.list-table .list-group-head {
+  text-align: center;
+  color: var(--text-secondary);
+  border-bottom: 0;
+}
+
+.list-table tbody th {
+  font-weight: 400;
+  min-width: 260px;
+}
+
+.list-table td.node {
+  min-width: 170px;
+}
+
+.list-table tbody tr:hover > * {
+  background: var(--surface-2);
+}
+
+.list-table tr.open > * {
+  background: var(--accent-soft);
+  border-bottom-color: transparent;
+}
+
+.list-table tfoot th,
+.list-table tfoot td {
+  border-bottom: 0;
+  border-top: 1px solid var(--axis);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-title-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.list-title {
+  display: block;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.list-code {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.sort-btn:hover {
+  color: var(--text-primary);
+}
+
+.sort-mark {
+  min-width: 0.8em;
+  color: var(--accent);
+}
+
+.list-detail-row td {
+  background: var(--accent-soft);
+  padding-top: 0;
+}
+
+.list-details {
+  display: grid;
+  grid-template-columns: minmax(140px, max-content) minmax(0, 1fr);
+  gap: 4px 16px;
+  margin: 0;
+  padding: 8px 0 8px 26px;
+  font-size: 13px;
+}
+
+.list-details dt {
+  color: var(--text-secondary);
+}
+
+.list-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-card {
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  background: var(--surface-1);
+}
+
+.list-card .list-code {
+  margin: 0 0 2px;
+}
+
+.list-card-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface-2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.list-card-more:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform 120ms ease;
+}
+
+.chevron.open {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}
+
+.list-card .list-title {
+  margin: 0;
+  font-weight: 500;
+}
+
+.list-card-values {
+  display: grid;
+  /* Labels up to half the card; values (also long names that link to a page) take the rest and wrap. */
+  grid-template-columns: fit-content(50%) minmax(0, 1fr);
+  gap: 2px 12px;
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+.list-card-values dt {
+  color: var(--text-secondary);
+}
+
+.list-card-values dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.list-card .list-details {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 12px;
+  margin-top: 10px;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--grid);
+}
+
+.list-card .list-details dd {
+  margin-bottom: 6px;
+}
+
+.list-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 14px;
+}
+
+.list-more p {
+  margin: 0;
+}
+
+.list-notes {
+  max-width: 860px;
+}
+
+.list-notes .group-title {
+  margin: 18px 0 6px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.list-notes ul {
+  margin: 0 0 8px;
+  padding-left: 18px;
+}
+
+.list-notes li {
+  margin-bottom: 4px;
+}
+
+/* A node's link to its list rows in "Spending". */
+.list-links {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-links a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 10px;
+  padding: 9px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: var(--radius-m);
+  background: var(--accent-soft);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.list-links a:hover {
+  border-color: var(--accent);
+}
+
+.list-link-text {
+  font-weight: 600;
+}
+
+.list-link-source {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.list-link-arrow {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.list-link-source {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 720px) {
+  .list-filter {
+    max-width: none;
+    flex-basis: 100%;
+  }
+  .list-search {
+    flex-basis: 100%;
+  }
+}
+
+/* Section and list pickers above a list. */
+.lists-pickers {
+  align-items: flex-start;
+}
+
+/* Filters set by a link (one payee), shown as removable chips. */
+.list-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -4px 0 12px;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.list-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 4px 6px 4px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow-wrap: anywhere;
+}
+
+.chip-remove {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chip-remove:hover {
+  background: var(--surface-sunken);
+  color: var(--text-primary);
+}
+
+.list-hidden-note {
+  margin: 0 0 12px;
+}
+
+/* A breakdown in a row's details: who paid, by group and period. It scrolls on its own instead of widening the list. */
+.list-breakdown {
+  width: 0;
+  min-width: 100%;
+  padding: 4px 0 10px 26px;
+  box-sizing: border-box;
+}
+
+.list-card .list-breakdown {
+  padding: 10px 0 0;
+}
+
+.breakdown-scroll {
+  max-width: 100%;
+}
+
+.list-breakdown .breakdown {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.list-breakdown .breakdown th,
+.list-breakdown .breakdown td {
+  min-width: 0;
+  background: none;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--grid);
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+}
+
+.list-breakdown .breakdown thead th {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.list-breakdown .breakdown .num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.list-breakdown .breakdown .breakdown-group th,
+.list-breakdown .breakdown .breakdown-group td {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.list-breakdown .breakdown .breakdown-part {
+  padding-left: 18px;
+  color: var(--text-secondary);
+}
+
+.list-breakdown .breakdown tfoot th,
+.list-breakdown .breakdown tfoot td {
+  border-top: 1px solid var(--axis);
+  border-bottom: 0;
+  font-weight: 700;
+}
+
+/* The heading of a group of tables in a row's details ("NHIF payments by year", "Ministry of Health data"). */
+.list-detail-section {
+  margin: 6px 0 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.list-back {
+  margin: 0 0 6px;
+  font-size: 14px;
 }

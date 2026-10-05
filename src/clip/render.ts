@@ -6,7 +6,8 @@ import { easeInOut, layoutSlices, staticArcs, sweepArcs, zoomArcs, type DrawArc,
 import { formatPercent, moneyParts } from '../lib/format'
 import { translate } from '../lib/i18n'
 import { arcFill, inkOn, seriesHex, type Mode } from '../lib/palette'
-import { publicTotal, type BudgetNode, type Dataset, type Lang } from '../lib/types'
+import { placeOf } from '../lib/tree'
+import { publicTotal, type BudgetNode, type Dataset, type DatasetFamily, type Lang } from '../lib/types'
 import { formatPersonal } from '../lib/valueMode'
 import { clipLayout, type Box, type ClipFormat, type ClipLayout } from './layout'
 import { buildTimeline, sceneAt, TOUR_STEPS, type Scene, type Speed, type Timeline } from './timeline'
@@ -42,14 +43,34 @@ const THEME = {
 const FONT = '"Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif'
 
 const GEOGRAPHIC = new Set(['Община', 'Municipality', 'Област (регион)', 'Province'])
-const GENERIC = /^(администрация|други|друго|резерв|инвестиции|издръжка|заплати|administration|other|contingency|investment|running costs|staff pay)/i
+/** A programme's own staff, running and capital costs ("Персонал", "Издръжка" …) only mean something with the programme. */
+const DEPARTMENTAL = 'Ведомствен разход'
+const GENERIC = /^(администрация|други|друго|резерв|инвестиции|издръжка|заплати|членски внос|стипендии|administration|other|contingency|investment|running costs|staff pay|membership fees|scholarships)/i
 
 /** A node that only makes sense together with its parent ("Administration", a municipality …). */
 function needsContext(node: BudgetNode): boolean {
-  return (node.kind !== undefined && GEOGRAPHIC.has(node.kind.bg)) || GENERIC.test(node.name.bg) || node.id.endsWith('~other')
+  return (
+    (node.kind !== undefined && (GEOGRAPHIC.has(node.kind.bg) || node.kind.bg === DEPARTMENTAL)) ||
+    GENERIC.test(node.name.bg) ||
+    node.id.endsWith('~other')
+  )
 }
 
-export function defaultTitle(path: BudgetNode[], lang: Lang): string {
+/** Titles for the central budget's transfers to municipalities: what a place gets, and for what. */
+function municipalTitle(path: BudgetNode[], lang: Lang): string {
+  const target = path[path.length - 1]
+  const place = path.findLast((n) => n.kind !== undefined && GEOGRAPHIC.has(n.kind.bg))
+  if (!place) return lang === 'bg' ? 'Колко пари получават общините от държавния бюджет?' : 'How much do municipalities get from the state budget?'
+  const name = place.name[lang]
+  if (place !== target) return lang === 'bg' ? `${name}: колко за „${target.name.bg}“?` : `${name}: how much for “${target.name.en}”?`
+  if (place.kind?.en === 'Province') {
+    return lang === 'bg' ? `Колко получават общините в ${name} от държавния бюджет?` : `How much do the municipalities of ${name} get from the state budget?`
+  }
+  return lang === 'bg' ? `Колко получава ${name} от държавния бюджет?` : `How much does ${name} get from the state budget?`
+}
+
+export function defaultTitle(path: BudgetNode[], lang: Lang, family?: DatasetFamily): string {
+  if (family === 'municipalities') return municipalTitle(path, lang)
   const target = path[path.length - 1]
   if (path.length === 1) {
     return lang === 'bg' ? 'Накъде отиват публичните пари на България?' : "Where does Bulgaria's public money go?"
@@ -395,6 +416,14 @@ function drawCenter(ctx: CanvasRenderingContext2D, clip: PreparedClip, node: Bud
   ctx.restore()
 }
 
+/** "≈ €85 per resident a year" inside a place with known residents, else per person in the country. */
+function perPersonLine(spec: ClipSpec, path: BudgetNode[]): string {
+  const node = path[path.length - 1]
+  const place = placeOf(path)
+  if (place) return `≈ ${formatPersonal(node.value / place.residents, spec.lang)} ${translate(spec.lang, 'perResidentShort')}`
+  return `≈ ${formatPersonal(node.value / spec.dataset.population, spec.lang)} ${translate(spec.lang, 'perPersonYear')}`
+}
+
 function shareLine(clip: PreparedClip, child: BudgetNode, parent: BudgetNode): string {
   const { spec } = clip
   if (parent === spec.path[0]) return `${formatPercent(child.value / publicTotal(spec.dataset), spec.lang)} ${translate(spec.lang, 'clipOfAll')}`
@@ -437,7 +466,7 @@ function drawCaption(ctx: CanvasRenderingContext2D, clip: PreparedClip, focus: L
   font(ctx, 500, 34 * u)
   ctx.fillStyle = C.secondary
   const lines = [shareLine(clip, node, parent)]
-  if (spec.showPerPerson) lines.push(`≈ ${formatPersonal(node.value / spec.dataset.population, spec.lang)} ${translate(spec.lang, 'perPersonYear')}`)
+  if (spec.showPerPerson) lines.push(perPersonLine(spec, [...spec.path.slice(0, spec.path.indexOf(parent) + 1), node]))
   for (const line of lines) {
     for (const part of wrap(ctx, line, box.w, 2)) {
       ctx.fillText(part, box.x, y + 34 * u * 0.8)
@@ -473,7 +502,7 @@ function drawSummary(ctx: CanvasRenderingContext2D, clip: PreparedClip, alpha: n
   const facts: string[] = []
   const all = publicTotal(spec.dataset)
   if (target.value !== all) facts.push(`${formatPercent(target.value / all, spec.lang)} ${translate(spec.lang, 'clipOfAll')}`)
-  if (spec.showPerPerson) facts.push(`≈ ${formatPersonal(target.value / spec.dataset.population, spec.lang)} ${translate(spec.lang, 'perPersonYear')}`)
+  if (spec.showPerPerson) facts.push(perPersonLine(spec, spec.path))
   if (spec.myAnnualTaxes !== null) {
     const mine = (target.value / all) * spec.myAnnualTaxes
     facts.push(`≈ ${formatPersonal(mine, spec.lang)} ${translate(spec.lang, 'fromMyTaxesYear', { year: spec.dataset.year })}`)
@@ -523,35 +552,40 @@ export function postCaption(spec: ClipSpec): string {
   const root = path[0]
   const target = path[path.length - 1]
   const amount = moneyParts(target.value, lang).text
-  const pp = formatPersonal(target.value / dataset.population, lang)
+  const place = placeOf(path)
+  const pp = formatPersonal(target.value / (place?.residents ?? dataset.population), lang)
   const year = dataset.year
   const plan = dataset.kind === 'plan'
   const forecast = dataset.stage === 'forecast'
   const all = publicTotal(dataset)
   const share = target.value === all ? '' : ` (${formatPercent(target.value / all, lang)} ${translate(lang, 'clipOfAll')})`
   const source = dataset.sourceShort?.[lang] ?? ''
+  // The root is all public spending only when the dataset covers all of it.
+  const everything = target === root && root.value === all
+  // A part of a place's money (a transfer of one municipality) names the place too.
+  const within = place && place.id !== target.id ? place : null
   if (lang === 'bg') {
-    const name = `„${target.name.bg}“`
+    const name = `„${target.name.bg}“${within ? ` на ${within.name.bg}` : ''}`
     const plans = forecast ? `Прогнозата на МФ за ${year} г. предвижда` : `Бюджетът за ${year} г. предвижда`
-    const head =
-      target === root
-        ? plan
-          ? `${plans} публични разходи от ${amount}`
-          : `През ${year} г. публичните разходи на България са ${amount}`
-        : plan
-          ? `${plans} ${amount} за ${name}${share}`
-          : `През ${year} г. за ${name} са похарчени ${amount}${share}`
-    return `${head} — около ${pp} на човек годишно.\n\nИзточник: ${source}\n#бюджет #България #публичнифинанси`
-  }
-  const name = `“${target.name.en}”`
-  const plans = forecast ? `The Ministry of Finance forecast for ${year} plans` : `Bulgaria's ${year} budget plans`
-  const head =
-    target === root
+    const head = everything
       ? plan
-        ? `${plans} ${amount} of public spending`
-        : `Bulgaria's public spending in ${year}: ${amount}`
+        ? `${plans} публични разходи от ${amount}`
+        : `През ${year} г. публичните разходи на България са ${amount}`
       : plan
-        ? `${plans} ${amount} for ${name}${share}`
-        : `In ${year}, Bulgaria spent ${amount} on ${name}${share}`
-  return `${head} — about ${pp} per person a year.\n\nSource: ${source}\n#Bulgaria #budget #publicfinance`
+        ? `${plans} ${amount} за ${name}${share}`
+        : `През ${year} г. за ${name} са похарчени ${amount}${share}`
+    const per = place ? `на жител на ${place.name.bg}` : 'на човек'
+    return `${head} — около ${pp} ${per} годишно.\n\nИзточник: ${source}\n#бюджет #България #публичнифинанси`
+  }
+  const name = `“${target.name.en}”${within ? ` in ${within.name.en}` : ''}`
+  const plans = forecast ? `The Ministry of Finance forecast for ${year} plans` : `Bulgaria's ${year} budget plans`
+  const head = everything
+    ? plan
+      ? `${plans} ${amount} of public spending`
+      : `Bulgaria's public spending in ${year}: ${amount}`
+    : plan
+      ? `${plans} ${amount} for ${name}${share}`
+      : `In ${year}, Bulgaria spent ${amount} on ${name}${share}`
+  const per = place ? `per resident of ${place.name.en}` : 'per person'
+  return `${head} — about ${pp} ${per} a year.\n\nSource: ${source}\n#Bulgaria #budget #publicfinance`
 }

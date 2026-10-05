@@ -1,0 +1,46 @@
+division,name_bg,name_en
+03,"Продукти на земеделието, животновъдството, рибарството, лесовъдството и свързани с тях продукти","Agricultural, farming, fishing, forestry and related products"
+09,"Нефтопродукти, горива, електричество и други енергоизточници","Petroleum products, fuel, electricity and other sources of energy"
+14,"Продукти на минната индустрия, основни метали и свързани с тях продукти","Mining, basic metals and related products"
+15,"Хранителни продукти, напитки, тютюн и свързани с него продукти","Food, beverages, tobacco and related products"
+16,Селскостопански машини,Agricultural machinery
+18,"Облекло, обувни изделия, пътни артикули и аксесоари","Clothing, footwear, luggage articles and accessories"
+19,"Кожени и текстилни изделия, пластмасови и каучукови материали","Leather and textile fabrics, plastic and rubber materials"
+22,Печатни материали и свързани с тях продукти,Printed matter and related products
+24,Химически продукти,Chemical products
+30,"Компютърни и офис машини, оборудване и принадлежности, с изключение на мебели и софтуерни пакети","Office and computing machinery, equipment and supplies except furniture and software packages"
+31,"Електрически машини, уреди, оборудване и консумативи; осветление","Electrical machinery, apparatus, equipment and consumables; lighting"
+32,"Радио-, телевизионно, съобщително, далекосъобщително и сродни видове оборудване","Radio, television, communication, telecommunication and related equipment"
+33,"Медицинско оборудване, фармацевтични продукти и продукти за лични грижи","Medical equipments, pharmaceuticals and personal care products"
+34,Транспортно оборудване и помощни продукти за транспортиране,Transport equipment and auxiliary products to transportation
+35,"Оборудване за безопасност, противопожарно, полицейско и отбранително оборудване","Security, fire-fighting, police and defence equipment"
+37,"Музикални инструменти, спортни артикули, игри, играчки, занаятчийски изделия, предмети на изкуството и принадлежности","Musical instruments, sport goods, games, toys, handicraft, art materials and accessories"
+38,"Лабораторно, оптично и прецизно оборудване (без стъклени изделия)","Laboratory, optical and precision equipments (excl. glasses)"
+39,"Обзавеждане (включително офис обзавеждане), мебелировка, електродомакински уреди (с изключение на осветителни тела) и продукти за почистване","Furniture (incl. office furniture), furnishings, domestic appliances (excl. lighting) and cleaning products"
+41,Събрана и пречистена вода,Collected and purified water
+42,Машини за промишлена употреба,Industrial machinery
+43,"Минни машини, оборудване за разработване на кариери и строително оборудване","Machinery for mining, quarrying, construction equipment"
+44,Строителни конструкции и материали; помощни строителни материали (без електрически апарати),Construction structures and materials; auxiliary products to construction (except electric apparatus)
+45,Строителни и монтажни работи,Construction work
+48,Софтуерни пакети и информационни системи,Software package and information systems
+50,Услуги по ремонт и поддръжка,Repair and maintenance services
+51,Услуги по инсталиране (с изключение на софтуер),Installation services (except software)
+55,Хотелиерски и ресторантьорски услуги и услуги в областта на търговията на дребно,"Hotel, restaurant and retail trade services"
+60,Транспортни услуги (с изключение на извозването на отпадъци),Transport services (excl. Waste transport)
+63,Спомагателни услуги в транспорта; услуги на туристически агенции,Supporting and auxiliary transport services; travel agencies services
+64,Услуги на пощата и далекосъобщенията,Postal and telecommunications services
+65,Обществени услуги,Public utilities
+66,Финансови и застрахователни услуги,Financial and insurance services
+70,"Услуги, свързани с недвижими имоти",Real estate services
+71,"Архитектурни, строителни, инженерни и инспекционни услуги","Architectural, construction, engineering and inspection services"
+72,"ИТ услуги: консултации, разработване на софтуер, Интернет и поддръжка","IT services: consulting, software development, Internet and support"
+73,Научни изследвания и експериментални разработки и свързаните с тях консултантски услуги,Research and development services and related consultancy services
+75,Услуги на държавното управление и отбраната; услуги по задължително обществено осигуряване,"Administration, defence and social security services"
+76,"Услуги, свързани с добива на нефт и газ",Services related to the oil and gas industry
+77,"Услуги, свързани със селското и горското стопанство, овощарството, аквакултурите и пчеларството","Agricultural, forestry, horticultural, aquacultural and apicultural services"
+79,"Бизнес услуги: право, маркетинг, консултиране, набиране на персонал, печат и охрана","Business services: law, marketing, consulting, recruitment, printing and security"
+80,Образователни и учебно-тренировъчни услуги,Education and training services
+85,Услуги на здравеопазването и социалните дейности,Health and social work services
+90,"Услуги, свързани с отпадъчните води, битовите отпадъци, чистотата и околната среда","Sewage, refuse, cleaning and environmental services"
+92,"Услуги в областта на културата, спорта и развлеченията","Recreational, cultural and sporting services"
+98,"Други обществени, социални и персонални услуги","Other community, social and personal services"

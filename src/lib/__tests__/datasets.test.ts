@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import type { BudgetNode, Dataset, DatasetIndexEntry } from '../types'
+import { publicTotal, type BudgetNode, type Dataset, type DatasetIndexEntry } from '../types'
 
 const dir = new URL('../../../public/data/', import.meta.url)
 const index = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8')) as DatasetIndexEntry[]
@@ -48,15 +48,16 @@ describe.each(index.map((entry) => [entry.id, entry] as const))('dataset %s', (_
     expect(dataset.sources.length).toBeGreaterThan(0)
     expect(dataset.population).toBeGreaterThan(6_000_000)
     expect(dataset.gdp).toBe(entry.gdp)
-    // Public spending is 35–50% of GDP in every year covered.
-    if (dataset.family !== 'ministries') {
-      expect(dataset.root.value / dataset.gdp).toBeGreaterThan(0.35)
-      expect(dataset.root.value / dataset.gdp).toBeLessThan(0.5)
-    }
+    // Public spending is 35–50% of GDP in every year covered; a dataset that covers part of it says how much all of it is.
+    const all = publicTotal(dataset)
+    expect(all / dataset.gdp).toBeGreaterThan(0.35)
+    expect(all / dataset.gdp).toBeLessThan(0.5)
+    expect(dataset.root.value).toBeLessThanOrEqual(all)
+    expect(entry.publicTotal).toBe(all)
   })
 
   it('says what kind of data it is', () => {
-    expect(['functions', 'ministries', 'cofog']).toContain(dataset.family)
+    expect(['functions', 'ministries', 'municipalities', 'cofog']).toContain(dataset.family)
     expect(['law', 'draft', 'forecast', 'report']).toContain(dataset.stage)
     expect(dataset.kind).toBe(dataset.stage === 'report' ? 'actual' : 'plan')
   })

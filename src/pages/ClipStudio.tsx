@@ -48,7 +48,7 @@ export default function ClipStudio({ datasets }: { datasets: DatasetIndexEntry[]
   const nodeId = ready && route.params.n && ready.tree.byId.has(route.params.n) ? route.params.n : 'root'
   const path = useMemo(() => (ready ? realPathTo(ready.tree, nodeId) : []), [ready, nodeId])
 
-  const autoTitle = path.length ? defaultTitle(path, clipLang) : ''
+  const autoTitle = path.length && ready ? defaultTitle(path, clipLang, ready.dataset.family) : ''
   const clip = useMemo(() => {
     if (!ready || !path.length) return null
     return prepareClip({

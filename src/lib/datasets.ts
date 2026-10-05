@@ -1,7 +1,7 @@
 import type { DatasetFamily, DatasetIndexEntry, DatasetStage, Lang, LocalizedText } from './types'
 
 export const STAGE_ORDER: DatasetStage[] = ['law', 'draft', 'forecast', 'report']
-export const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'cofog']
+export const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'municipalities', 'cofog']
 
 export const STAGE_LABEL: Record<DatasetStage, LocalizedText> = {
   law: { bg: 'План', en: 'Plan' },
@@ -20,6 +20,7 @@ export const STAGE_HINT: Record<DatasetStage, LocalizedText> = {
 export const FAMILY_LABEL: Record<DatasetFamily, LocalizedText> = {
   functions: { bg: 'По области', en: 'By purpose' },
   ministries: { bg: 'Министерства', en: 'Ministries' },
+  municipalities: { bg: 'Общини', en: 'Municipalities' },
   cofog: { bg: 'Евростат (COFOG)', en: 'Eurostat (COFOG)' },
 }
 

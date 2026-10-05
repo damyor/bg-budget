@@ -12,7 +12,7 @@ interface Props {
 /**
  * Picks a dataset in three steps: the year, the version (plan, actual,
  * forecast) and — where a year has more than one — the breakdown (by purpose,
- * by ministry, Eurostat).
+ * by ministry, by municipality, Eurostat).
  */
 export function DatasetPicker({ datasets, value, onChange }: Props) {
   const t = useT()

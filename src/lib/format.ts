@@ -38,8 +38,12 @@ export interface MoneyParts {
   text: string
 }
 
-/** Formats euro amounts: large values compact (млн./млрд.), small values exact. */
+/** Formats euro amounts: large values compact (млн./млрд.), small values exact; a minus goes before the euro sign. */
 export function moneyParts(value: number, lang: Lang): MoneyParts {
+  if (value < 0) {
+    const parts = moneyParts(-value, lang)
+    return { number: `−${parts.number}`, scale: parts.scale, text: `−${parts.text}` }
+  }
   const abs = Math.abs(value)
   for (const s of SCALE) {
     if (abs >= s.min) {

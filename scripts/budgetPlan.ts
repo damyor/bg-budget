@@ -12,7 +12,7 @@ import type { Dataset, DatasetSource, DatasetStage, LocalizedText } from '../src
 import { fixCyrillic, num, readCsv } from './lib/csv.ts'
 import { SUB, toEur, type KfpPlan, type KfpTotals, type Unit } from './lib/kfp.ts'
 import type { YearMacro } from './lib/macro.ts'
-import { OBLAST_EN, prettyOblast, slug, transliterate } from './lib/places.ts'
+import { municipalityName, PLACE_KIND, provinceKey, provinceName, readRegister, SOFIA_CITY, type Municipality } from './lib/places.ts'
 import { build, MILLION, type Spec } from './lib/tree-builder.ts'
 
 const t = (bg: string, en: string): LocalizedText => ({ bg, en })
@@ -23,8 +23,10 @@ export const KIND = {
   sub: t('Подфункция', 'Sub-function'),
   fund: t('Фонд / бюджет', 'Fund / budget'),
   item: t('Разход', 'Expense'),
-  oblast: t('Област (регион)', 'Province'),
-  municipality: t('Община', 'Municipality'),
+  oblast: PLACE_KIND.province,
+  municipality: PLACE_KIND.municipality,
+  university: t('Висше училище', 'University'),
+  institution: t('Институция', 'Institution'),
 }
 
 // ---------- itemised budget acts ----------
@@ -36,9 +38,18 @@ export interface PlanDetails {
   unit: 'kEUR' | 'kBGN'
   nhif?: { file: string; citation: LocalizedText }
   socialSecurity?: { file: string; citation: LocalizedText; benefits?: { file: string; unit: Unit; citation: LocalizedText } }
-  /** State Budget Act article with the per-municipality funding of state-delegated activities. */
-  municipal?: { file: string; article: LocalizedText }
-  universities?: { file: string; column: string; unit: Unit }
+  /**
+   * State Budget Act article with the per-municipality funding of state-delegated
+   * activities; `register` is data/sources/places/municipalities.csv (ЕБК codes).
+   */
+  municipal?: { file: string; article: LocalizedText; register: URL }
+  universities?: {
+    file: string
+    column: string
+    unit: Unit
+    /** The State Budget Act's transfer to each university and to the Academy of Sciences (thousand EUR). */
+    institutions?: { file: string; article: LocalizedText }
+  }
 }
 
 /** Rows of a law table CSV (table_idx,…,row_no,label,value_k…). */
@@ -89,9 +100,16 @@ function nhifSpec(details: PlanDetails, year: number): Spec {
 /**
  * The Health Insurance Fund by expense line. `v` returns a line (EUR) by its
  * row number in the fund's budget act; `medicinesYear` picks the numbering of
- * the "of which" rows under 1.1.3.5.
+ * the "of which" rows under 1.1.3.5. `hospitals` gives the hospital-care line its
+ * children (the actuals only: each hospital, see scripts/health.ts), from the line's value.
  */
-export function nhifTree(v: (rowNo: string, label?: string) => number, medicinesYear: number, note: LocalizedText): Spec {
+export function nhifTree(
+  v: (rowNo: string, label?: string) => number,
+  medicinesYear: number,
+  note: LocalizedText,
+  hospitals?: (line: number) => Partial<Spec>,
+): Spec {
+  const hospitalCare = v('1.1.3.7.')
   return {
     id: 'h-nhif',
     kind: KIND.fund,
@@ -99,7 +117,7 @@ export function nhifTree(v: (rowNo: string, label?: string) => number, medicines
     value: v('II.', 'РАЗХОДИ'),
     note,
     children: [
-      { id: 'h-nhif-hospital', kind: KIND.item, name: t('Болнична помощ', 'Hospital care'), value: v('1.1.3.7.') },
+      { id: 'h-nhif-hospital', kind: KIND.item, name: t('Болнична помощ', 'Hospital care'), value: hospitalCare, ...hospitals?.(hospitalCare) },
       {
         id: 'h-nhif-medicines',
         kind: KIND.item,
@@ -274,41 +292,25 @@ type DelegatedColumn = 'education(4)' | 'health(5)' | 'social_services(6)' | 'cu
 
 function delegatedByMunicipality(details: PlanDetails, column: DelegatedColumn, idPrefix: string): { total: number; oblasts: Spec[] } {
   const rows = readCsv(new URL(details.municipal!.file, details.dir))
+  const register = readRegister(details.municipal!.register)
   const totalRow = rows.find((r) => r.municipality.trim().toUpperCase().startsWith('ВСИЧКО'))!
-  const byOblast = new Map<string, Spec[]>()
+  const byOblast = new Map<string, { place: Municipality; value: number }[]>()
   for (const r of rows) {
-    let name = fixCyrillic(r.municipality.trim())
+    const name = fixCyrillic(r.municipality.trim())
     if (!name || name.toUpperCase().startsWith('ВСИЧКО') || name.toUpperCase().startsWith('ОБЩО')) continue
     const value = toEur(num(r[column]), details.unit)
     if (!(value > 0)) continue
-    let oblast = fixCyrillic(r.oblast).replace(/^ОБЛАСТ\s+/i, '').trim()
-    // The 2026 law lists Sofia (Столична община) right after Smolyan without its own heading.
-    if (name.toUpperCase() === 'СТОЛИЧНА ОБЩИНА') {
-      name = 'Столична община'
-      oblast = 'СОФИЯ-ГРАД'
-    }
-    const oblastName = oblast.charAt(0) + oblast.slice(1).toLocaleLowerCase('bg-BG')
-    const list = byOblast.get(oblastName) ?? []
-    const display =
-      name === 'Столична община' ? t('Столична община (София)', 'Sofia (Stolichna municipality)') : t(`Община ${name}`, `${transliterate(name)} municipality`)
-    list.push({ id: `${idPrefix}-${slug(oblastName)}-${slug(name)}`, kind: KIND.municipality, name: display, value })
-    byOblast.set(oblastName, list)
+    // The acts list Sofia (Столична община) right after Smolyan without its own heading; the register puts it in София-град.
+    const place = register.find(r.oblast, name)
+    byOblast.set(place.province, [...(byOblast.get(place.province) ?? []), { place, value }])
   }
-  const oblasts: Spec[] = [...byOblast].map(([oblast, municipalities]) => {
-    const pretty = prettyOblast(oblast)
-    const en = OBLAST_EN[pretty] ?? transliterate(pretty)
-    return {
-      id: `${idPrefix}-${slug(oblast)}`,
-      kind: KIND.oblast,
-      name:
-        pretty === 'Софийска'
-          ? t('Софийска област', 'Sofia Province')
-          : pretty === 'София-град'
-            ? t('София (Столична община)', 'Sofia (Stolichna municipality)')
-            : t(`Област ${pretty}`, `${en} Province`),
-      children: municipalities,
-    }
-  })
+  const oblasts: Spec[] = [...byOblast].map(([province, list]) => ({
+    id: `${idPrefix}-${provinceKey(province)}`,
+    kind: KIND.oblast,
+    // A province with a single municipality (Sofia) stands for it: the tree drops a lone child.
+    ...(province === SOFIA_CITY ? { name: t('София (Столична община)', 'Sofia (Stolichna municipality)'), code: list[0].place.code } : { name: provinceName(province) }),
+    children: list.map(({ place, value }) => ({ id: `${idPrefix}-${place.key}`, code: place.code, kind: KIND.municipality, name: municipalityName(place.name), value })),
+  }))
   return { total: toEur(num(totalRow[column]), details.unit), oblasts }
 }
 
@@ -318,6 +320,39 @@ function universitySubsidy(details: PlanDetails): number {
   const row = rows.find((r) => Object.values(r).some((v) => v.includes('за бюджетите на държавните висши училища')))
   if (!row) throw new Error('University subsidy row not found')
   return toEur(num(row[u.column]), u.unit)
+}
+
+/**
+ * The Ministry of Education's transfer to each state university and to the
+ * Academy of Sciences, from the State Budget Act (the Ministry of Defence's
+ * transfers to the military schools have no matching node here and are left out).
+ */
+function institutionTransfers(details: PlanDetails, year: number): { universities: Spec[]; academy: Spec | null } {
+  const inst = details.universities?.institutions
+  if (!inst) return { universities: [], academy: null }
+  const rows = readCsv(new URL(inst.file, details.dir)).filter((r) => r.from_unit_code === '1700')
+  const note = (r: Record<string, string>) =>
+    r.short_bg ? t(`Официално: ${r.name_bg}`, `Official name (BG): ${r.name_bg}`) : undefined
+  const spec = (r: Record<string, string>, id: string, kind: LocalizedText): Spec => ({
+    id,
+    kind,
+    name: t(r.short_bg || r.name_bg, r.name_en),
+    value: toEur(num(r.amount_kEUR), 'kEUR'),
+    note: note(r),
+  })
+  const academy = rows.find((r) => r.id === 'bas')
+  return {
+    universities: rows.filter((r) => r !== academy).map((r) => spec(r, `ed-uni-${r.id}`, KIND.university)),
+    academy: academy
+      ? {
+          ...spec(academy, 'g-science-bas', KIND.institution),
+          note: t(
+            `Трансферът от бюджета на Министерството на образованието и науката (${inst.article.bg} от Закона за държавния бюджет за ${year} г.). Академията има и собствени приходи и европейски средства.`,
+            `The transfer from the Ministry of Education and Science (${inst.article.en} of the ${year} State Budget Act). The Academy also has its own revenue and EU funds.`,
+          ),
+        }
+      : null,
+  }
 }
 
 // ---------- the tree ----------
@@ -342,6 +377,7 @@ export interface PlanConfig {
 export function buildBudgetPlan(config: PlanConfig): Dataset {
   const { kfp: k, totals, details, year } = config
   const ss = details?.socialSecurity ? socialSecurity(details, year) : null
+  const institutions = details ? institutionTransfers(details, year) : { universities: [], academy: null }
   const delegatedNote = details?.municipal
     ? t(
         `Средства от държавния бюджет за делегираните от държавата дейности в общините (${details.municipal.article.bg} от Закона за държавния бюджет за ${year} г.), разпределени по области и общини. Общините добавят и собствени средства.`,
@@ -447,10 +483,16 @@ export function buildBudgetPlan(config: PlanConfig): Dataset {
                     id: 'ed-universities',
                     name: t('Държавни университети (субсидия)', 'State universities (subsidy)'),
                     value: universitySubsidy(details),
-                    note: t(
-                      'Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища. Университетите имат и собствени приходи.',
-                      'Subsidy from the Ministry of Education and Science to state universities. Universities also have their own income.',
-                    ),
+                    note: institutions.universities.length
+                      ? t(
+                          `Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища, по висши училища според ${details.universities.institutions!.article.bg} от Закона за държавния бюджет за ${year} г. Университетите имат и собствени приходи.`,
+                          `Subsidy from the Ministry of Education and Science to state universities, by university as set in ${details.universities.institutions!.article.en} of the ${year} State Budget Act. Universities also have their own income.`,
+                        )
+                      : t(
+                          'Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища. Университетите имат и собствени приходи.',
+                          'Subsidy from the Ministry of Education and Science to state universities. Universities also have their own income.',
+                        ),
+                    children: institutions.universities.length ? institutions.universities : undefined,
                   },
                 ]
               : []),
@@ -476,7 +518,18 @@ export function buildBudgetPlan(config: PlanConfig): Dataset {
                   { id: 'g-executive-other', name: t('Министерства, агенции, парламент, президент и др.', 'Ministries, agencies, parliament, presidency etc.') },
                 ),
               ),
-              sub('g-science'),
+              sub(
+                'g-science',
+                itemised(institutions.academy ? [institutions.academy] : [], {
+                  id: 'g-science-other',
+                  kind: KIND.item,
+                  name: t('Друга наука', 'Other science'),
+                  note: t(
+                    'Останалите разходи за наука: научни институти и програми на министерствата, изследвания в университетите, собствените приходи и европейските средства на БАН и др.',
+                    'The rest of science spending: research institutes and programmes of ministries, university research, the Academy’s own revenue and EU funds etc.',
+                  ),
+                }),
+              ),
               sub('g-services'),
             ],
           },

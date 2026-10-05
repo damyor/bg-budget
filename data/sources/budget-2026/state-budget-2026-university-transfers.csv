@@ -1,0 +1,39 @@
+article,paragraph,from_unit_code,item_no,id,name_bg,short_bg,name_en,amount_kEUR
+16,4,1700,1,bas,Българска академия на науките,,Bulgarian Academy of Sciences,131577.7
+16,4,1700,2,tu-sofia,Технически университет – София,,Technical University of Sofia,79996.9
+16,4,1700,3,tu-varna,Технически университет – Варна,,Technical University of Varna,16376.5
+16,4,1700,4,tu-gabrovo,Технически университет – Габрово,,Technical University of Gabrovo,7415.8
+16,4,1700,5,ruse-university,Русенски университет „Ангел Кънчев“,,Angel Kanchev University of Ruse,20511.4
+16,4,1700,6,uft-plovdiv,Университет по хранителни технологии – Пловдив,,"University of Food Technologies, Plovdiv",7927.9
+16,4,1700,7,uctm-sofia,Химикотехнологичен и металургичен университет – София,,"University of Chemical Technology and Metallurgy, Sofia",11075.0
+16,4,1700,8,burgas-university,Бургаски държавен университет „Проф. д-р Асен Златаров“,,"Prof. Dr Asen Zlatarov University, Burgas",8833.3
+16,4,1700,9,forestry-university,Лесотехнически университет – София,,"University of Forestry, Sofia",11147.0
+16,4,1700,10,uacg-sofia,"Университет по архитектура, строителство и геодезия – София",,"University of Architecture, Civil Engineering and Geodesy, Sofia",24194.5
+16,4,1700,11,mining-geology-university,Минно-геоложки университет „Св. Иван Рилски“ – София,,"University of Mining and Geology “St Ivan Rilski”, Sofia",6347.1
+16,4,1700,12,unwe-sofia,Университет за национално и световно стопанство – София,,"University of National and World Economy, Sofia",32085.9
+16,4,1700,13,ue-varna,Икономически университет – Варна,,University of Economics – Varna,10773.6
+16,4,1700,14,tsenov-academy-svishtov,Стопанска академия „Димитър А. Ценов“ – Свищов,,"D. A. Tsenov Academy of Economics, Svishtov",6076.8
+16,4,1700,15,sofia-university,Софийски университет „Св. Климент Охридски“,,Sofia University “St Kliment Ohridski”,106322.0
+16,4,1700,16,veliko-tarnovo-university,Великотърновски университет „Св. св. Кирил и Методий“,,St Cyril and St Methodius University of Veliko Tarnovo,20211.7
+16,4,1700,17,plovdiv-university,Пловдивски университет „Паисий Хилендарски“,,Paisii Hilendarski University of Plovdiv,38557.3
+16,4,1700,18,swu-blagoevgrad,Югозападен университет „Неофит Рилски“ – Благоевград,,"South-West University “Neofit Rilski”, Blagoevgrad",20006.8
+16,4,1700,19,shumen-university,Шуменски университет „Епископ Константин Преславски“,,Konstantin Preslavsky University of Shumen,13947.0
+16,4,1700,20,sports-academy-sofia,Национална спортна академия „Васил Левски“ – София,,"National Sports Academy “Vassil Levski”, Sofia",20554.9
+16,4,1700,21,agricultural-university-plovdiv,Аграрен университет – Пловдив,,Agricultural University – Plovdiv,8455.6
+16,4,1700,22,amdfa-plovdiv,"Академия за музикално, танцово и изобразително изкуство „Проф. Асен Диамандиев“ – Пловдив","Академия за музикално, танцово и изобразително изкуство – Пловдив","Academy of Music, Dance and Fine Arts, Plovdiv",4589.0
+16,4,1700,23,natfiz-sofia,Национална академия за театрално и филмово изкуство „Кръстьо Сарафов“ – София,НАТФИЗ „Кръстьо Сарафов“ – София,"National Academy for Theatre and Film Arts, Sofia",6138.8
+16,4,1700,24,music-academy-sofia,Национална музикална академия „Проф. Панчо Владигеров“ – София,,"National Academy of Music “Prof. Pancho Vladigerov”, Sofia",8128.4
+16,4,1700,25,arts-academy-sofia,Национална художествена академия – София,,"National Academy of Arts, Sofia",8104.3
+16,4,1700,26,unibit-sofia,Университет по библиотекознание и информационни технологии – София,,"University of Library Studies and Information Technologies, Sofia",5691.6
+16,4,1700,27,telecom-university-sofia,Висше училище по телекомуникации и пощи – София,,"University of Telecommunications and Post, Sofia",3866.6
+16,4,1700,28,mu-sofia,Медицински университет – София,,Medical University – Sofia,46170.6
+16,4,1700,29,mu-varna,Медицински университет „Проф. д-р Параскев Стоянов“ – Варна,,Medical University “Prof. Dr Paraskev Stoyanov” – Varna,30745.7
+16,4,1700,30,mu-plovdiv,Медицински университет – Пловдив,,Medical University – Plovdiv,29793.5
+16,4,1700,31,mu-pleven,Медицински университет – Плевен,,Medical University – Pleven,12338.7
+16,4,1700,32,trakia-university,Тракийски университет – Стара Загора,,"Trakia University, Stara Zagora",29802.2
+16,4,1700,33,transport-university-sofia,Висше транспортно училище „Тодор Каблешков“ – София,,"Todor Kableshkov University of Transport, Sofia",3437.0
+16,4,1700,34,karavelov-civil-engineering-sofia,Висше строително училище „Любен Каравелов“ – София,,"Lyuben Karavelov Higher School of Civil Engineering, Sofia",1676.5
+11,4,1200,1,rakovski-defence-college,Военна академия „Георги Стойков Раковски“,,Rakovski National Defence College,10090.4
+11,4,1200,2,military-university-veliko-tarnovo,Национален военен университет „Васил Левски“,,Vasil Levski National Military University,19373.0
+11,4,1200,3,naval-academy-varna,Висше военноморско училище „Никола Йонков Вапцаров“,,Nikola Vaptsarov Naval Academy,9767.3
+11,4,1200,4,air-force-academy,Висше военновъздушно училище „Георги Бенковски“,,Georgi Benkovski Air Force Academy,6606.1

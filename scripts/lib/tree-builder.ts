@@ -9,6 +9,8 @@ export interface Spec {
   code?: string
   kind?: LocalizedText
   note?: LocalizedText
+  /** Residents of the place the node stands for (municipality, province). */
+  residents?: number
   children?: Spec[]
   /**
    * When the itemised children cover only part of `value`, the difference
@@ -41,6 +43,7 @@ export function build(spec: Spec, path = spec.name.bg): BudgetNode {
   if (spec.code) node.code = spec.code
   if (spec.kind) node.kind = spec.kind
   if (spec.note) node.note = spec.note
+  if (spec.residents) node.residents = spec.residents
   if (children.length > 1) node.children = children.sort((a, b) => b.value - a.value)
   return node
 }

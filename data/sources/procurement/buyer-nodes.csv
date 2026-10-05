@@ -1,0 +1,309 @@
+eik,name,family,node
+129011056,Комисия за противодействие на корупцията,ministries,anti-corruption
+131457813,КОМИСИЯ ЗА ЗАЩИТА ОТ ДИСКРИМИНАЦИЯ,ministries,anti-discrimination
+131463734,КОМИСИЯ ЗА ОТНЕМАНЕ НА НЕЗАКОННО ПРИДОБИТОТО ИМУЩЕСТВО,ministries,asset-forfeiture
+121004469,СМЕТНА ПАЛАТА,ministries,audit-office
+175584171,Комисия за публичен надзор над регистрираните одитори/КПНРО/,ministries,auditor-oversight
+121565598,СЪВЕТ ЗА ЕЛЕКТРОННИ МЕДИИ,ministries,cem
+176481459,ЦЕНТРАЛНА ИЗБИРАТЕЛНА КОМИСИЯ,ministries,cik
+000698612,КОМИСИЯ ЗА ЗАЩИТА НА КОНКУРЕНЦИЯТА,ministries,competition
+000698605,КОНСТИТУЦИОНЕН СЪД,ministries,constitutional-court
+000695025,МИНИСТЕРСКИ СЪВЕТ,ministries,council-of-ministers
+121747864,КОМИСИЯ ЗА РЕГУЛИРАНЕ НА СЪОБЩЕНИЯТА,ministries,crc
+129009710,"Държавна агенция ""Национална сигурност""",ministries,dans
+130961721,КОМИСИЯ ЗА ЗАЩИТА НА ЛИЧНИТЕ ДАННИ,ministries,data-protection
+131060676,КОМИСИЯ ЗА ФИНАНСОВ НАДЗОР,ministries,fsc
+129009087,Държавна комисия по сигурността на информацията /ДКСИ/,ministries,information-security
+000698402,ДЪРЖАВНА АГЕНЦИЯ РАЗУЗНАВАНЕ,ministries,intelligence
+130098909,КОМИСИЯ ЗА ЕНЕРГИЙНО И ВОДНО РЕГУЛИРАНЕ,ministries,kevr
+831909905,МИНИСТЕРСТВО НА ЗЕМЕДЕЛИЕТО И ХРАНИТЕ,ministries,mafood
+180680495,Министерство на електронното управление,ministries,meg
+000695114,МИНИСТЕРСТВО НА ОБРАЗОВАНИЕТО И НАУКАТА,ministries,mes
+000695228,МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ,ministries,mfa
+177549112,МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА,ministries,mid
+177549112,МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА,ministries,mig
+000695160,МИНИСТЕРСТВО НА КУЛТУРАТА,ministries,moc
+000695324,Министерство на отбраната,ministries,mod
+177549105,"МИНИСТЕРСТВО НА ИКОНОМИКАТА, ИНВЕСТИЦИИТЕ И ИНДУСТРИЯТА",ministries,moe
+176789460,МИНИСТЕРСТВО НА ЕНЕРГЕТИКАТА,ministries,moen
+000697371,МИНИСТЕРСТВО НА ОКОЛНАТА СРЕДА И ВОДИТЕ,ministries,moew
+000695406,МИНИСТЕРСТВО НА ФИНАНСИТЕ,ministries,mof
+000695317,МИНИСТЕРСТВО НА ЗДРАВЕОПАЗВАНЕТО,ministries,moh
+000695235,Министерство на вътрешните работи,ministries,moi
+000695349,МИНИСТЕРСТВО НА ПРАВОСЪДИЕТО,ministries,moj
+000695395,МИНИСТЕРСТВО НА ТРУДА И СОЦИАЛНАТА ПОЛИТИКА,ministries,molsp
+176789478,МИНИСТЕРСТВО НА ТУРИЗМА,ministries,mot
+000695388,МИНИСТЕРСТВО НА ТРАНСПОРТА И СЪОБЩЕНИЯТА,ministries,motc
+175745920,МИНИСТЕРСТВО НА МЛАДЕЖТА И СПОРТА,ministries,moys
+831661388,МИНИСТЕРСТВО НА РЕГИОНАЛНОТО РАЗВИТИЕ И БЛАГОУСТРОЙСТВОТО,ministries,mrdpw
+000695146,НАЦИОНАЛЕН СТАТИСТИЧЕСКИ ИНСТИТУТ,ministries,nsi
+000698427,Национална служба за охрана,ministries,nso
+000697567,АГЕНЦИЯ ЗА ЯДРЕНО РЕГУЛИРАНЕ,ministries,nuclear-regulator
+131436477,ОМБУДСМАН,ministries,ombudsman
+000695018,НАРОДНО СЪБРАНИЕ,ministries,parliament
+000698391,АДМИНИСТРАЦИЯ НА ПРЕЗИДЕНТА НА РЕПУБЛИКА БЪЛГАРИЯ,ministries,president
+121100421,"ДЪРЖАВЕН ФОНД ""ЗЕМЕДЕЛИЕ""",ministries,state-fund-agriculture
+831913661,"Държавна агенция ""Държавен резерв и военновременни запаси""",ministries,state-reserve
+129010090,"Държавна агенция ""Технически операции"" (ДАТО)",ministries,technical-operations
+000024663,ОБЩИНА БАНСКО,municipalities,5101
+000024688,ОБЩИНА БЕЛИЦА,municipalities,5102
+000024695,ОБЩИНА БЛАГОЕВГРАД,municipalities,5103
+000024745,ОБЩИНА ГОЦЕ ДЕЛЧЕВ,municipalities,5104
+000024752,ОБЩИНА ГЪРМЕН,municipalities,5105
+000024720,ОБЩИНА КРЕСНА,municipalities,5106
+000024916,ОБЩИНА ПЕТРИЧ,municipalities,5107
+000024948,ОБЩИНА РАЗЛОГ,municipalities,5108
+000024955,ОБЩИНА САНДАНСКИ,municipalities,5109
+000024962,ОБЩИНА САТОВЧА,municipalities,5110
+000024987,ОБЩИНА СИМИТЛИ,municipalities,5111
+000024713,ОБЩИНА СТРУМЯНИ,municipalities,5112
+000025014,ОБЩИНА ХАДЖИДИМОВО,municipalities,5113
+000025039,ОБЩИНА ЯКОРУДА,municipalities,5114
+000056764,ОБЩИНА АЙТОС,municipalities,5201
+000056814,ОБЩИНА БУРГАС,municipalities,5202
+000057001,ОБЩИНА КАМЕНО,municipalities,5203
+000057026,ОБЩИНА КАРНОБАТ,municipalities,5204
+000057086,ОБЩИНА МАЛКО ТЪРНОВО,municipalities,5205
+000057122,ОБЩИНА НЕСЕБЪР,municipalities,5206
+000057179,ОБЩИНА ПОМОРИЕ,municipalities,5207
+102164063,ОБЩИНА ПРИМОРСКО,municipalities,5208
+000057211,ОБЩИНА РУЕН,municipalities,5209
+000057236,ОБЩИНА СОЗОПОЛ,municipalities,5210
+000056878,ОБЩИНА СРЕДЕЦ,municipalities,5211
+000057250,ОБЩИНА СУНГУРЛАРЕ,municipalities,5212
+000057097,ОБЩИНА ЦАРЕВО,municipalities,5213
+000093378,ОБЩИНА АВРЕН,municipalities,5301
+000093385,ОБЩИНА АКСАКОВО,municipalities,5302
+000093403,ОБЩИНА БЕЛОСЛАВ,municipalities,5303
+000093442,ОБЩИНА ВАРНА,municipalities,5305
+000093458,ОБЩИНА ВЕТРИНО,municipalities,5306
+000093474,ОБЩИНА ВЪЛЧИ ДОЛ,municipalities,5307
+000093645,ОБЩИНА ДЕВНЯ,municipalities,5308
+000093517,ОБЩИНА ДОЛНИ ЧИФЛИК,municipalities,5309
+000093524,ОБЩИНА ДЪЛГОПОЛ,municipalities,5310
+000093638,ОБЩИНА ПРОВАДИЯ,municipalities,5311
+000093684,ОБЩИНА СУВОРОВО,municipalities,5312
+000133634,ОБЩИНА ВЕЛИКО ТЪРНОВО,municipalities,5401
+000133673,ОБЩИНА ГОРНА ОРЯХОВИЦА,municipalities,5402
+000133762,ОБЩИНА ЕЛЕНА,municipalities,5403
+000133778,ОБЩИНА ЗЛАТАРИЦА,municipalities,5404
+000133844,ОБЩИНА ЛЯСКОВЕЦ,municipalities,5405
+000133901,ОБЩИНА ПАВЛИКЕНИ,municipalities,5406
+000133933,ОБЩИНА ПОЛСКИ ТРЪМБЕШ,municipalities,5407
+000133965,ОБЩИНА СВИЩОВ,municipalities,5408
+000133972,ОБЩИНА СТРАЖИЦА,municipalities,5409
+000133997,ОБЩИНА СУХИНДОЛ,municipalities,5410
+000159458,ОБЩИНА БЕЛОГРАДЧИК,municipalities,5501
+000159472,ОБЩИНА БОЙНИЦА,municipalities,5502
+000159489,ОБЩИНА БРЕГОВО,municipalities,5503
+000159508,ОБЩИНА ВИДИН,municipalities,5504
+000159531,ОБЩИНА ГРАМАДА,municipalities,5505
+000159554,ОБЩИНА ДИМОВО,municipalities,5506
+000159629,ОБЩИНА КУЛА,municipalities,5507
+000159636,ОБЩИНА МАКРЕШ,municipalities,5508
+000159643,ОБЩИНА НОВО СЕЛО,municipalities,5509
+000159682,ОБЩИНА РУЖИНЦИ,municipalities,5510
+000159700,ОБЩИНА ЧУПРЕНЕ,municipalities,5511
+000193065,ОБЩИНА БОРОВАН,municipalities,5601
+000193058,ОБЩИНА БЯЛА СЛАТИНА,municipalities,5602
+000193115,ОБЩИНА ВРАЦА,municipalities,5603
+000193250,ОБЩИНА КОЗЛОДУЙ,municipalities,5605
+000193282,ОБЩИНА КРИВОДОЛ,municipalities,5606
+000193371,ОБЩИНА МЕЗДРА,municipalities,5607
+000193088,ОБЩИНА МИЗИЯ,municipalities,5608
+000193414,ОБЩИНА ОРЯХОВО,municipalities,5609
+000193460,ОБЩИНА РОМАН,municipalities,5610
+000193551,ОБЩИНА ХАЙРЕДИН,municipalities,5611
+000215630,ОБЩИНА ГАБРОВО,municipalities,5701
+000215729,ОБЩИНА ДРЯНОВО,municipalities,5702
+000215889,ОБЩИНА СЕВЛИЕВО,municipalities,5703
+000215946,ОБЩИНА ТРЯВНА,municipalities,5704
+000852544,ОБЩИНА БАЛЧИК,municipalities,5801
+000852633,ОБЩИНА ГЕНЕРАЛ ТОШЕВО,municipalities,5802
+000852932,ОБЩИНА ГРАД ДОБРИЧ,municipalities,5803
+000852188,ОБЩИНА ДОБРИЧКА,municipalities,5804
+000852697,ОБЩИНА КАВАРНА,municipalities,5805
+000852754,ОБЩИНА КРУШАРИ,municipalities,5806
+000852925,ОБЩИНА ТЕРВЕЛ,municipalities,5807
+000852957,ОБЩИНА ШАБЛА,municipalities,5808
+000235750,ОБЩИНА АРДИНО,municipalities,5901
+000235831,ОБЩИНА ДЖЕБЕЛ,municipalities,5902
+000235888,ОБЩИНА КИРКОВО,municipalities,5903
+000235913,ОБЩИНА КРУМОВГРАД,municipalities,5904
+000235920,ОБЩИНА КЪРДЖАЛИ,municipalities,5905
+000235984,ОБЩИНА МОМЧИЛГРАД,municipalities,5906
+000236164,ОБЩИНА ЧЕРНООЧЕНЕ,municipalities,5907
+000261363,ОБЩИНА БОБОВ ДОЛ,municipalities,6001
+000261370,ОБЩИНА БОБОШЕВО,municipalities,6002
+000261630,ОБЩИНА ДУПНИЦА,municipalities,6003
+000261491,ОБЩИНА КОЧЕРИНОВО,municipalities,6004
+000261517,ОБЩИНА КЮСТЕНДИЛ,municipalities,6005
+000261541,ОБЩИНА НЕВЕСТИНО,municipalities,6006
+000261598,ОБЩИНА РИЛА,municipalities,6007
+000261616,ОБЩИНА САПАРЕВА БАНЯ,municipalities,6008
+000261655,ОБЩИНА ТРЕКЛЯНО,municipalities,6009
+000291627,ОБЩИНА АПРИЛЦИ,municipalities,6101
+000291584,ОБЩИНА ЛЕТНИЦА,municipalities,6102
+000291591,ОБЩИНА ЛОВЕЧ,municipalities,6103
+000291602,ОБЩИНА ЛУКОВИТ,municipalities,6104
+000291698,ОБЩИНА ТЕТЕВЕН,municipalities,6105
+000291709,ОБЩИНА ТРОЯН,municipalities,6106
+000291716,ОБЩИНА УГЪРЧИН,municipalities,6107
+000291723,ОБЩИНА ЯБЛАНИЦА,municipalities,6108
+000320559,ОБЩИНА БЕРКОВИЦА,municipalities,6201
+000320566,ОБЩИНА БОЙЧИНОВЦИ,municipalities,6202
+000320580,ОБЩИНА БРУСАРЦИ,municipalities,6203
+000320648,ОБЩИНА ВЪЛЧЕДРЪМ,municipalities,6204
+000320655,ОБЩИНА ВЪРШЕЦ,municipalities,6205
+000320694,ОБЩИНА ГЕОРГИ ДАМЯНОВО,municipalities,6206
+000320840,ОБЩИНА ЛОМ,municipalities,6207
+000320865,ОБЩИНА МЕДКОВЕЦ,municipalities,6208
+000320872,ОБЩИНА МОНТАНА,municipalities,6209
+000320961,ОБЩИНА ЧИПРОВЦИ,municipalities,6210
+000320979,ОБЩИНА ЯКИМОВО,municipalities,6211
+000351558,ОБЩИНА БЕЛОВО,municipalities,6302
+000351565,ОБЩИНА БРАЦИГОВО,municipalities,6303
+000351580,ОБЩИНА ВЕЛИНГРАД,municipalities,6304
+000351693,ОБЩИНА ЛЕСИЧОВО,municipalities,6305
+000351736,ОБЩИНА ПАЗАРДЖИК,municipalities,6306
+000351743,ОБЩИНА ПАНАГЮРИЩЕ,municipalities,6307
+000351750,ОБЩИНА ПЕЩЕРА,municipalities,6308
+000351795,ОБЩИНА РАКИТОВО,municipalities,6309
+000351825,ОБЩИНА СЕПТЕМВРИ,municipalities,6310
+000351864,ОБЩИНА СТРЕЛЧА,municipalities,6311
+176806228,ОБЩИНА СЪРНИЦА,municipalities,6312
+000386559,ОБЩИНА БРЕЗНИК,municipalities,6401
+000386662,ОБЩИНА ЗЕМЕН,municipalities,6402
+000386694,ОБЩИНА КОВАЧЕВЦИ,municipalities,6403
+000386751,ОБЩИНА ПЕРНИК,municipalities,6404
+000386776,ОБЩИНА РАДОМИР,municipalities,6405
+000386790,ОБЩИНА ТРЪН,municipalities,6406
+000413579,ОБЩИНА БЕЛЕНЕ,municipalities,6501
+000413691,ОБЩИНА ГУЛЯНЦИ,municipalities,6502
+000413725,ОБЩИНА ДОЛНА МИТРОПОЛИЯ,municipalities,6503
+000413732,ОБЩИНА ДОЛНИ ДЪБНИК,municipalities,6504
+000413942,ОБЩИНА ИСКЪР,municipalities,6505
+000413814,ОБЩИНА ЛЕВСКИ,municipalities,6506
+000413885,ОБЩИНА НИКОПОЛ,municipalities,6507
+000413974,ОБЩИНА ПЛЕВЕН,municipalities,6508
+000413999,ОБЩИНА ПОРДИМ,municipalities,6509
+000414154,ОБЩИНА ЧЕРВЕН БРЯГ,municipalities,6510
+000193243,ОБЩИНА КНЕЖА,municipalities,6511
+000471059,ОБЩИНА АСЕНОВГРАД,municipalities,6601
+000471123,ОБЩИНА БРЕЗОВО,municipalities,6602
+000471340,ОБЩИНА КАЛОЯНОВО,municipalities,6603
+000471365,ОБЩИНА КАРЛОВО,municipalities,6604
+115244456,ОБЩИНА КРИЧИМ,municipalities,6605
+000614967,ОБЩИНА ЛЪКИ,municipalities,6606
+000472182,ОБЩИНА МАРИЦА,municipalities,6607
+115246756,ОБЩИНА ПЕРУЩИЦА,municipalities,6608
+000471504,ОБЩИНА ПЛОВДИВ,municipalities,6609
+000471536,ОБЩИНА ПЪРВОМАЙ,municipalities,6610
+000471543,ОБЩИНА РАКОВСКИ,municipalities,6611
+000472200,ОБЩИНА РОДОПИ,municipalities,6612
+000471582,ОБЩИНА САДОВО,municipalities,6613
+115245280,ОБЩИНА СТАМБОЛИЙСКИ,municipalities,6614
+000471640,ОБЩИНА СЪЕДИНЕНИЕ,municipalities,6615
+000471671,ОБЩИНА ХИСАРЯ,municipalities,6616
+115631816,ОБЩИНА КУКЛЕН,municipalities,6617
+115816423,ОБЩИНА СОПОТ,municipalities,6618
+000505814,ОБЩИНА ЗАВЕТ,municipalities,6701
+000505821,ОБЩИНА ИСПЕРИХ,municipalities,6702
+000505846,ОБЩИНА КУБРАТ,municipalities,6703
+000505853,ОБЩИНА ЛОЗНИЦА,municipalities,6704
+000505910,ОБЩИНА РАЗГРАД,municipalities,6705
+000505928,ОБЩИНА САМУИЛ,municipalities,6706
+000505981,ОБЩИНА ЦАР КАЛОЯН,municipalities,6707
+000530479,ОБЩИНА БОРОВО,municipalities,6801
+000530504,ОБЩИНА ВЕТОВО,municipalities,6803
+000530529,ОБЩИНА ДВЕ МОГИЛИ,municipalities,6804
+000530536,ОБЩИНА ИВАНОВО,municipalities,6805
+000530632,ОБЩИНА РУСЕ,municipalities,6806
+000530657,ОБЩИНА СЛИВО ПОЛЕ,municipalities,6807
+000530671,ОБЩИНА ЦЕНОВО,municipalities,6808
+000565359,ОБЩИНА АЛФАТАР,municipalities,6901
+000565380,ОБЩИНА ГЛАВИНИЦА,municipalities,6902
+000565416,ОБЩИНА ДУЛОВО,municipalities,6903
+000565430,ОБЩИНА КАЙНАРДЖА,municipalities,6904
+000565537,ОБЩИНА СИЛИСТРА,municipalities,6905
+000565544,ОБЩИНА СИТОВО,municipalities,6906
+000565626,ОБЩИНА ТУТРАКАН,municipalities,6907
+000590540,ОБЩИНА КОТЕЛ,municipalities,7001
+000590597,ОБЩИНА НОВА ЗАГОРА,municipalities,7002
+000590654,ОБЩИНА СЛИВЕН,municipalities,7003
+000590704,ОБЩИНА ТВЪРДИЦА,municipalities,7004
+000614952,ОБЩИНА БАНИТЕ,municipalities,7101
+000614856,ОБЩИНА БОРИНО,municipalities,7102
+000614895,ОБЩИНА ДЕВИН,municipalities,7103
+000614906,ОБЩИНА ДОСПАТ,municipalities,7104
+000614938,ОБЩИНА ЗЛАТОГРАД,municipalities,7105
+000614984,ОБЩИНА МАДАН,municipalities,7106
+000615043,ОБЩИНА НЕДЕЛИНО,municipalities,7107
+000615075,ОБЩИНА РУДОЗЕМ,municipalities,7108
+000615118,ОБЩИНА СМОЛЯН,municipalities,7109
+000615164,ОБЩИНА ЧЕПЕЛАРЕ,municipalities,7110
+000696327,СТОЛИЧНА ОБЩИНА,municipalities,7225
+000777255,ОБЩИНА АНТОН,municipalities,7301
+000776071,ОБЩИНА БОЖУРИЩЕ,municipalities,7302
+000776089,ОБЩИНА БОТЕВГРАД,municipalities,7303
+000776160,ОБЩИНА ГОДЕЧ,municipalities,7304
+000776178,ОБЩИНА ГОРНА МАЛИНА,municipalities,7305
+122054941,ОБЩИНА ДОЛНА БАНЯ,municipalities,7306
+000776235,ОБЩИНА ДРАГОМАН,municipalities,7307
+000776242,ОБЩИНА ЕЛИН ПЕЛИН,municipalities,7308
+000776259,ОБЩИНА ЕТРОПОЛЕ,municipalities,7309
+000776464,ОБЩИНА ЗЛАТИЦА,municipalities,7310
+000776299,ОБЩИНА ИХТИМАН,municipalities,7311
+000776331,ОБЩИНА КОПРИВЩИЦА,municipalities,7312
+000776349,ОБЩИНА КОСТЕНЕЦ,municipalities,7313
+000776363,ОБЩИНА КОСТИНБРОД,municipalities,7314
+000777248,ОБЩИНА МИРКОВО,municipalities,7315
+000777216,ОБЩИНА ПИРДОП,municipalities,7316
+000776477,ОБЩИНА ПРАВЕЦ,municipalities,7317
+000776491,ОБЩИНА САМОКОВ,municipalities,7318
+000776502,ОБЩИНА СВОГЕ,municipalities,7319
+000776517,ОБЩИНА СЛИВНИЦА,municipalities,7320
+000777230,ОБЩИНА ЧАВДАР,municipalities,7321
+000777223,ОБЩИНА ЧЕЛОПЕЧ,municipalities,7322
+000817568,ОБЩИНА БРАТЯ ДАСКАЛОВИ,municipalities,7401
+123092756,ОБЩИНА ГУРКОВО,municipalities,7402
+000817696,ОБЩИНА ГЪЛЪБОВО,municipalities,7403
+000817778,ОБЩИНА КАЗАНЛЪК,municipalities,7404
+000817867,ОБЩИНА МЪГЛИЖ,municipalities,7405
+123116940,ОБЩИНА НИКОЛАЕВО,municipalities,7406
+000817917,ОБЩИНА ОПАН,municipalities,7407
+000817931,ОБЩИНА ПАВЕЛ БАНЯ,municipalities,7408
+000817956,ОБЩИНА РАДНЕВО,municipalities,7409
+000818022,ОБЩИНА - СТАРА ЗАГОРА,municipalities,7410
+000818086,ОБЩИНА ЧИРПАН,municipalities,7411
+000875557,ОБЩИНА АНТОНОВО,municipalities,7501
+000875817,ОБЩИНА ОМУРТАГ,municipalities,7502
+000875824,ОБЩИНА ОПАКА,municipalities,7503
+000875856,ОБЩИНА ПОПОВО,municipalities,7504
+000875920,ОБЩИНА ТЪРГОВИЩЕ,municipalities,7505
+000903533,ОБЩИНА ДИМИТРОВГРАД,municipalities,7601
+000235870,ОБЩИНА ИВАЙЛОВГРАД,municipalities,7602
+000903686,ОБЩИНА ЛЮБИМЕЦ,municipalities,7603
+000903693,ОБЩИНА МАДЖАРОВО,municipalities,7604
+000903743,ОБЩИНА МИНЕРАЛНИ БАНИ,municipalities,7605
+000903825,ОБЩИНА СВИЛЕНГРАД,municipalities,7606
+000903729,ОБЩИНА СИМЕОНОВГРАД,municipalities,7607
+000904261,ОБЩИНА СТАМБОЛОВО,municipalities,7608
+000970464,ОБЩИНА ТОПОЛОВГРАД,municipalities,7609
+000903939,ОБЩИНА ХАРМАНЛИ,municipalities,7610
+000903946,ОБЩИНА ХАСКОВО,municipalities,7611
+000931625,ОБЩИНА ВЕЛИКИ ПРЕСЛАВ,municipalities,7701
+000931397,ОБЩИНА ВЕНЕЦ,municipalities,7702
+000931415,ОБЩИНА ВЪРБИЦА,municipalities,7703
+000931881,ОБЩИНА КАОЛИНОВО,municipalities,7704
+000931511,ОБЩИНА КАСПИЧАН,municipalities,7705
+000931568,ОБЩИНА НИКОЛА КОЗЛЕВО,municipalities,7706
+000931575,ОБЩИНА НОВИ ПАЗАР,municipalities,7707
+000931657,ОБЩИНА СМЯДОВО,municipalities,7708
+000931422,ОБЩИНА ХИТРИНО,municipalities,7709
+000931721,ОБЩИНА ШУМЕН,municipalities,7710
+000970051,ОБЩИНА БОЛЯРОВО,municipalities,7801
+000970165,ОБЩИНА ЕЛХОВО,municipalities,7802
+000970432,ОБЩИНА СТРАЛДЖА,municipalities,7803
+000970457,ОБЩИНА ТУНДЖА,municipalities,7804
+000970496,ОБЩИНА ЯМБОЛ,municipalities,7805

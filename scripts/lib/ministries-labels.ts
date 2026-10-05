@@ -88,6 +88,54 @@ export const UNITS: Record<string, { id: string; name: LocalizedText }> = {
   'Комисията за противодействие на корупцията': { id: 'anti-corruption', name: t('Комисия за противодействие на корупцията', 'Anti-Corruption Commission') },
 }
 
+/**
+ * Responsible institutions of the priority investment projects (State Budget Act 2026, Annex 2; 2025
+ * report, attachment pr.6), as named there, and the spending unit each one is. "Ministry/company"
+ * entries name the state company that carries out the project.
+ */
+export const INSTITUTIONS: Record<string, string> = {
+  'Министерски съвет': 'council-of-ministers',
+  'Министерство на финансите': 'mof',
+  'Министерство на отбраната': 'mod',
+  'Министерство на вътрешните работи': 'moi',
+  'Министерство на правосъдието': 'moj',
+  'Министерство на здравеопазването': 'moh',
+  'Министерство на образованието и науката': 'mes',
+  'Министерство на културата': 'moc',
+  'Министерство на регионалното развитие и благоустройството': 'mrdpw',
+  'Министерство на земеделието и храните': 'mafood',
+  'Министерство на транспорта и съобщенията': 'motc',
+  'Министерство на енергетиката': 'moen',
+  'Министерство на младежта и спорта': 'moys',
+  'Държавна агенция „Национална сигурност“': 'dans',
+  'Национална служба за охрана': 'nso',
+  'Комисия за регулиране на съобщенията': 'crc',
+  'Държавна агенция „Държавен резерв и военновременни запаси“': 'state-reserve',
+}
+
+/** The state companies named after the ministry ("Министерство на транспорта и съобщенията/…"). */
+export const IMPLEMENTERS: Record<string, { id: string; name: LocalizedText }> = {
+  'Национална компания „Железопътна инфраструктура“': {
+    id: 'nkzhi',
+    name: t('Национална компания „Железопътна инфраструктура“', 'National Railway Infrastructure Company'),
+  },
+  '„БДЖ – Пътнически превози“ ЕООД': { id: 'bdz', name: t('„БДЖ – Пътнически превози“ ЕООД', 'BDZ Passenger Services (state railway operator)') },
+  'Държавно предприятие „Пристанищна инфраструктура“': { id: 'ports', name: t('ДП „Пристанищна инфраструктура“', 'Port Infrastructure (state enterprise)') },
+}
+
+/** ЕБК organisation code of each spending unit (the first four digits of its programme codes). */
+export const UNIT_CODES: Record<string, string> = {
+  president: '0200', 'council-of-ministers': '0300', 'constitutional-court': '0400', 'audit-office': '0500', mof: '1000', mfa: '1100',
+  mod: '1200', moi: '1300', moj: '1400', molsp: '1500', moh: '1600', mes: '1700', moc: '1800', moew: '1900', moe: '2000', mrdpw: '2100',
+  mafood: '2200', motc: '2300', moen: '2400', moys: '2500', dans: '3000', 'dossier-commission': '3200', 'anti-discrimination': '3300',
+  'data-protection': '3400', 'asset-forfeiture': '3700', nso: '3800', intelligence: '3900', ombudsman: '4000', nsi: '4100',
+  competition: '4200', crc: '4300', cem: '4400', kevr: '4500', 'nuclear-regulator': '4600', fsc: '4700', 'information-security': '4800',
+  'state-reserve': '5300', mot: '7100', mid: '7400', cik: '8200', 'auditor-oversight': '8300', 'state-fund-agriculture': '8400',
+  'surveillance-oversight': '8500', 'technical-operations': '8600',
+  // 2024–2025 units
+  mig: '7400', meg: '7500', 'anti-corruption': '8100',
+}
+
 /** Policy / functional areas and programmes, keyed by the official wording. */
 export const AREAS: Record<string, LocalizedText> = {
   'Политика в областта на развитието на инвестициите и иновациите в подкрепа на растежа на българската икономика': t(

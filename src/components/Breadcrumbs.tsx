@@ -1,4 +1,4 @@
-import { useLang } from '../lib/i18n'
+import { useLang, useT } from '../lib/i18n'
 import { seriesVar } from '../lib/palette'
 import { slicesFor } from '../lib/tree'
 import type { BudgetNode } from '../lib/types'
@@ -11,8 +11,9 @@ interface Props {
 /** Path from the root to the current node; each step keeps the colour it had one level up. */
 export function Breadcrumbs({ path, onSelect }: Props) {
   const lang = useLang()
+  const t = useT()
   return (
-    <nav className="breadcrumbs" aria-label="Breadcrumb">
+    <nav className="breadcrumbs" aria-label={t('breadcrumb')}>
       <ol>
         {path.map((node, i) => {
           const parent = path[i - 1]

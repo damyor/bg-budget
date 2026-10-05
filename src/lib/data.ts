@@ -9,7 +9,8 @@ export interface LoadedDataset {
 
 const BASE = import.meta.env.BASE_URL
 
-async function getJson<T>(file: string): Promise<T> {
+/** A file of public/data/. */
+export async function getJson<T>(file: string): Promise<T> {
   const res = await fetch(`${BASE}data/${file}`)
   if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`)
   return (await res.json()) as T

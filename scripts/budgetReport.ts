@@ -176,7 +176,7 @@ function healthWithNhif(row: ReportRow, nhif: Spec): Spec {
 }
 
 /** The fund's execution table (row numbers of the 2025 budget act), actual column, EUR. */
-function nhifActual(file: URL, year: number, note: LocalizedText): Spec {
+function nhifActual(file: URL, year: number, note: LocalizedText, hospitals?: (line: number) => Partial<Spec>): Spec {
   const rows = readCsv(file).filter((r) => r.table_idx === '2')
   const v = (rowNo: string) => {
     const row = rows.find((r) => r.row_no.trim() === rowNo)
@@ -184,15 +184,18 @@ function nhifActual(file: URL, year: number, note: LocalizedText): Spec {
     const value = num(row.actual_kBGN)
     return Number.isNaN(value) ? 0 : toEur(value, 'kBGN')
   }
-  return nhifTree(v, 2025, note)
+  return nhifTree(v, 2025, note, hospitals)
 }
 
 export interface ReportConfig {
   year: number
   file: URL
   totals: KfpTotals
-  /** The Health Insurance Fund's execution report (law / amended plan / actual by expense line). */
-  nhif?: { file: URL; note: LocalizedText }
+  /**
+   * The Health Insurance Fund's execution report (law / amended plan / actual by expense line), and the
+   * hospitals the hospital-care line is split into (from the line's actual, in euro).
+   */
+  nhif?: { file: URL; note: LocalizedText; hospitals?: (line: number) => Partial<Spec> }
   macro: YearMacro
   description: LocalizedText
   sources: DatasetSource[]
@@ -229,7 +232,7 @@ export function buildBudgetReport(config: ReportConfig): Dataset {
         children: [slot('e-transport'), slot('e-energy'), slot('e-other'), slot('e-agriculture'), slot('e-tourism'), slot('e-industry')],
       }),
       config.nhif
-        ? healthWithNhif(row(WHOLE.health), nhifActual(config.nhif.file, config.year, config.nhif.note))
+        ? healthWithNhif(row(WHOLE.health), nhifActual(config.nhif.file, config.year, config.nhif.note, config.nhif.hospitals))
         : { ...slot('health', KIND.area), name: t('Здравеопазване', 'Health') },
       { ...slot('education', KIND.area), name: t('Образование', 'Education') },
       area('government', t('Държавно управление, дълг и ЕС', 'Government, debt & EU'), {

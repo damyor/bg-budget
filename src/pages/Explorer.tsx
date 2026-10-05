@@ -3,17 +3,18 @@ import { Breadcrumbs } from '../components/Breadcrumbs'
 import { ChildList } from '../components/ChildList'
 import { DatasetPicker } from '../components/DatasetPicker'
 import { Donut } from '../components/Donut'
+import { ListLinks } from '../components/ListLinks'
 import { SearchBox } from '../components/SearchBox'
 import { Segmented } from '../components/Segmented'
 import { TrendChart } from '../components/TrendChart'
 import { useDataset } from '../lib/data'
 import { findEntry, STAGE_LABEL } from '../lib/datasets'
-import { formatGdpPercent, formatPercent, moneyParts } from '../lib/format'
+import { formatGdpPercent, formatNumber, formatPercent, moneyParts } from '../lib/format'
 import { useLang, useT } from '../lib/i18n'
 import { navigate, routeUrl, useRoute, type Route } from '../lib/route'
 import { pointsFor, useSeries, type SeriesPoint } from '../lib/series'
 import { useTaxesByYear } from '../lib/taxProfile'
-import { OTHER_SUFFIX, parentOf, pathTo, slicesFor } from '../lib/tree'
+import { OTHER_SUFFIX, parentOf, pathTo, placeOf, slicesFor } from '../lib/tree'
 import { publicTotal, type DatasetIndexEntry } from '../lib/types'
 import { MODE_PARAM, formatPersonal, modeFromParam, valueScale, type ValueMode } from '../lib/valueMode'
 
@@ -67,6 +68,8 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
   const shareOfAll = node.value / allSpending
   const hero = moneyParts(values.scale(node.value), lang)
   const depth = path.length - 1
+  // In a municipality or province (or a part of one), amounts per resident of that place.
+  const place = placeOf(path)
   const levelName = depth > 0 ? (node.kind ?? dataset.levels[depth - 1])?.[lang] ?? null : null
 
   const clipRoute: Route = { page: 'clip', params: { d: dataset.id, n: nodeId === 'root' ? '' : nodeId } }
@@ -195,7 +198,18 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
                 <strong>{formatGdpPercent(node.value / dataset.gdp, lang)}</strong> {t('ofGdp')}
               </li>
             )}
-            {effectiveMode === 'total' && (
+            {place && (
+              <li>
+                <strong>{formatPersonal(node.value / place.residents, lang)}</strong> {t('perResident', { place: place.name[lang] })}
+                {place.id === node.id && dataset.residentsNote && (
+                  <span className="muted">
+                    {' '}
+                    · {formatNumber(place.residents, lang)} {dataset.residentsNote[lang]}
+                  </span>
+                )}
+              </li>
+            )}
+            {effectiveMode === 'total' && !place && (
               <>
                 <li>
                   <strong>{formatPersonal(node.value / dataset.population, lang)}</strong> {t('perPersonYear')}
@@ -206,6 +220,7 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
               </>
             )}
           </ul>
+          <ListLinks dataset={dataset} nodeId={nodeId} enabled={Boolean(entry.lists)} />
           {node.note && <p className="note">{node.note[lang]}</p>}
           {isLeaf && node !== tree.root && <p className="muted small">{t('noDeeper')}</p>}
           <div className="actions">

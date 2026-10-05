@@ -7,6 +7,7 @@ import { TaxProfileProvider } from './lib/taxProfile'
 import { About } from './pages/About'
 import { Compare } from './pages/Compare'
 import { Explorer } from './pages/Explorer'
+import { Lists } from './pages/Lists'
 import { MyMoney } from './pages/MyMoney'
 
 // The clip studio pulls in the video encoder; load it only when opened.
@@ -15,6 +16,7 @@ const ClipStudio = lazy(() => import('./pages/ClipStudio'))
 const NAV: { page: Page; key: StringKey }[] = [
   { page: 'explore', key: 'navExplore' },
   { page: 'compare', key: 'navCompare' },
+  { page: 'lists', key: 'navLists' },
   { page: 'me', key: 'navMe' },
   { page: 'clip', key: 'navClip' },
   { page: 'about', key: 'navAbout' },
@@ -29,6 +31,7 @@ function Shell() {
   // Keep the dataset, category and unit when moving between pages.
   const carry = (page: Page) => {
     const params: Record<string, string> = {}
+    if (page === 'lists') return { page, params }
     if (route.params.d && page !== 'compare') params.d = route.params.d
     if (route.params.n && page !== 'me' && page !== 'about') params.n = route.params.n
     if (route.params.m && (page === 'explore' || page === 'compare')) params.m = route.params.m
@@ -40,13 +43,14 @@ function Shell() {
   else if (index.status === 'error') body = <p className="page-status">{t('loadError')}</p>
   else if (route.page === 'me') body = <MyMoney datasets={index.value} />
   else if (route.page === 'compare') body = <Compare datasets={index.value} />
+  else if (route.page === 'lists') body = <Lists datasets={index.value} />
   else if (route.page === 'clip')
     body = (
       <Suspense fallback={<p className="page-status">{t('loading')}</p>}>
         <ClipStudio datasets={index.value} />
       </Suspense>
     )
-  else if (route.page === 'about') body = <About datasets={index.value} />
+  else if (route.page === 'about') body = <About />
   else body = <Explorer datasets={index.value} />
 
   return (
@@ -63,7 +67,7 @@ function Shell() {
             <span className="brand-tagline">{t('tagline')}</span>
           </span>
         </a>
-        <nav className="main-nav" aria-label="Main">
+        <nav className="main-nav" aria-label={t('mainNav')}>
           {NAV.map((item) => (
             <a
               key={item.page}

@@ -1,6 +1,6 @@
-import { Fragment, useState, type ReactNode } from 'react'
+import { Fragment, useMemo, useState, type ReactNode } from 'react'
 import { Segmented } from '../components/Segmented'
-import { FAMILY_LABEL, STAGE_HINT, STAGE_LABEL } from '../lib/datasets'
+import { FAMILY_LABEL, FAMILY_ORDER, STAGE_HINT, STAGE_LABEL } from '../lib/datasets'
 import { formatGdpPercent, formatMoney, formatPercent } from '../lib/format'
 import { useLang, useT } from '../lib/i18n'
 import { navigate, useRoute } from '../lib/route'
@@ -34,7 +34,6 @@ const TEXT = {
       'Отчетът показва под стойността каква част от плана за същата година е изпълнена.',
       'Сумите за 2024 и 2025 г. са в лева в изходните документи и са превърнати в евро по фиксирания курс 1,95583.',
       'БВП: за 2024 и 2025 г. — Евростат; за 2026 и 2027 г. — есенната прогноза на Министерството на финансите (2026). Официалните проценти в бюджета за 2026 г. са изчислени с по-стара, по-ниска прогноза за БВП и затова са по-високи.',
-      'Сравняват се категориите, които съществуват във всички версии (функциите и подфункциите на консолидираната фискална програма). По-подробните нива — отделните фондове, общини и бюджети — са в „Разходи“.',
     ],
     none: 'За тази разбивка има данни само за една година.',
   },
@@ -58,23 +57,49 @@ const TEXT = {
       'Under each actual value: the share of the same year’s plan that was spent.',
       'Amounts for 2024 and 2025 are in leva in the source documents and are converted to euro at the fixed rate of 1.95583.',
       'GDP: Eurostat for 2024 and 2025; the Ministry of Finance autumn 2026 forecast for 2026 and 2027. The official shares in the 2026 budget used an older, lower GDP forecast, so they are higher.',
-      'The categories compared are those that exist in every version (functions and sub-functions of the consolidated fiscal programme). Deeper levels — individual funds, municipalities and budgets — are under “Spending”.',
     ],
     none: 'This breakdown has data for a single year only.',
   },
 } satisfies Record<Lang, unknown>
 
+/** A last note that applies to one breakdown only. */
+const FAMILY_NOTES: Record<Lang, Partial<Record<DatasetFamily, string>>> = {
+  bg: {
+    functions:
+      'Сравняват се категориите, които съществуват във всички версии (функциите и подфункциите на консолидираната фискална програма). По-подробните нива — отделните фондове, общини и бюджети — са в „Разходи“.',
+    municipalities:
+      '„Общини“ съдържа само трансферите от централния бюджет по Закона за държавния бюджет за всяка година; собствените приходи и европейските средства на общините не са включени.',
+  },
+  en: {
+    functions:
+      'The categories compared are those that exist in every version (functions and sub-functions of the consolidated fiscal programme). Deeper levels — individual funds, municipalities and budgets — are under “Spending”.',
+    municipalities:
+      '“Municipalities” holds only the transfers from the central budget under each year’s State Budget Act; municipalities’ own revenue and EU funds are not included.',
+  },
+}
+
 const fill = (s: string, vars: Record<string, string>) => s.replace(/\{(\w+)\}/g, (_, k: string) => vars[k] ?? `{${k}}`)
 
-/** Nodes shown as rows: those present in at least half of the datasets (the shared skeleton). */
-function rowChildren(series: SeriesFile, parent: string): string[] {
+/**
+ * The rows under each row: the nodes present in at least half of the datasets (the shared skeleton), worked out once
+ * for the whole series (thousands of nodes for the municipalities).
+ */
+function rowTree(series: SeriesFile): Map<string, string[]> {
   const min = Math.ceil(series.datasets.length / 2)
-  const ids = Object.entries(series.nodes)
-    .filter(([id, n]) => n.parent === parent && series.values[id].filter((v) => v !== null).length >= min)
-    .map(([id]) => id)
+  const children = new Map<string, string[]>()
+  for (const [id, n] of Object.entries(series.nodes)) {
+    if (n.parent === null || series.values[id].filter((v) => v !== null).length < min) continue
+    const ids = children.get(n.parent)
+    if (ids) ids.push(id)
+    else children.set(n.parent, [id])
+  }
   const latest = (id: string) => [...series.values[id]].reverse().find((v) => v !== null) ?? 0
-  if (parent === 'root') return ids.sort((a, b) => AREA_ORDER.indexOf(a) - AREA_ORDER.indexOf(b))
-  return ids.sort((a, b) => latest(b) - latest(a))
+  for (const [parent, ids] of children) {
+    // The shared areas keep their fixed order; anything else (ministries, provinces …) goes largest first.
+    if (parent === 'root' && ids.every((id) => AREA_ORDER.includes(id))) ids.sort((a, b) => AREA_ORDER.indexOf(a) - AREA_ORDER.indexOf(b))
+    else ids.sort((a, b) => latest(b) - latest(a))
+  }
+  return children
 }
 
 function cellText(unit: Unit, point: SeriesPoint, lang: Lang): string {
@@ -91,7 +116,7 @@ export function Compare({ datasets }: { datasets: DatasetIndexEntry[] }) {
   const lang = useLang()
   const text = TEXT[lang]
   const route = useRoute()
-  const families = (['functions', 'ministries', 'cofog'] as DatasetFamily[]).filter((f) => datasets.filter((d) => d.family === f).length > 1)
+  const families = FAMILY_ORDER.filter((f) => datasets.filter((d) => d.family === f).length > 1)
   const family = (families as string[]).includes(route.params.f) ? (route.params.f as DatasetFamily) : (families[0] ?? 'functions')
   const series = useSeries(family)
   const unit = unitFromParam(route.params.m)
@@ -99,6 +124,7 @@ export function Compare({ datasets }: { datasets: DatasetIndexEntry[] }) {
   /** Rows the viewer opened or closed, relative to the default (closed, except the focused category's ancestors). */
   const [toggled, setToggled] = useState<Set<string>>(() => new Set())
   const data = series.status === 'ready' ? series.value : null
+  const rows = useMemo(() => (data ? rowTree(data) : new Map<string, string[]>()), [data])
 
   const setParam = (params: Record<string, string>) => navigate({ page: 'compare', params: { ...route.params, ...params } }, { replace: true })
 
@@ -109,7 +135,7 @@ export function Compare({ datasets }: { datasets: DatasetIndexEntry[] }) {
   const entries = data.datasets.map((id) => datasets.find((d) => d.id === id)!).filter(Boolean)
   const years = [...new Set(entries.map((e) => e.year))]
   // The total row is always followed by the areas; every other row can be opened.
-  const childrenOf = (id: string) => (id === 'root' ? [] : rowChildren(data, id))
+  const childrenOf = (id: string) => (id === 'root' ? [] : (rows.get(id) ?? []))
   // A category linked to from "Spending" starts visible: its ancestors are open.
   const ancestors = new Set<string>()
   for (let id = focus ? data.nodes[focus]?.parent : null; id && id !== 'root'; id = data.nodes[id]?.parent ?? null) ancestors.add(id)
@@ -237,13 +263,13 @@ export function Compare({ datasets }: { datasets: DatasetIndexEntry[] }) {
           </thead>
           <tbody>
             {renderRow('root', 0)}
-            {rowChildren(data, 'root').map((id) => renderRow(id, 1))}
+            {(rows.get('root') ?? []).map((id) => renderRow(id, 1))}
           </tbody>
         </table>
       </div>
 
       <ul className="compare-notes muted small">
-        {text.notes.map((n) => (
+        {[...text.notes, FAMILY_NOTES[lang][family]].filter(Boolean).map((n) => (
           <li key={n}>{n}</li>
         ))}
       </ul>

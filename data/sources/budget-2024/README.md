@@ -14,6 +14,7 @@ on parliament.bg, because minfin.bg blocks automated downloads.
 | `social-security-2024-tables.csv` | State social security (ДОО) budget: consolidated budget (art. 1), funds Pensions (art. 2), Art. 69 pensions (art. 3), non-contributory pensions (art. 4), work accident (art. 5), sickness and maternity (art. 6), unemployment (art. 7), NOI (art. 8); annex 1 minimum insurable income, annex 2 work-accident contribution rates, annex 3 Guaranteed Receivables Fund, **annex 4 Teachers' Pension Fund (table 28)**, annex 5 consolidated budget of the NOI-administered funds (367 rows) | Закон за бюджета на ДОО за 2024 г., ДВ бр. 106 от 22.12.2023, стр. 79 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202043 |
 | `social-security-2024-benefits.csv` | Cash benefits by type (sick pay, maternity, childcare until 2, unemployment …), typed in from the explanatory memorandum, million BGN | Мотиви към законопроекта за бюджета на ДОО за 2024 г., вх. № 49-302-01-75 — https://www.parliament.bg/bg/bills/ID/165234 (file https://www.parliament.bg/bills/49/49-302-01-75.rtf) |
 | `municipal-delegated-2024.csv` | State funding of state-delegated activities for each of the 265 municipalities, by function, thousand BGN (265 rows + the "ВСИЧКО:" row) | Закон за държавния бюджет на Република България за 2024 г., чл. 54, ДВ бр. 108 от 30.12.2023 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168 |
+| `municipal-transfers-2024.csv` | What the central budget transfers to each of the 265 municipalities, by type (delegated activities, equalising subsidy, winter roads, capital subsidy, other targeted transfers), thousand BGN, with the ЕБК code of each municipality | Same act, чл. 53 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168. Retrieved 5.10.2026 |
 | `state-budget-2024-spending-units.csv` | Expenditure of the 48 first-level spending units by policy / functional area, thousand BGN (213 rows) | Same act, чл. 2–49, ал. 2 |
 | `transfers-universities-2024.csv` | Transfers to state universities, the Academy of Sciences (BAS), the state military universities and the public media (BNT, BNR, BTA), 2024–2026, thousand BGN | Актуализирана средносрочна бюджетна прогноза за периода 2024–2026 г. (approved with РМС № 830/24.11.2023), приложение № 6 — file `4-UMTBF-2024-2026-motivi f.docx` in the bill package https://www.parliament.bg/bills/49/49-302-01-76.zip |
 
@@ -82,6 +83,15 @@ on parliament.bg, because minfin.bg blocks automated downloads.
   art. 11 (4) military universities 59 040,2; art. 50 BNR 62 974,4, BNT 86 980,6, BTA 11 856,5.
 - Benefits: the memorandum's total for cash benefits and aid, 2 546,0 million, matches row 1.2 of the act
   (2 545 951,3 thousand). The listed items add up to 2 542,2 million; the rest is other benefits.
+
+## Transfers to municipalities (чл. 53)
+
+`municipal-transfers-2024.csv` has the layout of `../budget-2026/municipal-transfers-2026.csv` (see that README for
+the columns, the totals of all three years and how the file is made), with amounts in thousand BGN
+(`amount_kBGN`). In 2024 the table is art. 53 and the delegated activities by function are art. 54. Every column
+adds up to the act's "ВСИЧКО:" row and to the amounts in the text of art. 53, the grand total equals row III.1.1
+„Общините“ of art. 1 (2) (7 872 497,4 thousand BGN), and the delegated-activities column equals the totals of art. 54
+(and `municipal-delegated-2024.csv`, re-checked cell by cell against the Gazette) for every municipality.
 
 ## Later amendments (not reflected)
 

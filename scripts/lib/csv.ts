@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
 
 /** RFC 4180 CSV parser (quoted fields, embedded commas, quotes and newlines). */
 export function parseCsv(text: string): string[][] {
@@ -39,9 +40,11 @@ export function parseCsv(text: string): string[][] {
   return rows
 }
 
-/** Rows as objects keyed by the header row. */
+/** Rows as objects keyed by the header row; a .csv.gz file is unpacked first. */
 export function readCsv(file: URL): Record<string, string>[] {
-  const [header, ...rows] = parseCsv(readFileSync(file, 'utf8').replace(/^﻿/, ''))
+  const raw = readFileSync(file)
+  const text = (file.pathname.endsWith('.gz') ? gunzipSync(raw) : raw).toString('utf8')
+  const [header, ...rows] = parseCsv(text.replace(/^﻿/, ''))
   return rows.filter((r) => r.some((c) => c.trim())).map((r) => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ''])))
 }
 

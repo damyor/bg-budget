@@ -125,6 +125,12 @@ export function parentOf(index: TreeIndex, id: string): BudgetNode | null {
   return parentId ? index.byId.get(parentId)!.node : null
 }
 
+/** The nearest place on a path (the node itself or an ancestor) whose residents are known: a municipality or province. */
+export function placeOf(path: BudgetNode[]): (BudgetNode & { residents: number }) | null {
+  const place = path.findLast((n) => n.residents)
+  return place ? (place as BudgetNode & { residents: number }) : null
+}
+
 /** Real (non-synthetic) path, used for clips and breadcrumbs. */
 export function realPathTo(index: TreeIndex, id: string): BudgetNode[] {
   return pathTo(index, id).filter((n) => !n.id.endsWith(OTHER_SUFFIX))

@@ -1,18 +1,30 @@
 // Builds every dataset into public/data/ and writes public/data/index.json,
-// plus one series file per family for comparing years (series-<family>.json).
+// plus one series file per family for comparing years (series-<family>.json),
+// and the lists of things that do not add up to the budget (public/data/lists/).
 //
 //   npm run data              # use cached raw downloads in data/raw/
 //   npm run data -- --refresh # download fresh copies first
 
-import { writeFileSync } from 'node:fs'
-import type { BudgetNode, Dataset, DatasetFamily, DatasetIndexEntry, LocalizedText, SeriesFile } from '../src/lib/types.ts'
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import type { BudgetNode, Dataset, DatasetFamily, DatasetIndexEntry, DatasetInfo, LocalizedText, SeriesFile } from '../src/lib/types.ts'
 import { publicTotal } from '../src/lib/types.ts'
 import { buildBudgetPlan, type PlanDetails } from './budgetPlan.ts'
 import { buildBudgetReport } from './budgetReport.ts'
+import { buildCapLists } from './cap.ts'
+import { buildEuFundsLists, EU_FUNDS } from './eufunds.ts'
 import { buildEurostatDataset } from './eurostat.ts'
+import { buildHealthLists, HEALTH, hospitalCare, readHospitals } from './health.ts'
 import { readKfpPlan, readKfpTotals } from './lib/kfp.ts'
+import { checkLinks, checkList, datasetLinks, writeLists } from './lib/lists.ts'
 import { loadMacro } from './lib/macro.ts'
 import { buildMinistries } from './ministries.ts'
+import { buildMunicipalities } from './municipalities.ts'
+import { buildPaymentLists, PAYMENTS } from './payments.ts'
+import { buildProcurementLists, PROCUREMENT } from './procurement.ts'
+import { buildProjectLists, PROJECTS } from './projects.ts'
+import { readRegister } from './lib/places.ts'
+import { unmaskedIds } from './lib/sebra.ts'
 
 const OUT_DIR = new URL('../public/data/', import.meta.url)
 const SOURCES = new URL('../data/sources/', import.meta.url)
@@ -45,6 +57,10 @@ const src = (path: string) => new URL(path, SOURCES)
 const totalsFile = src('kfp/kfp-totals.csv')
 const mtbf2025 = src('kfp/mtbf-2025-2028-by-function.csv')
 const kfp2026 = src('budget-2026/kfp-2026-by-function.csv')
+const municipalRegister = src('places/municipalities.csv')
+const healthDir = src('health/')
+// Every establishment the Health Insurance Fund pays for hospital care, 2024 – August 2026 (scripts/health.ts).
+const hospitals = readHospitals(healthDir, readRegister(municipalRegister))
 
 const LEVA = t('Сумите са превърнати от лева в евро по фиксирания курс 1,95583 лв. за 1 €.', 'Amounts are converted from leva to euro at the fixed rate of 1.95583 leva per euro.')
 const MOTIVES_2025 = {
@@ -85,8 +101,13 @@ const details2026: PlanDetails = {
     citation: t('ДВ, бр. 68 от 2026 г.', 'State Gazette 68/2026'),
     benefits: { file: 'social-security-2026-benefits.csv', unit: 'mEUR', citation: t('мотивите към законопроекта', 'the explanatory memorandum to the bill') },
   },
-  municipal: { file: 'municipal-delegated-2026.csv', article: t('чл. 52', 'Art. 52') },
-  universities: { file: 'transfers-universities-media.csv', column: '2026 г.', unit: 'kEUR' },
+  municipal: { file: 'municipal-delegated-2026.csv', article: t('чл. 52', 'Art. 52'), register: municipalRegister },
+  universities: {
+    file: 'transfers-universities-media.csv',
+    column: '2026 г.',
+    unit: 'kEUR',
+    institutions: { file: 'state-budget-2026-university-transfers.csv', article: t('чл. 16, ал. 4', 'Art. 16(4)') },
+  },
 }
 
 const details2024: PlanDetails = {
@@ -98,7 +119,7 @@ const details2024: PlanDetails = {
     citation: t('ДВ, бр. 106 от 2023 г.', 'State Gazette 106/2023'),
     benefits: { file: 'social-security-2024-benefits.csv', unit: 'mBGN', citation: t('мотивите към законопроекта', 'the explanatory memorandum to the bill') },
   },
-  municipal: { file: 'municipal-delegated-2024.csv', article: t('чл. 54', 'Art. 54') },
+  municipal: { file: 'municipal-delegated-2024.csv', article: t('чл. 54', 'Art. 54'), register: municipalRegister },
   universities: { file: 'transfers-universities-2024.csv', column: '2024 г.', unit: 'kBGN' },
 }
 
@@ -111,7 +132,7 @@ const details2025: PlanDetails = {
     citation: t('ДВ, бр. 25 от 2025 г.', 'State Gazette 25/2025'),
     benefits: { file: 'social-security-2025-benefits.csv', unit: 'mBGN', citation: t('мотивите към законопроекта', 'the explanatory memorandum to the bill') },
   },
-  municipal: { file: 'municipal-delegated-2025.csv', article: t('чл. 54', 'Art. 54') },
+  municipal: { file: 'municipal-delegated-2025.csv', article: t('чл. 54', 'Art. 54'), register: municipalRegister },
   universities: { file: 'transfers-universities-2025.csv', column: '2025 г.', unit: 'kBGN' },
 }
 
@@ -266,6 +287,14 @@ const NHIF_REPORT = {
   url: 'https://www.nhif.bg/bg/completion-reports',
 }
 
+const NHIF_HOSPITALS = (year: number) => ({
+  name: t(
+    `НЗОК — заплатени здравноосигурителни плащания за болнична медицинска помощ по лечебни заведения, ${year} г. (месечни отчети)`,
+    `NHIF — payments for hospital care by medical establishment, ${year} (monthly reports)`,
+  ),
+  url: `https://www.nhif.bg/bg/hospitals/bmp/${year}`,
+})
+
 const report2024 = buildBudgetReport({
   year: 2024,
   file: src('report-2024/kfp-2024-report-by-function.csv'),
@@ -276,13 +305,14 @@ const report2024 = buildBudgetReport({
       'Изпълнение на бюджета на НЗОК за 2024 г. по отчета на НЗОК. Сумите включват и трансферите за болниците на МО, МВР и МТС, затова НЗОК тук е малко по-голяма от колоната „НЗОК“ в консолидирания отчет.',
       'Execution of the 2024 NHIF budget, from the NHIF report. The lines include transfers to the defence, interior and transport ministries’ hospitals, so the fund is slightly larger here than its column in the consolidated report.',
     ),
+    hospitals: (line) => hospitalCare(hospitals, 2024, line),
   },
   macro: macro(2024),
   description: t(
-    `Реално изразходваните публични средства през 2024 г. — държава, общини, НОИ, НЗОК и европейски средства — по функции, с разбивка по това през чий бюджет са похарчени и дали са текущи или капиталови разходи. Данни от отчета за изпълнението на държавния бюджет за 2024 г. ${LEVA.bg}`,
-    `Public money actually spent in 2024 — central government, municipalities, social security, health insurance and EU funds — by function, split by whose budget it was spent through and into current and capital spending. Data from the report on the execution of the 2024 State Budget. ${LEVA.en}`,
+    `Реално изразходваните публични средства през 2024 г. — държава, общини, НОИ, НЗОК и европейски средства — по функции, с разбивка по това през чий бюджет са похарчени и дали са текущи или капиталови разходи. Данни от отчета за изпълнението на държавния бюджет за 2024 г. Болничната помощ на здравната каса е разделена по региони и болници според месечните отчети на НЗОК за платеното на всяка болница. ${LEVA.bg}`,
+    `Public money actually spent in 2024 — central government, municipalities, social security, health insurance and EU funds — by function, split by whose budget it was spent through and into current and capital spending. Data from the report on the execution of the 2024 State Budget. The health fund's hospital care is split by region and hospital, from the NHIF's monthly reports of what it paid each hospital. ${LEVA.en}`,
   ),
-  sources: [REPORT_2024, REPORT_2025, NHIF_REPORT],
+  sources: [REPORT_2024, REPORT_2025, NHIF_REPORT, NHIF_HOSPITALS(2024)],
   sourceShort: t('Отчет за 2024 г. — Министерство на финансите', '2024 outturn — Ministry of Finance'),
   retrieved: '2025-09-26',
 })
@@ -297,13 +327,14 @@ const report2025 = buildBudgetReport({
       'Изпълнение на бюджета на НЗОК за 2025 г. по текущия отчет на НЗОК към 31.12.2025 г. (предварителни данни, преди окончателния отчет на Министерството на финансите). Сумите включват и трансферите за болниците на МО, МВР и МТС.',
       'Execution of the 2025 NHIF budget, from the NHIF report at 31 Dec 2025 (preliminary, before the Ministry of Finance final report). The lines include transfers to the defence, interior and transport ministries’ hospitals.',
     ),
+    hospitals: (line) => hospitalCare(hospitals, 2025, line),
   },
   macro: macro(2025),
   description: t(
-    `Реално изразходваните публични средства през 2025 г. — държава, общини, НОИ, НЗОК и европейски средства — по функции, с разбивка по това през чий бюджет са похарчени и дали са текущи или капиталови разходи. Данни от отчета за изпълнението на държавния бюджет за 2025 г., приет от Министерския съвет на 24.09.2026 г. (предстои да бъде разгледан от Народното събрание). ${LEVA.bg}`,
-    `Public money actually spent in 2025 — central government, municipalities, social security, health insurance and EU funds — by function, split by whose budget it was spent through and into current and capital spending. Data from the report on the execution of the 2025 State Budget, approved by the government on 24 September 2026 (still to be reviewed by Parliament). ${LEVA.en}`,
+    `Реално изразходваните публични средства през 2025 г. — държава, общини, НОИ, НЗОК и европейски средства — по функции, с разбивка по това през чий бюджет са похарчени и дали са текущи или капиталови разходи. Данни от отчета за изпълнението на държавния бюджет за 2025 г., приет от Министерския съвет на 24.09.2026 г. (предстои да бъде разгледан от Народното събрание). Болничната помощ на здравната каса е разделена по региони и болници според месечните отчети на НЗОК за платеното на всяка болница. ${LEVA.bg}`,
+    `Public money actually spent in 2025 — central government, municipalities, social security, health insurance and EU funds — by function, split by whose budget it was spent through and into current and capital spending. Data from the report on the execution of the 2025 State Budget, approved by the government on 24 September 2026 (still to be reviewed by Parliament). The health fund's hospital care is split by region and hospital, from the NHIF's monthly reports of what it paid each hospital. ${LEVA.en}`,
   ),
-  sources: [REPORT_2025, NHIF_REPORT],
+  sources: [REPORT_2025, NHIF_REPORT, NHIF_HOSPITALS(2025)],
   sourceShort: t('Отчет за 2025 г. — Министерство на финансите', '2025 outturn — Ministry of Finance'),
   retrieved: '2026-09-24',
 })
@@ -353,25 +384,48 @@ const ministries2024 = buildMinistries({
   retrieved: '2023-12-30',
 })
 
+const PROGRAMMES_NOTE = (units: number, decree: LocalizedText): LocalizedText =>
+  t(
+    `За ${units} от тях (без Народното събрание и съдебната власт) — и по бюджетни програми според ${decree.bg}, а всяка програма — по ведомствени разходи (персонал, издръжка, капиталови разходи) и администрирани разходи (помощи, субсидии, вноски и други плащания, които ведомството управлява).`,
+    `For ${units} of them (all but Parliament and the judiciary) also by budget programme, from ${decree.en}, and each programme by departmental spending (staff, running costs, capital) and administered spending (benefits, subsidies, contributions and other payments the body manages).`,
+  )
+
 const ministries2025 = buildMinistries({
   id: 'ministries-2025',
   year: 2025,
   stage: 'law',
   file: src('budget-2025/state-budget-2025-spending-units.csv'),
   unit: 'kBGN',
+  programmes: {
+    structure: src('budget-2025/state-budget-2025-programmes.csv'),
+    lines: src('budget-2025/state-budget-2025-programme-lines.csv'),
+    idsFrom: src('budget-2026/state-budget-2026-programmes.csv'),
+  },
   publicTotal: publicTotal(budget2025),
   macro: macro(2025),
   title: t('Министерства 2025', 'Ministries 2025'),
   subtitle: t('Разходи на министерствата и ведомствата по Закона за държавния бюджет', 'Spending of ministries and agencies under the State Budget Act'),
-  description: ministriesDescription(2025, 48, true),
+  description: ministriesDescription(
+    2025,
+    48,
+    true,
+    PROGRAMMES_NOTE(46, t('постановлението за изпълнението на бюджета (ПМС № 28/2025)', 'the decree on implementing the budget (decree 28/2025)')),
+  ),
   sources: [
     {
       name: t('Закон за държавния бюджет на Република България за 2025 г., чл. 2–49 (ДВ, бр. 26/2025)', 'State Budget Act 2025, art. 2–49 (State Gazette 26/2025)'),
       url: 'https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694',
     },
+    {
+      name: t(
+        'ПМС № 28 от 16.04.2025 г. за изпълнението на държавния бюджет за 2025 г., приложение № 1 — показатели по бюджетните програми (ДВ, бр. 33/2025)',
+        'Council of Ministers decree 28 of 16 Apr 2025 on implementing the 2025 State Budget, annex 1 — programme budgets (State Gazette 33/2025)',
+      ),
+      url: 'https://www.strategy.bg/bg/pris/legal-information/postanovleniia/165024',
+    },
   ],
-  sourceShort: t('Закон за държавния бюджет 2025 — министерства и ведомства', '2025 State Budget Act — ministries and agencies'),
-  retrieved: '2025-03-27',
+  sourceShort: t('Закон за държавния бюджет 2025 и ПМС № 28/2025 — министерства и програми', '2025 State Budget Act and decree 28/2025 — ministries and programmes'),
+  retrieved: '2025-04-17',
 })
 
 const ministriesReport2025 = buildMinistries({
@@ -399,7 +453,19 @@ const ministries2026 = buildMinistries({
   stage: 'law',
   file: src('budget-2026/state-budget-2026-spending-units.csv'),
   unit: 'kEUR',
-  programmes: src('budget-2026/state-budget-2026-programmes.csv'),
+  programmes: {
+    structure: src('budget-2026/state-budget-2026-programmes.csv'),
+    lines: src('budget-2026/state-budget-2026-programme-lines.csv'),
+  },
+  transfers: {
+    file: src('budget-2026/state-budget-2026-university-transfers.csv'),
+    seeAlso: {
+      '1700': t(
+        'Всеки университет е показан поотделно в „Бюджет 2026“ › Образование › Държавни университети (субсидия), а БАН — в Държавно управление, дълг и ЕС › Общи държавни служби › Наука.',
+        'Each university is shown in “Budget 2026” › Education › State universities (subsidy), and the Academy in Government, debt & EU › General public services › Science.',
+      ),
+    },
+  },
   publicTotal: publicTotal(budget2026),
   macro: macro(2026),
   title: t('Министерства 2026', 'Ministries 2026'),
@@ -408,7 +474,7 @@ const ministries2026 = buildMinistries({
     2026,
     46,
     false,
-    t('За осем от тях — и по бюджетни програми.', 'For eight of them also by budget programme.'),
+    PROGRAMMES_NOTE(44, t('постановлението за изпълнението на бюджета (ПМС № 102/2026)', 'the decree on implementing the budget (decree 102/2026)')),
   ),
   sources: [
     {
@@ -416,25 +482,95 @@ const ministries2026 = buildMinistries({
       url: 'https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041',
     },
     {
-      name: t('Програмни бюджети към законопроекта (вх. № 52-602-01-19)', 'Programme budgets attached to the bill (no. 52-602-01-19)'),
-      url: 'https://www.parliament.bg/bg/bills/ID/167157',
+      name: t(
+        'ПМС № 102 от 12.08.2026 г. за изпълнението на държавния бюджет за 2026 г., приложение № 1 — показатели по бюджетните програми (ДВ, бр. 74/2026)',
+        'Council of Ministers decree 102 of 12 Aug 2026 on implementing the 2026 State Budget, annex 1 — programme budgets (State Gazette 74/2026)',
+      ),
+      url: 'https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245362',
     },
   ],
-  sourceShort: t('Закон за държавния бюджет 2026 — министерства и ведомства', '2026 State Budget Act — ministries and agencies'),
-  retrieved: '2026-07-31',
+  sourceShort: t('Закон за държавния бюджет 2026 и ПМС № 102/2026 — министерства и програми', '2026 State Budget Act and decree 102/2026 — ministries and programmes'),
+  retrieved: '2026-08-18',
 })
+
+const NSI_MUNICIPALITIES = {
+  name: t('НСИ — Население по области, общини, местоживеене и пол (към 31 декември)', 'NSI — Population by province, municipality, place of residence and sex (on 31 December)'),
+  url: 'https://www.nsi.bg/statistical-data/206/651',
+}
+
+const municipalitiesDescription = (year: number, articles: { transfers: LocalizedText; delegated: LocalizedText }, leva: boolean): LocalizedText => ({
+  bg: [
+    `Парите, които държавният бюджет за ${year} г. превежда на всяка от 265-те общини (${articles.transfers.bg} от Закона за държавния бюджет): обща субсидия за делегираните от държавата дейности — училища, детски градини, социални услуги, общинска администрация и др., по функции според ${articles.delegated.bg}; обща изравнителна субсидия; целева субсидия за капиталови разходи; средства за зимното поддържане на общинските пътища и целеви трансфер за минималната работна заплата.`,
+    'Това са само трансферите от централния бюджет. Общините харчат и собствени приходи (местни данъци и такси) и европейски средства, които не са тук, както и пари, отпуснати през годината с решения на Министерския съвет или по Инвестиционната програма за общински проекти.',
+    `Сумите на жител са спрямо населението на общината към 31 декември ${year - 1} г. (НСИ).`,
+    leva ? LEVA.bg : null,
+  ]
+    .filter(Boolean)
+    .join(' '),
+  en: [
+    `The money the ${year} State Budget sends to each of the 265 municipalities (${articles.transfers.en} of the State Budget Act): the general subsidy for state-delegated activities — schools, kindergartens, social services, municipal administration etc., by function as set in ${articles.delegated.en}; the general equalising subsidy; the targeted subsidy for capital spending; funds for the winter maintenance of municipal roads; and a targeted transfer for the minimum wage.`,
+    'These are transfers from the central budget only. Municipalities also spend their own revenue (local taxes and fees) and EU funds, which are not here, as well as money granted during the year by government decisions or through the municipal investment programme.',
+    `Amounts per resident use the municipality’s population on 31 December ${year - 1} (NSI).`,
+    leva ? LEVA.en : null,
+  ]
+    .filter(Boolean)
+    .join(' '),
+})
+
+const municipalities = (year: number, idMat: number, gazette: LocalizedText, articles: { transfers: LocalizedText; delegated: LocalizedText }, budget: Dataset, retrieved: string) =>
+  buildMunicipalities({
+    id: `municipalities-${year}`,
+    year,
+    transfers: src(`budget-${year}/municipal-transfers-${year}.csv`),
+    delegated: src(`budget-${year}/municipal-delegated-${year}.csv`),
+    register: municipalRegister,
+    articles,
+    residentsAt: year - 1,
+    publicTotal: publicTotal(budget),
+    macro: macro(year),
+    title: t(`Общини ${year}`, `Municipalities ${year}`),
+    subtitle: t('Трансфери от централния бюджет към общините', 'Transfers from the central budget to municipalities'),
+    description: municipalitiesDescription(year, articles, year < 2026),
+    sources: [
+      {
+        name: t(
+          `Закон за държавния бюджет на Република България за ${year} г., ${articles.transfers.bg} и ${articles.delegated.bg} (${gazette.bg})`,
+          `State Budget Act ${year}, ${articles.transfers.en} and ${articles.delegated.en} (${gazette.en})`,
+        ),
+        url: `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${idMat}`,
+      },
+      NSI_MUNICIPALITIES,
+    ],
+    sourceShort: t(`Закон за държавния бюджет ${year}, ${articles.transfers.bg} — трансфери за общините`, `${year} State Budget Act, ${articles.transfers.en} — transfers to municipalities`),
+    retrieved,
+  })
+
+const ART_2024_2025 = { transfers: t('чл. 53', 'Art. 53'), delegated: t('чл. 54', 'Art. 54') }
+const municipalities2024 = municipalities(2024, 202168, t('ДВ, бр. 108/2023', 'State Gazette 108/2023'), ART_2024_2025, budget2024, '2023-12-30')
+const municipalities2025 = municipalities(2025, 233694, t('ДВ, бр. 26/2025', 'State Gazette 26/2025'), ART_2024_2025, budget2025, '2025-03-27')
+const municipalities2026 = municipalities(
+  2026,
+  245041,
+  t('ДВ, бр. 69/2026', 'State Gazette 69/2026'),
+  { transfers: t('чл. 51', 'Art. 51'), delegated: t('чл. 52', 'Art. 52') },
+  budget2026,
+  '2026-07-31',
+)
 
 const datasets: Dataset[] = [
   budget2027,
   budget2026,
   ministries2026,
+  municipalities2026,
   report2025,
   budget2025,
   ministries2025,
   ministriesReport2025,
+  municipalities2025,
   report2024,
   budget2024,
   ministries2024,
+  municipalities2024,
   await buildEurostatDataset({ macro, refresh }),
 ]
 
@@ -468,6 +604,7 @@ for (const dataset of datasets) {
 // ---------- series for comparing years ----------
 
 const STAGE_ORDER = ['law', 'draft', 'forecast', 'report']
+const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'municipalities', 'cofog']
 const chronological = (a: Dataset, b: Dataset) => a.year - b.year || STAGE_ORDER.indexOf(a.stage) - STAGE_ORDER.indexOf(b.stage)
 
 function buildSeries(family: DatasetFamily, members: Dataset[]): SeriesFile {
@@ -491,7 +628,7 @@ function buildSeries(family: DatasetFamily, members: Dataset[]): SeriesFile {
   return { family, datasets: ordered.map((d) => d.id), values, nodes }
 }
 
-for (const family of ['functions', 'ministries', 'cofog'] as DatasetFamily[]) {
+for (const family of FAMILY_ORDER) {
   const members = datasets.filter((d) => d.family === family)
   if (members.length < 2) continue
   const series = buildSeries(family, members)
@@ -499,9 +636,68 @@ for (const family of ['functions', 'ministries', 'cofog'] as DatasetFamily[]) {
   console.log(`✓ series-${family}: ${series.datasets.length} datasets, ${Object.keys(series.values).length} comparable nodes`)
 }
 
-const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'cofog']
+// ---------- lists: projects, payments, hospitals and medicines, EU funds, procurement contracts, linked from the tree nodes they belong to ----------
+
+const lists = [
+  ...buildProjectLists({ dir: src('projects/'), register: municipalRegister, datasets }),
+  ...buildPaymentLists({ dir: src('sebra/'), datasets, register: readRegister(municipalRegister) }),
+  ...buildHealthLists({ dir: healthDir, hospitals, datasets }),
+  ...buildEuFundsLists({ dir: src('eu-funds/'), datasets, register: readRegister(municipalRegister) }),
+  ...buildCapLists({ dir: src('cap/'), datasets, register: readRegister(municipalRegister) }),
+  ...buildProcurementLists({
+    dir: src('procurement/'),
+    datasets,
+    register: readRegister(municipalRegister),
+    payees: src('sebra/payees.csv.gz'),
+    projects: src('eu-funds/projects.csv.gz'),
+  }),
+]
+for (const list of lists) {
+  const problems = checkList(list, datasets)
+  if (problems.length) {
+    console.error(`✗ list ${list.id}\n  ${problems.slice(0, 20).join('\n  ')}`)
+    process.exitCode = 1
+  }
+}
+const { index: listIndex, written } = writeLists(OUT_DIR, [PROJECTS, PAYMENTS, HEALTH, EU_FUNDS, PROCUREMENT], lists)
+for (const list of listIndex.lists) console.log(`✓ list ${list.id}: ${list.count} rows → public/data/${list.file}`)
+console.log(`✓ lists/index.json: ${listIndex.lists.length} lists, ${listIndex.links.reduce((s, l) => s + Object.keys(l.nodes).length, 0)} linked tree nodes`)
+// Every link between the trees and the lists, and between lists, leads to rows.
+const broken = checkLinks(written, listIndex, datasets)
+if (broken.length) {
+  console.error(`✗ links\n  ${broken.slice(0, 30).join('\n  ')}`)
+  process.exitCode = 1
+} else console.log('✓ links: every tree → list, list → tree and list → list link resolves')
+
+// No published list and no payment or beneficiary extract may hold a personal identity number (ЕГН, ЛНЧ) that is not masked.
+for (const dir of [new URL('lists/', OUT_DIR), src('sebra/'), src('eu-funds/'), src('cap/'), src('procurement/')]) {
+  for (const file of readdirSync(dir, { recursive: true, encoding: 'utf8' }).filter((f) => /\.(json|csv|csv\.gz)$/.test(f))) {
+    const raw = readFileSync(new URL(file, dir))
+    const leaks = unmaskedIds((file.endsWith('.gz') ? gunzipSync(raw) : raw).toString('utf8'))
+    if (leaks.length) {
+      console.error(`✗ ${new URL(file, dir).pathname}: ${leaks.length} unmasked personal identity numbers`)
+      process.exitCode = 1
+    }
+  }
+}
+
+// Datasets whose nodes link to lists load their own links in "Spending" (lists/links/<dataset>.json).
+mkdirSync(new URL('lists/links/', OUT_DIR), { recursive: true })
+for (const entry of index) {
+  const links = datasetLinks(listIndex, entry)
+  if (!links) continue
+  writeFileSync(new URL(`lists/links/${entry.id}.json`, OUT_DIR), JSON.stringify(links))
+  entry.lists = true
+}
+
 index.sort(
   (a, b) =>
     b.year - a.year || FAMILY_ORDER.indexOf(a.family) - FAMILY_ORDER.indexOf(b.family) || STAGE_ORDER.indexOf(a.stage) - STAGE_ORDER.indexOf(b.stage),
 )
 writeFileSync(new URL('index.json', OUT_DIR), JSON.stringify(index, null, 2))
+// The About page describes every dataset: one small file instead of every tree.
+const about: DatasetInfo[] = index.map((entry) => {
+  const { root, ...info } = datasets.find((d) => d.id === entry.id)!
+  return { ...info, total: root.value }
+})
+writeFileSync(new URL('about.json', OUT_DIR), JSON.stringify(about))
