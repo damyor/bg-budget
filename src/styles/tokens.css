@@ -1,0 +1,114 @@
+/* Design tokens. Chart colours come from the validated data-viz palette
+   (src/lib/palette.ts mirrors the series values for canvas rendering). */
+
+:root {
+  color-scheme: light;
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --surface-2: #f3f2ee;
+  --surface-sunken: #efeee9;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #6f6e69;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --border-strong: rgba(11, 11, 11, 0.18);
+  --focus: #2a78d6;
+  --accent: #2a78d6;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6effb;
+  --success-text: #006300;
+  --danger-text: #b42323;
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.06), 0 8px 24px rgba(11, 11, 11, 0.06);
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  --series-other: #b4b3ab;
+
+  /* Plan vs actual: two steps of one blue ramp (validated as an ordinal pair). */
+  --trend-plan: #86b6ef;
+  --trend-actual: #2a78d6;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --surface-2: #222220;
+    --surface-sunken: #141413;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9a998f;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --focus: #6da7ec;
+    --accent: #3987e5;
+    --accent-ink: #ffffff;
+    --accent-soft: #1c2a3d;
+    --success-text: #0ca30c;
+    --danger-text: #e66767;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --series-6: #008300;
+    --series-7: #9085e9;
+    --series-8: #e66767;
+    --series-other: #5c5b56;
+    --trend-plan: #184f95;
+    --trend-actual: #3987e5;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --surface-2: #222220;
+  --surface-sunken: #141413;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #9a998f;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --focus: #6da7ec;
+  --accent: #3987e5;
+  --accent-ink: #ffffff;
+  --accent-soft: #1c2a3d;
+  --success-text: #0ca30c;
+  --danger-text: #e66767;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+  --series-7: #9085e9;
+  --series-8: #e66767;
+  --series-other: #5c5b56;
+  --trend-plan: #184f95;
+  --trend-actual: #3987e5;
+}

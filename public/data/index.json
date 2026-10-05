@@ -1,0 +1,222 @@
+[
+  {
+    "id": "budget-2027",
+    "year": 2027,
+    "kind": "plan",
+    "stage": "forecast",
+    "family": "functions",
+    "title": {
+      "bg": "Прогноза 2027",
+      "en": "2027 forecast"
+    },
+    "subtitle": {
+      "bg": "Средносрочна бюджетна прогноза, август 2026 г.",
+      "en": "Medium-term budget forecast, August 2026"
+    },
+    "file": "budget-2027.json",
+    "total": 55350800000,
+    "publicTotal": 55350800000,
+    "gdp": 141302000000,
+    "population": 6423207
+  },
+  {
+    "id": "budget-2026",
+    "year": 2026,
+    "kind": "plan",
+    "stage": "law",
+    "family": "functions",
+    "title": {
+      "bg": "Бюджет 2026",
+      "en": "Budget 2026"
+    },
+    "subtitle": {
+      "bg": "Консолидирана фискална програма, план",
+      "en": "Consolidated fiscal programme, plan"
+    },
+    "file": "budget-2026.json",
+    "total": 56807200000,
+    "publicTotal": 56807200000,
+    "gdp": 130459000000,
+    "population": 6423207
+  },
+  {
+    "id": "ministries-2026",
+    "year": 2026,
+    "kind": "plan",
+    "stage": "law",
+    "family": "ministries",
+    "title": {
+      "bg": "Министерства 2026",
+      "en": "Ministries 2026"
+    },
+    "subtitle": {
+      "bg": "Разходи на министерствата и ведомствата по Закона за държавния бюджет",
+      "en": "Spending of ministries and agencies under the State Budget Act"
+    },
+    "file": "ministries-2026.json",
+    "total": 13326470300,
+    "publicTotal": 56807200000,
+    "gdp": 130459000000,
+    "population": 6423207
+  },
+  {
+    "id": "budget-2025",
+    "year": 2025,
+    "kind": "plan",
+    "stage": "law",
+    "family": "functions",
+    "title": {
+      "bg": "Бюджет 2025",
+      "en": "Budget 2025"
+    },
+    "subtitle": {
+      "bg": "Консолидирана фискална програма, план",
+      "en": "Consolidated fiscal programme, plan"
+    },
+    "file": "budget-2025.json",
+    "total": 49444992663,
+    "publicTotal": 49444992663,
+    "gdp": 116018300000,
+    "population": 6437360
+  },
+  {
+    "id": "report-2025",
+    "year": 2025,
+    "kind": "actual",
+    "stage": "report",
+    "family": "functions",
+    "title": {
+      "bg": "Отчет 2025",
+      "en": "2025 actual"
+    },
+    "subtitle": {
+      "bg": "Консолидирана фискална програма, изпълнение",
+      "en": "Consolidated fiscal programme, outturn"
+    },
+    "file": "report-2025.json",
+    "total": 47508679180,
+    "publicTotal": 47508679180,
+    "gdp": 116018300000,
+    "population": 6437360
+  },
+  {
+    "id": "ministries-2025",
+    "year": 2025,
+    "kind": "plan",
+    "stage": "law",
+    "family": "ministries",
+    "title": {
+      "bg": "Министерства 2025",
+      "en": "Ministries 2025"
+    },
+    "subtitle": {
+      "bg": "Разходи на министерствата и ведомствата по Закона за държавния бюджет",
+      "en": "Spending of ministries and agencies under the State Budget Act"
+    },
+    "file": "ministries-2025.json",
+    "total": 12439481911,
+    "publicTotal": 49444992663,
+    "gdp": 116018300000,
+    "population": 6437360
+  },
+  {
+    "id": "ministries-report-2025",
+    "year": 2025,
+    "kind": "actual",
+    "stage": "report",
+    "family": "ministries",
+    "title": {
+      "bg": "Министерства 2025 (отчет)",
+      "en": "Ministries 2025 (actual)"
+    },
+    "subtitle": {
+      "bg": "Изпълнение на бюджетите на министерствата и ведомствата",
+      "en": "Outturn of the ministries’ and agencies’ budgets"
+    },
+    "file": "ministries-report-2025.json",
+    "total": 12225672096,
+    "publicTotal": 47508679180,
+    "gdp": 116018300000,
+    "population": 6437360
+  },
+  {
+    "id": "budget-2024",
+    "year": 2024,
+    "kind": "plan",
+    "stage": "law",
+    "family": "functions",
+    "title": {
+      "bg": "Бюджет 2024",
+      "en": "Budget 2024"
+    },
+    "subtitle": {
+      "bg": "Консолидирана фискална програма, план",
+      "en": "Consolidated fiscal programme, plan"
+    },
+    "file": "budget-2024.json",
+    "total": 41674889944,
+    "publicTotal": 41674889944,
+    "gdp": 104767200000,
+    "population": 6445481
+  },
+  {
+    "id": "report-2024",
+    "year": 2024,
+    "kind": "actual",
+    "stage": "report",
+    "family": "functions",
+    "title": {
+      "bg": "Отчет 2024",
+      "en": "2024 actual"
+    },
+    "subtitle": {
+      "bg": "Консолидирана фискална програма, изпълнение",
+      "en": "Consolidated fiscal programme, outturn"
+    },
+    "file": "report-2024.json",
+    "total": 39972185722,
+    "publicTotal": 39972185722,
+    "gdp": 104767200000,
+    "population": 6445481
+  },
+  {
+    "id": "ministries-2024",
+    "year": 2024,
+    "kind": "plan",
+    "stage": "law",
+    "family": "ministries",
+    "title": {
+      "bg": "Министерства 2024",
+      "en": "Ministries 2024"
+    },
+    "subtitle": {
+      "bg": "Разходи на министерствата и ведомствата по Закона за държавния бюджет",
+      "en": "Spending of ministries and agencies under the State Budget Act"
+    },
+    "file": "ministries-2024.json",
+    "total": 8738050749,
+    "publicTotal": 41674889944,
+    "gdp": 104767200000,
+    "population": 6445481
+  },
+  {
+    "id": "eurostat-2024",
+    "year": 2024,
+    "kind": "actual",
+    "stage": "report",
+    "family": "cofog",
+    "title": {
+      "bg": "Евростат 2024",
+      "en": "Eurostat 2024"
+    },
+    "subtitle": {
+      "bg": "Реално изразходвани средства по международната класификация COFOG (сектор „Държавно управление“)",
+      "en": "Actual spending by the international COFOG classification (general government sector)"
+    },
+    "file": "eurostat-2024.json",
+    "total": 41059600000,
+    "publicTotal": 41059600000,
+    "gdp": 104767200000,
+    "population": 6445481
+  }
+]
