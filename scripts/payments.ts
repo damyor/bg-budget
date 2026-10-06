@@ -63,8 +63,8 @@ interface Payee {
   aliases: string
 }
 
-/** The one row that stands for every natural person and sole trader (the extracts call it "ФИЗИЧЕСКИ ЛИЦА И ЕДНОЛИЧНИ ТЪРГОВЦИ"). */
-const PERSONS_ROW = t('Физически лица и еднолични търговци (без имена)', 'Natural persons and sole traders (not named)')
+/** The one row that stands for every natural person (the extracts call it "ФИЗИЧЕСКИ ЛИЦА"); sole traders are named. */
+const PERSONS_ROW = t('Физически лица (без имена)', 'Natural persons (not named)')
 
 export interface PaymentsData {
   flows: Flow[]
@@ -127,8 +127,8 @@ const CAVEATS: LocalizedText[] = [
     'Names are as the payer typed them in the payment order — often cut short (at 26–35 characters) and spelled in different ways. The spellings of one payee are grouped together: by bank account, by the same name without quotes and legal form, by a name cut short. Bank accounts are never shown.',
   ),
   t(
-    'Физическите лица (публикуващият ги анонимизира като „ФИЗИЧЕСКО ЛИЦЕ“) и едноличните търговци, чието име съдържа името на собственика, не се показват по име: те са една група и основанията на плащанията към тях не се показват. По правилата на списъците с европейски средства и земеделски субсидии в групата са и получателите, чието име е на човек (собствено и фамилно име без нищо, което да показва организация; „ЗП …“), сред тях личните практики на лекари.',
-    'Natural persons (anonymised by the publisher as “ФИЗИЧЕСКО ЛИЦЕ”) and sole traders, whose firm name contains the owner’s name, are not shown by name: they are one group, and the purposes of payments to them are not shown. By the rules of the EU-funds and farm-subsidy lists, the group also holds payees whose name is a person’s (a given name and a surname with nothing that marks an organisation; “ЗП …”), doctors’ practices among them.',
+    'Физическите лица (публикуващият ги анонимизира като „ФИЗИЧЕСКО ЛИЦЕ“) не се показват по име: те са една група и основанията на плащанията към тях не се показват. В групата са и получателите, чието име е на човек — собствено и фамилно име без нищо, което да показва организация, или „ЗП …“ (регистриран земеделски производител), сред тях личните практики на лекари: може да са частни лица, чието име е написал платецът. Едноличните търговци („ЕТ …“) са с имената си, както ги назовават публикуваните данни, и са отделен вид получател. Списъците с европейски средства, земеделски субсидии и обществени поръчки следват по-строго правило: в тях и едноличните търговци не се назовават.',
+    'Natural persons (anonymised by the publisher as “ФИЗИЧЕСКО ЛИЦЕ”) are not shown by name: they are one group, and the purposes of payments to them are not shown. The group also holds payees whose name is a person’s — a given name and a surname with nothing that marks an organisation, or “ЗП …” (a registered farmer), doctors’ practices among them: they may be private individuals whose name the payer typed. Sole traders (“ЕТ …”) are named, as the published data names them, and are a type of payee of their own. The EU-funds, farm-subsidy and procurement lists follow a stricter rule: they do not name sole traders either.',
   ),
   t(
     'Плащанията към публичния сектор (общини, НОИ, здравната каса, министерства, училища, университети, държавни предприятия …) са скрити, докато не изберете „Всички, и „Публичен сектор““ във „Вид получател“. Получателят е от публичния сектор, ако името му го показва (община, министерство, агенция, училище …) и няма търговска правна форма, ако сметката му е в БНБ или ако повечето пари са му преведени с код 60 (трансфери между бюджети).',
@@ -309,14 +309,18 @@ function byPayer(data: PaymentsData, datasets: Dataset[], register: Register): L
       classColumn(true),
       systemColumn(rows.map((r) => r[4] as string)),
       { id: 'year', type: 'category', label: t('Година', 'Year'), filter: true, labels: Object.fromEntries(YEARS.map((y) => [y, t(y, y)])) },
-      { id: 'amount', type: 'money', label: t('Платено през годината', 'Paid in the year'), total: true, source: SEBRA.name },
+      { id: 'amount', type: 'money', label: t('Платено', 'Paid'), total: true, source: SEBRA.name },
       { id: 'quarters', type: 'series', label: t('По тримесечия', 'By quarter'), periods: QUARTERS, total: true },
       COUNT,
     ],
     key: 'k',
     rowLink: ROW_LINK,
     rows,
+    // One payer at a time (its file is small; all of them are 1.3 MB gzipped): the list opens on the payers and their
+    // totals; a search of three letters or more loads them all.
     shardBy: 'system',
+    shardChoose: true,
+    shardSearch: 3,
   }
 }
 
@@ -587,7 +591,11 @@ function largePayments(data: PaymentsData, datasets: Dataset[]): ListSpec {
     key: 'k',
     rowLink: ROW_LINK,
     rows,
+    // One year at a time (all of them are 0.5 MB gzipped): the list opens on the years and their totals; a search of
+    // three letters or more loads them all.
     shardBy: 'date',
+    shardChoose: true,
+    shardSearch: 3,
   }
 }
 

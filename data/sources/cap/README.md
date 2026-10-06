@@ -45,7 +45,8 @@ to `APEX_YEARS` once the fund publishes it, usually in autumn), then `python3 sc
   A name that marks no organisation (legal form, cooperative, school, municipality, church …) but holds a person's
   name — a registered farmer ("ЗП Петко Телкиев"), a given name followed by a surname, also glued to another word
   ("Булпиг-Димитър Димитров"), or a three-part name — is treated as a natural person too (`scripts/extract/persons.py`,
-  shared with the EU projects, the SEBRA payees and the procurement suppliers); the given names (8,218) are learnt from
+  shared with the EU projects, the SEBRA payees and the procurement suppliers; this extract keeps its strict rule, while
+  the SEBRA payees take its one option, which names sole traders); the given names (8,218) are learnt from
   the natural persons of the same files. Since October 2026 the rules also take a name that starts "ЕТ…" but continues
   with an organisation's word for an organisation ("Етрополски манастир „Света Троица“", FY2015–2017, now named), and
   hospitals, universities, schools, courts and law firms named after a person for organisations. For all of them the extract keeps no name and no ЕИК: they appear only in

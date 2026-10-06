@@ -2,6 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { parseCsv } from '../../../scripts/lib/csv.ts'
+import { readNodeLinks } from '../../../scripts/lib/lists.ts'
 import { unmaskedIds } from '../../../scripts/lib/sebra.ts'
 import { LARGE, TOP_BY_PAYER } from '../../../scripts/payments.ts'
 import { bucketOf, resolveRef, unpackShard } from '../listData'
@@ -113,7 +114,7 @@ describe('payment lists', () => {
   })
 
   it('link each ministry (system × 100 = its ЕБК code) and Sofia to its payees', () => {
-    const links = index.links.filter((l) => l.list === 'payments-by-payer')
+    const links = readNodeLinks(data).filter((l) => l.list === 'payments-by-payer')
     const of = (family: string, year: number) => links.find((l) => l.family === family && l.years.includes(year))!
     expect(of('ministries', 2025).values?.molsp).toBe('015')
     expect(of('ministries', 2025).filters).toEqual({ year: '2025' })

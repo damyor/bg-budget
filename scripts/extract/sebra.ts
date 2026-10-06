@@ -7,8 +7,8 @@
 // Every published row is kept: rows whose columns are shifted are realigned (scripts/lib/sebra.ts),
 // amounts are converted to euro, payee spellings are grouped into payees and classified, and payer
 // units are grouped by name and code. IBANs are used only for grouping and never written out;
-// natural persons and sole traders — by the rules of the EU-funds and farm-subsidy extracts, which
-// scripts/extract/persons.py applies to every spelling (it needs python3) — are one group without
+// natural persons — by the shared person rule, scripts/extract/persons.py (it needs python3), with
+// its one option, which names sole traders as the published data does — are one group without
 // names, and the purposes of payments to them are dropped. Stops on any failed check.
 
 import { execFileSync } from 'node:child_process'
@@ -51,16 +51,23 @@ function fail(message: string): never {
   process.exit(1)
 }
 
-/** What the anonymised group of natural persons and sole traders is called in the extracts. */
-const PERSONS_NAME = 'ФИЗИЧЕСКИ ЛИЦА И ЕДНОЛИЧНИ ТЪРГОВЦИ'
+/** What the anonymised group of natural persons is called in the extracts. */
+const PERSONS_NAME = 'ФИЗИЧЕСКИ ЛИЦА'
 
-/** The kind of each name by scripts/extract/persons.py: "sole-trader", "person" or "" (an organisation). */
-function personKinds(names: string[]): string[] {
+/**
+ * The shared person rule (scripts/extract/persons.py) over names, with the option the payment lists take: sole traders
+ * are named, as the published data names them; persons' names are not. For each name: its kind ("sole-trader",
+ * "person" or "" for an organisation) and whether it stays unnamed.
+ */
+function personRule(names: string[]): { kind: string; unnamed: boolean }[] {
   if (names.some((n) => /[\r\n]/.test(n))) fail('a name with a line break')
-  const out = execFileSync('python3', [new URL('persons.py', import.meta.url).pathname], { input: names.map((n) => `${n}\n`).join(''), maxBuffer: 1 << 28 })
-  const kinds = out.toString('utf8').split('\n').slice(0, -1)
-  if (kinds.length !== names.length) fail(`persons.py answered ${kinds.length} lines for ${names.length} names`)
-  return kinds
+  const out = execFileSync('python3', [new URL('persons.py', import.meta.url).pathname, '--name-sole-traders'], { input: names.map((n) => `${n}\n`).join(''), maxBuffer: 1 << 28 })
+  const lines = out.toString('utf8').split('\n').slice(0, -1)
+  if (lines.length !== names.length) fail(`persons.py answered ${lines.length} lines for ${names.length} names`)
+  return lines.map((line) => {
+    const [kind, unnamed] = line.split('\t')
+    return { kind, unnamed: unnamed === 'unnamed' }
+  })
 }
 
 // ---------- reading ----------
@@ -240,13 +247,15 @@ const keys = rows.map((r) => {
   if (key === undefined) keyCache.set(r.name, (key = nameKey(r.name)))
   return key
 })
-// Natural persons by the rules the EU-funds and farm-subsidy extracts use: every spelling that scripts/extract/persons.py
-// takes for a sole trader's or a person's name joins the anonymised group (with the publisher's "ФИЗИЧЕСКО ЛИЦЕ").
+// Natural persons by the shared person rule: every spelling that scripts/extract/persons.py leaves unnamed (a person's
+// name: a registered farmer, a given name and a surname) joins the anonymised group, with the publisher's "ФИЗИЧЕСКО
+// ЛИЦЕ". Sole traders ("ЕТ …") are named, as the published data names them (the rule's option for the payment lists).
 const spellings = [...keyCache.keys()]
-const kindsOfSpellings = personKinds(spellings)
-const personalKeys = new Set(spellings.filter((_, i) => kindsOfSpellings[i]).map((name) => keyCache.get(name)!))
+const ruleOfSpellings = personRule(spellings)
+const personalKeys = new Set(spellings.filter((_, i) => ruleOfSpellings[i].unnamed).map((name) => keyCache.get(name)!))
+const soleTraderKeys = new Set(spellings.filter((_, i) => ruleOfSpellings[i].kind === 'sole-trader' && !ruleOfSpellings[i].unnamed).map((name) => keyCache.get(name)!))
 console.log(
-  `✓ persons.py: ${kindsOfSpellings.filter((k) => k === 'sole-trader').length} spellings of sole traders and ${kindsOfSpellings.filter((k) => k === 'person').length} of persons' names → ${setPersonalKeys(personalKeys)} name keys not named`,
+  `✓ persons.py: ${ruleOfSpellings.filter((k) => k.kind === 'sole-trader').length} spellings of sole traders (named) and ${ruleOfSpellings.filter((k) => k.kind === 'person').length} of persons' names → ${setPersonalKeys(personalKeys, soleTraderKeys)} name keys not named`,
 )
 const pairMap = new Map<string, NamePair>()
 rows.forEach((r, i) => {
@@ -502,13 +511,19 @@ if (existsSync(dailyDir)) {
 
 // ---------- checks ----------
 
-// No name written as a payee's name or alias is a natural person's or a sole trader's (search must not find them).
+// The policy of the payment lists: no name written as a payee's name or alias is one the person rule leaves unnamed — a
+// natural person's (search must not find them); sole traders are named, in a class of their own.
 {
-  const written = payeeRows.flatMap(({ o }) => (o.cls === 'person' ? [] : [o.name, ...o.aliases]))
-  const kinds = personKinds(written)
-  const named = written.filter((_, i) => kinds[i])
-  if (named.length) fail(`${named.length} payee names or aliases are a person's or a sole trader's, e.g. ${named.slice(0, 3).join('; ')}`)
-  console.log(`✓ none of the ${written.length} payee names and aliases written is a person's or a sole trader's (persons.py)`)
+  const written = payeeRows.flatMap(({ o }) => (o.cls === 'person' ? [] : [o.name, ...o.aliases].map((name, i) => ({ o, name, main: i === 0 }))))
+  const rule = personRule(written.map((w) => w.name))
+  const named = written.filter((_, i) => rule[i].unnamed).map((w) => w.name)
+  if (named.length) fail(`${named.length} payee names or aliases are a person's, e.g. ${named.slice(0, 3).join('; ')}`)
+  const soleTraders = payeeRows.filter(({ o }) => o.cls === 'sole-trader')
+  // Payees named like a sole trader that another class won (by the money of their other spellings).
+  const elsewhere = written.filter((w, i) => w.main && rule[i].kind === 'sole-trader' && w.o.cls !== 'sole-trader')
+  console.log(
+    `✓ none of the ${written.length} payee names and aliases written is a person's (persons.py); ${soleTraders.length} sole traders named, ${elsewhere.length} more payees named like one in another class`,
+  )
 }
 
 // No file written here may hold a personal identity number (the publisher let some through in names and purposes).

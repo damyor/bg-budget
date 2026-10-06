@@ -5,6 +5,7 @@ import { DatasetPicker } from '../components/DatasetPicker'
 import { Donut } from '../components/Donut'
 import { ListLinks } from '../components/ListLinks'
 import { SearchBox } from '../components/SearchBox'
+import { SeeAlso } from '../components/SeeAlso'
 import { Segmented } from '../components/Segmented'
 import { TrendChart } from '../components/TrendChart'
 import { useDataset } from '../lib/data'
@@ -221,6 +222,7 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
             )}
           </ul>
           <ListLinks dataset={dataset} nodeId={nodeId} enabled={Boolean(entry.lists)} />
+          <SeeAlso node={node} datasets={datasets} mode={MODE_PARAM[effectiveMode]} />
           {node.note && <p className="note">{node.note[lang]}</p>}
           {isLeaf && node !== tree.root && <p className="muted small">{t('noDeeper')}</p>}
           <div className="actions">

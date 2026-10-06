@@ -35,14 +35,14 @@ npm run data
 | `quarters.csv` | 11 | One row per source file: `file`, `period`, `rows`, `repaired` (rows realigned, see below), `currency`, `amount` (source currency), `amount_eur`, `first_date`, `last_date` |
 | `systems.csv` | 109 | Primary systems (`code`: SEBRA's 3-digit code; the ЕБК code of the spending unit is code × 100 — the one exception seen, the Anti-Corruption Commission, SEBRA 181 / ЕБК 8100, has no individual payments), `name_bg` as published most often, `payments`, `amount_eur`, `first_date`, `last_date` |
 | `payer-units.csv` | 3,697 | Paying units (FIN_NAME, the "second-level" payer: a regional health insurance fund, a police directorate, a school …): `id` (`<system>-<5 letters>`, stable), `system`, `name` as published most often, `spellings`, `payments`, `amount_eur` |
-| `payees.csv.gz` | 65,588 | Payees: `id` (8 letters, stable; `persons` for the one group of natural persons and sole traders, named "ФИЗИЧЕСКИ ЛИЦА И ЕДНОЛИЧНИ ТЪРГОВЦИ"), `name` (the spelling published most often), `class` (company, nonprofit, public, person, other), `rule` (what decided the class), `spellings`, `aliases` (up to three other spellings that add words, for search), `payments`, `amount_eur`, `first_date`, `last_date` |
-| `flows.csv.gz` | 549,455 | The aggregate everything is built from: `quarter` (of the settlement date) × `payee` × `unit` × `code` (payment code) → `payments`, `amount_eur` |
-| `payments-large.csv.gz` | 36,226 | Every single payment of €500,000 or more (the site shows those of €1 m or more): `id` (`<quarter>-<n>`), `date`, `payee`, `unit`, `code`, `amount_eur`, `amount` and `currency` as published, `purpose` (REASON1 · REASON2; empty for natural persons and sole traders) |
+| `payees.csv.gz` | 71,187 | Payees: `id` (8 letters, stable; `persons` for the one group of natural persons, named "ФИЗИЧЕСКИ ЛИЦА"), `name` (the spelling published most often), `class` (company, sole-trader, nonprofit, public, person, other), `rule` (what decided the class), `spellings`, `aliases` (up to three other spellings that add words, for search), `payments`, `amount_eur`, `first_date`, `last_date` |
+| `flows.csv.gz` | 597,239 | The aggregate everything is built from: `quarter` (of the settlement date) × `payee` × `unit` × `code` (payment code) → `payments`, `amount_eur` |
+| `payments-large.csv.gz` | 36,226 | Every single payment of €500,000 or more (the site shows those of €1 m or more): `id` (`<quarter>-<n>`), `date`, `payee`, `unit`, `code`, `amount_eur`, `amount` and `currency` as published, `purpose` (REASON1 · REASON2; empty for natural persons) |
 | `daily-totals.csv` | 9,589 | Dataset 7806 summed by `quarter` × `system` × `code` (all payment codes, 01–98), `amount_eur`, `days` |
 | `codes.csv` | 23 | The official name of every payment code, as printed in the daily files (`code`, `name_bg`) |
 
-No IBAN, account number, BIC or name hash is written to any file, nor the name of a natural person or sole trader
-(below). Committed size: 10.0 MB.
+No IBAN, account number, BIC or name hash is written to any file, nor the name of a natural person (below; sole
+traders are named, as the published data names them). Committed size: 11.5 MB.
 
 **Personal identity numbers.** Payers sometimes type an ЕГН or ЛНЧ into a free-text field — the payee's name, their own
 unit's name, the purpose. Every such field is masked as it is read (`maskIds`): "ЕГН", "ЛНЧ" or "EGN" followed within
@@ -90,30 +90,40 @@ field's end are recognised). Then `groupPayees`:
 3. A name joins another when it is the same without spaces ("ДП НК ЖИ" = "ДП НКЖИ"), the same without its legal form
    (when only one form exists), cut short at 20 letters or more ("ЕВН БЪЛГАРИЯ ЕЛЕКТРОСНАБДЯ"), or the other's name
    (two words or more) followed by a branch word or a place ("БЪЛГАРСКИ ПОЩИ ЕАД ОПС ДОБРИЧ" → "БЪЛГАРСКИ ПОЩИ ЕАД").
-4. Natural persons and sole traders are one group, and the purposes of payments to them are dropped: every name with
-   "ФИЗИЧЕСКО ЛИЦЕ" (also "Д-Р ФИЗИЧЕСКО ЛИЦЕ", doctors' practices whose names the publisher anonymised), names that
-   are only a person's name (a given name learnt from sole traders' and doctors' names, then one or two Bulgarian
-   surnames), and — since October 2026 — every spelling that the rules of the EU-funds and farm-subsidy extracts,
-   `scripts/extract/persons.py` (run by the extractor; it needs python3), take for a sole trader ("ЕТ …", whose firm
-   carries the owner's name) or a person's name (a given name from `../places/given-names.csv` and a surname with
-   nothing that marks an organisation: doctors' and dentists' own practices, private bailiffs, lawyers, "ЗП …"; not
-   hospitals, universities, schools, courts or law firms, which the rules recognise as organisations). The extractor
-   stops if any payee name or alias it writes is still a person's or a sole trader's.
+4. Natural persons are one group, and the purposes of payments to them are dropped: every name with "ФИЗИЧЕСКО ЛИЦЕ"
+   (also "Д-Р ФИЗИЧЕСКО ЛИЦЕ", doctors' practices whose names the publisher anonymised), names that are only a
+   person's name (a given name learnt from sole traders' and doctors' names, then one or two Bulgarian surnames), and
+   every spelling that the shared person rule, `scripts/extract/persons.py` (run by the extractor; it needs python3),
+   takes for a person's name: a given name from `../places/given-names.csv` and a surname with nothing that marks an
+   organisation — doctors' and dentists' own practices, private bailiffs, lawyers — or "ЗП …" (a registered farmer);
+   not hospitals, universities, schools, courts or law firms, which the rule recognises as organisations. Such names
+   may be private individuals' that the payer typed, so they stay hidden.
+5. **Sole traders are named**, as the published data names them: the extractor runs the shared rule with its one
+   option, `--name-sole-traders`, so every spelling the rule takes for a sole trader ("ЕТ …", "… ЕТ", "ЕТДАНИЕЛ …",
+   "едноличен търговец"; whose firm carries the owner's name) is a payee like any company, in a class of its own. The
+   EU-funds, farm-subsidy and procurement extracts keep the strict rule (no sole trader named), and the procurement
+   supplier pages link to no sole trader's payments. The extractor stops if any payee name or alias it writes is a
+   person's by the rule; 8,239 spellings are a sole trader's and 2,332 a person's (2,109 name keys not named).
 
-Result: 100,443 distinct name keys and 88,797 accounts → **65,588 payees**; 17,906 of them were published under more
+Result: 100,443 distinct name keys and 88,797 accounts → **71,187 payees**; 19,546 of them were published under more
 than one spelling.
 
-**What the October 2026 rules changed.** 6,944 payees that were named before are now in the group — 5,644 sole traders
-(€1,061.7 m, 117,092 payments) and 1,300 payees whose name is a person's (€186.2 m, 27,558 payments) — and 17 others
-lost spellings that were a person's and were regrouped. With the spellings of persons that were inside other payees'
-groups, the group grew by 145,866 payments and €1,260,492,957: from 334,140 payments and €3.05 bn to 480,006 payments
-and €4.31 bn. The payee lists, the payee pages, the largest payments and the search name none of them. The display name is the spelling published most often. Ids are short hashes of the payee's main
-name (and, for account-only payees, of the account — truncated, so not reversible); they stay the same as long as the
-main spelling does.
+**The person rules over time.** Until October 2026 only "ФИЗИЧЕСКО ЛИЦЕ" and bare personal names were hidden. The
+shared rule of the EU-funds and farm-subsidy extracts then hid sole traders as well: 5,644 sole traders (€1,061.7 m,
+117,092 payments) and 1,300 payees whose name is a person's (€186.2 m, 27,558 payments) joined the group, which grew
+to 480,006 payments and €4.31 bn. Since 6 October 2026 sole traders are named again, as the official open data names
+them, while persons' names stay hidden: **5,668 payees are named again — 5,665 sole
+traders and 3 payees regrouped with them — with 117,327 payments and €1,063.0 m**, and the group shrank by 117,959
+payments and €1,065,633,180.64, to 362,047 payments and €3.24 bn. 64 payees that were already named (glued names such
+as "ЕТХИПОКРАТ") moved to the sole traders' class; 69 others, all named under both rules (€2.8 m), changed their id
+because a sole trader's spellings joined their group. The display name is the spelling published most often. Ids are
+short hashes of the payee's main name (and, for account-only payees, of the account — truncated, so not reversible);
+they stay the same as long as the main spelling does.
 
 ## Classes of payees
 
-`classify` (scripts/lib/sebra.ts), in this order: natural person or sole trader (above); public (the Military Medical
+`classify` (scripts/lib/sebra.ts), in this order: natural person (above); sole trader (a spelling the shared rule takes
+for one: "ЕТ …", 5,648 by the form and 81 glued or spelled out); public (the Military Medical
 Academy and its hospitals, the central bank, state enterprises "ДП", universities "ВУ"); company (a commercial legal form
 — ЕООД, ООД, ЕАД, АД, СД, КД, КДА, АДСИЦ, ДЗЗД, a foreign form, an insurer or a cooperative — or a name that marks one: hospitals and medical
 practices, posts, banks, utilities, telecoms, consortia); public (a name starting with "ОБЩИНА", "МИНИСТЕРСТВО");
@@ -125,11 +135,12 @@ payee's class is the one of its spellings with the most money ("unclassified" on
 
 | Class | Payees | Payments | € bn | Decided by |
 | --- | ---: | ---: | ---: | --- |
-| Companies | 50,020 | 1,004,714 | 71.29 | legal form 47,736 (€59.56 bn), name 2,284 (€11.73 bn) |
-| Public sector | 6,864 | 241,705 | 72.94 | name 5,973 (€68.74 bn), central-bank account 152 (€2.33 bn), transfers 739 (€1.86 bn) |
-| Natural persons and sole traders (not named) | 1 group | 480,006 | 4.31 | |
-| Non-profits | 4,156 | 26,991 | 0.71 | name |
-| Unclassified | 4,547 | 48,049 | 0.74 | |
+| Companies | 49,995 | 1,004,912 | 71.29 | legal form 47,721 (€59.56 bn), name 2,274 (€11.73 bn) |
+| Public sector | 6,864 | 241,706 | 72.94 | name 5,973 (€68.74 bn), central-bank account 152 (€2.33 bn), transfers 739 (€1.86 bn) |
+| Sole traders (named) | 5,729 | 119,564 | 1.08 | the shared person rule: the form "ЕТ" 5,648, glued or spelled out 81 |
+| Natural persons (not named) | 1 group | 362,047 | 3.24 | |
+| Non-profits | 4,156 | 26,990 | 0.71 | name |
+| Unclassified | 4,442 | 46,246 | 0.73 | |
 
 The lists hide the public sector until it is chosen ("All, with “Public sector”"), so that transfers to the social
 security institute (€28.4 bn), municipalities and other budgets do not crowd out the suppliers.

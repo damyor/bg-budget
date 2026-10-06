@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { readCsv } from '../../../scripts/lib/csv.ts'
+import { readNodeLinks } from '../../../scripts/lib/lists.ts'
 import { establishmentType, groupMedicines, innKey, latinName, type MedicineRow } from '../../../scripts/health.ts'
-import type { BudgetNode, Dataset, ListCell, ListFile, ListIndex } from '../types'
+import type { BudgetNode, Dataset, ListCell, ListFile } from '../types'
 
 const sources = new URL('../../../data/sources/health/', import.meta.url)
 const data = new URL('../../../public/data/', import.meta.url)
@@ -169,7 +170,6 @@ describe('hospitals in the 2024 and 2025 actuals', () => {
 describe('the hospitals and medicines lists', () => {
   const hospitals = read<ListFile>('lists/hospitals.json')
   const rows = rowsOf(hospitals)
-  const index = read<ListIndex>('lists/index.json')
 
   it('has every hospital with its yearly totals in euro', () => {
     expect(hospitals.count).toBe(390)
@@ -185,7 +185,7 @@ describe('the hospitals and medicines lists', () => {
   })
 
   it('is linked from hospital care, from municipalities and from each hospital node', () => {
-    const links = index.links.filter((l) => l.list === 'hospitals')
+    const links = readNodeLinks(data).filter((l) => l.list === 'hospitals')
     expect(links.find((l) => l.column === 'fund' && l.years.includes(2025))?.nodes['h-nhif-hospital']).toBeTruthy()
     expect(Object.keys(links.find((l) => l.family === 'municipalities' && l.years.includes(2026))!.nodes)).toContain('plovdiv-plovdiv')
     expect(Object.keys(links.find((l) => l.column === 'tree2024')!.nodes)).toHaveLength(383)

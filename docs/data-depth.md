@@ -8,12 +8,13 @@ Yes, much more detail is online than the site used in September 2026. Below the 
 - **Money per university** and **money per municipality by transfer type** (both on the site since October 2026).
 - **About 3,900 named capital projects**, with planned and paid amounts. (On the site since October 2026: the 199 priority projects for 2026–2028, the 176 + 228 of 2025 with plan vs actual, and the 3,492 municipal investment projects.)
 - **Monthly payments to each hospital** and reimbursements for each medicine. (On the site since October 2026: what the NHIF paid each of 390 establishments, Jan 2024 – Aug 2026, with the Ministry of Health's finances of 165 state and municipal hospitals, and the reimbursed medicines by active ingredient, 2021 – Jul 2026; "Lists" › "Health".)
-- **EU-funded projects and contracts**, and **public-procurement contracts**. (On the site since October 2026: the EU programmes' budgets and payments, the Recovery Plan by investment, every project of the EU-funded programmes in ИСУН, and farm subsidies by measure, municipality and recipient, "Lists" › "EU funds"; and 239,431 procurement contracts of 2016–2023 and 2026 with every supplier's and buyer's page, plus TED's award notices for 2024–2025, "Lists" › "Public procurement". The EU beneficiaries' own contracts with contractors are still new.)
+- **EU-funded projects and contracts**, and **public-procurement contracts**. (On the site since October 2026: the EU programmes' budgets and payments, the Recovery Plan by investment, every project of the EU-funded programmes in ИСУН, and farm subsidies by measure, municipality and recipient, "Lists" › "EU funds"; and 314,989 procurement contracts of 2016–2026 — 2024–2025 from the e-procurement platform's own JSON open data — with every supplier's and buyer's page, "Lists" › "Public procurement". The EU beneficiaries' own contracts with contractors are still new.)
 - **Individual state payments of 5,000 lv (€2,556.46) or more**, each with the payee's name, date, amount and payment purpose. Quarterly files cover July 2022 onward (the series started in June 2024), and a one-off release covers June 2006 to June 2022. (On the site since October 2026: all 1.8 million payments of July 2022 – June 2026, "Lists" › "Who gets paid".)
+- **Spending by ЕБК activity** (kindergartens, schools, street lighting …) **for the biggest cities**, from their own reports, and **per-school allocations**. (On the site since October 2026: Sofia, Plovdiv and Burgas, 2024 and 2025 outturn, "Big cities"; Plovdiv's schools and kindergartens 2024–2026 and the 2026 education cost standards, "Lists" › "City budgets".)
 
 Most of this can be downloaded by a script.
 
-**The one big gap:** no one publishes a national table of spending by ЕБК *activity* (the 3-digit codes such as "kindergartens" or "street lighting"). That level exists only in each municipality's and each school's own reports, in mixed formats.
+**The one big gap:** no one publishes a national table of spending by ЕБК *activity* (the 3-digit codes such as "kindergartens" or "street lighting"). That level exists only in each municipality's and each school's own reports, in mixed formats. Since October 2026 the site reads it for the three biggest cities (Sofia, Plovdiv, Burgas: €2.33 bn of spending in 2025 with their EU-funds accounts; their budgets alone, 4.30 bn leva, are 26% of the 16.35 bn leva all municipal budgets spent, by the 2025 КФП report) from the Ministry of Finance form every municipality reports in; the same parser would take any other municipality that publishes the form's .xls, but national coverage still needs a central source.
 
 **How things were checked.** Unless a claim is marked otherwise, it was opened on 2–5 Oct 2026, either by me or by a research sub-agent using curl.
 
@@ -41,8 +42,8 @@ Most of this can be downloaded by a script.
   4226, 18860, 18958), every project of the EU-funded programmes in ИСУН, and the State Fund Agriculture's payments by
   beneficiary (data.egov.bg org 56 for FY2015–2017 and 2021–2023, seu.dfz.bg for FY2024–2025) ("Lists" › "EU funds");
 - since October 2026, the Public Procurement Agency's contracts and amendments of 2016–2025 and the OCDS releases of
-  ЦАИС ЕОП of 2026 (data.egov.bg org 502), and TED's award notices of Bulgarian buyers of 2024–2025 ("Lists" › "Public
-  procurement");
+  ЦАИС ЕОП of 2026 (data.egov.bg org 502), and ЦАИС ЕОП's own JSON open data for the contracts of 2024–2025 and the
+  amendments of 2024–2026 (storage.eop.bg) ("Lists" › "Public procurement");
 - Eurostat COFOG level 2 by economic transaction.
 
 ---
@@ -58,10 +59,10 @@ Most of this can be downloaded by a script.
 | 3b | Municipality (265) × transfer type | ЗДБ art. 51 and 52 (2024/2025: art. 53 and 54): delegated-activities subsidy (by function), equalising subsidy, capital subsidy, winter roads, other targeted transfers (for the minimum wage); MoF "ФО" letters with per-municipality XLS annexes for transfers added during the year (browser) | 2024–2026 plan | Yes | Used ("Municipalities" 2024–2026); ФО letters are new |
 | 4 | Policy area (80 areas + 2 "other programmes" groups + 17 programmes at area level) → budget programme (203 in 44 units) | **ПМС № 102/2026, Annex 1** covers all 44 programme-format units; draft programme budgets attached to the bill (45 PDFs) | 2026; 2025 via ПМС № 28/2025 (same structure, 46 units) | Yes: DOCX on strategy.bg, PDF on dv.parliament.bg; 2025 as .doc | Used: all units, 2025 and 2026 plans |
 | 5 | Programme × economic element: staff / running costs / capital + **named "administered" items** (e.g. monthly social assistance €78.6m, heating aid €49.5m); whole КФП by **ЕБК paragraph (42) and sub-paragraph (179)** × budget | ПМС 102 Annex 1 (plan); ministries' quarterly programme reports, forms Б.1/Б.2 (actuals); annex pr.5 of the 2025 report (КФП by paragraph) | 2026 plan; 2026 quarterly actuals; 2025 actual | Yes (DOCX, XLSX/XLSM) | Plan used (2025, 2026); actuals and ЕБК paragraphs are new |
-| 6 | ЕБК **activity** (298 3-digit codes) × paragraph | Only each municipality's own monthly/quarterly cash reports (MoF forms B1/B3) and each school's own budget. No central table found | Varies; Sofia 2018–2026, Burgas back to 2007, Plovdiv 2017–2026 [S] | Partly (.xls for Sofia and Burgas, PDF for Varna) | New, but fragmented |
-| 7 | Institution / entity: each university (33 + Academy of Sciences); each hospital (~382); each SEBRA payer unit (3,697 in July 2022 – June 2026, 2,611 in Q2 2026 alone; incl. Sofia's schools); per-school allocations (Plovdiv); cost standards per pupil/class/school | ЗДБ art. 16(4) and 11(4); NHIF monthly per hospital [S]; Ministry of Health quarterly hospital finances [S]; SEBRA individual payments; РМС 497/2026 standards [S] | 2026 (universities); 2015–2026 (NHIF); 2019–Q3 2025 (Ministry of Health) | Yes (HTML, PDF with text, XLSX, CSV) | Universities and the Academy used (2026); SEBRA payer units used (3,697 units, 2022–2026, "Who gets paid — by paying unit"); hospitals used (390, NHIF Jan 2024 – Aug 2026, Ministry of Health finances for 165, "Lists" › "Health", and in the 2024/2025 actuals); per-school data and standards are new |
+| 6 | ЕБК **activity** (298 3-digit codes) × paragraph | Only each municipality's own monthly/quarterly cash reports (MoF forms B1/B3, sheet "OTCHET", once for the budget and once for each kind of EU-funds account) and each school's own budget. No central table found | Sofia 2018–2026, Burgas back to 2007, Plovdiv 2017–2026 (checked for 2024–2026) | Yes for Sofia, Plovdiv (in ZIPs) and Burgas (.xls); PDF for Varna | Used for Sofia, Plovdiv and Burgas, 2024 and 2025 outturn ("Big cities", October 2026); other municipalities and the 2026 plans (not yet in the reports) are new |
+| 7 | Institution / entity: each university (33 + Academy of Sciences); each hospital (~382); each SEBRA payer unit (3,697 in July 2022 – June 2026, 2,611 in Q2 2026 alone; incl. Sofia's schools); per-school allocations (Plovdiv); cost standards per pupil/class/school | ЗДБ art. 16(4) and 11(4); NHIF monthly per hospital [S]; Ministry of Health quarterly hospital finances [S]; SEBRA individual payments; РМС 497/2026 standards [S] | 2026 (universities); 2015–2026 (NHIF); 2019–Q3 2025 (Ministry of Health) | Yes (HTML, PDF with text, XLSX, CSV) | Universities and the Academy used (2026); SEBRA payer units used (3,697 units, 2022–2026, "Who gets paid — by paying unit"); hospitals used (390, NHIF Jan 2024 – Aug 2026, Ministry of Health finances for 165, "Lists" › "Health", and in the 2024/2025 actuals); Plovdiv's per-school allocations (2024–2026) and the 2026 education standards used ("Lists" › "City budgets", October 2026); other cities' per-school data and the other standards are new |
 | 8 | Project | Priority strategic investment projects (199 for 2026; 176 + 228 in 2025 with plan vs actual); municipal investment programme (3,492 projects); EU projects (ИСУН API [S]; Kohesio 48,706 Bulgarian projects [S]); Recovery Plan investments (MoF monthly) and its 14,795 projects in ИСУН [S]; CAP beneficiary × intervention [S]; municipal capital lists (Sofia ~1,390 rows [S]) | 2014–2026 | Yes (XLSX, CSV, JSON API, PDF) | Used: priority projects 2025–2028 and the municipal investment programme ("Lists" › "Investment projects"); the EU programmes, the Recovery Plan's investments, the ИСУН projects and CAP payments by measure, municipality and recipient ("Lists" › "EU funds") — October 2026; municipalities' own lists are new |
-| 9 | Contract | Procurement: daily OCDS JSON since 1 Jan 2026; yearly contract CSVs 2016–2025 (2024–2025 only the old register's last contracts); TED API for above-threshold contracts; ЦАИС ЕОП's own JSON open data (since 29.06.2026, said to reach back to 2020; not explored). EU-funded contracts, beneficiary → contractor (ИСУН) [S] | 2016–2023, then 2026; **2024–25 gap** except TED | Yes | Used: 239,431 contracts of 2016–2023 and 2026, supplier and buyer pages, TED 2024–2025 ("Public procurement", October 2026); ИСУН contracts are new |
+| 9 | Contract | Procurement: daily OCDS JSON since 1 Jan 2026; yearly contract CSVs 2016–2025 (2024–2025 only the old register's last contracts); ЦАИС ЕОП's own JSON open data, one file a day since 1 Jan 2020 (published since 29.06.2026); TED API for above-threshold contracts. EU-funded contracts, beneficiary → contractor (ИСУН) [S] | 2016–2026 | Yes | Used: 314,989 contracts of 2016–2026 (2024–2025 from ЦАИС ЕОП's JSON), supplier and buyer pages ("Public procurement", October 2026); TED no longer needed; ИСУН contracts are new |
 | 10 | Single payment | **SEBRA individual payments ≥ 5,000 lv** (quarterly, Q3 2022–Q2 2026); one-off release 06.06.2006–28.06.2022 (official ZIP broken; third-party mirror); daily SEBRA totals by spending unit × payment code since May 2015; NHIF payments per hospital per month; medicine reimbursement by product × diagnosis | 2006–2026 | Yes (CSV/JSON via the data.egov.bg API) | Used: every individual payment of 07.2022–06.2026 (aggregated; payments of €1 m or more one by one) and the daily totals of 2024–06.2026 ("Who gets paid", October 2026); NHIF payments per hospital per month (2024–Aug 2026) and medicines by active ingredient per year (2021–Jul 2026) ("Health", October 2026); the 2006–2022 history and medicines by diagnosis or hospital are new |
 
 The site's tree is built on the КФП functions (levels 0–2). Levels 3–5 follow a different, organisational tree: spending unit → programme → economic element. Programme codes come from РМС № 478/24.06.2026 and are stable for 2026–2030. Levels 8–10 are "examples inside" a slice rather than parts that add up to it, because project and payment amounts are commitments or cash flows that do not map onto КФП functions.
@@ -80,7 +81,7 @@ The site's tree is built on the КФП functions (levels 0–2). Levels 3–5 fo
 - **Organisation codes (Section VII):** central units (e.g. 1500 = Ministry of Labour and Social Policy), social security funds (5500/5591/5592/5600) and the 265 municipalities (51xx–…).
   - The 3-digit SEBRA system code is the ЕБК code divided by 100 (SEBRA 015 = ЕБК 1500). That is the join key between payments and budgets (used since October 2026 for 43 of the 48 units; one exception found: the Anti-Corruption Commission is SEBRA 181, ЕБК 8100, and it has no individual payments).
 - **Who publishes data at activity or paragraph level:**
-  - **Activity × paragraph:** only municipalities (B1 monthly / B3 quarterly forms on their own sites) and schools with delegated budgets (their own sites).
+  - **Activity × paragraph:** only municipalities (B1 monthly / B3 quarterly forms on their own sites) and schools with delegated budgets (their own sites). The site reads the year-end B3 of Sofia, Plovdiv and Burgas (October 2026, `data/sources/cities/`).
   - **Paragraph only:** the КФП as a whole for 2025 (annex pr.5, 1,736 rows × 71 columns, by budget); ministries' monthly cash reports; NHIF's B1/B3 files.
   - **Economic categories with named subsidy recipients:** each State Budget unit, in the 2025 report (annex pr.4, 2,823 rows).
   - I found **no national table by activity**. The MoF collects municipal reports in its system for municipalities (ИСО) but publishes only the art. 130г indicators (§2.3). This was a broad but not exhaustive search.
@@ -124,10 +125,12 @@ The site's tree is built on the КФП functions (levels 0–2). Levels 3–5 fo
   - ЗДБ 2026 art. 51 (transfers by type) and art. 52 (delegated activities by function); in 2024 and 2025 art. 53 and 54, same tables. Checked and on the site since October 2026: every column equals the act's printed totals, and the grand total equals "Общините" in art. 1 (2) (2026: 4 927 964.0 thousand EUR; 2025: 8 925 909.1 and 2024: 7 872 497.4 thousand BGN).
   - ЕБК codes of all 265 municipalities: ЕБК 2026 section VII В), cross-checked with attachment 7 to РМС № 737/2026; residents by municipality: NSI time series Pop_6.1.1 (31 December, 2010–2025, XLSX, script). Both in `data/sources/places/municipalities.csv`.
   - MoF "ФО" letters (minfin.bg/bg/337, browser) carry per-municipality XLS annexes for each extra transfer. Examples: ФО-32/01.10.2026 on expected 2026 payments by investment-programme project; ФО-30 on Bulgarian Development Bank loans by project and municipality.
-- **Activity × paragraph exists for every municipality but only on its own site.** One parser for the MoF "OTCHET" sheet would cover every municipality that publishes the .xls.
-  - Sofia: B1 monthly / B3 quarterly .xls plus capital-programme .xlsx (sofia.bg/bg/budget).
-  - Burgas: .xls back to 2007 (burgas.bg/bg/2026-1).
-  - Plovdiv: quarterly ZIPs 2017–2026, including a per-school allocation .xls.
+- **Activity × paragraph exists for every municipality but only on its own site.** One parser for the MoF "OTCHET" sheet covers every municipality that publishes the .xls — built and checked in October 2026 (`scripts/extract/city_budgets.py`, "Big cities"):
+  - The sheet "ОТЧЕТНИ ДАННИ ПО ЕБК ЗА ИЗПЪЛНЕНИЕТО НА БЮДЖЕТА" has one block per activity (the code written with the function's digit first: 3322 = function 3, activity 322) with every paragraph and sub-paragraph: revised plan and actual, each split into state-delegated activities, local activities and the municipality's top-up ("дофинансиране"). The B1 form has no column for the adopted ("law") plan. The budget is one file (financial-legal form 0) and each kind of EU-funds account another (КСФ 98, РА 42, ДЕС 96, ДМП 97; "чужди средства" too, not spending); in the КСФ file a block is one EU programme's spending on the activity (the Recovery Plan is there too, 99001).
+  - Sofia: B1 monthly / B3 quarterly .xls plus capital-programme .xlsx (sofia.bg/bg/web/guest/<year>-financial-year; checked 2024–2026). Its 2025 total equals annex 3 of its annual report to the council, paragraph by paragraph.
+  - Burgas: .xls back to 2007 (burgas.bg/bg/<year>-1; checked 2024–2026). Its state and local totals equal annex 9 of its 2025 annual report.
+  - Plovdiv: quarterly ZIPs 2017–2026 (plovdiv.bg/item/budget-and-finance/otsheti-budjet/; checked 2024–2026; filenames inside in CP866); its annual report's annexes are scanned PDFs.
+  - The 2026 reports published so far (to August) carry no plan: the cities adopted their 2026 budgets only in August–September 2026, after the late State Budget Act; the adopted budgets themselves are PDFs.
   - Varna: narrative PDF only.
   - On data.egov.bg, 186 of 266 municipal organisations have published something, but only 10 did so in 2026.
 - **No NAMRB (НСОРБ) public database.** It publishes only an annual PDF analysis.
@@ -147,7 +150,7 @@ SEBRA (Системата за електронни бюджетни разпл�
    - Publisher: staff of the Ministry of e-Government. Its egov.government.bg SEBRA page now redirects to midt.gov.bg.
    - Files: 01.07.2022–31.12.2023 as one ZIP, then quarterly CSVs from Q1 2024 to Q2 2026. Q2 2026 was posted on 17.07.2026.
    - The ZIP downloads by script (verified 5 Oct 2026): `GET https://data.egov.bg/resource/download/zip/bf12dd30-9a88-4bb1-8961-ebbc527d3e01` → 32.8 MB, `Anonymized_DD_2022-2023.csv` (221 MB, 610,363 payments, same 17 columns, in leva). Licence of both datasets: data.egov.bg terms no. 1, "без защитени авторски права (CC0)".
-   - **On the site since October 2026** ("Lists" › "Who gets paid", `data/sources/sebra/README.md`): all 1,801,465 payments, €149.98 bn, grouped into 65,588 payees (since the person rules of October 2026, natural persons and sole traders are one unnamed group) and 3,697 paying units in 109 systems. The files have quirks (a different column layout in Q3 2024, purposes split at commas into extra columns, FIN_CODE masked on 213,321 rows from 2024); every row is realigned and the totals match the raw files exactly. Against the daily totals (7806, codes 10–90, without the subsidies to municipalities), the individual payments cover 92–96% a quarter (81% in Q4 2025, when €2.05 bn of Ministry of Finance financing, code 70, is missing from the individual list).
+   - **On the site since October 2026** ("Lists" › "Who gets paid", `data/sources/sebra/README.md`): all 1,801,465 payments, €149.98 bn, grouped into 71,187 payees (natural persons one unnamed group; sole traders named, as the published data names them, since 6 October 2026) and 3,697 paying units in 109 systems. The files have quirks (a different column layout in Q3 2024, purposes split at commas into extra columns, FIN_CODE masked on 213,321 rows from 2024); every row is realigned and the totals match the raw files exactly. Against the daily totals (7806, codes 10–90, without the subsidies to municipalities), the individual payments cover 92–96% a quarter (81% in Q4 2025, when €2.05 bn of Ministry of Finance financing, code 70, is missing from the individual list).
    - **indiv_2026Q2.json** is that Q2 2026 file, pulled with `POST https://data.egov.bg/api/getResourceData {"resource_uri":"4a7413d6-3ff0-441a-bcdd-ab5f55a5748b"}`. It is 87 MB and took 14 s.
      - **122,647 payments, €10.34bn.** Payment codes 10–90; minimum €2,556.46, i.e. the 5,000 lv threshold still applies in 2026.
      - 106 primary systems, **2,611 payer units** (e.g. 286 under the Ministry of Education, 415 under Sofia Municipality including individual schools and kindergartens), 32,789 distinct payee names.
@@ -263,15 +266,28 @@ On the site since October 2026 ("Lists" › "Public procurement"); extracts, che
     (with 265 releases repeated once at the switch). Buyer and supplier ЕИК, CPV per lot, procedure (open/selective/
     limited only), offers, contract value without VAT, signing date, amendments; no payments. 30,727 contracts to
     30 September (26,719 from 2026 award notices; 4,008 earlier contracts amended in 2026).
-  - **ЦАИС ЕОП's own JSON open data** (https://app.eop.bg/today/reporting/open-data): daily files of procedures,
-    contracts and amendments since 29 June 2026, which by the Agency's rules cover data from 2020 — the likeliest
-    source for 2024–2025 at contract level. A JavaScript application; not explored.
+  - **ЦАИС ЕОП's own JSON open data** (checked 6 October 2026; on the site for 2024–2025). The page
+    https://app.eop.bg/today/reporting/open-data (an Angular application; robots.txt allows everything) only builds links
+    to static files on the platform's storage: `https://storage.eop.bg/open-data-<yyyy-mm-dd>/Автоматично генерирани
+    данни за <поръчки|договори|анекси>, публикувани в ЦАИС ЕОП на <dd.mm.yyyy>.json` (plus the OCDS file from 2026), one
+    a day and kind for every day since 1 January 2020. A plain GET answers (a MinIO server announcing a request budget,
+    `X-Ratelimit-Limit: 1272`); no challenge or login. Each file is a JSON array of flat records whose fields are
+    explained in the Agency's `opendata_fields_mapping.xlsx` (Appendix 1 to its JSON publication rules, version 1.0 of
+    29.06.2026, www2.aop.bg/e-uslugi/otvoreni-danni-ot-rop/): for a contract the procurement number (УНП), procedure,
+    main CPV code, buyer and supplier with ЕИК, contract number, date, value and currency, EU funding, offers, framework
+    flags, "lot not awarded" and "outside the scope of the Act" flags; for an amendment the value before and after.
+    CC0. Generated each morning for the previous day and never changed afterwards; the files of 2020 – June 2026 were
+    generated on 7 June 2026. Coverage: 2024 — 36,186 contracts within the Act (the Agency's report: 36,212), 2025 —
+    40,081 (report: 40,089), values within 0.06%; for 2023, 35,046 of the yearly file's 35,343 contracts with the same
+    values (276 others are flagged outside the Act in the JSON); for 2026, 26,005 of OCDS's 26,719 (97% with the same
+    value; 708 others are flagged outside the Act, and are now left out of 2026 too).
   - **The Agency's yearly reports on the procurement market** (https://www2.aop.bg/aop/god-dokladi/pazara-na-op/) give
     the totals: 35,343 contracts, 15.8 bn leva (2023); 36,212, 21.6 bn leva (2024); 40,089, 23.3 bn leva (2025).
 - **TED API v3** (`POST https://api.ted.europa.eu/v3/notices/search`): answers scripts; award notices of Bulgarian
   buyers: 15,933 in 2024 and 17,475 in 2025 (without modification notices and replaced versions), above the EU
   thresholds only. Notice values are totals of a notice's contracts (framework maxima included), 132–153% of the
-  Agency's totals for all contracts; 18% of the notices name no winner in TED's data.
+  Agency's totals for all contracts; 18% of the notices name no winner in TED's data. Used as a stopgap for 2024–2025
+  until ЦАИС ЕОП's JSON replaced it (October 2026); still useful to check single large contracts.
 - **opentender.eu** is behind Cloudflare [S].
 - **No ЕБК codes anywhere.** Buyers are linked to the trees by ЕИК and name (ministries and municipalities), suppliers to
   the SEBRA payees by exact name and to the EU projects by ЕИК.
@@ -301,10 +317,10 @@ and caveats in `data/sources/projects/README.md`.
 ### 2.9 Schools, kindergartens and universities
 - **Per-school budgets:** no central publication [S].
   - Schools post budgets and reports on their own sites, often as scanned PDFs at paragraph level (e.g. НПМГ since 2017, СМГ) [S].
-  - Plovdiv publishes per-school and per-kindergarten allocations by formula component (.xls) [S]. Burgas's capital XLSX has a sheet for each school [S].
+  - Plovdiv publishes per-school and per-kindergarten allocations by formula component (.xls, one sheet per activity, with the mayor's order; plovdiv.bg/item/budget-and-finance/delegated-budget/, 2015–2026) — checked and on the site for 2024–2026 since October 2026 ("Lists" › "City budgets": 135 institutions, €148.6 m in 2026; every row and sheet adds up). Burgas's capital XLSX has a sheet for each school [S].
   - Sofia's schools and kindergartens appear as payer units in the SEBRA individual-payment file (my analysis).
-- **Cost standards:** РМС № 497/03.07.2026, on minfin.bg/bg/96 (PDF, browser) and as DOCX at https://strategy.bg/download/1323211 [S].
-  - Education annex: about 23 groups of standards, per institution, class or pupil, with the national count.
+- **Cost standards:** РМС № 497/03.07.2026, on minfin.bg/bg/96 (PDF, browser) and as DOCX at https://strategy.bg/download/1323211 (checked October 2026).
+  - Education annex (annex 2, section III, the municipal delegated activities): 75 standards in 22 numbered groups, per institution, group, class, child or pupil, with the national count; the standards times their counts give €2.78 bn, 95% of the €2.91 bn the act gives municipalities for education. On the site since October 2026 ("Lists" › "City budgets"). The annex also has the standards of the other delegated functions (security, health, social services, culture), not used yet.
   - Examples: general school €44,500 per school + €9,438 per class + €1,859 per pupil; kindergarten €2,858 per child in compulsory pre-school groups.
 - **Universities:** **ЗДБ 2026 art. 16(4)** lists the transfer to the Academy of Sciences (€131,577.7k) and to **each of the 33 state universities** individually, e.g. Sofia University €106,322.0k and Technical University Sofia €79,996.9k. Art. 11(4) adds the 4 military schools. This is in the State Gazette HTML the pipeline already downloads.
   - On the site since October 2026: the 33 universities under "Budget 2026" › Education › State universities (they add up exactly to the subsidy) and the Academy under Science.
@@ -341,7 +357,7 @@ and caveats in `data/sources/projects/README.md`.
 | 14 | MoF "ФО" letters | Per-municipality transfers, extra subsidies, Development Bank loans by project | minfin.bg/bg/337 | PDF + XLS/XLSX | 2015–2026 | Several a month | Browser |
 | 15 | Municipal fiscal indicators (4229 / minfin.bg/bg/810) | Per municipality: arrears, commitments, fiscal-rule ratios | data.egov.bg uri 980fa747-e0d0-4371-9457-f41d730040cd | CSV / XLSX | 2017–Q2 2026 | Quarterly | Script (data.egov) [S] |
 | 16 | Municipal debt register (4230) | Debt per municipality | uri ee08391e-be09-44c1-b278-b4af8b62a147 | CSV | 2015–2026 | Quarterly | Script [S] |
-| 17 | Municipal cash reports (B1/B3) | Activity × paragraph, plan vs actual | sofia.bg/bg/budget; burgas.bg/bg/2026-1; plovdiv.bg/item/budget-and-finance/ | XLS / ZIP / PDF | Varies | Monthly / quarterly | Script, municipality by municipality [S] |
+| 17 | Municipal cash reports (B1/B3) | Activity × paragraph, plan vs actual | sofia.bg/bg/budget; burgas.bg/bg/2026-1; plovdiv.bg/item/budget-and-finance/ | XLS / ZIP / PDF | Varies | Monthly / quarterly | Script, municipality by municipality; on the site for Sofia, Plovdiv and Burgas (2024–2025 year-end) |
 | 18 | SEBRA daily totals (7806; 4225; 4224) | Day × spending unit × payment code | data.egov.bg uri 01293990-7330-49c6-92a2-cc73db73ec24 | CSV via API | May 2015–today | Daily | Script; 7806 on the site (2024 – June 2026) |
 | 19 | **SEBRA individual payments (20439)** | Each payment ≥ 5,000 lv: payee, IBAN, payer unit, code, purpose | data.egov.bg uri 57f1e2e7-b235-45e8-94c4-4d69f0b1a690 | CSV (ZIP for 2022–23) | 07.2022–06.2026 | Quarterly (~3–7 weeks after quarter end) | Script (ZIP too); on the site |
 | 20 | SEBRA history 2006–2022 | Same fields as row 19 | data.egov.bg 18232 (download broken); mirror register-sebra.acstre.com | ZIP / web grid | 06.2006–06.2022 | One-off | Official broken; mirror browser |
@@ -349,17 +365,17 @@ and caveats in `data/sources/projects/README.md`.
 | 22 | NHIF payments per hospital | Hospital × month, 3 series | nhif.bg/bg/hospitals/bmp/2026 | PDF (text) | 2015–Aug 2026 | Monthly | Script; on the site (2024–2026) |
 | 23 | NHIF medicine reports 1–7 | Product × diagnosis; hospital × product × diagnosis; by ATC/INN | nhif.bg/bg/nzok/medicine/1 | XLS | Jul 2020–Jul 2026 | Monthly (+ 2025 annual) | Script; 1 and 7 on the site (2021–2026) |
 | 24 | Ministry of Health hospital finances | 180 hospitals × ~25 indicators | mh.government.bg/bg/politiki/standart-za-finansovo-upravlenie-na-drzhavnite-lechebni-zavedeni/ | XLSX | Q2 2019–Q3 2025 | Quarterly (lagging) | Script; on the site (year ends, Q3 2025) |
-| 25 | Cost standards (РМС 497/2026) | Standards per school, class, pupil, child … | strategy.bg/download/1323211; minfin.bg/bg/96 | DOCX / PDF | 2026 | Yearly | Script (strategy) [S] |
+| 25 | Cost standards (РМС 497/2026) | Standards per school, class, pupil, child … | strategy.bg/download/1323211; minfin.bg/bg/96 | DOCX / PDF | 2026 | Yearly | Script (strategy); education on the site |
 | 26 | ИСУН open-data API | EU projects, beneficiaries, contracts, cumulative payments | 2020.eufunds.bg/api/v1.0/opendata | JSON | 2014–2026 | Live | Script with browser headers and long pauses (refuses after ~10 quick calls); projects on the site |
 | 27 | MoF EU-funds and Recovery Plan execution (18860, 4226, 18958) | Programme × fund; Recovery Plan investment | data.egov.bg (MoF org 103) | CSV | 2016/2023–2026 | Monthly | Script; on the site |
 | 28 | Kohesio | 48,706 Bulgarian cohesion projects (label, dates, EU and total budget) | kohesio.ec.europa.eu/api/projects | JSON / CSV (1,000 rows max) | 2014–2027 | Ongoing | Script for the listing; no beneficiary or ИСУН code; SPARQL 403 |
 | 29 | CAP beneficiaries (State Fund Agriculture) | Beneficiary × intervention × municipality (FY2024–25); beneficiary × measure × province (older) | seu.dfz.bg/seu/f?p=727:8110; older years on data.egov.bg org 56 | APEX form + CSV export / CSV | FY2015–2017, 2021–2025 | Yearly | Script; on the site |
 | 30 | Procurement OCDS (АОП) | Contract award: buyer, supplier ЕИК, CPV, value, amendments | www2.aop.bg/e-uslugi/otvoreni-danni-ot-rop/ → data.egov.bg org 502 | JSON (OCDS) | 1 Jan 2026– | Daily | Script; on the site |
 | 31 | Procurement yearly contracts (АОП) | Contracts and amendments | data.egov.bg org 502 | CSV | 2016–2023; 2024–2025 old register only | Yearly | Script; on the site |
-| 32 | TED API v3 | Above-threshold notices | api.ted.europa.eu/v3/notices/search | JSON | All years | Daily | Script; 2024–2025 award notices on the site |
+| 32 | TED API v3 | Above-threshold notices | api.ted.europa.eu/v3/notices/search | JSON | All years | Daily | Script; replaced on the site by row 35 (used to spot-check large contracts) |
 | 33 | FTS (European Commission) | Direct EU grants and contracts to Bulgarian recipients | ec.europa.eu/budget/financial-transparency-system/ | CSV / XLSX | 2007–2025 | Yearly | Script [S] |
 | 34 | Eurostat gov_10a_exp | COFOG level II × transaction × subsector | Eurostat API | JSON-stat | 1995–2024 | Yearly | Script; on the site (2024, without the subsector split) |
-| 35 | ЦАИС ЕОП JSON open data | Procedures, contracts, amendments | app.eop.bg/today/reporting/open-data | JSON | 2020– (per the AOP rules) | Daily | JavaScript app; not explored |
+| 35 | ЦАИС ЕОП JSON open data | Procedures, contracts, amendments: one file a day each | storage.eop.bg/open-data-<date>/… (linked from app.eop.bg/today/reporting/open-data) | JSON | 1 Jan 2020 – yesterday | Daily | Script (static files); on the site (contracts 2024–2025, amendments 2024–2026) |
 
 **Access notes.**
 - **minfin.bg:** scripts get HTTP 403 from Cloudflare. A normal browser first sees a "Verify you are human" check; once it cleared in the browser session, all pages and files opened.
@@ -381,14 +397,17 @@ and caveats in `data/sources/projects/README.md`.
    - Refresh: run `scripts/extract/capital_projects.py` after downloading a new ipop.mrrb.bg export (the register changes daily); add the 2027 annex when the 2027 budget is adopted. Not done: English names for the ~400 national projects (optional), and municipalities' own capital lists (e.g. Sofia's ~1,390 rows).
 3. **"Who gets paid": SEBRA individual payments — done (October 2026).**
    - All quarterly files and the 2022–23 ZIP (07.2022–06.2026, 1.8 million payments) are aggregated by
-     `scripts/extract/sebra.ts` into `data/sources/sebra/` (10.0 MB) and shown as five lists: the largest payees of
+     `scripts/extract/sebra.ts` into `data/sources/sebra/` (11.5 MB) and shown as five lists: the largest payees of
      each payer system by year and quarter (linked from every ministry of "Ministries 2024–2026" through SEBRA code × 100
-     = ЕБК code, and from Sofia), of each paying unit, a search of all 65,588 payees with a page of who paid each, every
-     payment of €1 m or more, and the totals by payment code against the daily SEBRA totals.
-   - Payee spellings are grouped by account (never shown) and by name; natural persons and sole traders are one group
-     without names or purposes — since October 2026 by the rules of the EU-funds lists (`scripts/extract/persons.py`),
-     which moved 6,944 payees named before (5,644 sole traders, 1,300 person-like names; €1.25 bn) into the group, now
-     €4.31 bn; payments to the public sector (municipalities, NOI, NHIF, budget bodies) are classified and hidden until chosen.
+     = ЕБК code, and from Sofia; the list opens on the payers and loads one at a time), of each paying unit, a search of
+     all 71,187 payees with a page of who paid each, every payment of €1 m or more, and the totals by payment code
+     against the daily SEBRA totals.
+   - Payee spellings are grouped by account (never shown) and by name; natural persons — and names that are a person's,
+     by the shared rule of `scripts/extract/persons.py` — are one group without names or purposes (362,047 payments,
+     €3.24 bn); sole traders are named, as the published data names them (the rule's `--name-sole-traders` option; from
+     October 2026 they had been hidden like persons, and since 6 October 2026 5,668 payees with €1.06 bn are named
+     again), while the EU-funds, farm-subsidy and procurement lists keep the strict rule; payments to the public sector
+     (municipalities, NOI, NHIF, budget bodies) are classified and hidden until chosen.
    - Refresh each quarter: `node scripts/extract/sebra-download.ts --daily`, then the extractor and `npm run data`.
    - Not done: the 2006–2022 history (official ZIP broken, mirror unofficial); the SEBRA series of other bodies (NHIF,
      Ministry of Education, Sofia); links from each municipality to the transfers it received (payees "ОБЩИНА …" of
@@ -422,25 +441,47 @@ and caveats in `data/sources/projects/README.md`.
 
 6. **Public procurement — done (October 2026).**
    - "Lists" › "Public procurement" (`data/sources/procurement/README.md`): the Public Procurement Agency's yearly
-     contract files 2016–2025 (old register and ЦАИС ЕОП, with the amendments) and the OCDS releases of 1 Jan – 30 Sep
-     2026 (deduplicated to one row per contract: 30,727, 26,719 from 2026 award notices) — 239,431 contracts, €58.5 bn
-     excluding VAT; every 2026 contract and those of €1 m or more of 2016–2023 one by one; totals by CPV division; all
-     20,755 suppliers with their buyers by year (linked to their SEBRA payee by exact name; with the number and value
-     of their EU projects, matched by ЕИК); all 3,737 buyers with their suppliers by year, linked from 45 ministries
-     and agencies (43 in 2026) and 262 municipalities
-     (register `buyer-nodes.csv`); TED's 33,408 award notices of 2024–2025 as a separate, partial list.
+     contract files 2016–2023 (old register and ЦАИС ЕОП, with the amendments), ЦАИС ЕОП's own JSON open data for
+     2024–2025 (76,267 contracts, with the amendments published to 30.09.2026) and the OCDS releases of 1 Jan – 30 Sep
+     2026 — 314,989 contracts, €81.1 bn excluding VAT, each once (a contract the OCDS feed knows only from a 2026
+     amendment is counted in its own year); every 2026 contract, those of €100,000 or more of 2024–2025 and those of
+     €1 m or more of 2016–2023 one by one; totals by CPV division for 2024–2026; all 22,539 suppliers with their buyers
+     by year (offered by the value of their contracts; linked to their SEBRA payee by exact name; with the number and
+     value of their EU projects, matched by ЕИК); all 4,565 buyers with their suppliers by year, linked from 45
+     ministries and agencies (43 in 2026) and 262 municipalities (register `buyer-nodes.csv`). TED's award notices,
+     the stopgap for 2024–2025, are no longer shown.
    - Checked: every file's rows and sums against an independent recount; 2023 against the Agency's market report
-     (35,343 contracts, value within 0.001% once a 165 m leva entry error the report also drops is set aside); two value
-     errors are left out of the totals; natural persons and sole traders never named.
-   - Refresh: `python3 scripts/extract/procurement.py --download` (new OCDS days), then without `--download`, and
-     `npm run data`.
-   - Not done: ЦАИС ЕОП's JSON open data (app.eop.bg/today/reporting/open-data, since 29.06.2026, by the Agency's rules
-     from 2020 on) would fill 2024–2025 at contract level — a JavaScript application, not explored; contracts outside
-     the Public Procurement Act; the EU beneficiaries' contracts in ИСУН; payments under contracts (not published).
+     (35,343 contracts, value within 0.001% once a 165 m leva entry error the report also drops is set aside); 2024 and
+     2025 month by month against the Agency's reports (−26 and −8 contracts, −0.06% and −0.01% of the value, each
+     difference explained); five large contracts against TED; two value errors are left out of the totals; natural
+     persons and sole traders never named.
+   - Refresh: `python3 scripts/extract/procurement.py --download` (new OCDS days and JSON days), then without
+     `--download`, and `npm run data`.
+   - Not done: every contract of 2024–2025 one by one (with their copies by CPV category they would add some 28 MB to
+     the site; those under €100,000 count only in the totals and pages); 2020–2023 from the JSON files (the yearly files
+     are kept: they match the Agency's reports); contracts outside the Public Procurement Act (the JSON files flag
+     them); the EU beneficiaries' contracts in ИСУН; payments under contracts (not published).
+
+7. **The big cities by ЕБК activity — done (October 2026).**
+   - "Big cities 2024 / 2025" (`data/sources/cities/README.md`): Sofia, Plovdiv and Burgas — budget plus the
+     accounts for EU funds, €1.99 bn (2024) and €2.33 bn (2025) — city → function → activity → kind of spending →
+     paragraph, from each city's year-end B3/IB3 forms; each city links to its transfers in "Municipalities" and back.
+     "Lists" › "City budgets": Plovdiv's allocation to each school and kindergarten by formula component (2024–2026)
+     and the 75 education cost standards of 2026.
+   - Checked: every block, paragraph, recapitulation and printed total of the 30 reports (to the lev); Sofia's 2025
+     totals and paragraphs against its annual report to the council, Burgas's state and local totals against its own;
+     four activities against the sheets; the schools' formulas row by row and sheet by sheet; the standards against the
+     act's art. 52.
+   - Refresh: `python3 scripts/extract/city_budgets.py --download` with the next year's URLs, then without it, and
+     `npm run data`. The 2026 plan can follow once a report carries the adopted budget (the September reports, due mid
+     October 2026).
+   - Not done: other municipalities (Varna publishes only PDF; others would each need their URLs); the 2026 adopted
+     plans (PDF only); Sofia's capital programme (~1,390 rows) and other cities' per-school data; the cost standards of
+     the other delegated functions; links from the city nodes to the lists that link municipalities (EU projects,
+     procurement, hospitals) — they are reached from the city's node in "Municipalities".
 
 Smaller items:
 - Eurostat subsector split (central / local / social security): about half a day.
-- Municipal activity-level data for 2–3 big cities (Sofia, Burgas, Plovdiv) from the B1/B3 OTCHET sheets: 3–4 days. National coverage is not feasible without central data.
 
 ---
 
@@ -451,9 +492,8 @@ Smaller items:
   - NHIF payments per GP, specialist or pharmacy;
   - an Academy of Sciences breakdown by institute;
   - a NAMRB data portal;
-  - procurement contracts of 2024–2025 on data.egov.bg, other than the old register's last 186 (the Agency's reports
-    give the totals: 36,212 contracts, 21.6 bn leva in 2024; 40,089, 23.3 bn leva in 2025), and TED for large ones;
-    ЦАИС ЕОП's own JSON open data may hold them;
+  - procurement contracts of 2024–2025 on data.egov.bg, other than the old register's last 186 — ЦАИС ЕОП publishes
+    them only on its own storage (JSON, since June 2026; on the site);
   - payment-level data for municipalities other than Sofia (and Търговище's own lists).
 - **Broken:** the official 2006–2022 SEBRA ZIP (data.egov.bg 18232). The only working copy found is a third-party mirror.
 - **UNVERIFIED:**
@@ -462,4 +502,4 @@ Smaller items:
   - an Excel export in ИСУН's web pages;
   - the OECD per-municipality files;
   - NOI/ДОО execution data (not researched).
-- **Checked only by sub-agents ([S] in the text):** the health activity counts, education (except universities), municipal details (the hospital payments, medicine reports and Ministry of Health hospital finances, the EU-funds and CAP sources of §2.6 and the procurement sources of §2.7 were checked in October 2026). Spot-checks of key URLs (nhif.bg, mh.government.bg, ipop.mrrb.bg, www2.aop.bg, seu.dfz.bg) returned HTTP 200 on 4 Oct 2026.
+- **Checked only by sub-agents ([S] in the text):** the health activity counts, schools' own budgets, municipal details other than the big cities' reports, Plovdiv's school allocations and the cost standards (checked in October 2026; so were the hospital payments, medicine reports and Ministry of Health hospital finances, the EU-funds and CAP sources of §2.6 and the procurement sources of §2.7 were checked in October 2026). Spot-checks of key URLs (nhif.bg, mh.government.bg, ipop.mrrb.bg, www2.aop.bg, seu.dfz.bg) returned HTTP 200 on 4 Oct 2026.

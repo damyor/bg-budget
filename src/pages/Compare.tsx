@@ -69,12 +69,16 @@ const FAMILY_NOTES: Record<Lang, Partial<Record<DatasetFamily, string>>> = {
       'Сравняват се категориите, които съществуват във всички версии (функциите и подфункциите на консолидираната фискална програма). По-подробните нива — отделните фондове, общини и бюджети — са в „Разходи“.',
     municipalities:
       '„Общини“ съдържа само трансферите от централния бюджет по Закона за държавния бюджет за всяка година; собствените приходи и европейските средства на общините не са включени.',
+    cities:
+      '„Големите градове“ са целите бюджети на София, Пловдив и Бургас (собствени приходи, държавни трансфери и европейски средства) по годишните отчети на общините, затова не се сравняват с „Общини“. Дейностите и параграфите са по Единната бюджетна класификация и са едни и същи всяка година.',
   },
   en: {
     functions:
       'The categories compared are those that exist in every version (functions and sub-functions of the consolidated fiscal programme). Deeper levels — individual funds, municipalities and budgets — are under “Spending”.',
     municipalities:
       '“Municipalities” holds only the transfers from the central budget under each year’s State Budget Act; municipalities’ own revenue and EU funds are not included.',
+    cities:
+      '“Big cities” are the whole budgets of Sofia, Plovdiv and Burgas (own revenue, state transfers and EU funds) from the municipalities’ year-end reports, so they do not compare with “Municipalities”. Activities and paragraphs follow the Unified Budget Classification and are the same every year.',
   },
 }
 

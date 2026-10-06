@@ -2,9 +2,9 @@
 // computes the totals, splits large lists into shards, and writes the index with
 // the tree nodes that link to each list. The format is in src/lib/types.ts (ListFile).
 
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { ALL, bucketOf, matchingRows, packShard, refNumber, resolveRef, shardsToLoad, totalsOf, type Filters } from '../../src/lib/listData.ts'
-import type { BudgetNode, Dataset, DatasetLinks, ListCell, ListColumn, ListFile, ListIndex, ListMeta, LocalizedText } from '../../src/lib/types.ts'
+import type { BudgetNode, Dataset, DatasetLinks, ListCell, ListColumn, ListFile, ListIndex, ListMeta, ListShardFile, ListShardInfo, LocalizedText, NodeLink } from '../../src/lib/types.ts'
 
 /** A list as a builder makes it: everything but the computed count, totals and file names. */
 export interface ListSpec extends Omit<ListMeta, 'count' | 'totals' | 'file'>, Pick<ListFile, 'titleColumn' | 'rowLink'> {
@@ -17,8 +17,8 @@ export interface ListSpec extends Omit<ListMeta, 'count' | 'totals' | 'file'>, P
   shardHash?: number
   /** A search of at least this many letters loads every shard (see ListShards.search). */
   shardSearch?: number
-  /** A filter on one of these columns loads every shard (see ListShards.filters). */
-  shardFilters?: string[]
+  /** Split the rows again by these filter columns, so that a filter on one loads one file (see ListShards.also). */
+  shardAlso?: string[]
   /** A value of the shard column has to be chosen first, however small the list (see ListShards.choose). */
   shardChoose?: boolean
 }
@@ -141,7 +141,19 @@ export function checkList(spec: ListSpec, datasets: Dataset[]): string[] {
   }
   if (spec.shardBy && !spec.shardHash && !spec.columns.some((c) => c.id === spec.shardBy && c.filter)) problems.push(`${where}: shard column ${spec.shardBy} is not a filter`)
   if (spec.shardHash && spec.shardBy !== spec.key) problems.push(`${where}: a list split by a hash must be split by its key`)
-  for (const id of spec.shardFilters ?? []) if (!spec.columns.some((c) => c.id === id && c.filter)) problems.push(`${where}: shard filter ${id} is not a filter column`)
+  for (const id of spec.shardAlso ?? []) {
+    if (!spec.shardBy || id === spec.shardBy) problems.push(`${where}: rows split again by ${id} need another shard column`)
+    if (!spec.columns.some((c) => c.id === id && c.filter && (c.type === 'category' || c.type === 'node'))) problems.push(`${where}: rows split again by ${id}, not a category or node filter`)
+  }
+  for (const column of spec.columns.filter((c) => c.shardLabels)) {
+    // Their names arrive with the rows: a filter's menu, the values a list offers to choose from and those left out by
+    // default need them before.
+    const offered = (!spec.shardHash && column.id === spec.shardBy) || spec.shardAlso?.includes(column.id)
+    if (!['node', 'category', 'breakdown'].includes(column.type) || column.filter || column.exclude || offered || !spec.shardBy) {
+      problems.push(`${where}: ${column.id} cannot have its names in the shards`)
+    }
+  }
+  for (const column of spec.columns.filter((c) => c.ordered && (c.type !== 'category' || !c.labels))) problems.push(`${where}: ${column.id} is ordered but not a category with names`)
   if (spec.titleColumn && !spec.columns.some((c) => c.id === spec.titleColumn)) problems.push(`${where}: no title column ${spec.titleColumn}`)
   if (spec.rowLink && !spec.columns.some((c) => c.id === spec.rowLink!.column)) problems.push(`${where}: no row link column ${spec.rowLink.column}`)
   for (const column of spec.columns.filter((c) => c.link)) {
@@ -171,44 +183,81 @@ export function nodeLabels(dataset: Dataset, ids: Iterable<string>): Record<stri
 
 const fileName = (value: string) => value.replace(/[^a-z0-9-]+/gi, '_')
 
-/** The list file and, when it is split, its shards (path relative to the lists folder → content). */
+/**
+ * The list file and, when it is split, its shards (path relative to the lists folder → content): by the shard column
+ * (lists/<list>/<value>.json), and again by each of `shardAlso` (lists/<list>/<column>/<value>.json). When it is split,
+ * the names of the columns that have theirs in the shards (ListColumn.shardLabels) leave the list file.
+ */
 export function finishList(spec: ListSpec, shardAbove = SHARD_ABOVE): { file: ListFile; shards: Map<string, ListCell[][]> } {
-  const { rows, shardBy, shardHash, shardSearch, shardFilters, shardChoose, ...rest } = spec
+  const { rows, shardBy, shardHash, shardSearch, shardAlso, shardChoose, ...rest } = spec
   const meta = { ...rest, count: rows.length, totals: totalsOf(spec.columns, rows), file: `lists/${spec.id}.json` }
   const shards = new Map<string, ListCell[][]>()
-  if (!shardBy || (!shardHash && JSON.stringify(rows).length <= shardAbove)) return { file: { ...meta, rows }, shards }
-  const index = spec.columns.findIndex((c) => c.id === shardBy)
-  const groups = new Map<string, ListCell[][]>()
-  for (const row of rows) {
-    const cell = String(row[index])
-    const value = shardHash ? String(bucketOf(cell, shardHash)) : spec.columns[index].type === 'date' ? cell.slice(0, 4) : cell
-    const group = groups.get(value)
-    if (group) group.push(row)
-    else groups.set(value, [row])
+  // A list that waits for a value is split however small it is (ListShards.choose); others only when they are large.
+  if (!shardBy || (!shardHash && !shardChoose && JSON.stringify(rows).length <= shardAbove)) return { file: { ...meta, rows }, shards }
+  // What each file offers before it loads (ListShardInfo): the rows the list shows by default and their totals.
+  const shown = rowFilter(spec.columns)
+  // The shard column holds every row; a column the rows are split by again, only those with a value in it.
+  const split = (by: string, folder: string, hash?: number): ListShardInfo[] => {
+    const index = spec.columns.findIndex((c) => c.id === by)
+    const groups = new Map<string, ListCell[][]>()
+    for (const row of rows) {
+      if (folder && (row[index] === null || row[index] === '')) continue
+      const cell = String(row[index])
+      const value = hash ? String(bucketOf(cell, hash)) : spec.columns[index].type === 'date' ? cell.slice(0, 4) : cell
+      const group = groups.get(value)
+      if (group) group.push(row)
+      else groups.set(value, [row])
+    }
+    return [...groups]
+      .sort((a, b) => a[0].localeCompare(b[0], 'en', { numeric: true }))
+      .map(([value, part]) => {
+        const file = `lists/${spec.id}/${folder}${fileName(value)}.json`
+        shards.set(file, part)
+        const visible = part.filter(shown)
+        return { value, file, count: visible.length, totals: totalsOf(spec.columns, visible) }
+      })
   }
-  const files = [...groups]
-    .sort((a, b) => a[0].localeCompare(b[0], 'en', { numeric: true }))
-    .map(([value, part]) => {
-      const file = `lists/${spec.id}/${fileName(value)}.json`
-      shards.set(file, part)
-      return { value, file, count: part.length, totals: totalsOf(spec.columns, part) }
-    })
-  const split = {
+  const files = split(shardBy, '', shardHash)
+  const also = (shardAlso ?? []).map((by) => ({ by, files: split(by, `${by}/`) }))
+  // The names that come with the shards are not in the list file.
+  const columns = spec.columns.map((c) => {
+    if (!c.shardLabels) return c
+    const { labels: _names, ...column } = c
+    return column
+  })
+  const sharded = {
     by: shardBy,
     ...(shardHash ? { hash: shardHash } : {}),
     ...(shardSearch ? { search: shardSearch } : {}),
-    ...(shardFilters?.length ? { filters: shardFilters } : {}),
     ...(shardChoose ? { choose: true } : {}),
     files,
+    ...(also.length ? { also } : {}),
   }
-  return { file: { ...meta, shards: split }, shards }
+  return { file: { ...meta, columns, shards: sharded }, shards }
+}
+
+/**
+ * A shard file as written (see packShard): with the column its value belongs to when that is not the list's shard
+ * column, and the names of its values of the columns that have theirs in the shards (ListColumn.shardLabels).
+ */
+export function shardFile(spec: ListSpec, file: ListFile, path: string, rows: ListCell[][]): ListShardFile {
+  const also = file.shards?.also?.find((a) => a.files.some((f) => f.file === path))
+  const by = also?.by ?? (file.shards?.hash ? undefined : file.shards?.by)
+  const packed = packShard(spec.columns, rows, by)
+  const labels: NonNullable<ListShardFile['labels']> = {}
+  spec.columns.forEach((column, i) => {
+    if (!column.shardLabels) return
+    const used = new Set(rows.flatMap((row) => (column.type === 'breakdown' ? ((row[i] as (string | number)[][] | null) ?? []).map((part) => String(part[0])) : typeof row[i] === 'string' ? [row[i] as string] : [])))
+    labels[column.id] = Object.fromEntries([...used].sort().map((value) => [value, column.labels![value]]))
+  })
+  return { ...packed, ...(also && packed.value !== undefined ? { by: also.by } : {}), ...(Object.keys(labels).length ? { labels } : {}) }
 }
 
 /**
  * For each tree link of a list: node id → [rows, total of the link's value], over the rows the link's
  * filters keep (and that the list shows by default); with `nodes`, also each node's value of the column.
  */
-export function nodeLinks(spec: ListSpec): ListIndex['links'] {
+export function nodeLinks(spec: ListSpec): NodeLink[] {
   return (spec.links ?? []).map(({ nodes: map, ...link }) => {
     const nodes: Record<string, [number, number]> = {}
     const values: Record<string, string> = {}
@@ -231,8 +280,8 @@ export function nodeLinks(spec: ListSpec): ListIndex['links'] {
 }
 
 /** The links of one dataset's tree nodes to lists (public/data/lists/links/<dataset>.json), or null when it has none. */
-export function datasetLinks(index: ListIndex, dataset: Pick<Dataset, 'family' | 'year' | 'stage'>): DatasetLinks | null {
-  const links = index.links.filter(
+export function datasetLinks(index: ListIndex, all: NodeLink[], dataset: Pick<Dataset, 'family' | 'year' | 'stage'>): DatasetLinks | null {
+  const links = all.filter(
     (l) => l.family === dataset.family && l.years.includes(dataset.year) && (!l.stages || l.stages.includes(dataset.stage)) && Object.keys(l.nodes).length > 0,
   )
   if (!links.length) return null
@@ -240,11 +289,24 @@ export function datasetLinks(index: ListIndex, dataset: Pick<Dataset, 'family' |
   return { lists, links }
 }
 
+/** Every link from tree nodes to lists, read back from the datasets' links files (lists/links/*.json), each once. */
+export function readNodeLinks(outDir: URL): NodeLink[] {
+  const dir = new URL('lists/links/', outDir)
+  const links = new Map<string, NodeLink>()
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.json')).sort()) {
+    for (const link of (JSON.parse(readFileSync(new URL(file, dir), 'utf8')) as DatasetLinks).links) links.set(JSON.stringify(link), link)
+  }
+  return [...links.values()]
+}
+
 /** A list as written: its file and, when it is split, the rows of each shard file. */
 export type WrittenList = ReturnType<typeof finishList>
 
-/** Writes every list and public/data/lists/index.json; returns the index and the lists as written. */
-export function writeLists(outDir: URL, groups: ListGroup[], specs: ListSpec[]): { index: ListIndex; written: WrittenList[] } {
+/**
+ * Writes every list and public/data/lists/index.json; returns the index, the links from tree nodes (written per
+ * dataset by the caller, see datasetLinks) and the lists as written.
+ */
+export function writeLists(outDir: URL, groups: ListGroup[], specs: ListSpec[]): { index: ListIndex; links: NodeLink[]; written: WrittenList[] } {
   const dir = new URL('lists/', outDir)
   rmSync(dir, { recursive: true, force: true })
   mkdirSync(dir, { recursive: true })
@@ -256,15 +318,15 @@ export function writeLists(outDir: URL, groups: ListGroup[], specs: ListSpec[]):
     writeFileSync(new URL(file.file, outDir), JSON.stringify(file))
     for (const [path, rows] of shards) {
       mkdirSync(new URL('.', new URL(path, outDir)), { recursive: true })
-      writeFileSync(new URL(path, outDir), JSON.stringify(packShard(spec.columns, rows, file.shards?.hash ? undefined : file.shards?.by)))
+      writeFileSync(new URL(path, outDir), JSON.stringify(shardFile(spec, file, path, rows)))
     }
-    // The index carries what the picker and the page need before the rows load; the tree links are in `links`.
+    // The index carries what the picker and the page need before the rows load; the tree links go to each dataset's file.
     const { columns: _columns, key: _key, rows: _rows, shards: _shards, titleColumn: _title, rowLink: _rowLink, links: _links, ...meta } = file
     lists.push(meta)
   }
-  const index: ListIndex = { groups, lists, links: specs.flatMap(nodeLinks) }
+  const index: ListIndex = { groups, lists }
   writeFileSync(new URL('index.json', dir), JSON.stringify(index))
-  return { index, written }
+  return { index, links: specs.flatMap(nodeLinks), written }
 }
 
 /**
@@ -274,7 +336,7 @@ export function writeLists(outDir: URL, groups: ListGroup[], specs: ListSpec[]):
  *   (the cell links back to the dataset the viewer came from), and in the column's own dataset;
  * - every link from a row or a cell to another list (a payee's page, a contract's buyer …) finds rows there.
  */
-export function checkLinks(written: WrittenList[], index: ListIndex, datasets: Dataset[]): string[] {
+export function checkLinks(written: WrittenList[], links: NodeLink[], datasets: Dataset[]): string[] {
   const problems: string[] = []
   const lists = new Map(written.map((w) => [w.file.id, w]))
   const ids = new Map(datasets.map((d) => [d.id, nodeIds(d.root)]))
@@ -284,17 +346,18 @@ export function checkLinks(written: WrittenList[], index: ListIndex, datasets: D
     let rows = file.rows
     if (!rows) {
       const files = shardsToLoad(file.shards!, file.count, filters)
-      if (!files.length) return null
+      if (!files) return null
       rows = files.flatMap((f) => shards.get(f.file) ?? [])
     }
     return matchingRows(file.columns, rows, [], [], filters).length
   }
-  const allRows = (list: WrittenList) => list.file.rows ?? [...list.shards.values()].flat()
+  // Every row once: from the list file, or from the files of its shard column (the others hold some of them again).
+  const allRows = (list: WrittenList) => list.file.rows ?? list.file.shards!.files.flatMap((f) => list.shards.get(f.file) ?? [])
   const sample = (values: string[]) => `${values.slice(0, 5).join(', ')}${values.length > 5 ? ` … (${values.length})` : ''}`
 
   // Tree node → list.
   const origins = new Set<string>()
-  for (const link of index.links) {
+  for (const link of links) {
     const where = `link from ${link.family} ${link.years.join('/')} to ${link.list}`
     const list = lists.get(link.list)
     if (!list) {
@@ -317,8 +380,10 @@ export function checkLinks(written: WrittenList[], index: ListIndex, datasets: D
     const where = `list ${file.id}`
     // List row → tree node: in the column's dataset and in every dataset of its breakdown the viewer can come from.
     for (const column of file.columns.filter((c) => c.type === 'node' && !c.hidden)) {
+      const at = file.columns.indexOf(column)
+      const values = column.shardLabels ? [...new Set(allRows(list).flatMap((row) => (typeof row[at] === 'string' ? [row[at] as string] : [])))] : Object.keys(column.labels ?? {})
       for (const dataset of datasets.filter((d) => d.family === column.family && (d.id === column.dataset || origins.has(d.id)))) {
-        const missing = Object.keys(column.labels ?? {}).filter((id) => !ids.get(dataset.id)!.has(id))
+        const missing = values.filter((id) => !ids.get(dataset.id)!.has(id))
         if (missing.length) problems.push(`${where}: ${column.id} links to nodes missing from ${dataset.id}: ${sample(missing)}`)
       }
     }

@@ -9,8 +9,9 @@ Sources:
   amendments per year, 2016–2025 (from 2020 one pair from the old register, РОП, and one from the e-procurement
   platform, ЦАИС ЕОП; 2024 and 2025 only from РОП, i.e. the last procedures opened there), and the daily OCDS
   releases of the notices published in ЦАИС ЕОП since 1 January 2026;
-- TED, the EU's Tenders Electronic Daily (api.ted.europa.eu v3): the award notices of Bulgarian buyers published in
-  2024 and 2025 (contracts above the EU thresholds only), to cover in part the years the agency has not published.
+- ЦАИС ЕОП's own JSON open data (storage.eop.bg, linked from app.eop.bg/today/reporting/open-data): one file a day of
+  the contracts and one of the amendments published on the platform, since 2020 — the contracts of 2024 and 2025, and
+  the amendments of 2024 – 30.09.2026 (2023 and 2026 are read only to compare with the other sources).
 
 Writes data/sources/procurement/ (see its README). Natural persons and sole traders among suppliers are never
 written by name (persons.py, the rules of the EU-funds and farm-subsidy extracts).
@@ -42,17 +43,6 @@ TODAY = date.today().isoformat()
 EGOV = 'https://data.egov.bg/api/'
 EGOV_DOWNLOAD = 'https://data.egov.bg/resource/download/{uri}/{fmt}'
 AOP_ORG = 502
-TED = 'https://api.ted.europa.eu/v3/notices/search'
-TED_YEARS = (2024, 2025)
-# Result notices: the standard regime, social and other specific services, public transport, and modifications.
-TED_TYPES = 'can-standard can-social can-tran can-modif'
-TED_FIELDS = [
-    'publication-number', 'publication-date', 'notice-type', 'notice-identifier', 'notice-version', 'BT-758-notice', 'BT-140-notice',
-    'procedure-type', 'procedure-identifier', 'title-proc', 'contract-nature-main-proc', 'main-classification-proc', 'buyer-name',
-    'buyer-identifier', 'organisation-country-buyer', 'winner-name', 'winner-identifier', 'winner-country', 'result-lot-identifier',
-    'tender-identifier', 'tender-lot-identifier', 'tender-value', 'tender-value-cur', 'contract-identifier', 'contract-tender-id',
-    'contract-conclusion-date', 'BT-161-NoticeResult', 'BT-161-NoticeResult-Currency', 'total-value', 'total-value-cur',
-]
 PAUSE = 2
 
 
@@ -184,33 +174,63 @@ def download_egov():
         time.sleep(PAUSE)
 
 
-def download_ted():
-    os.makedirs(os.path.join(CACHE, 'ted'), exist_ok=True)
-    for year in TED_YEARS:
-        path = os.path.join(CACHE, 'ted', f'{year}.json.gz')
-        if os.path.exists(path):
-            continue
-        query = f'buyer-country=BGR AND notice-type IN ({TED_TYPES}) AND publication-date>={year}0101 AND publication-date<={year}1231'
-        notices, token, total = [], None, None
-        while True:
-            body = {'query': query, 'fields': TED_FIELDS, 'limit': 250, 'scope': 'ALL', 'paginationMode': 'ITERATION'}
-            if token:
-                body['iterationNextToken'] = token
-            page = post(TED, body, timeout=300)
-            total = page.get('totalNoticeCount', total)
-            for n in page['notices']:
-                n.pop('links', None)
-            notices += page['notices']
-            token = page.get('iterationNextToken')
-            print(f'  TED {year}: {len(notices)} of {total}', flush=True)
-            if not token or not page['notices']:
-                break
-            time.sleep(PAUSE)
-        if len(notices) != total:
-            raise SystemExit(f'procurement.py: TED {year}: {len(notices)} notices for {total} announced')
-        with gzip.open(path, 'wt', encoding='utf-8') as f:
-            json.dump({'query': query, 'fields': TED_FIELDS, 'retrieved': TODAY, 'totalNoticeCount': total, 'notices': notices}, f, ensure_ascii=False)
-        note(f'ted/{year}.json.gz', f'POST {TED} {{"query": "{query}", "scope": "ALL", "paginationMode": "ITERATION"}}', f'{total} notices')
+EOP_STORAGE = 'https://storage.eop.bg/open-data-{day}/{name}'
+EOP_NAMES = {'contracts': 'договори', 'annexes': 'анекси'}
+# ЦАИС ЕОП's own JSON open data (one file a day and kind since 2020, published since 29.06.2026): the contracts of 2024–2025
+# (and 2023 and 2026, published by the other sources too, to compare), and the amendments of 2024 – 30.09.2026.
+EOP_DAYS = {'contracts': (date(2023, 1, 1), date(2026, 9, 30)), 'annexes': (date(2024, 1, 1), date(2026, 9, 30))}
+
+
+def eop_url(kind, day):
+    """A day's file as the platform's open-data page links it (https://app.eop.bg/today/reporting/open-data)."""
+    from urllib.parse import quote
+    name = f'Автоматично генерирани данни за {EOP_NAMES[kind]}, публикувани в ЦАИС ЕОП на {day.strftime("%d.%m.%Y")}.json'
+    return EOP_STORAGE.format(day=day.isoformat(), name=quote(name))
+
+
+def download_eop():
+    """The daily JSON files of ЦАИС ЕОП (static files of the platform's storage), each fetched once into
+    data/cache/procurement/eop/<kind>/<day>.json.gz, with a line per file in eop/MANIFEST.tsv."""
+    from datetime import timedelta
+    manifest = os.path.join(CACHE, 'eop', 'MANIFEST.tsv')
+    os.makedirs(os.path.dirname(manifest), exist_ok=True)
+    if not os.path.exists(manifest):
+        with open(manifest, 'w', encoding='utf-8') as f:
+            f.write('file\turl\trecords\tbytes\tlast_modified\tretrieved\n')
+        note('eop/<kind>/<day>.json.gz', 'https://storage.eop.bg/open-data-<yyyy-mm-dd>/<name>.json (linked from https://app.eop.bg/today/reporting/open-data)',
+             'ЦАИС ЕОП JSON open data, one file a day and kind; every file with its URL in eop/MANIFEST.tsv')
+    session = requests.Session()
+    for kind, (first, last) in EOP_DAYS.items():
+        os.makedirs(os.path.join(CACHE, 'eop', kind), exist_ok=True)
+        day = first
+        while day <= last:
+            path = os.path.join(CACHE, 'eop', kind, f'{day.isoformat()}.json.gz')
+            if not os.path.exists(path):
+                url = eop_url(kind, day)
+                for attempt in range(1, 7):
+                    try:
+                        r = session.get(url, timeout=300)
+                        if r.status_code == 429 or r.status_code >= 500:
+                            raise RuntimeError(f'HTTP {r.status_code}')
+                        r.raise_for_status()
+                        records = len(r.json())
+                        break
+                    except Exception as e:  # noqa: BLE001 — retried, then raised
+                        if attempt == 6:
+                            raise
+                        print(f'  {kind} {day}: {e}; retrying in {20 * attempt} s', flush=True)
+                        time.sleep(20 * attempt)
+                with gzip.open(path + '.part', 'wb') as f:
+                    f.write(r.content)
+                os.replace(path + '.part', path)
+                with open(manifest, 'a', encoding='utf-8') as f:
+                    f.write(f'eop/{kind}/{day.isoformat()}.json.gz\t{url}\t{records}\t{len(r.content)}\t{r.headers.get("Last-Modified", "")}\t{TODAY}\n')
+                if day.day == 1:
+                    print(f'  ЦАИС ЕОП {kind} {day} … ({records} records)', flush=True)
+                # The storage announces a request budget (X-Ratelimit-*): slow down well before it runs out.
+                remaining = int(r.headers.get('X-Ratelimit-Remaining') or 1000)
+                time.sleep(1 if remaining > 100 else 30)
+            day += timedelta(days=1)
 
 
 # ---------- reading ----------
@@ -591,6 +611,200 @@ def read_yearly(parties, rates, files):
     return contracts, annex_total, annex_matched
 
 
+# ---------- ЦАИС ЕОП's JSON open data (2024–2025) ----------
+
+# The years the platform's own JSON files are the source of (the yearly files hold only the old register's contracts).
+EOP_YEARS = ('2024', '2025')
+YES = 'Да'
+
+# The procedures of the Public Procurement Act (ЗОП) as ЦАИС ЕОП names them → the ids the lists use (OCDS's where the
+# procedure is one of its; the names are in scripts/procurement.ts).
+ZOP_PROCEDURES = {
+    'Открита процедура': 'open',
+    'Ограничена процедура': 'restricted',
+    'Публично състезание': 'public-competition',
+    'Събиране на оферти с обява': 'collection',
+    'Покана до определени лица': 'invitation',
+    'Пряко договаряне': 'direct-negotiation',
+    'Договаряне без предварително обявление': 'neg-wo-call',
+    'Договаряне без предварителна покана за участие': 'neg-wo-invite',
+    'Договаряне с предварителна покана за участие': 'neg-w-invite',
+    'Договаряне с предварителна покана за участие по КС': 'neg-w-invite-qs',
+    'Договаряне без публикуване на обявление за поръчка': 'neg-wo-notice',
+    'Договаряне с публикуване на обявление за поръчка': 'neg-w-notice',
+    'Ограничена процедура по КС': 'restricted-qs',
+    'Състезателна процедура с договаряне': 'neg-w-call',
+    'Състезателен диалог': 'comp-dial',
+    'Партньорство за иновации': 'innovation',
+    'Конкурс за проект - открит': 'design-contest',
+    'Конкурс за проект - ограничен': 'design-contest',
+    'Вътрешен конкурентен избор по РС': 'mini-competition',
+    'Вътрешен конкурентен избор с ОП по РС': 'mini-competition',
+    'Квалификационна система': 'qualification-system',
+    'Динамична система за покупки': 'dps',
+    'Ограничена процедура по ДСП': 'dps',
+}
+
+
+def eop_files(kind, years):
+    """The cached daily files of a kind for these years: (day, records), in order."""
+    for path in sorted(glob.glob(os.path.join(CACHE, 'eop', kind, '*.json.gz'))):
+        day_ = os.path.basename(path)[:10]
+        if day_[:4] in years:
+            with gzip.open(path, 'rt', encoding='utf-8') as f:
+                yield day_, json.load(f)
+
+
+def eop_key(unp, number):
+    """A contract of ЦАИС ЕОП: its procurement number (УНП) and the platform's contract number (the same number in the
+    yearly files' "номер на договор", the JSON's contractNumber and OCDS's contract id)."""
+    return (unquote(str(unp or '')), unquote(str(number or '')))
+
+
+def read_eop_annexes(files):
+    """The amendments published in ЦАИС ЕОП from 2024 to 30.09.2026, by contract: [(published, value after, currency)]."""
+    out = defaultdict(list)
+    seen = set()
+    per_year = defaultdict(Counter)
+    for day_, records in eop_files('annexes', ('2024', '2025', '2026')):
+        for r in records:
+            if (r['noticeId'], r['contractNumber']) in seen:
+                per_year[day_[:4]]['repeated'] += 1
+                continue
+            seen.add((r['noticeId'], r['contractNumber']))
+            out[eop_key(r['uniqueProcurementNumber'], r['contractNumber'])].append(
+                (day(r['publicationDate']) or day_, amount(r['currentContractValue']), (r['contractCurrency'] or '').upper()))
+            per_year[day_[:4]]['rows'] += 1
+    for year, c in sorted(per_year.items()):
+        files.append({'file': f'eop/annexes/{year}-*.json.gz', 'year': year, 'source': 'json', 'kind': 'annexes', 'rows': c['rows'] + c['repeated'], 'kept': c['rows']})
+    return out
+
+
+def amend(contract, amendments, rates):
+    """Adds amendments [(published, value after, currency)] to a contract: their count, the value after the latest one."""
+    if not amendments:
+        return
+    last = max(amendments, key=lambda a: a[0])
+    contract['amendments'] += len(amendments)
+    if not contract['amended'] or last[0] >= contract['amended']:
+        contract['amended'] = last[0]
+        if last[1] is not None:
+            contract['value_after_eur'] = rates.euro(last[1], last[2] or contract['currency'], last[0])
+
+
+def eop_contract(r, day_, parties, rates):
+    """One contract of a daily file as the extract's row (see read_yearly), or None for a lot not awarded."""
+    procedure = (r.get('procedureType') or '').strip()
+    if procedure and procedure not in ZOP_PROCEDURES:
+        fail(f'ЦАИС ЕОП {day_}: unknown procedure {procedure!r} (add it to ZOP_PROCEDURES and its name to scripts/procurement.ts)')
+    ids = [x for x in re.split(r'\s*;\s*', r.get('supplierRegisterNumber') or '') if x.strip()]
+    names = [x for x in re.split(r'\s*;\s*', r.get('supplierName') or '') if x.strip()]
+    nuts = [x for x in re.split(r'\s*;\s*', r.get('supplierNutsCode') or '') if x.strip()]
+    countries = ['BGR' if n.upper().startswith('BG') else n[:2].upper() for n in nuts] if len(nuts) == len(names) else []
+    key, kind = parties.supplier(ids, names, countries)
+    buyer_ids = [clean_eik(b, 'Б') for b in re.split(r'\s*;\s*', r.get('buyerRegistryNumber') or '') if b.strip()]
+    buyer_names = [b for b in re.split(r'\s*;\s*', r.get('buyerName') or '') if b.strip()]
+    currency = (r.get('contractCurrency') or '').upper()
+    value = amount(r.get('contractValue'))
+    signed = day(r.get('contractDate'))
+    published = day(r['publicationDate'])
+    number = unquote(str(r.get('contractNumber') or ''))
+    offers = r.get('offersCount')
+    return {
+        'id': f'j{r["noticeId"]}-{number or "l" + re.sub(r"[^0-9A-Za-z]+", "", str(r.get("lotIdentifier") or "0"))}', 'source': 'json',
+        'year': published[:4], 'published': published, 'signed': signed,
+        'procurement': unquote(r.get('uniqueProcurementNumber') or ''), 'notice': str(r['noticeId']), 'tender': str(r['tenderId']), 'contract_no': number,
+        'buyer': buyer_ids[0] if buyer_ids else '', 'buyer_name': mask(buyer_names[0]) if buyer_names else '', 'buyers': len(buyer_ids),
+        'supplier': key, 'supplier_kind': kind,
+        'subject': mask(r.get('contractSubject') or r.get('tenderName') or ''),
+        'object': OBJECTS.get((r.get('typeOfContract') or '').lower().strip(), ''),
+        'cpv': re.sub(r'\D', '', r.get('tenderMainCpv') or '')[:8], 'procedure': ZOP_PROCEDURES.get(procedure, ''),
+        'eu': '1' if r.get('isEuFunded') == YES else '0' if r.get('isEuFunded') == 'Не' else '',
+        'offers': str(offers) if isinstance(offers, int) or str(offers or '').isdigit() else '',
+        'currency': currency, 'value': value, 'vat': '', 'value_eur': rates.euro(value, currency, signed or published) if currency else None,
+        'amendments': 0, 'value_after_eur': None, 'amended': '', 'basis': 'award',
+    }
+
+
+def read_eop(parties, rates, files, annexes):
+    """The contracts published in ЦАИС ЕОП in 2024 and 2025, from its daily JSON files: every contract of an award
+    notice, without the lots not awarded and the contracts outside the scope of the Public Procurement Act (as the
+    yearly files of 2020–2023 leave them out), each once."""
+    contracts = []
+    seen = {}
+    for year in EOP_YEARS:
+        parties.year = year
+        counts = Counter()
+        sums = Counter()
+        for day_, records in eop_files('contracts', (year,)):
+            for r in records:
+                counts['rows'] += 1
+                if r.get('noAwarding') == YES:
+                    counts['not awarded'] += 1
+                    continue
+                if r.get('isExceptionContract') == YES:
+                    counts['outside the Act'] += 1
+                    continue
+                if day(r['publicationDate']) != day_:
+                    fail(f'ЦАИС ЕОП {day_}: a contract published on {r["publicationDate"]}')
+                key = (r['tenderId'], r.get('contractNumber')) if r.get('contractNumber') else (r['noticeId'], r.get('lotIdentifier'), r.get('supplierRegisterNumber'))
+                if key in seen:
+                    counts['repeated'] += 1
+                    continue
+                c = eop_contract(r, day_, parties, rates)
+                seen[key] = c
+                amend(c, annexes.get(eop_key(c['procurement'], c['contract_no']), []), rates)
+                if c['currency']:
+                    sums[c['currency']] += c['value'] or 0
+                sums['EUR total'] += c['value_eur'] or 0
+                contracts.append(c)
+                counts['kept'] += 1
+        files.append({'file': f'eop/contracts/{year}-*.json.gz', 'year': year, 'source': 'json', 'kind': 'contracts', 'rows': counts['rows'], 'kept': counts['kept'],
+                      **{f'sum_{c}': money(v) for c, v in sums.items()}})
+        print(f'  ЦАИС ЕОП {year}: {counts["rows"]} records, {counts["kept"]} contracts; left out: {counts["not awarded"]} lots not awarded, '
+              f'{counts["outside the Act"]} contracts outside the Act, {counts["repeated"]} repeated')
+    ids = Counter(c['id'] for c in contracts)
+    if any(n > 1 for n in ids.values()):
+        fail(f'ЦАИС ЕОП: contract ids repeated: {[i for i, n in ids.items() if n > 1][:5]}')
+    return contracts
+
+
+def compare_eop(yearly, ocds):
+    """Where the JSON files overlap the other sources (2023: the yearly file of ЦАИС ЕОП; 2026: OCDS), how many contracts
+    each has and how they match — printed for the README. The JSON files of those years are not used otherwise."""
+    out = {}
+    for year, other, key_other in (
+        ('2023', [c for c in yearly if c['year'] == '2023' and c['source'] == 'eop'], lambda c: (c['notice'], c['contract_no'])),
+        ('2026', [c for c in ocds if c['basis'] == 'award'], lambda c: (c['procurement'].rsplit('-', 1)[-1], c['contract_no'])),
+    ):
+        mine = {}
+        excluded = Counter()
+        for _, records in eop_files('contracts', (year,)):
+            for r in records:
+                if r.get('noAwarding') == YES:
+                    continue
+                if r.get('isExceptionContract') == YES:
+                    excluded['n'] += 1
+                    excluded[(r.get('contractCurrency') or '').upper()] += amount(r.get('contractValue')) or 0
+                    continue
+                k = (str(r['noticeId']), str(r.get('contractNumber') or '')) if year == '2023' else (str(r['tenderId']), str(r.get('contractNumber') or ''))
+                mine[k] = r
+        theirs = {key_other(c): c for c in other}
+        both = set(mine) & set(theirs)
+        bgn = lambda rs: sum((amount(r.get('contractValue')) or 0) for r in rs if (r.get('contractCurrency') or '').upper() == 'BGN')
+        eur = lambda rs: sum((amount(r.get('contractValue')) or 0) for r in rs if (r.get('contractCurrency') or '').upper() == 'EUR')
+        out[year] = {
+            'json': len(mine), 'other': len(theirs), 'both': len(both), 'json only': len(set(mine) - set(theirs)), 'other only': len(set(theirs) - set(mine)),
+            'json BGN': bgn(mine.values()), 'json EUR': eur(mine.values()),
+            'other BGN': sum((c['value'] or 0) for c in theirs.values() if c['currency'] == 'BGN'),
+            'other EUR': sum((c['value'] or 0) for c in theirs.values() if c['currency'] == 'EUR'),
+            'same value': sum(1 for k in both if amount(mine[k].get('contractValue')) == theirs[k]['value']),
+            'outside the Act': excluded['n'], 'outside the Act BGN': excluded['BGN'], 'outside the Act EUR': excluded['EUR'],
+        }
+        print(f'  ЦАИС ЕОП JSON vs {"the yearly file" if year == "2023" else "OCDS"}, {year}: ' + ', '.join(f'{k} {v:,.2f}' if isinstance(v, Decimal) else f'{k} {v:,}' for k, v in out[year].items()))
+    return out
+
+
 # ---------- OCDS 2026 (ЦАИС ЕОП, data.egov.bg) ----------
 
 def read_ocds(parties, rates, files):
@@ -667,73 +881,13 @@ def read_ocds(parties, rates, files):
     return contracts
 
 
-# ---------- TED 2024–2025 ----------
-
-TED_PROCEDURES = {'open', 'restricted', 'neg-wo-call', 'neg-w-call', 'comp-dial', 'innovation', 'comp-tend', 'oth-single', 'oth-mult'}
-
-
-def read_ted(parties, rates, files):
-    notices = []
-    for year in TED_YEARS:
-        path = os.path.join(CACHE, 'ted', f'{year}.json.gz')
-        parties.year = str(year)
-        with gzip.open(path, 'rt', encoding='utf-8') as f:
-            data = json.load(f)
-        if len(data['notices']) != data['totalNoticeCount']:
-            fail(f'TED {year}: {len(data["notices"])} notices for {data["totalNoticeCount"]}')
-        # A change notice (BT-758: the notice and version it changes) replaces the notice it changes.
-        changed = {n['BT-758-notice'] for n in data['notices'] if n.get('BT-758-notice')}
-        version = lambda n: f'{n.get("notice-identifier")}-{int(n.get("notice-version") or 1):02d}'
-        counts = Counter()
-        kept = 0
-        for n in data['notices']:
-            if n.get('notice-type') == 'can-modif':
-                counts['modification notices'] += 1
-                continue
-            if version(n) in changed:
-                counts['changed by a later notice'] += 1
-                continue
-            # Joint procurement led by a foreign buyer (e.g. a European research network): its value is the whole
-            # framework's, not Bulgaria's.
-            if (n.get('organisation-country-buyer') or ['BGR'])[0] != 'BGR':
-                counts['led by a foreign buyer'] += 1
-                continue
-            bul = lambda field: (n.get(field) or {}).get('bul') or next(iter((n.get(field) or {}).values()), None) or []
-            names = list(dict.fromkeys(bul('winner-name')))
-            ids = list(dict.fromkeys(n.get('winner-identifier') or []))
-            countries = n.get('winner-country') or []
-            # Winners are listed once each (not per lot); their numbers, names and countries in the same order.
-            winners = [parties.one(ids[i] if i < len(ids) and len(ids) == len(names) else '', name, countries[i] if i < len(countries) else '') for i, name in enumerate(names)]
-            title = (n.get('title-proc') or {}).get('bul') or next(iter((n.get('title-proc') or {}).values()), '')
-            buyer_names = bul('buyer-name')
-            buyer_ids = n.get('buyer-identifier') or []
-            value = Decimal(str(n['total-value'])) if n.get('total-value') is not None else None
-            currency = (n.get('total-value-cur') or [''])[0]
-            published = day(n.get('publication-date'))
-            concluded = min((day(d) for d in n.get('contract-conclusion-date') or []), default='')
-            cpv = (n.get('main-classification-proc') or [''])[0]
-            procedure = n.get('procedure-type') or ''
-            notices.append({
-                'id': n['publication-number'], 'year': published[:4], 'published': published, 'concluded': concluded,
-                'buyer': clean_eik(buyer_ids[0], 'Б') if buyer_ids else '', 'buyer_name': mask(buyer_names[0]) if buyer_names else '',
-                'title': mask(title if isinstance(title, str) else ' '.join(title)), 'cpv': cpv,
-                'procedure': procedure if procedure in TED_PROCEDURES else ('other' if procedure else ''),
-                'winners': winners, 'lots': len(set(n.get('result-lot-identifier') or [])),
-                'currency': currency, 'value': value, 'value_eur': rates.euro(value, currency, concluded or published),
-                'type': n.get('notice-type'),
-            })
-            kept += 1
-        files.append({'file': f'ted/{year}.json.gz', 'year': str(year), 'source': 'ted', 'kind': 'notices', 'rows': len(data['notices']), 'kept': kept})
-        print(f'  TED {year}: {len(data["notices"])} notices, {kept} award notices kept; left out: {dict(counts)}')
-    return notices
-
-
 # ---------- writing ----------
 
 def write_csv(name, header, rows):
     path = os.path.join(OUT, name)
     if name.endswith('.gz'):
-        with gzip.open(path, 'wt', encoding='utf-8', newline='') as f:
+        # No time in the gzip header: the same rows give the same file.
+        with io.TextIOWrapper(gzip.GzipFile(path, 'wb', mtime=0), encoding='utf-8', newline='') as f:
             w = csv.writer(f, lineterminator='\n')
             w.writerow(header)
             w.writerows(rows)
@@ -827,12 +981,57 @@ def extract():
     parties = Parties()
     files = []
     yearly, annex_total, annex_matched = read_yearly(parties, rates, files)
+    # ЦАИС ЕОП's own JSON files: the contracts of 2024–2025, and the amendments published from 2024 on — of those
+    # contracts and of the platform's contracts of 2020–2023 in the yearly files (whose amendment files end in 2023).
+    eop_annexes = read_eop_annexes(files)
+    later = Counter()
+    for c in yearly:
+        if c['source'] == 'eop':
+            found = eop_annexes.get(eop_key(c['procurement'], c['contract_no']), [])
+            later['amendments'] += len(found)
+            later['contracts'] += 1 if found else 0
+            amend(c, found, rates)
+    eop = read_eop(parties, rates, files, eop_annexes)
     ocds = read_ocds(parties, rates, files)
-    ted = read_ted(parties, rates, files)
-    contracts = yearly + ocds
+    compare_eop(yearly, ocds)
+    # Contracts outside the scope of the Public Procurement Act are left out of every year, as the Agency's reports leave
+    # them out: the JSON files flag them, OCDS does not — its contracts that the JSON files flag are left out too.
+    outside = set()
+    for _, records in eop_files('contracts', ('2023', '2024', '2025', '2026')):
+        for r in records:
+            if r.get('isExceptionContract') == YES and r.get('contractNumber'):
+                outside.add((str(r['tenderId']), str(r['contractNumber'])))
+    flagged = [c for c in ocds if (c['procurement'].rsplit('-', 1)[-1], c['contract_no']) in outside]
+    print(f'  OCDS contracts the JSON files flag as outside the Act, left out: {len(flagged)} '
+          f'({sum(1 for c in flagged if c["basis"] == "award")} of award notices, €{sum((c["value_eur"] or 0) for c in flagged if c["basis"] == "award"):,.2f})')
+    ocds = [c for c in ocds if (c['procurement'].rsplit('-', 1)[-1], c['contract_no']) not in outside]
+    # Never twice: a contract of 2026's OCDS that the yearly or JSON files hold already (the platform's contract number is
+    # OCDS's contract id; the buyer must be the same) — a contract signed earlier and known to OCDS only from a 2026
+    # amendment notice, whose amendments the JSON annexes give, or an award notice of the last days of 2025.
+    platform = defaultdict(list)
+    for c in yearly + eop:
+        if c['source'] in ('eop', 'json') and c['contract_no']:
+            platform[c['contract_no']].append(c)
+    twice = Counter()
+    kept = []
+    for c in ocds:
+        same = [x for x in platform.get(c['contract_no'], []) if x['buyer'] == c['buyer']]
+        if same:
+            twice[(c['basis'], same[0]['year'])] += 1
+            continue
+        kept.append(c)
+    print(f'  OCDS contracts already in the yearly or JSON files (basis, year there): {dict(sorted(twice.items()))}; '
+          f'amendments from the JSON files to contracts of the yearly files: {later["amendments"]} to {later["contracts"]}')
+    ocds = kept
+    contracts = yearly + eop + ocds
     ids = [c['id'] for c in contracts]
     if len(set(ids)) != len(ids):
         fail(f'{len(ids) - len(set(ids))} contract ids appear twice')
+    # No contract of the JSON files (2024–2025) is one of the yearly files' (2020–2023) too.
+    yearly_pairs = {(c['procurement'], c['contract_no']) for c in yearly if c['source'] == 'eop' and c['contract_no']}
+    both = [c['id'] for c in eop if (c['procurement'], c['contract_no']) in yearly_pairs]
+    if both:
+        fail(f'{len(both)} contracts of the JSON files are in the yearly files too, e.g. {both[:5]}')
     print(f'  suppliers: {dict(parties.stats)}; other currencies converted at ECB rates: {dict(rates.used)}')
 
     # Buyers by ЕИК: the name published most often.
@@ -845,11 +1044,6 @@ def extract():
         b['latest'][(c['year'], c['buyer_name'])] += 1
         b['n'] += 1
         b['eur'] += c['value_eur'] or 0
-    for n in ted:
-        if n['buyer'] and n['buyer_name']:
-            b = buyers.setdefault(n['buyer'], {'names': Counter(), 'latest': Counter(), 'n': 0, 'eur': Decimal(0)})
-            b['names'][n['buyer_name']] += 0
-            b['latest'][(n['year'], n['buyer_name'])] += 1
     for eik, b in buyers.items():
         # The spelling of the latest year (the old register added former names: "… /старо наименование …/").
         b['name'] = latest_spelling(b['latest'])
@@ -875,12 +1069,10 @@ def extract():
         os.remove(stale)
     for year in sorted({r[2] for r in rows}):
         write_csv(f'contracts-{year}.csv.gz', header, [r for r in rows if r[2] == year])
-    write_csv('ted-notices.csv.gz', ['id', 'year', 'published', 'concluded', 'buyer', 'buyer_name', 'title', 'cpv', 'procedure', 'winners', 'winner_kinds', 'lots',
-                                     'currency', 'value', 'value_EUR', 'type'],
-              [[n['id'], n['year'], n['published'], n['concluded'], n['buyer'], n['buyer_name'] if not sole_trader(n['buyer_name']) else '', n['title'][:SUBJECT_LENGTH],
-                n['cpv'], n['procedure'], ' '.join(k for k, _ in n['winners']), ' '.join(kind for _, kind in n['winners']), n['lots'], n['currency'], money(n['value']),
-                money(n['value_eur']), n['type']] for n in sorted(ted, key=lambda n: (n['published'], n['id']))])
-    used = {c['supplier'] for c in contracts} | {k for n in ted for k, _ in n['winners']}
+    stale = os.path.join(OUT, 'ted-notices.csv.gz')
+    if os.path.exists(stale):
+        os.remove(stale)
+    used = {c['supplier'] for c in contracts}
     used |= {m for k in list(used) for m in parties.members.get(k, [])}
     write_csv('suppliers.csv.gz', ['key', 'kind', 'eik', 'name', 'spellings', 'members'],
               [[k, parties.kind[k], parties.eik[k], parties.name(k), len(parties.names[k]), ' '.join(parties.members.get(k, []))]
@@ -939,10 +1131,12 @@ def download_reference():
 
 
 if __name__ == '__main__':
-    if '--download' in sys.argv:
+    if '--download-eop' in sys.argv:
+        download_eop()
+    elif '--download' in sys.argv:
         os.makedirs(CACHE, exist_ok=True)
         download_egov()
-        download_ted()
+        download_eop()
         download_reference()
     else:
         extract()

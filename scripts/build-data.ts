@@ -12,6 +12,7 @@ import { publicTotal } from '../src/lib/types.ts'
 import { buildBudgetPlan, type PlanDetails } from './budgetPlan.ts'
 import { buildBudgetReport } from './budgetReport.ts'
 import { buildCapLists } from './cap.ts'
+import { buildCities, buildCityLists, CITY_BUDGETS } from './cities.ts'
 import { buildEuFundsLists, EU_FUNDS } from './eufunds.ts'
 import { buildEurostatDataset } from './eurostat.ts'
 import { buildHealthLists, HEALTH, hospitalCare, readHospitals } from './health.ts'
@@ -557,6 +558,117 @@ const municipalities2026 = municipalities(
   '2026-07-31',
 )
 
+// ---------- the big cities' whole budgets, by ЕБК activity (their own year-end reports) ----------
+
+const EBK_2026 = {
+  name: t(
+    'Единна бюджетна класификация за 2026 г. — раздел II „Разходи“ и раздел VI „Класификация на разходите по функции, групи и дейности“ (Министерство на финансите)',
+    'Unified Budget Classification 2026 — section II “Expenditure” and section VI “Expenditure by function, group and activity” (Ministry of Finance)',
+  ),
+  url: 'https://www.minfin.bg/bg/1037',
+}
+
+/** Each city's page with its year-end report (forms B3 and IB3, Q4) on the cash execution of the budget and of the accounts for EU funds. */
+const cityReports = (year: number) => [
+  {
+    name: t(
+      `Столична община — отчетни данни по ЕБК за изпълнението на бюджета и на сметките за средства от ЕС за ${year} г. (IV тримесечие)`,
+      `Sofia Municipality — report on the execution of the budget and of the accounts for EU funds by ЕБК code, ${year} (Q4)`,
+    ),
+    url: `https://www.sofia.bg/bg/web/guest/${year}-financial-year`,
+  },
+  {
+    name: t(
+      `Община Пловдив — тримесечен отчет за касовото изпълнение на бюджета и сметките за средства от ЕС, IV тримесечие на ${year} г.`,
+      `Plovdiv Municipality — quarterly report on the cash execution of the budget and the accounts for EU funds, Q4 ${year}`,
+    ),
+    url: `https://www.plovdiv.bg/item/budget-and-finance/otsheti-budjet/quarterly-reports-eu-${year}/`,
+  },
+  {
+    name: t(
+      `Община Бургас — тримесечни отчети за касово изпълнение на бюджета към 31.12.${year} г.`,
+      `Burgas Municipality — quarterly reports on the cash execution of the budget at 31 Dec ${year}`,
+    ),
+    url: `https://www.burgas.bg/bg/${year}/trimesechni-otcheti-za-kasovo-izpalnenie-na-byudzheta-kam-3112${year}-g`,
+  },
+]
+
+const citiesDescription = (year: number): LocalizedText => ({
+  bg: [
+    `Целите бюджети на трите най-големи града — София (Столична община), Пловдив и Бургас — за ${year} г.: колко е платено за всяка дейност по Единната бюджетна класификация (детски градини, училища, улично осветление, чистота, социални услуги …) и за какво — заплати, издръжка, помощи, субсидии, капиталови разходи.`,
+    'Данните са от годишните отчети на общините за касовото изпълнение на бюджета и на сметките за средства от Европейския съюз (формите на Министерството на финансите за IV тримесечие).',
+    'Това са всички разходи на общините — от собствените им приходи (местни данъци и такси), от държавните трансфери за делегираните от държавата дейности и от европейски средства — затова не се сравняват с „Общини“, където са само трансферите от централния бюджет. Парите, които общината превежда към други бюджети и сметки, не са разход и не са включени.',
+    `Сумите на жител са спрямо населението на общината към 31 декември ${year - 1} г. (НСИ).`,
+    LEVA.bg,
+  ].join(' '),
+  en: [
+    `The whole budgets of the three biggest cities — Sofia (Stolichna municipality), Plovdiv and Burgas — in ${year}: what was paid for each activity of the Unified Budget Classification (kindergartens, schools, street lighting, street cleaning, social services …) and on what — salaries, running costs, benefits, subsidies, capital spending.`,
+    'The data come from the municipalities’ year-end reports on the cash execution of their budgets and of their accounts for EU funds (the Ministry of Finance forms for the fourth quarter).',
+    'This is all the municipalities spend — from their own revenue (local taxes and fees), from the state’s transfers for state-delegated activities and from EU funds — so it does not compare with “Municipalities”, which holds only the transfers from the central budget. Money a municipality passes on to other budgets and accounts is not spending and is left out.',
+    `Amounts per resident use the municipality’s population on 31 December ${year - 1} (NSI).`,
+    LEVA.en,
+  ].join(' '),
+})
+
+const cities = (year: number, report: Dataset) =>
+  buildCities({
+    id: `cities-${year}`,
+    year,
+    dir: src('cities/'),
+    register: municipalRegister,
+    residentsAt: year - 1,
+    publicTotal: publicTotal(report),
+    macro: macro(year),
+    title: t(`Големите градове ${year}`, `Big cities ${year}`),
+    subtitle: t('Целите бюджети на София, Пловдив и Бургас по дейности, отчет', 'Whole budgets of Sofia, Plovdiv and Burgas by activity, outturn'),
+    description: citiesDescription(year),
+    sources: [...cityReports(year), EBK_2026, NSI_MUNICIPALITIES],
+    sourceShort: t(`Отчети на София, Пловдив и Бургас за ${year} г.`, `Sofia, Plovdiv and Burgas ${year} outturn reports`),
+    retrieved: '2026-10-06',
+  })
+const cities2024 = cities(2024, report2024)
+const cities2025 = cities(2025, report2025)
+
+/** Walks a tree to the node with this id. */
+function nodeById(root: BudgetNode, id: string): BudgetNode | undefined {
+  if (root.id === id) return root
+  for (const child of root.children ?? []) {
+    const found = nodeById(child, id)
+    if (found) return found
+  }
+  return undefined
+}
+
+// "Municipalities" ↔ "Big cities": a city's transfers from the central budget and its whole budget link to each other
+// (the city's node has the municipality's id in both). The 2026 transfers lead to the latest outturn.
+for (const [municipal, whole, back] of [
+  [municipalities2024, cities2024, true],
+  [municipalities2025, cities2025, true],
+  [municipalities2026, cities2025, false],
+] as const) {
+  for (const city of whole.root.children ?? []) {
+    const node = nodeById(municipal.root, city.id)
+    if (!node) throw new Error(`${municipal.id}: no node ${city.id}`)
+    const sameYear = whole.year === municipal.year
+    ;(node.seeAlso ??= []).push({
+      dataset: whole.id,
+      node: city.id,
+      text: sameYear
+        ? t(`Целият бюджет на общината, отчет ${whole.year}`, `The municipality’s whole budget, ${whole.year} outturn`)
+        : t(`Целият бюджет на общината — последният отчет (${whole.year})`, `The municipality’s whole budget — latest outturn (${whole.year})`),
+      value: city.value,
+    })
+    if (back) {
+      ;(city.seeAlso ??= []).push({
+        dataset: municipal.id,
+        node: city.id,
+        text: t(`Трансфери от централния бюджет по закона за ${municipal.year} г.`, `Transfers from the central budget under the ${municipal.year} act`),
+        value: node.value,
+      })
+    }
+  }
+}
+
 const datasets: Dataset[] = [
   budget2027,
   budget2026,
@@ -567,12 +679,29 @@ const datasets: Dataset[] = [
   ministries2025,
   ministriesReport2025,
   municipalities2025,
+  cities2025,
   report2024,
   budget2024,
   ministries2024,
   municipalities2024,
+  cities2024,
   await buildEurostatDataset({ macro, refresh }),
 ]
+
+// Every link between datasets leads to an existing node.
+for (const dataset of datasets) {
+  const walk = (node: BudgetNode) => {
+    for (const link of node.seeAlso ?? []) {
+      const target = datasets.find((d) => d.id === link.dataset)
+      if (!target || !nodeById(target.root, link.node)) {
+        console.error(`✗ ${dataset.id} › ${node.id}: link to ${link.dataset} › ${link.node}, which does not exist`)
+        process.exitCode = 1
+      }
+    }
+    node.children?.forEach(walk)
+  }
+  walk(dataset.root)
+}
 
 const index: DatasetIndexEntry[] = []
 for (const dataset of datasets) {
@@ -604,7 +733,7 @@ for (const dataset of datasets) {
 // ---------- series for comparing years ----------
 
 const STAGE_ORDER = ['law', 'draft', 'forecast', 'report']
-const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'municipalities', 'cofog']
+const FAMILY_ORDER: DatasetFamily[] = ['functions', 'ministries', 'municipalities', 'cities', 'cofog']
 const chronological = (a: Dataset, b: Dataset) => a.year - b.year || STAGE_ORDER.indexOf(a.stage) - STAGE_ORDER.indexOf(b.stage)
 
 function buildSeries(family: DatasetFamily, members: Dataset[]): SeriesFile {
@@ -651,6 +780,7 @@ const lists = [
     payees: src('sebra/payees.csv.gz'),
     projects: src('eu-funds/projects.csv.gz'),
   }),
+  ...buildCityLists({ dir: src('cities/'), datasets }),
 ]
 for (const list of lists) {
   const problems = checkList(list, datasets)
@@ -659,11 +789,11 @@ for (const list of lists) {
     process.exitCode = 1
   }
 }
-const { index: listIndex, written } = writeLists(OUT_DIR, [PROJECTS, PAYMENTS, HEALTH, EU_FUNDS, PROCUREMENT], lists)
+const { index: listIndex, links: nodeLinks, written } = writeLists(OUT_DIR, [PROJECTS, PAYMENTS, HEALTH, EU_FUNDS, PROCUREMENT, CITY_BUDGETS], lists)
 for (const list of listIndex.lists) console.log(`✓ list ${list.id}: ${list.count} rows → public/data/${list.file}`)
-console.log(`✓ lists/index.json: ${listIndex.lists.length} lists, ${listIndex.links.reduce((s, l) => s + Object.keys(l.nodes).length, 0)} linked tree nodes`)
+console.log(`✓ lists/index.json: ${listIndex.lists.length} lists; ${nodeLinks.reduce((s, l) => s + Object.keys(l.nodes).length, 0)} linked tree nodes`)
 // Every link between the trees and the lists, and between lists, leads to rows.
-const broken = checkLinks(written, listIndex, datasets)
+const broken = checkLinks(written, nodeLinks, datasets)
 if (broken.length) {
   console.error(`✗ links\n  ${broken.slice(0, 30).join('\n  ')}`)
   process.exitCode = 1
@@ -684,7 +814,7 @@ for (const dir of [new URL('lists/', OUT_DIR), src('sebra/'), src('eu-funds/'), 
 // Datasets whose nodes link to lists load their own links in "Spending" (lists/links/<dataset>.json).
 mkdirSync(new URL('lists/links/', OUT_DIR), { recursive: true })
 for (const entry of index) {
-  const links = datasetLinks(listIndex, entry)
+  const links = datasetLinks(listIndex, nodeLinks, entry)
   if (!links) continue
   writeFileSync(new URL(`lists/links/${entry.id}.json`, OUT_DIR), JSON.stringify(links))
   entry.lists = true

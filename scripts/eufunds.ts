@@ -602,8 +602,8 @@ function projectsList(dir: URL, projects: ProjectRow[], datasets: Dataset[], reg
     title: t('Проекти с европейски средства', 'EU-funded projects'),
     short: t('Проекти', 'Projects'),
     description: t(
-      `Всички ${count(rows.length, 'bg')} проекта на програмите с европейски средства в ИСУН — кохезионната политика 2014–2020 и 2021–2027, Планът за възстановяване и устойчивост, рибарството, вътрешните работи и миграцията, мерките за селските райони: бенефициент, място, обща стойност и изплатено досега. Изберете програма или потърсете бенефициент, проект или място.`,
-      `All ${count(rows.length, 'en')} projects of the EU-funded programmes in UMIS — cohesion policy 2014–2020 and 2021–2027, the Recovery and Resilience Plan, fisheries, home affairs and migration, and rural development measures: beneficiary, place, total value and paid to date. Choose a programme or search for a beneficiary, a project or a place.`,
+      `Всички ${count(rows.length, 'bg')} проекта на програмите с европейски средства в ИСУН — кохезионната политика 2014–2020 и 2021–2027, Планът за възстановяване и устойчивост, рибарството, вътрешните работи и миграцията, мерките за селските райони: бенефициент, място, обща стойност и изплатено досега. Изберете програма или община, или потърсете бенефициент, проект или място.`,
+      `All ${count(rows.length, 'en')} projects of the EU-funded programmes in UMIS — cohesion policy 2014–2020 and 2021–2027, the Recovery and Resilience Plan, fisheries, home affairs and migration, and rural development measures: beneficiary, place, total value and paid to date. Choose a programme or a municipality, or search for a beneficiary, a project or a place.`,
     ),
     sources: [ISUN],
     caveats: [
@@ -616,8 +616,8 @@ function projectsList(dir: URL, projects: ProjectRow[], datasets: Dataset[], reg
         `The municipality is where the project is carried out (${count(placed, 'en')} projects in one municipality). Projects in several municipalities, a whole region or the whole country have none; their place is in the details.`,
       ),
       t(
-        'Физическите лица и едноличните търговци (чието име съдържа името на собственика) не се показват по име, а и името на проекта им — то често ги назовава; за тях са дадени само програмата, общината и сумите. Юридическите лица са разпознати по ЕИК (9 или 13 цифри), а видът им (фирма, кооперация, сдружение, публичен сектор) — по името; бенефициент, чието име е на човек (регистриран земеделски производител и др.), е приет за физическо лице и когато има номер. Имената на проекти, по-дълги от 160 знака, са съкратени (…).',
-        'Natural persons and sole traders (whose firm name contains the owner’s name) are not shown by name, nor is their project’s name — it often names them; only the programme, the municipality and the amounts are given. Legal entities are recognised by their ЕИК (9 or 13 digits), and their type (company, cooperative, association, public sector) by their name; a beneficiary whose name is a person’s (a registered farmer and the like) is taken as a natural person even when it has a number. Project names longer than 160 characters are cut short (…).',
+        'Физическите лица и едноличните търговци (чието име съдържа името на собственика) не се показват по име, а и името на проекта им — то често ги назовава; за тях са дадени само програмата, общината и сумите (списъците с плащания през СЕБРА следват по-меко правило и назовават едноличните търговци). Юридическите лица са разпознати по ЕИК (9 или 13 цифри), а видът им (фирма, кооперация, сдружение, публичен сектор) — по името; бенефициент, чието име е на човек (регистриран земеделски производител и др.), е приет за физическо лице и когато има номер. Имената на проекти, по-дълги от 160 знака, са съкратени (…).',
+        'Natural persons and sole traders (whose firm name contains the owner’s name) are not shown by name, nor is their project’s name — it often names them; only the programme, the municipality and the amounts are given (the SEBRA payment lists follow a looser rule and name sole traders). Legal entities are recognised by their ЕИК (9 or 13 digits), and their type (company, cooperative, association, public sector) by their name; a beneficiary whose name is a person’s (a registered farmer and the like) is taken as a natural person even when it has a number. Project names longer than 160 characters are cut short (…).',
       ),
       t(
         `За Плана за възстановяване ИСУН съдържа и рамковите споразумения, с които министерства и агенции изпълняват схеми, и проектите на крайните получатели по тях. ${count(umbrellas.length, 'bg')} споразумения на изпълняващ орган, по които не е платено нищо (до 1% от стойността) и които са поне 30 млн. € или носят името на инвестиция („C3.I2 …“), са приети за рамкови (${bn(umbrellaValue, 'bg')} млрд. €) и са скрити, докато не ги изберете във „Вид бенефициент“, за да не се броят два пъти. Стойността на проектите по Плана пак надвишава бюджета му: в нея е и собственото участие на получателите (напр. при съоръженията за съхранение на енергия). Сборовете на Плана са в „План за възстановяване“.`,
@@ -656,7 +656,8 @@ function projectsList(dir: URL, projects: ProjectRow[], datasets: Dataset[], reg
     rows,
     shardBy: 'programme',
     shardSearch: 3,
-    shardFilters: ['municipality'],
+    // A municipality's projects are one file of their own (they are in every programme's).
+    shardAlso: ['municipality'],
   }
 }
 

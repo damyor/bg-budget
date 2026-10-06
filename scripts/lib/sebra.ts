@@ -5,7 +5,7 @@
 
 import { createHash } from 'node:crypto'
 import { fixCyrillic } from './csv.ts'
-import { BGN_PER_EUR } from './kfp.ts'
+import { toEuro } from './kfp.ts'
 
 // ---------- rows ----------
 
@@ -106,7 +106,7 @@ export function parsePayment(f: string[], defaultCurrency: 'BGN' | 'EUR'): Payme
 }
 
 /** Euro cents of a payment; leva convert at the fixed rate. */
-export const euroCents = (amount: number, currency: 'BGN' | 'EUR') => Math.round(((currency === 'BGN' ? amount / BGN_PER_EUR : amount) * 100))
+export const euroCents = (amount: number, currency: 'BGN' | 'EUR') => Math.round(toEuro(amount, currency) * 100)
 
 /** "2024-07-15" → "2024Q3". */
 export const quarterOf = (date: string) => `${date.slice(0, 4)}Q${Math.floor((Number(date.slice(5, 7)) - 1) / 3) + 1}`
@@ -198,7 +198,7 @@ export const keyForm = (key: string) => key.split('|')[1] ?? null
 
 // ---------- classes ----------
 
-export type PayeeClass = 'company' | 'nonprofit' | 'public' | 'person' | 'other'
+export type PayeeClass = 'company' | 'sole-trader' | 'nonprofit' | 'public' | 'person' | 'other'
 
 /** Whole words (or, with a trailing "*", the start of a word) anywhere in a name core. */
 const words = (list: string) => new RegExp(`(^| )(${list.replace(/\*/g, '\\p{L}*').replace(/\s*\n\s*/g, '')})(?= |$)`, 'u')
@@ -263,17 +263,21 @@ export function learnGivenNames(normalizedNames: Iterable<string>): number {
   return GIVEN_NAMES.size
 }
 
-/** Name keys whose published spelling is a person's by the rules of scripts/extract/persons.py (see setPersonalKeys). */
+/** Name keys whose published spelling the person rule leaves unnamed, and keys of the sole traders it names (see setPersonalKeys). */
 const PERSONAL_KEYS = new Set<string>()
+const SOLE_TRADER_KEYS = new Set<string>()
 
 /**
- * Name keys to treat as natural persons besides those isPerson recognises itself: the extractor runs the rules the
- * EU-funds and farm-subsidy extracts use (scripts/extract/persons.py: sole traders, registered farmers, a given name
- * and a surname) over every published spelling and passes the keys of those it flags.
+ * Name keys to treat as natural persons besides those isPerson recognises itself, and the keys of named sole traders:
+ * the extractor runs the shared person rule (scripts/extract/persons.py, with the option that names sole traders: a
+ * registered farmer, a given name and a surname stay unnamed) over every published spelling and passes the keys of
+ * those it leaves unnamed, and of the sole traders ("ЕТ …") it names.
  */
-export function setPersonalKeys(keys: Iterable<string>): number {
+export function setPersonalKeys(keys: Iterable<string>, soleTraders: Iterable<string> = []): number {
   PERSONAL_KEYS.clear()
   for (const key of keys) PERSONAL_KEYS.add(key)
+  SOLE_TRADER_KEYS.clear()
+  for (const key of soleTraders) if (!PERSONAL_KEYS.has(key)) SOLE_TRADER_KEYS.add(key)
   return PERSONAL_KEYS.size
 }
 
@@ -282,8 +286,9 @@ export function setPersonalKeys(keys: Iterable<string>): number {
  * contained a person's name show it in its place ("Д-Р ФИЗИЧЕСКО ЛИЦЕ", a doctor's practice). A name
  * that is only a person's name — a given name (learnGivenNames), then one or two surnames, and
  * nothing that marks an organisation — was left unanonymised and is treated the same way, and so is
- * every key passed to setPersonalKeys (sole traders, whose firm carries the owner's name, among them).
- * All are one group, and their payments are shown without purpose.
+ * every key passed to setPersonalKeys (registered farmers, a given name and a surname). All are one
+ * group, and their payments are shown without purpose. Sole traders ("ЕТ …") are not persons here:
+ * they are named, as the published data names them (see classify).
  */
 export function isPerson(key: string): boolean {
   if (PERSONAL_KEYS.has(key) || /ФИЗИЧЕСКО ЛИЦЕ|ФИЗ ЛИЦЕ/.test(key)) return true
@@ -303,13 +308,15 @@ export interface ClassSignals {
 
 /**
  * The class of a payee from its name key and how it was paid, with the rule that decided it, in
- * this order: person (anonymised, or a bare personal name); public (the Military Medical Academy,
- * the central bank, state enterprises); company (a legal form, or a name that marks one: hospitals,
- * posts, banks, utilities, consortia …); nonprofit; public (a name that marks one); public (paid
- * into a central-bank account, or mostly as transfers between budgets); other.
+ * this order: person (anonymised, or a bare personal name); sole trader (a name the person rule
+ * takes for one: "ЕТ …", "ЕТДАНИЕЛ …", see setPersonalKeys); public (the Military Medical Academy, the central
+ * bank, state enterprises); company (a legal form, or a name that marks one: hospitals, posts,
+ * banks, utilities, consortia …); nonprofit; public (a name that marks one); public (paid into a
+ * central-bank account, or mostly as transfers between budgets); other.
  */
 export function classify(key: string, signals: ClassSignals): { cls: PayeeClass; rule: string } {
   if (isPerson(key)) return { cls: 'person', rule: 'person' }
+  if (SOLE_TRADER_KEYS.has(key)) return { cls: 'sole-trader', rule: keyForm(key) === 'ЕТ' ? 'form' : 'name' }
   const core = keyCore(key)
   if (PUBLIC_FIRST.test(core)) return { cls: 'public', rule: 'name' }
   if (keyForm(key)) return { cls: 'company', rule: 'form' }

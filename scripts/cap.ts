@@ -10,7 +10,7 @@
 import type { Dataset, ListCell, ListColumn, ListLinkSpec, LocalizedText } from '../src/lib/types.ts'
 import { BENEFICIARY_CLASSES, beneficiaryClass } from './lib/beneficiaries.ts'
 import { readCsv } from './lib/csv.ts'
-import { BGN_PER_EUR } from './lib/kfp.ts'
+import { toEuro } from './lib/kfp.ts'
 import { nodeLabels, type ListSpec } from './lib/lists.ts'
 import { provinceKey, provinceName, type Register } from './lib/places.ts'
 import { EU_FUNDS } from './eufunds.ts'
@@ -39,7 +39,7 @@ const KINDS: Record<string, LocalizedText> = {
   national: t('Национална и държавна помощ', 'National and state aid'),
 }
 
-const euro = (bgn: string) => Math.round(Number(bgn) / BGN_PER_EUR)
+const euro = (bgn: string | number) => Math.round(toEuro(Number(bgn), 'BGN'))
 
 /** "2025" → "финансовата 2025 г. (16.10.2024–15.10.2025)" / "financial year 2025 (16 Oct 2024 – 15 Oct 2025)". */
 const fyText = (fy: number) => t(`финансовата ${fy} г. (16.10.${fy - 1}–15.10.${fy})`, `financial year ${fy} (16 Oct ${fy - 1} – 15 Oct ${fy})`)
@@ -54,8 +54,8 @@ const COMMON_CAVEATS: LocalizedText[] = [
     'This is not part of the donut. The EU direct payments, market measures and rural development, with national co-financing and aid, pass through several budgets and do not match the agriculture function in “Spending”, which is reported by calendar year.',
   ),
   t(
-    'Физическите лица (земеделските производители) и едноличните търговци (чието име съдържа името на собственика) никога не се показват по име: за всяко място и година има по един ред с броя им и общата сума. Юридическите лица (фирми, кооперации, сдружения, общини …) са поименно, ако са получили поне 25 000 € през годината; останалите са един ред за мястото.',
-    'Natural persons (farmers) and sole traders (whose firm name contains the owner’s name) are never shown by name: each place and year has one row with how many there are and their total. Legal entities (companies, cooperatives, associations, municipalities …) are named when they received at least €25,000 in the year; the others are one row for their place.',
+    'Физическите лица (земеделските производители) и едноличните търговци (чието име съдържа името на собственика) никога не се показват по име (правило, по-строго от това на списъците с плащания през СЕБРА, които назовават едноличните търговци): за всяко място и година има по един ред с броя им и общата сума. Юридическите лица (фирми, кооперации, сдружения, общини …) са поименно, ако са получили поне 25 000 € през годината; останалите са един ред за мястото.',
+    'Natural persons (farmers) and sole traders (whose firm name contains the owner’s name) are never shown by name (a stricter rule than that of the SEBRA payment lists, which name sole traders): each place and year has one row with how many there are and their total. Legal entities (companies, cooperatives, associations, municipalities …) are named when they received at least €25,000 in the year; the others are one row for their place.',
   ),
   t(
     'До 2023 г. данните дават само областта; от 2024 г. и общината (по адреса на получателя, не по мястото на земята или стопанството). До 2023 г. юридическите лица се разпознават по ЕИК; от 2024 г. ЕИК не е публикуван, а физическите лица са тези с отделно фамилно име.',
@@ -91,7 +91,7 @@ function measuresList(dir: URL): ListSpec {
     m.measure,
     m.code || null,
     m.kind,
-    years.map((y) => (m.amounts.has(y) ? Math.round(m.amounts.get(y)! / BGN_PER_EUR) : null)),
+    years.map((y) => (m.amounts.has(y) ? euro(m.amounts.get(y)!) : null)),
     years.map((y) => m.recipients.get(y) ?? null),
   ])
   const latest = years.at(-1)!
@@ -198,7 +198,7 @@ function recipientsList(dir: URL, datasets: Dataset[], register: Register): { re
       municipal.set(place.municipality, m)
     }
     if (n <= 0) continue
-    const [total, eagf, rural, national] = sums.map((v) => Math.round(v / BGN_PER_EUR))
+    const [total, eagf, rural, national] = sums.map(euro)
     rows.push([`${r.fy}-${rows.length.toString(36)}`, GROUP[kind].name(n), null, GROUP[kind].cls, r.fy, place.province, place.municipality, total, eagf, rural, national, n])
   }
   const provinces = new Map(register.all.map((m) => [provinceKey(m.province), provinceName(m.province)]))
@@ -252,13 +252,16 @@ function recipientsList(dir: URL, datasets: Dataset[], register: Register): { re
     key: 'k',
     titleColumn: 'name',
     rows,
+    // One financial year at a time (all of them are 1 MB gzipped): the list opens on the years and their totals; a
+    // search of three letters or more loads them all.
     shardBy: 'fy',
-    shardFilters: ['municipality', 'province'],
+    shardChoose: true,
+    shardSearch: 3,
   }
   const periods = municipalYears.map(String)
   const mrows: ListCell[][] = [...municipal].map(([id, m]) => {
     const place = register.all.find((p) => p.key === id)!
-    const pick = (v: number[]) => municipalYears.map((y) => Math.round(v[years.indexOf(y)] / BGN_PER_EUR))
+    const pick = (v: number[]) => municipalYears.map((y) => euro(v[years.indexOf(y)]))
     return [id, id, provinceKey(place.province), pick(m.total), pick(m.kinds.legal), pick(m.kinds['sole-trader']), pick(m.kinds.person), municipalYears.map((y) => m.recipients[years.indexOf(y)])]
   })
   const municipalities: ListSpec = {

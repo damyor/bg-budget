@@ -57,7 +57,7 @@ describe.each(index.map((entry) => [entry.id, entry] as const))('dataset %s', (_
   })
 
   it('says what kind of data it is', () => {
-    expect(['functions', 'ministries', 'municipalities', 'cofog']).toContain(dataset.family)
+    expect(['functions', 'ministries', 'municipalities', 'cities', 'cofog']).toContain(dataset.family)
     expect(['law', 'draft', 'forecast', 'report']).toContain(dataset.stage)
     expect(dataset.kind).toBe(dataset.stage === 'report' ? 'actual' : 'plan')
   })

@@ -188,6 +188,27 @@
     "lists": true
   },
   {
+    "id": "cities-2025",
+    "year": 2025,
+    "kind": "actual",
+    "stage": "report",
+    "family": "cities",
+    "title": {
+      "bg": "Големите градове 2025",
+      "en": "Big cities 2025"
+    },
+    "subtitle": {
+      "bg": "Целите бюджети на София, Пловдив и Бургас по дейности, отчет",
+      "en": "Whole budgets of Sofia, Plovdiv and Burgas by activity, outturn"
+    },
+    "file": "cities-2025.json",
+    "total": 2325502075,
+    "publicTotal": 47508679180,
+    "gdp": 116018300000,
+    "population": 6437360,
+    "lists": true
+  },
+  {
     "id": "budget-2024",
     "year": 2024,
     "kind": "plan",
@@ -267,6 +288,27 @@
     "file": "municipalities-2024.json",
     "total": 4025144005,
     "publicTotal": 41674889944,
+    "gdp": 104767200000,
+    "population": 6445481,
+    "lists": true
+  },
+  {
+    "id": "cities-2024",
+    "year": 2024,
+    "kind": "actual",
+    "stage": "report",
+    "family": "cities",
+    "title": {
+      "bg": "Големите градове 2024",
+      "en": "Big cities 2024"
+    },
+    "subtitle": {
+      "bg": "Целите бюджети на София, Пловдив и Бургас по дейности, отчет",
+      "en": "Whole budgets of Sofia, Plovdiv and Burgas by activity, outturn"
+    },
+    "file": "cities-2024.json",
+    "total": 1989888682,
+    "publicTotal": 39972185722,
     "gdp": 104767200000,
     "population": 6445481,
     "lists": true

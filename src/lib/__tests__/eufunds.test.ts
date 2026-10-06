@@ -1,10 +1,12 @@
-import { readdirSync, readFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
+import { gzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { umbrellaAgreement, yearlyFromCumulative } from '../../../scripts/eufunds.ts'
 import { beneficiaryClass } from '../../../scripts/lib/beneficiaries.ts'
 import { readCsv } from '../../../scripts/lib/csv.ts'
+import { readNodeLinks } from '../../../scripts/lib/lists.ts'
 import { unpackShard } from '../listData'
-import type { BudgetNode, Dataset, ListCell, ListFile, ListIndex, ListShardFile, LocalizedText } from '../types'
+import type { BudgetNode, Dataset, ListCell, ListFile, ListShardFile, LocalizedText } from '../types'
 
 const sources = new URL('../../../data/sources/', import.meta.url)
 const data = new URL('../../../public/data/', import.meta.url)
@@ -123,7 +125,6 @@ describe('Recovery and Resilience Plan (data/sources/eu-funds)', () => {
 })
 
 describe('EU lists', () => {
-  const index = read<ListIndex>('lists/index.json')
   const programmes = read<ListFile>('lists/eu-programmes.json')
   const rrp = read<ListFile>('lists/rrp-investments.json')
   const projects = read<ListFile>('lists/eu-projects.json')
@@ -163,7 +164,7 @@ describe('EU lists', () => {
   })
 
   it('link every municipality that has projects, with the rows and money of that municipality', () => {
-    const link = index.links.find((l) => l.list === 'eu-projects' && l.family === 'municipalities')!
+    const link = readNodeLinks(data).find((l) => l.list === 'eu-projects' && l.family === 'municipalities')!
     const municipalities = read<Dataset>('municipalities-2026.json')
     const known = nodes(municipalities.root)
     expect(Object.keys(link.nodes).length).toBe(265)
@@ -176,17 +177,23 @@ describe('EU lists', () => {
     const report = read<Dataset>('report-2025.json')
     const eu = [...nodes(report.root)].filter((id) => id.endsWith('.eu'))
     for (const list of ['eu-programmes', 'rrp-investments']) {
-      const link = index.links.find((l) => l.list === list && l.years.includes(2025))!
+      const link = readNodeLinks(data).find((l) => l.list === list && l.years.includes(2025))!
       expect(Object.keys(link.nodes).sort()).toEqual(eu.sort())
       expect(link.values![eu[0]]).toBe('eu')
     }
   })
 
-  it('keep every shard of the projects under ~1 MB gzipped and the list under 15 MB', () => {
-    const dir = new URL('lists/eu-projects/', data)
-    const sizes = readdirSync(dir).map((f) => readFileSync(new URL(f, dir)).length)
-    expect(sizes.reduce((a, b) => a + b, 0)).toBeLessThan(15_000_000)
-    expect(projects.shards!.files.reduce((s, f) => s + f.count, 0)).toBe(projects.count)
+  it('split the projects by programme and again by municipality, every file under ~1 MB gzipped', () => {
+    const files = projects.shards!.files
+    expect(files.reduce((s, f) => s + readFileSync(new URL(f.file, data)).length, 0)).toBeLessThan(15_000_000)
+    // What each file offers before it loads: the projects shown by default (not the umbrella agreements).
+    const shown = projectRows.filter((r) => r.cls !== 'um')
+    expect(files.reduce((s, f) => s + f.count, 0)).toBe(shown.length)
+    // A municipality's projects are one file: as many as its link from "Municipalities" counts.
+    const byMunicipality = projects.shards!.also!.find((a) => a.by === 'municipality')!.files
+    const link = readNodeLinks(data).find((l) => l.list === 'eu-projects' && l.family === 'municipalities')!
+    expect(byMunicipality.map((f) => [f.value, f.count]).sort()).toEqual(Object.entries(link.nodes).map(([id, [n]]) => [id, n]).sort())
+    for (const f of [...files, ...byMunicipality]) expect(gzipSync(readFileSync(new URL(f.file, data))).length, f.file).toBeLessThan(1_000_000)
   })
 })
 
@@ -216,11 +223,10 @@ describe('farm subsidies (data/sources/cap)', () => {
   })
 
   it('links each municipality to its recipients with the municipality’s whole total', () => {
-    const index = read<ListIndex>('lists/index.json')
     const list = read<ListFile>('lists/cap-recipients.json')
     const rows = rowsOf(list)
     for (const fy of ['2024', '2025']) {
-      const link = index.links.find((l) => l.list === 'cap-recipients' && l.filters?.fy === fy)!
+      const link = readNodeLinks(data).find((l) => l.list === 'cap-recipients' && l.filters?.fy === fy)!
       const inPlace = places.filter((r) => r.fy === fy && r.ebk_code === '6609')
       const plovdiv = rows.filter((r) => r.fy === fy && r.municipality === 'plovdiv-plovdiv')
       expect(link.nodes['plovdiv-plovdiv'][0]).toBe(plovdiv.length)

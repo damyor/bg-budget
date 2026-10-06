@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { checkLinks, checkList, datasetLinks, finishList, nodeLinks, type ListSpec } from '../../../scripts/lib/lists.ts'
+import { checkLinks, checkList, datasetLinks, finishList, nodeLinks, shardFile, type ListSpec } from '../../../scripts/lib/lists.ts'
 import {
+  addShardLabels,
   ALL,
   breakdownGroups,
   bucketOf,
@@ -19,13 +20,14 @@ import {
   refNumber,
   resolveRef,
   searchTexts,
+  shardChoices,
   shardsToLoad,
   sortRows,
   stateFromParams,
   totalsOf,
   unpackShard,
 } from '../listData'
-import type { BudgetNode, Dataset, ListCell, ListColumn, ListIndex, ListMeta } from '../types'
+import type { BudgetNode, Dataset, DatasetLinks, ListCell, ListColumn, ListIndex, ListMeta } from '../types'
 
 const t = (bg: string, en: string) => ({ bg, en })
 
@@ -152,8 +154,7 @@ describe('list URL state, counts and links', () => {
   })
 
   it('links a node only from datasets of the link’s family, years and stages', () => {
-    const index: ListIndex = {
-      groups: [],
+    const index: DatasetLinks = {
       lists: [meta('plan')],
       links: [{ list: 'plan', family: 'ministries', column: 'institution', years: [2025], stages: ['law'], value: 'plan', label: t('план', 'plan'), nodes: { mod: [25, 1e9] } }],
     }
@@ -221,9 +222,11 @@ describe('building lists', () => {
 
   it('loads the shard a filter needs, every shard of a small list, none of a huge one', () => {
     const shards = finishList(spec({ shardBy: 'region' }), 10).file.shards!
-    expect(shardsToLoad(shards, 3, { region: 'burgas' }).map((f) => f.value)).toEqual(['burgas'])
-    expect(shardsToLoad(shards, 3, {}).map((f) => f.value)).toEqual(['burgas', 'varna'])
-    expect(shardsToLoad(shards, LOAD_ALL_LIMIT + 1, {})).toEqual([])
+    expect(shardsToLoad(shards, 3, { region: 'burgas' })!.map((f) => f.value)).toEqual(['burgas'])
+    expect(shardsToLoad(shards, 3, {})!.map((f) => f.value)).toEqual(['burgas', 'varna'])
+    // A huge list waits for a value (null); a value no row has needs no file, and shows no rows.
+    expect(shardsToLoad(shards, LOAD_ALL_LIMIT + 1, {})).toBeNull()
+    expect(shardsToLoad(shards, LOAD_ALL_LIMIT + 1, { region: 'sofia' })).toEqual([])
   })
 
   it('counts and totals the rows of each linked node', () => {
@@ -240,19 +243,99 @@ describe('building lists', () => {
     const [link] = nodeLinks(many)
     expect(link.nodes).toEqual({ a: [3, 400], b: [3, 400] })
     expect(link.values).toEqual({ a: 'x', b: 'x' })
-    const index: ListIndex = { groups: [], lists: [{ id: 'test', unit: { one: t('', ''), other: t('', '') } } as ListMeta], links: [link] }
+    const index: DatasetLinks = { lists: [{ id: 'test', unit: { one: t('', ''), other: t('', '') } } as ListMeta], links: [link] }
     expect(linksFor(index, { family: 'municipalities', year: 2026, stage: 'law' }, 'b')[0].filters).toEqual({ all: 'x' })
     // Every node of the value must exist in the linked datasets.
     const missing = { ...many, links: [{ ...many.links![0], nodes: { x: ['a', 'zz'] } }] }
     expect(checkList(missing, datasets).join()).toMatch(/nodes missing from test-places: zz/)
   })
 
-  it('loads every shard for a filter that allows it, and checks that it is a filter', () => {
-    const shards = finishList(spec({ shardBy: 'region', shardFilters: ['place'] }), 10).file.shards!
-    expect(shards.filters).toEqual(['place'])
-    expect(shardsToLoad(shards, LOAD_ALL_LIMIT + 1, { place: 'b' })).toHaveLength(2)
-    expect(shardsToLoad(shards, LOAD_ALL_LIMIT + 1, { date: '2026' })).toEqual([])
-    expect(checkList(spec({ shardBy: 'region', shardFilters: ['name'] }), datasets)).toEqual(['list test: shard filter name is not a filter column'])
+  it('splits the rows again by another filter column, and loads the one file a filter on either needs', () => {
+    const split = spec({ shardBy: 'region', shardAlso: ['place'] })
+    const { file, shards } = finishList(split, 10)
+    expect(file.shards!.also).toEqual([
+      {
+        by: 'place',
+        files: [
+          { value: 'a', file: 'lists/test/place/a.json', count: 1, totals: { paid: 100, capex: [10, 0] } },
+          { value: 'b', file: 'lists/test/place/b.json', count: 2, totals: { paid: 300, capex: [5, 8] } },
+        ],
+      },
+    ])
+    const load = (filters: Record<string, string>) => shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, filters)?.map((f) => f.file) ?? null
+    expect(load({ place: 'b' })).toEqual(['lists/test/place/b.json'])
+    // With both filters, the smaller file (place a: 1 row; Burgas: 2); a value no row has, no file; others still wait.
+    expect(load({ place: 'a', region: 'burgas' })).toEqual(['lists/test/place/a.json'])
+    expect(load({ place: 'zz' })).toEqual([])
+    expect(load({ date: '2026' })).toBeNull()
+    // The file says which column its shared value is of, and gives back the rows.
+    const b = shardFile(split, file, 'lists/test/place/b.json', shards.get('lists/test/place/b.json')!)
+    expect(b).toMatchObject({ value: 'b', by: 'place' })
+    expect(unpackShard(columns, b, 'region')).toEqual(rows.slice(1))
+    expect(shardFile(split, file, 'lists/test/burgas.json', shards.get('lists/test/burgas.json')!)).not.toHaveProperty('by')
+    expect(checkList(spec({ shardBy: 'region', shardAlso: ['name'] }), datasets)).toEqual(['list test: rows split again by name, not a category or node filter'])
+  })
+
+  it('offers each value of the shard column of a list that waits, with the rows and totals it shows by default', () => {
+    const excluding = columns.map((c) => (c.id === 'region' ? { ...c, exclude: ['varna'] } : c))
+    const { file } = finishList(spec({ columns: excluding, shardBy: 'place', shardChoose: true }), 10)
+    // Place a has only a row of Varna, which the list leaves out until it is chosen.
+    expect(file.shards!.files.map((f) => [f.value, f.count, f.totals.paid])).toEqual([
+      ['a', 0, 0],
+      ['b', 2, 300],
+    ])
+    expect(shardChoices(file, 'en')).toEqual([
+      { value: 'b', label: 'Burgas municipality', count: 2, totals: [300, 5] },
+      { value: 'a', label: 'Aksakovo municipality', count: 0, totals: [0, 0] },
+    ])
+  })
+
+  it('splits a list that waits for a value however small it is', () => {
+    expect(finishList(spec({ shardBy: 'place' })).file.shards).toBeUndefined()
+    expect(finishList(spec({ shardBy: 'place', shardChoose: true })).file.shards?.files.map((f) => f.value)).toEqual(['a', 'b'])
+  })
+
+  it('offers years latest first, and other values largest first', () => {
+    // The 2025 row is the largest.
+    const older = rows.map((r, i) => (i === 0 ? [...r.slice(0, 4), 1000, ...r.slice(5)] : r))
+    const byYear = finishList(spec({ rows: older, shardBy: 'date', shardChoose: true }), 10).file
+    expect(shardChoices(byYear, 'en').map((c) => [c.value, c.totals[0]])).toEqual([
+      ['2026', 300],
+      ['2025', 1000],
+    ])
+    const byPlace = finishList(spec({ rows: older, shardBy: 'place', shardChoose: true }), 10).file
+    expect(shardChoices(byPlace, 'en').map((c) => [c.value, c.totals[0]])).toEqual([
+      ['a', 1000],
+      ['b', 300],
+    ])
+  })
+
+  it('keeps the order of a category whose values have one, in its menu and in what it offers to choose', () => {
+    // Bands of value: neither by name nor by total.
+    const band: ListColumn = { id: 'band', type: 'category', label: t('Стойност', 'Value'), filter: true, ordered: true, labels: { big: t('Над 100', 'Over 100'), mid: t('От 10', 'From 10'), small: t('Под 10', 'Below 10') } }
+    const banded = [...columns, band]
+    const bandRows = rows.map((r, i) => [...r, ['small', 'big', 'mid'][i]])
+    expect(facetOptions(banded, bandRows, searchTexts(banded, bandRows), [], {}, 'band', 'en').map((o) => o.value)).toEqual(['big', 'mid', 'small'])
+    const file = finishList(spec({ columns: banded, rows: bandRows, shardBy: 'band', shardChoose: true })).file
+    expect(shardChoices(file, 'en').map((c) => c.value)).toEqual(['big', 'mid', 'small'])
+    expect(checkList(spec({ columns: banded.map((c) => (c.id === 'place' ? { ...c, ordered: true } : c)), rows: bandRows }), datasets)).toEqual(['list test: place is ordered but not a category with names'])
+  })
+
+  it('sends the names of a column with many values along with the shards that use them', () => {
+    const named: ListColumn[] = [...columns, { id: 'by', type: 'breakdown', label: t('', ''), detail: true, periods: ['2026'], labels: { x: 'Икс', y: 'Игрек', z: 'Зет' }, shardLabels: true }]
+    const namedRows = rows.map((r, i) => [...r, [[['x', 'y', 'z'][i], 1]]])
+    const split = spec({ columns: named, rows: namedRows, shardBy: 'region' })
+    expect(checkList(split, datasets)).toEqual([])
+    const { file, shards } = finishList(split, 10)
+    expect(file.columns.at(-1)).not.toHaveProperty('labels')
+    const burgas = shardFile(split, file, 'lists/test/burgas.json', shards.get('lists/test/burgas.json')!)
+    expect(burgas.labels).toEqual({ by: { y: 'Игрек', z: 'Зет' } })
+    addShardLabels(file.columns, burgas.labels)
+    expect(file.columns.at(-1)!.labels).toEqual({ y: 'Игрек', z: 'Зет' })
+    // Not for a filter (its menu needs the names before the rows), nor in a list that is not split.
+    const filtered = named.map((c) => (c.id === 'place' ? { ...c, shardLabels: true } : c))
+    expect(checkList(spec({ columns: filtered, rows: namedRows, shardBy: 'region' }), datasets)).toEqual(['list test: place cannot have its names in the shards'])
+    expect(checkList(spec({ columns: named, rows: namedRows }), datasets)).toEqual(['list test: by cannot have its names in the shards'])
   })
 
   it('stores texts and ids repeated in a shard once and puts them back', () => {
@@ -289,19 +372,17 @@ describe('building lists', () => {
   it('gives each dataset only its own links, with the names and units of the lists they open', () => {
     const plan = spec()
     const report = spec({ id: 'report', links: [{ family: 'municipalities', column: 'place', years: [2026], stages: ['report'], label: t('', '') }] })
-    const index: ListIndex = {
-      groups: [],
-      lists: [plan, report].map((s) => ({ ...finishList(s).file, rows: undefined }) as ListMeta),
-      links: [plan, report].flatMap(nodeLinks),
-    }
-    const law = datasetLinks(index, { family: 'municipalities', year: 2026, stage: 'law' })!
+    const index: ListIndex = { groups: [], lists: [plan, report].map((s) => ({ ...finishList(s).file, rows: undefined }) as ListMeta) }
+    const links = [plan, report].flatMap(nodeLinks)
+    const law = datasetLinks(index, links, { family: 'municipalities', year: 2026, stage: 'law' })!
     expect(law.links.map((l) => l.list)).toEqual(['test'])
     expect(law.lists).toEqual([{ id: 'test', title: plan.title, unit: plan.unit }])
-    expect(datasetLinks(index, { family: 'municipalities', year: 2026, stage: 'report' })!.links.map((l) => l.list)).toEqual(['test', 'report'])
-    expect(datasetLinks(index, { family: 'municipalities', year: 2025, stage: 'law' })).toBeNull()
-    expect(datasetLinks(index, { family: 'ministries', year: 2026, stage: 'law' })).toBeNull()
-    // What a node of the dataset shows, from the small file as from the whole index.
-    expect(linksFor(law, { family: 'municipalities', year: 2026, stage: 'law' }, 'b')).toEqual(linksFor(index, { family: 'municipalities', year: 2026, stage: 'law' }, 'b').map((l) => ({ ...l, list: law.lists[0] })))
+    expect(datasetLinks(index, links, { family: 'municipalities', year: 2026, stage: 'report' })!.links.map((l) => l.list)).toEqual(['test', 'report'])
+    expect(datasetLinks(index, links, { family: 'municipalities', year: 2025, stage: 'law' })).toBeNull()
+    expect(datasetLinks(index, links, { family: 'ministries', year: 2026, stage: 'law' })).toBeNull()
+    // What a node of the dataset shows, from its small file as from all the links.
+    const all: DatasetLinks = { lists: index.lists, links }
+    expect(linksFor(law, { family: 'municipalities', year: 2026, stage: 'law' }, 'b')).toEqual(linksFor(all, { family: 'municipalities', year: 2026, stage: 'law' }, 'b').map((l) => ({ ...l, list: law.lists[0] })))
   })
 
   it('checks that every link between trees and lists, and between lists, opens rows', () => {
@@ -310,26 +391,29 @@ describe('building lists', () => {
     const page = (over: Partial<ListSpec> = {}) =>
       spec({ id: 'page', links: [], rowLink: undefined, hidden: true, back: 'test', shardBy: 'code', shardHash: 2, ...over })
     const lists = (...specs: ListSpec[]) => specs.map((s) => finishList(s, 10))
-    const indexOf = (...specs: ListSpec[]): ListIndex => ({ groups: [], lists: [], links: specs.flatMap(nodeLinks) })
+    const linksOf = (...specs: ListSpec[]) => specs.flatMap(nodeLinks)
     // Each place's projects, each project's own page (split by a hash of its code).
     const good = spec({ rowLink: { list: 'page', filter: 'code', column: 'code' } })
-    expect(checkLinks(lists(good, page()), indexOf(good), all)).toEqual([])
+    expect(checkLinks(lists(good, page()), linksOf(good), all)).toEqual([])
     // A link that says more rows than the list shows, one to a list that waits for a choice, and a node not in the tree.
-    const index = indexOf(good)
-    const counts = { ...index, links: [{ ...index.links[0], nodes: { ...index.links[0].nodes, b: [5, 0] as [number, number] } }] }
+    const [link] = linksOf(good)
+    const counts = [{ ...link, nodes: { ...link.nodes, b: [5, 0] as [number, number] } }]
     expect(checkLinks(lists(good, page()), counts, all).join()).toMatch(/to test: b \(5 rows linked, 2 shown\)/)
     const choose = spec({ shardBy: 'region', shardChoose: true })
-    expect(checkLinks(lists(choose), indexOf(choose), all).join()).toMatch(/a \(1 rows linked, the list waits for a choice\)/)
-    const lost = { ...index, links: [{ ...index.links[0], nodes: { zz: [0, 0] as [number, number] } }] }
+    expect(checkLinks(lists(choose), linksOf(choose), all).join()).toMatch(/a \(1 rows linked, the list waits for a choice\)/)
+    // …unless the rows are split again by the linked column: then it opens that file.
+    const also = spec({ shardBy: 'region', shardChoose: true, shardAlso: ['place'] })
+    expect(checkLinks(lists(also), linksOf(also), all)).toEqual([])
+    const lost = [{ ...link, nodes: { zz: [0, 0] as [number, number] } }]
     expect(checkLinks(lists(good, page()), lost, all).join()).toMatch(/zz \(not in the tree\)/)
     // A page without the rows the titles lead to, a link to no list, and one back to no list.
-    expect(checkLinks(lists(good, page({ rows: rows.slice(1) })), indexOf(good), all).join()).toMatch(/rows → page: code values that open no rows: OP-1/)
-    expect(checkLinks(lists(good), indexOf(good), all).join()).toMatch(/rows → page: no list page/)
-    expect(checkLinks(lists(page({ back: 'nowhere' })), indexOf(), all).join()).toMatch(/leads back to unknown list nowhere/)
+    expect(checkLinks(lists(good, page({ rows: rows.slice(1) })), linksOf(good), all).join()).toMatch(/rows → page: code values that open no rows: OP-1/)
+    expect(checkLinks(lists(good), linksOf(good), all).join()).toMatch(/rows → page: no list page/)
+    expect(checkLinks(lists(page({ back: 'nowhere' })), linksOf(), all).join()).toMatch(/leads back to unknown list nowhere/)
     // A node cell links back to the dataset the viewer came from: it has to exist there too.
     const linked2025 = spec({ links: [{ family: 'municipalities', column: 'place', years: [2025], label: t('', '') }] })
     const smaller = { ...other, root: { ...places, children: places.children!.slice(0, 1) } }
-    expect(checkLinks(lists(linked2025), indexOf(linked2025), [...datasets, smaller]).join()).toMatch(/place links to nodes missing from test-places-2025: b/)
+    expect(checkLinks(lists(linked2025), linksOf(linked2025), [...datasets, smaller]).join()).toMatch(/place links to nodes missing from test-places-2025: b/)
   })
 
   it('stores the shard column once when every row has the same value', () => {
@@ -447,11 +531,11 @@ describe('payment-style lists: classes left out by default, hashed shards, break
     const { file, shards } = finishList(spec)
     expect(file.shards).toMatchObject({ by: 'id', hash: 4, search: 2 })
     expect(file.shards!.files.reduce((s, f) => s + f.count, 0)).toBe(40)
-    const wanted = shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, { id: 'p7' })
+    const wanted = shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, { id: 'p7' })!
     expect(wanted.map((f) => f.value)).toEqual([String(bucketOf('p7', 4))])
     expect(shards.get(wanted[0].file)!.some((row) => row[0] === 'p7')).toBe(true)
     // A huge list loads nothing until a search of two letters or more.
-    expect(shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, {}, 'ф')).toEqual([])
+    expect(shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, {}, 'ф')).toBeNull()
     expect(shardsToLoad(file.shards!, LOAD_ALL_LIMIT + 1, {}, 'фи')).toHaveLength(file.shards!.files.length)
   })
 
@@ -478,7 +562,7 @@ describe('payment-style lists: classes left out by default, hashed shards, break
     // Only 2025, and without the public sector: ХЕМУС (100), not АПТЕКА (2026).
     expect(link).toMatchObject({ nodes: { molsp: [1, 100] }, values: { molsp: '015' }, filters: { year: '2025' } })
     expect(link).not.toHaveProperty('nodes.444')
-    const index: ListIndex = { groups: [], lists: [{ id: 'by-payer', unit: spec.unit } as ListMeta], links: [link] }
+    const index: DatasetLinks = { lists: [{ id: 'by-payer', unit: spec.unit } as ListMeta], links: [link] }
     const [found] = linksFor(index, { family: 'ministries', year: 2025, stage: 'law' }, 'molsp')
     expect(found.filters).toEqual({ year: '2025', system: '015' })
     expect(linkText(found, 'en', (v) => `€${v}`)).toBe('Paid: €100')

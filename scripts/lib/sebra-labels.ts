@@ -140,8 +140,9 @@ export const PAY_CODE_EN: Record<string, string> = {
 /** Classes of payees (see classify in scripts/lib/sebra.ts), with short ids for the lists. */
 export const CLASSES: Record<string, { id: string; name: LocalizedText }> = {
   company: { id: 'co', name: t('Фирми', 'Companies') },
+  'sole-trader': { id: 'st', name: t('Еднолични търговци', 'Sole traders') },
   nonprofit: { id: 'np', name: t('Сдружения, фондации, читалища, партии', 'Associations, foundations, community centres, parties') },
-  person: { id: 'pe', name: t('Физически лица и еднолични търговци (без имена)', 'Natural persons and sole traders (not named)') },
+  person: { id: 'pe', name: t('Физически лица (без имена)', 'Natural persons (not named)') },
   other: { id: 'ot', name: t('Неразпознати', 'Unclassified') },
   public: { id: 'pu', name: t('Публичен сектор', 'Public sector') },
 }

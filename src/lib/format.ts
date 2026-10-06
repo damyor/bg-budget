@@ -1,4 +1,4 @@
-import type { Lang } from './types'
+import type { Lang } from './types.ts'
 
 const LOCALE: Record<Lang, string> = { bg: 'bg-BG', en: 'en-GB' }
 const cache = new Map<string, Intl.NumberFormat>()

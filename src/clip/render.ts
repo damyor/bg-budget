@@ -69,8 +69,22 @@ function municipalTitle(path: BudgetNode[], lang: Lang): string {
   return lang === 'bg' ? `Колко получава ${name} от държавния бюджет?` : `How much does ${name} get from the state budget?`
 }
 
+/** Titles for the big cities' whole budgets: what a city spends, and on what (with its activity when the item is generic). */
+function cityTitle(path: BudgetNode[], lang: Lang): string {
+  const city = path.find((n) => n.kind !== undefined && GEOGRAPHIC.has(n.kind.bg))
+  if (!city) return lang === 'bg' ? 'Колко харчат София, Пловдив и Бургас?' : 'How much do Sofia, Plovdiv and Burgas spend?'
+  const target = path[path.length - 1]
+  const name = city.name[lang]
+  if (target === city) return lang === 'bg' ? `Колко харчи ${name}?` : `How much does ${name} spend?`
+  // "Running costs" or "Water, fuel and energy" mean something only with the activity they belong to.
+  const activity = path.find((n) => n.kind?.en === 'Activity')
+  const what = activity && activity !== target ? `${activity.name[lang]} — ${target.name[lang]}` : target.name[lang]
+  return lang === 'bg' ? `Колко харчи ${name} за „${what}“?` : `How much does ${name} spend on “${what}”?`
+}
+
 export function defaultTitle(path: BudgetNode[], lang: Lang, family?: DatasetFamily): string {
   if (family === 'municipalities') return municipalTitle(path, lang)
+  if (family === 'cities') return cityTitle(path, lang)
   const target = path[path.length - 1]
   if (path.length === 1) {
     return lang === 'bg' ? 'Накъде отиват публичните пари на България?' : "Where does Bulgaria's public money go?"

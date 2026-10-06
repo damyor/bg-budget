@@ -3,15 +3,22 @@
 Used by scripts/extract/eu_funds.py (ИСУН projects), scripts/extract/cap.py (farm subsidies) and
 scripts/extract/procurement.py (contract suppliers), and run as a program by scripts/extract/sebra.ts (SEBRA
 payees), so that every list follows the same rules. A beneficiary is treated as a natural person when the source
-says so (no company number, a separate surname) and also when its name is a person's — a sole trader ("ЕТ …", whose
-firm carries the owner's name), a registered farmer ("ЗП …"), or a given name followed by a surname with nothing that
-marks an organisation. The rules err on the side of hiding.
+says so (no company number, a separate surname) and also when its name is a person's — a registered farmer
+("ЗП …"), or a given name followed by a surname with nothing that marks an organisation. The rules err on the side of
+hiding.
+
+Sole traders ("ЕТ …", whose firm carries the owner's name) are told apart from persons (kind_of). By default a list
+leaves them out too — the strict rule of the EU-funds, farm-subsidy and procurement lists. The one option of the rule,
+`name_sole_traders` (unnamed), names them: the SEBRA payment lists do, as the official open data does, while names
+that are only a person's stay hidden there as well.
 
 Given names are learnt from the sources' own natural persons (the farm register's first-name column, the old farm
 files' names, ИСУН's natural persons, which it shows by first name only) and kept in
 data/sources/places/given-names.csv, so that every extractor uses the same list.
 
-  python3 scripts/extract/persons.py < names.txt   # one name a line in → "sole-trader", "person" or "" a line out
+  python3 scripts/extract/persons.py [--name-sole-traders] < names.txt
+  # one name a line in → a line out: its kind ("sole-trader", "person" or "" for an organisation), a tab, and
+  # "unnamed" when the list must not show the name (persons; sole traders too unless --name-sole-traders)
 """
 
 import csv
@@ -32,8 +39,9 @@ def fix_cyrillic(text):
 
 
 def sole_trader(name):
-    """A sole trader (едноличен търговец): its firm name contains its owner's name, so it is never shown.
-    Written "ЕТ …", "ЕТ"…", "ЕТ:…", "… ЕТ", or glued to a word: "ЕТДавид-…", "… Иван ВасилевЕТ", "ЕТДАНИЕЛ ДОБРЕВ"."""
+    """A sole trader (едноличен търговец): its firm name contains its owner's name, so the strict rule never shows it
+    (see unnamed). Written "ЕТ …", "ЕТ"…", "ЕТ:…", "… ЕТ", or glued to a word: "ЕТДавид-…", "… Иван ВасилевЕТ",
+    "ЕТДАНИЕЛ ДОБРЕВ"."""
     n = re.sub(r'\s+', ' ', fix_cyrillic(name).upper()).strip(' "„“”')
     # Written out ("ЕТ …", "… ЕТ", "едноличен търговец"): a sole trader, whatever else the name holds — an address
     # ("ЕТ Струма – … , община Струмяни"), a practice's abbreviations ("ЕТ ИППМП – ЗК – Д-р …"), or a company form
@@ -132,8 +140,16 @@ def kind_of(name):
     return 'sole-trader' if sole_trader(name) else 'person' if personal(name) else ''
 
 
+def unnamed(kind, name_sole_traders=False):
+    """Whether a list leaves out a name of this kind (kind_of): a person's always; a sole trader's unless the list
+    names sole traders (`name_sole_traders`: the SEBRA payment lists, which name them as the published data does)."""
+    return kind == 'person' or (kind == 'sole-trader' and not name_sole_traders)
+
+
 if __name__ == '__main__':
     # Names on standard input, one a line, with the given names of data/sources/places/given-names.csv; the kind of
-    # each on standard output, in the same order.
+    # each and whether the list leaves it out on standard output, in the same order.
+    name_sole_traders = '--name-sole-traders' in sys.argv[1:]
     use_given_names(read_given_names())
-    sys.stdout.write(''.join(kind_of(line.rstrip('\n')) + '\n' for line in sys.stdin))
+    kinds = (kind_of(line.rstrip('\n')) for line in sys.stdin)
+    sys.stdout.write(''.join(f'{k}\t{"unnamed" if unnamed(k, name_sole_traders) else ""}\n' for k in kinds))

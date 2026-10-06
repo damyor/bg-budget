@@ -18,7 +18,19 @@ export interface BudgetNode {
   note?: LocalizedText
   /** Residents of the place the node stands for (a municipality or province), for amounts per resident. */
   residents?: number
+  /** The same place or thing in other datasets, shown as links (a city's central-budget transfers ↔ its whole budget). */
+  seeAlso?: NodeSeeAlso[]
   children?: BudgetNode[]
+}
+
+/** A link from a tree node to a node of another dataset, with that node's amount. */
+export interface NodeSeeAlso {
+  dataset: string
+  node: string
+  /** What the other node is, e.g. "Целият бюджет на общината, отчет 2025". */
+  text: LocalizedText
+  /** The other node's amount, euro. */
+  value: number
 }
 
 export interface DatasetSource {
@@ -28,11 +40,12 @@ export interface DatasetSource {
 
 /**
  * How spending is broken down: by purpose (functions of the consolidated
- * fiscal programme), by ministry, by Eurostat's COFOG classification, or by
- * municipality (the central budget's transfers to each one).
+ * fiscal programme), by ministry, by Eurostat's COFOG classification, by
+ * municipality (the central budget's transfers to each one), or the big
+ * cities' whole budgets by ЕБК activity.
  * Datasets of one family share node ids and can be compared across years.
  */
-export type DatasetFamily = 'functions' | 'ministries' | 'cofog' | 'municipalities'
+export type DatasetFamily = 'functions' | 'ministries' | 'cofog' | 'municipalities' | 'cities'
 
 /** law = budget voted by Parliament; draft = bill; forecast = medium-term forecast; report = actual outturn. */
 export type DatasetStage = 'law' | 'draft' | 'forecast' | 'report'
@@ -155,6 +168,8 @@ export interface ListColumn {
    * the filter value "*" shows them too.
    */
   exclude?: string[]
+  /** Category: the values have an order, that of `labels` (bands of value …), which its filter and choices follow. */
+  ordered?: boolean
   /** Url: a template in which {value} is replaced by the cell value. */
   href?: string
   /**
@@ -162,6 +177,12 @@ export interface ListColumn {
    * e.g. a contract's buyer → the buyer's page.
    */
   link?: { list: string; filter: string; column?: string }
+  /**
+   * Node, category and breakdown columns of a list split into shards, whose values are many and few of them in each
+   * shard (a buyer's suppliers): their `labels` come with the shards that use them (ListShardFile.labels), not with
+   * the list file.
+   */
+  shardLabels?: boolean
 }
 
 /** A breakdown cell: [part id, amount per period …] for every part; periods missing at the end are 0. */
@@ -248,6 +269,18 @@ export interface ListFile extends ListMeta {
   shards?: ListShards
 }
 
+/**
+ * One shard file: the rows with one value of the shard column (or one hash bucket). `count` and `totals` are those of
+ * the rows the list shows by default (not those a column leaves out until they are chosen, ListColumn.exclude): what a
+ * list that waits for a value to be chosen offers for each.
+ */
+export interface ListShardInfo {
+  value: string
+  file: string
+  count: number
+  totals: Record<string, number | number[]>
+}
+
 export interface ListShards {
   /** The column the rows are split by (a filter column, or the key column with `hash`). */
   by: string
@@ -255,11 +288,14 @@ export interface ListShards {
   hash?: number
   /** A search of at least this many letters loads every shard (lists too large to load whole otherwise). */
   search?: number
-  /** A filter on one of these columns loads every shard too (e.g. a municipality, for a list split by programme). */
-  filters?: string[]
   /** A value of the shard column has to be chosen even when the list is small enough to load whole (each shard is large). */
   choose?: boolean
-  files: { value: string; file: string; count: number; totals: Record<string, number | number[]> }[]
+  files: ListShardInfo[]
+  /**
+   * The rows split again by other filter columns (lists/<list>/<column>/<value>.json; only rows with a value there),
+   * so that a filter on one of them loads one file too: the EU projects of a municipality in a list split by programme.
+   */
+  also?: { by: string; files: ListShardInfo[] }[]
 }
 
 /**
@@ -270,25 +306,30 @@ export interface ListShards {
 export interface ListShardFile {
   rows: ListCell[][]
   texts?: (string | LocalizedText)[]
-  /** Every row's value of the shard column (ListShards.by), left out of the rows. */
+  /** Every row's value of the shard column, left out of the rows. */
   value?: string
+  /** The column `value` belongs to, when it is not the list's shard column (ListShards.also). */
+  by?: string
+  /** The names of the values in this shard of the columns whose names come with the shards (ListColumn.shardLabels). */
+  labels?: Record<string, Record<string, LocalizedText | string>>
 }
 
-/** public/data/lists/index.json: every list, and the tree nodes that link to them. */
+/** public/data/lists/index.json: every list, by group (what the "Lists" page needs before a list loads). */
 export interface ListIndex {
   groups: { id: string; title: LocalizedText; description: LocalizedText }[]
   lists: ListMeta[]
-  /** For each list link: node id → [rows, total] (`nodes` of the spec becomes `values`: node id → the column's value). */
-  links: (Omit<ListLinkSpec, 'nodes'> & { list: string; nodes: Record<string, [number, number]>; values?: Record<string, string> })[]
 }
+
+/** The tree nodes a list links from: node id → [rows, total] (`nodes` of the spec becomes `values`: node id → the column's value). */
+export type NodeLink = Omit<ListLinkSpec, 'nodes'> & { list: string; nodes: Record<string, [number, number]>; values?: Record<string, string> }
 
 /**
  * public/data/lists/links/<dataset>.json: the links of one dataset's tree nodes, with what they show of each list —
- * all "Spending" loads, instead of the whole list index.
+ * all "Spending" loads. The build writes one for each dataset that has links; no file holds all of them.
  */
 export interface DatasetLinks {
   lists: Pick<ListMeta, 'id' | 'title' | 'unit'>[]
-  links: ListIndex['links']
+  links: NodeLink[]
 }
 
 /**

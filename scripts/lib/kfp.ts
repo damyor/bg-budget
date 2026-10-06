@@ -9,13 +9,18 @@ import { MILLION } from './tree-builder.ts'
 /** Fixed conversion rate of the lev to the euro (Bulgaria adopted the euro on 1 January 2026). */
 export const BGN_PER_EUR = 1.95583
 
+/** An amount in euro: leva convert at the fixed rate, euro stay as they are. The one leva → euro conversion of the build. */
+export function toEuro(amount: number, currency: string): number {
+  if (currency !== 'BGN' && currency !== 'EUR') throw new Error(`Unknown currency ${currency}`)
+  return currency === 'BGN' ? amount / BGN_PER_EUR : amount
+}
+
 export type Unit = 'mBGN' | 'mEUR' | 'kBGN' | 'kEUR'
 
-/** Converts an amount in the given unit to euro. */
+/** Converts an amount in the given unit (thousands or millions of leva or euro) to euro. */
 export function toEur(value: number, unit: Unit): number {
   const scale = unit.startsWith('m') ? MILLION : 1_000
-  const rate = unit.endsWith('BGN') ? 1 / BGN_PER_EUR : 1
-  return value * scale * rate
+  return toEuro(value * scale, unit.endsWith('BGN') ? 'BGN' : 'EUR')
 }
 
 const t = (bg: string, en: string): LocalizedText => ({ bg, en })

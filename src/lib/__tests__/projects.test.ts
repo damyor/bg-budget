@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { readCsv } from '../../../scripts/lib/csv.ts'
+import { readNodeLinks } from '../../../scripts/lib/lists.ts'
 import { resolveRef } from '../listData'
 import type { BudgetNode, Dataset, ListCell, ListFile, ListIndex } from '../types'
 
@@ -175,7 +176,7 @@ describe('municipal investment programme (three sources joined on the project co
 
 describe('links from the tree to the lists', () => {
   const index = read<ListIndex>('lists/index.json')
-  const link = (list: string, value: string) => index.links.find((l) => l.list === list && l.value === value)!
+  const link = (list: string, value: string) => readNodeLinks(data).find((l) => l.list === list && l.value === value)!
 
   it('totals each ministry’s and municipality’s projects', () => {
     expect(link('national-projects-2026', 'capex.2026').nodes.mod).toEqual([34, 841_511_200])
@@ -191,11 +192,14 @@ describe('links from the tree to the lists', () => {
     const datasets = read<{ id: string; lists?: boolean }[]>('index.json')
     const flagged = datasets.filter((d) => d.lists).map((d) => d.id).sort()
     // Payments link to the ministries and to Sofia in every year from 2024; hospitals and medicines to the NHIF lines
-    // of the plans and actuals of 2024–2026 (the 2027 forecast has no NHIF lines).
+    // of the plans and actuals of 2024–2026 (the 2027 forecast has no NHIF lines); Plovdiv's schools to its activities
+    // in "Big cities".
     expect(flagged).toEqual([
       'budget-2024',
       'budget-2025',
       'budget-2026',
+      'cities-2024',
+      'cities-2025',
       'ministries-2024',
       'ministries-2025',
       'ministries-2026',

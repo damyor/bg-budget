@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process'
 import { describe, expect, it } from 'vitest'
 import {
   classify,
@@ -13,6 +14,7 @@ import {
   parsePayment,
   PERSONS,
   quarterOf,
+  setPersonalKeys,
   shortId,
   unitKey,
   unmaskedIds,
@@ -168,6 +170,31 @@ describe('classes of payees', () => {
     expect(cls('КОНУШ АГРО')).toBe('other')
     expect(cls('МИР К3.И2 ПРОГР.ЗА ИК.ТРАН', { bnb: 80, transfers: 0, total: 100 })).toBe('public')
     expect(cls('ИЗПЪЛНИТЕЛ НА ПРОЕКТ', { bnb: 0, transfers: 60, total: 100 })).toBe('public')
+  })
+
+  it('names sole traders as a class of their own, and keeps persons in the anonymised group', () => {
+    // What the extractor passes from the shared person rule: keys it leaves unnamed, and the sole traders it names.
+    setPersonalKeys([nameKey('ИВАН ПЕТРОВ ИВАНОВ')], [nameKey('ЕТ ИВАН ПЕТРОВ'), nameKey('ЕТДАНИЕЛ ДОБРЕВ')])
+    expect(classify(nameKey('ЕТ ИВАН ПЕТРОВ'), none)).toEqual({ cls: 'sole-trader', rule: 'form' })
+    expect(classify(nameKey('ЕТДАНИЕЛ ДОБРЕВ'), none)).toEqual({ cls: 'sole-trader', rule: 'name' })
+    expect(cls('ИВАН ПЕТРОВ ИВАНОВ')).toBe('person')
+    // A company form typed with "ЕТ" in the middle ("САЛВИЯ- ЕТ ЕООД") is a company's name.
+    expect(cls('САЛВИЯ- ЕТ ЕООД')).toBe('company')
+    setPersonalKeys([])
+  })
+})
+
+describe('the shared person rule (scripts/extract/persons.py) and its one option', () => {
+  const rule = (names: string[], ...options: string[]) =>
+    execFileSync('python3', [new URL('../../../scripts/extract/persons.py', import.meta.url).pathname, ...options], { input: names.map((n) => `${n}\n`).join('') })
+      .toString('utf8')
+      .split('\n')
+      .slice(0, -1)
+
+  it('leaves sole traders unnamed by default, names them for the payment lists, and never names a person', () => {
+    const names = ['ЕТ ИВАН ПЕТРОВ', 'ЗП ПЕТКО ТЕЛКИЕВ', 'ФИЗИЧЕСКО ЛИЦЕ', 'ХЕМУС ООД']
+    expect(rule(names)).toEqual(['sole-trader\tunnamed', 'person\tunnamed', 'person\tunnamed', '\t'])
+    expect(rule(names, '--name-sole-traders')).toEqual(['sole-trader\t', 'person\tunnamed', 'person\tunnamed', '\t'])
   })
 })
 

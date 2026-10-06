@@ -1,4 +1,4 @@
-import { Fragment, useId, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { Fragment, useId, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { formatMoney, formatNumber, formatPercent } from '../lib/format'
 import {
   ALL,
@@ -10,13 +10,17 @@ import {
   hiddenByDefault,
   labelOf,
   matchingRows,
+  paramsFromState,
   periodLabel,
   queryWords,
   refTotal,
   resolveRef,
   searchTexts,
+  shardChoices,
+  shardSet,
   sortRows,
   totalsOf,
+  valueRank,
   type ListState,
   type ValueRef,
 } from '../lib/listData'
@@ -56,6 +60,9 @@ const TEXT = {
     sortBreakdown: 'Подреди по „{name}“, най-големите първо',
     empty: '—',
     loading: 'Зареждане…',
+    choices: 'Изберете „{column}“',
+    count: 'Брой',
+    year: 'Година',
   },
   en: {
     search: 'Search by name, code, place…',
@@ -84,6 +91,9 @@ const TEXT = {
     sortBreakdown: 'Sort by “{name}”, largest first',
     empty: '—',
     loading: 'Loading…',
+    choices: 'Choose a “{column}”',
+    count: 'Count',
+    year: 'Year',
   },
 } satisfies Record<Lang, Record<string, string>>
 
@@ -268,6 +278,7 @@ export function ListView({ list, rows, busy = false, state, onChange, datasetFor
   const text = TEXT[lang]
   const narrow = useNarrow()
   const id = useId()
+  const top = useRef<HTMLDivElement>(null)
   const all = rows ?? NO_ROWS
   const texts = useMemo(() => searchTexts(list.columns, all), [list, all])
   const words = useMemo(() => queryWords(state.query), [state.query])
@@ -402,12 +413,20 @@ export function ListView({ list, rows, busy = false, state, onChange, datasetFor
     [list, all, texts, words, filterKey, lang],
   )
   const optionsFor = (column: ListColumn): { value: string; count: number | null; label: string }[] => {
-    if (rows === null && list.shards?.by === column.id && !list.shards.hash) {
-      return list.shards.files.map((f) => ({ value: f.value, count: f.count, label: labelOf(column, f.value, lang) ?? f.value }))
+    // A column the rows are split by offers its files' values (with the rows each shows) until its rows are loaded, and
+    // while one of its values is chosen, so that another can be chosen at once.
+    const files = shardSet(list.shards, column.id)
+    const chosen = state.filters[column.id]
+    if (files && (rows === null || (chosen && chosen !== ALL))) {
+      // In the order of the other menus (facetOptions): the column's own order, else by name, years latest first.
+      const collator = new Intl.Collator(lang === 'bg' ? 'bg' : 'en', { numeric: true })
+      const rank = valueRank(column)
+      return files
+        .map((f) => ({ value: f.value, count: f.count, label: labelOf(column, f.value, lang) ?? f.value }))
+        .sort((a, b) => (rank ? rank(a.value) - rank(b.value) : column.type === 'date' ? b.value.localeCompare(a.value) : collator.compare(a.label, b.label)))
     }
     const options: { value: string; count: number | null; label: string }[] = [...(facets.get(column.id) ?? [])]
     // A value set by a link before the rows it filters are loaded (a category, until a year is chosen) still shows as chosen.
-    const chosen = state.filters[column.id]
     if (chosen && chosen !== ALL && !options.some((o) => o.value === chosen)) options.unshift({ value: chosen, count: null, label: labelOf(column, chosen, lang) ?? chosen })
     return options
   }
@@ -415,7 +434,7 @@ export function ListView({ list, rows, busy = false, state, onChange, datasetFor
   // unless the rows to check it against are not loaded yet (none yet, or another value of the shard column).
   const setFilter = (column: string, v: string) => {
     const next = { ...state.filters, [column]: v }
-    const unknown = rows === null || (list.shards !== undefined && !list.shards.hash && list.shards.by === column)
+    const unknown = rows === null || shardSet(list.shards, column) !== null
     for (const other of unknown ? [] : Object.keys(next)) {
       if (other === column || !next[other] || next[other] === ALL) continue
       const otherColumn = list.columns.find((c) => c.id === other)
@@ -550,18 +569,84 @@ export function ListView({ list, rows, busy = false, state, onChange, datasetFor
     ]
   }
 
+  // What a list split by a date column asks to choose is a year.
+  const choiceName = (column: ListColumn) => (column.type === 'date' ? text.year : column.label[lang])
+
+  // While the list waits for a value of its shard column: each value with its rows and totals, to choose from.
+  const choicesTable = () => {
+    const by = list.shards?.by
+    const column = list.columns.find((c) => c.id === by)
+    const choices = shardChoices(list, lang)
+    if (!by || !column || choices.length < 2) return null
+    const refs = list.summary.map((ref) => resolveRef(list.columns, ref))
+    const total = (ref: ValueRef, v: number | null) => (v === null ? text.empty : ref.column.type === 'series' ? seriesValue(ref.column, v, lang) : formatMoney(v, lang))
+    return (
+      <div className="table-scroll list-choices">
+        <table className="list-table">
+          <caption className="visually-hidden">{fill(text.choices, { column: choiceName(column) })}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{choiceName(column)}</th>
+              <th scope="col" className="num">
+                {text.count}
+              </th>
+              {refs.map((ref, i) =>
+                ref ? (
+                  <th key={list.summary[i]} scope="col" className="num">
+                    {refLabel(ref, lang)}
+                  </th>
+                ) : null,
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {choices.map((c) => {
+              const params = paramsFromState({ ...state, filters: { ...state.filters, [by]: c.value } })
+              return (
+                <tr key={c.value}>
+                  <th scope="row">
+                    <a
+                      href={`#/lists?${new URLSearchParams(Object.entries(params).filter(([, v]) => v))}`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setFilter(by, c.value)
+                        // The value's rows start at the list's toolbar, which a long table of choices has scrolled away.
+                        if (top.current && top.current.getBoundingClientRect().top < 0) top.current.scrollIntoView({ block: 'start' })
+                      }}
+                    >
+                      {c.label}
+                    </a>
+                  </th>
+                  <td className="num">{formatNumber(c.count, lang)}</td>
+                  {refs.map((ref, i) =>
+                    ref ? (
+                      <td key={list.summary[i]} className="num">
+                        {total(ref, c.totals[i])}
+                      </td>
+                    ) : null,
+                  )}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
   const page = ordered.slice(0, shown)
   const unitText = (n: number) => countText(list, n, lang)
   const waiting = () => {
     const column = list.shards ? list.columns.find((c) => c.id === list.shards!.by) : undefined
     // A list split by a column's values (not by a hash) can also be opened by choosing one of them.
-    if (list.shards?.search && !list.shards.hash) return fill(text.chooseOrType, { column: column?.label[lang] ?? '', n: list.shards.search, count: unitText(list.count) })
+    const name = column ? choiceName(column) : ''
+    if (list.shards?.search && !list.shards.hash) return fill(text.chooseOrType, { column: name, n: list.shards.search, count: unitText(list.count) })
     if (list.shards?.search) return fill(text.type, { n: list.shards.search, count: unitText(list.count) })
-    return fill(text.choose, { column: column?.label[lang] ?? '' })
+    return fill(text.choose, { column: name })
   }
 
   return (
-    <div className="list-view">
+    <div className="list-view" ref={top}>
       {!pageView && (
         <div className="toolbar list-toolbar">
           <div className="search list-search">
@@ -673,7 +758,10 @@ export function ListView({ list, rows, busy = false, state, onChange, datasetFor
       )}
 
       {rows === null || (busy && matched.length === 0) ? (
-        <p className="note">{busy ? text.loading : waiting()}</p>
+        <>
+          <p className="note">{busy ? text.loading : waiting()}</p>
+          {rows === null && !busy && choicesTable()}
+        </>
       ) : matched.length === 0 ? (
         <p className="note">{text.none}</p>
       ) : narrow ? (

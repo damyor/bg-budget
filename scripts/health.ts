@@ -12,7 +12,7 @@
 
 import type { Dataset, DatasetFamily, ListCell, ListColumn, ListLinkSpec, LocalizedText } from '../src/lib/types.ts'
 import { readCsv } from './lib/csv.ts'
-import { BGN_PER_EUR } from './lib/kfp.ts'
+import { toEuro } from './lib/kfp.ts'
 import { nodeLabels, type ListGroup, type ListSpec } from './lib/lists.ts'
 import { PLACE_KIND, provinceKey, provinceName, slug, transliterate, type Register } from './lib/places.ts'
 import type { Spec } from './lib/tree-builder.ts'
@@ -55,8 +55,6 @@ export interface Hospital {
   ownership: 'state' | 'municipal' | null
   mohName: string | null
 }
-
-const toEuro = (amount: number, currency: string) => (currency === 'BGN' ? amount / BGN_PER_EUR : amount)
 
 /** The last month of each year the reports of a series reach ("care|2026" → "2026-08"). */
 function lastMonths(rows: Record<string, string>[]): Map<string, string> {
@@ -436,7 +434,7 @@ function hospitalsList(config: HealthConfig): ListSpec {
         if (!h.moh.size) return null
         const values = mohPeriods.map((p) => {
           const v = h.moh.get(p)?.[k]
-          return v === null || v === undefined ? null : MOH_LABELS[k].money ? Math.round((v * 1000) / BGN_PER_EUR) : Math.round(v)
+          return v === null || v === undefined ? null : MOH_LABELS[k].money ? Math.round(toEuro(v * 1000, 'BGN')) : Math.round(v)
         })
         return values.some((v) => v !== null) ? values : null
       }
@@ -449,7 +447,7 @@ function hospitalsList(config: HealthConfig): ListSpec {
         establishmentType(h.reg),
         h.ownership ?? 'other',
         total,
-        overdue === null || overdue === undefined ? null : Math.round((overdue * 1000) / BGN_PER_EUR),
+        overdue === null || overdue === undefined ? null : Math.round(toEuro(overdue * 1000, 'BGN')),
         ...PAYMENT_SERIES.map((s) => (byYear(s).some((v) => v !== null) ? byYear(s) : null)),
         ...years.map(monthly),
         ...MOH_INDICATORS.map(moh),

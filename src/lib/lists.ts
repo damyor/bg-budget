@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getJson, type Loadable } from './data'
-import { shardsToLoad, unpackShard, type Filters } from './listData'
+import { addShardLabels, shardsToLoad, unpackShard, type Filters } from './listData'
 import type { DatasetLinks, ListCell, ListFile, ListIndex, ListMeta, ListShardFile } from './types'
 
 // Loading lists (public/data/lists/): the index, a dataset's links to them, a list file and,
@@ -38,7 +38,11 @@ export function loadList(meta: ListMeta): Promise<ListFile> {
 function loadShard(list: ListFile, file: string): Promise<ListCell[][]> {
   let promise = shardPromises.get(file)
   if (!promise) {
-    promise = getJson<ListShardFile>(file).then((shard) => unpackShard(list.columns, shard, list.shards?.by))
+    promise = getJson<ListShardFile>(file).then((shard) => {
+      // Names that come with the shard (a buyer's suppliers) join the list's before its rows are shown.
+      addShardLabels(list.columns, shard.labels)
+      return unpackShard(list.columns, shard, list.shards?.by)
+    })
     shardPromises.set(file, promise)
   }
   return promise
@@ -52,16 +56,15 @@ export async function loadRows(list: ListFile, filters: Filters, query = ''): Pr
   if (list.rows) return list.rows
   if (!list.shards) return []
   const files = shardsToLoad(list.shards, list.count, filters, query)
-  if (!files.length) return null
+  if (!files) return null
   return (await Promise.all(files.map((f) => loadShard(list, f.file)))).flat()
 }
 
 /** What decides which shards a list needs: their files (the same files give the same rows). */
 function shardKey(list: ListFile, filters: Filters, query: string): string {
   if (!list.shards) return list.id
-  return `${list.id}:${shardsToLoad(list.shards, list.count, filters, query)
-    .map((f) => f.value)
-    .join(',')}`
+  const files = shardsToLoad(list.shards, list.count, filters, query)
+  return `${list.id}:${files ? files.map((f) => f.file).join(',') : '-'}`
 }
 
 /** Loads a value whenever `key` changes; `key` null means nothing to load. */

@@ -2,7 +2,7 @@
 // reading values, totals, search, filters, sorting and the URL state. Shared by the
 // data build (scripts/lib/lists.ts) and the Lists page, so it has no runtime imports.
 
-import type { DatasetFamily, DatasetLinks, DatasetStage, Lang, ListCell, ListColumn, ListFile, ListMeta, ListShardFile, ListShards, LocalizedText } from './types.ts'
+import type { DatasetFamily, DatasetLinks, DatasetStage, Lang, ListCell, ListColumn, ListFile, ListMeta, ListShardFile, ListShardInfo, ListShards, LocalizedText } from './types.ts'
 
 // ---------- values ----------
 
@@ -222,6 +222,13 @@ export function hiddenByDefault(columns: ListColumn[], rows: ListCell[][], texts
   return matchingRows(columns, rows, texts, words, { ...filters, ...open }).length - matchingRows(columns, rows, texts, words, filters).length
 }
 
+/** Where a column's values have an order (ListColumn.ordered: that of its labels), each value's place in it; else null. */
+export function valueRank(column: ListColumn): ((value: string) => number) | null {
+  if (!column.ordered || !column.labels) return null
+  const order = new Map(Object.keys(column.labels).map((value, i) => [value, i]))
+  return (value) => order.get(value) ?? order.size
+}
+
 /** The values a filter can take given the other filters and the search, with how many rows each has. */
 export function facetOptions(columns: ListColumn[], rows: ListCell[][], texts: string[], words: string[], filters: Filters, id: string, lang: Lang) {
   const index = columns.findIndex((c) => c.id === id)
@@ -233,9 +240,10 @@ export function facetOptions(columns: ListColumn[], rows: ListCell[][], texts: s
   }
   const label = (v: string) => labelOf(column, v, lang) ?? v
   const collator = new Intl.Collator(lang === 'bg' ? 'bg' : 'en')
+  const rank = valueRank(column)
   return [...counts]
     .map(([value, count]) => ({ value, count, label: label(value) }))
-    .sort((a, b) => (column.type === 'date' ? b.value.localeCompare(a.value) : collator.compare(a.label, b.label)))
+    .sort((a, b) => (rank ? rank(a.value) - rank(b.value) : column.type === 'date' ? b.value.localeCompare(a.value) : collator.compare(a.label, b.label)))
 }
 
 // ---------- sorting ----------
@@ -277,17 +285,70 @@ export function bucketOf(value: string, n: number): number {
 /** The shard value of a filter value: itself, or its bucket when the list is split by a hash. */
 export const shardValue = (shards: ListShards, value: string) => (shards.hash ? String(bucketOf(value, shards.hash)) : value)
 
+/** The files a list is split into by a column's values: its shard column's, or another filter column's (ListShards.also). */
+export function shardSet(shards: ListShards | undefined, column: string): ListShardInfo[] | null {
+  if (!shards) return null
+  if (shards.by === column) return shards.hash ? null : shards.files
+  return shards.also?.find((a) => a.by === column)?.files ?? null
+}
+
 /**
- * The shard files the current filters and search need: the matching one; all of them for a small list,
- * for a filter on a column that allows it (ListShards.filters) or for a search long enough when the list
- * allows it; or none until a value is chosen or typed.
+ * The shard files the current filters and search need: for a filter on the shard column or on a column the rows are
+ * split by again (ListShards.also), its one file (the smallest, when several filters apply; none when no row has the
+ * value); all of them for a small list, or for a search long enough when the list allows it; or null while the list
+ * waits for a value to be chosen or typed.
  */
-export function shardsToLoad(shards: ListShards, count: number, filters: Filters, query = ''): ListShards['files'] {
-  const value = filters[shards.by]
-  if (value && value !== ALL) return shards.files.filter((f) => f.value === shardValue(shards, value))
+export function shardsToLoad(shards: ListShards, count: number, filters: Filters, query = ''): ListShardInfo[] | null {
+  const chosen = [{ by: shards.by, files: shards.files }, ...(shards.also ?? [])].flatMap((set) => {
+    const value = filters[set.by]
+    if (!value || value === ALL) return []
+    const wanted = set.files === shards.files ? shardValue(shards, value) : value
+    return [set.files.filter((f) => f.value === wanted)]
+  })
+  const size = (files: ListShardInfo[]) => files.reduce((s, f) => s + f.count, 0)
+  if (chosen.length) return chosen.reduce((a, b) => (size(b) < size(a) ? b : a))
   if (count <= LOAD_ALL_LIMIT && !shards.choose) return shards.files
-  if (shards.filters?.some((id) => filters[id] && filters[id] !== ALL)) return shards.files
-  return shards.search && normalizeText(query).replace(/\s+/g, '').length >= shards.search ? shards.files : []
+  return shards.search && normalizeText(query).replace(/\s+/g, '').length >= shards.search ? shards.files : null
+}
+
+export interface ShardChoice {
+  value: string
+  label: string
+  count: number
+  /** The list's summary totals of the value's rows, in the order of ListMeta.summary (null where there is none). */
+  totals: (number | null)[]
+}
+
+/** Years and periods of a year ("2026", "2026-3"): offered latest first rather than by size. */
+const PERIOD = /^\d{4}(-\d{1,2})?$/
+
+/**
+ * What a list that waits for a value of its shard column offers to choose from (a summary of each value's rows,
+ * from the list file alone): the values with their rows and totals — in the column's order where it has one, years and
+ * periods latest first, other values largest first by the first summary total.
+ */
+export function shardChoices(list: ListFile, lang: Lang): ShardChoice[] {
+  const files = list.shards ? shardSet(list.shards, list.shards.by) : null
+  const column = list.columns.find((c) => c.id === list.shards?.by)
+  if (!files || !column) return []
+  const refs = list.summary.map((ref) => resolveRef(list.columns, ref))
+  const collator = new Intl.Collator(lang === 'bg' ? 'bg' : 'en', { numeric: true })
+  const rank = valueRank(column)
+  const periods = column.type === 'date' || files.every((f) => PERIOD.test(f.value))
+  return files
+    .map((f) => ({
+      value: f.value,
+      label: labelOf(column, f.value, lang) ?? f.value,
+      count: f.count,
+      totals: refs.map((ref) => (ref ? refTotal(f.totals, ref) : null)),
+    }))
+    .sort((a, b) =>
+      rank
+        ? rank(a.value) - rank(b.value)
+        : periods
+          ? collator.compare(b.value, a.value)
+          : (b.totals[0] ?? 0) - (a.totals[0] ?? 0) || collator.compare(a.label, b.label),
+    )
 }
 
 /** Columns whose repeated values a shard stores once: texts, and the ids of nodes and categories. */
@@ -340,9 +401,13 @@ export function packShard(columns: ListColumn[], rows: ListCell[][], by?: string
   return { rows: packed, texts: repeated.map(([, e]) => e.value) }
 }
 
-/** The rows of a shard file with its shared texts and its shard column's value put back (see packShard). */
+/**
+ * The rows of a shard file with its shared texts and its shard column's value put back (see packShard); `by` is the
+ * list's shard column, unless the file names another (ListShardFile.by).
+ */
 export function unpackShard(columns: ListColumn[], shard: ListShardFile, by?: string): ListCell[][] {
-  const at = shard.value !== undefined && by ? columns.findIndex((c) => c.id === by) : -1
+  const column = shard.by ?? by
+  const at = shard.value !== undefined && column ? columns.findIndex((c) => c.id === column) : -1
   const stored = at >= 0 ? columns.filter((_, i) => i !== at) : columns
   const texts = shard.texts ?? []
   const text = stored.flatMap((c, i) => (PACKED.has(c.type) ? [i] : []))
@@ -353,6 +418,14 @@ export function unpackShard(columns: ListColumn[], shard: ListShardFile, by?: st
     if (at >= 0) out.splice(at, 0, shard.value!)
     return out
   })
+}
+
+/** The names a shard brings for its values of the columns whose names come with the shards (ListColumn.shardLabels), added to the list's. */
+export function addShardLabels(columns: ListColumn[], labels: ListShardFile['labels']): void {
+  for (const [id, names] of Object.entries(labels ?? {})) {
+    const column = columns.find((c) => c.id === id)
+    if (column) column.labels = Object.assign(column.labels ?? {}, names)
+  }
 }
 
 // ---------- counts and links ----------

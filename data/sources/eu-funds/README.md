@@ -101,7 +101,8 @@ export stops at 1,000 rows and carries no beneficiary, programme or place, and i
   person (ИСУН shows only their first name). Some natural persons do have a number — registered farmers ("ЗП …",
   "ЗС …") and others listed under their full name ("Иван Петров Иванов", "… - физическо лице"): a name that is a
   person's is treated as a natural person too — 971 beneficiaries with a number. The rules are in
-  `scripts/extract/persons.py`, shared with the farm subsidies, the SEBRA payees and the procurement suppliers: a given
+  `scripts/extract/persons.py`, shared with the farm subsidies, the SEBRA payees and the procurement suppliers (this
+  extract keeps the strict rule; the SEBRA payees take its one option, which names sole traders): a given
   name (from `../places/given-names.csv` and
   ИСУН's own natural persons) followed by a surname, or a three-part name, with nothing that marks an organisation
   (legal form, cooperative, school, municipality, church, community centre …); they err on the side of hiding, so a
