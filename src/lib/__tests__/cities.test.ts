@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { buildCities, readCityReport, withoutNegatives, type CitiesConfig } from '../../../scripts/cities.ts'
 import { activityOf, economicGroupOf, economicItemOf, FUNCTIONS, readActivities } from '../../../scripts/lib/ebk.ts'
 import { readCsv } from '../../../scripts/lib/csv.ts'
-import { defaultTitle } from '../../clip/render'
+import { defaultTitle } from '../../clip/caption'
 import type { BudgetNode, Dataset, ListFile, SeriesFile } from '../types'
 
 const sources = new URL('../../../data/sources/', import.meta.url)

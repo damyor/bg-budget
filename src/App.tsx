@@ -1,7 +1,7 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { useDatasetIndex } from './lib/data'
 import { LangContext, translate, type StringKey } from './lib/i18n'
-import { navigate, useRoute, type Page } from './lib/route'
+import { navigate, parseHash, useRoute, type Page } from './lib/route'
 import { SettingsProvider, useSettings } from './lib/settings'
 import { TaxProfileProvider } from './lib/taxProfile'
 import { About } from './pages/About'
@@ -27,6 +27,15 @@ function Shell() {
   const route = useRoute()
   const index = useDatasetIndex()
   const t = (key: StringKey) => translate(lang, key)
+
+  // Share pages (scripts/sharePages.ts) open the site in the language of the post: #/explore?…&lang=en.
+  const linkLang = route.params.lang
+  useEffect(() => {
+    if (linkLang !== 'bg' && linkLang !== 'en') return
+    if (linkLang !== lang) update({ lang: linkLang })
+    const { page, params } = parseHash(window.location.hash)
+    navigate({ page, params: Object.fromEntries(Object.entries(params).filter(([key]) => key !== 'lang')) }, { replace: true })
+  }, [linkLang, lang, update])
 
   // Keep the dataset, category and unit when moving between pages.
   const carry = (page: Page) => {

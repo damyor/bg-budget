@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { Lang, LocalizedText } from './types'
+import type { Lang, LocalizedText } from './types.ts'
 
 const STRINGS = {
   appName: { bg: 'Бюджетът на България', en: "Bulgaria's Budget" },
@@ -71,6 +71,10 @@ const STRINGS = {
   perMonth: { bg: 'на месец', en: 'a month' },
   makeClip: { bg: 'Направи клип', en: 'Make a clip' },
   copyLink: { bg: 'Копирай връзка', en: 'Copy link' },
+  share: { bg: 'Сподели', en: 'Share' },
+  shareTo: { bg: 'Сподели връзка към тази страница', en: 'Share a link to this view' },
+  shareEmail: { bg: 'Имейл', en: 'Email' },
+  shareMore: { bg: 'Още…', en: 'More…' },
   copied: { bg: 'Копирано', en: 'Copied' },
   up: { bg: 'Нагоре', en: 'Up' },
   backTo: { bg: 'Назад към „{name}“', en: 'Back to “{name}”' },
@@ -96,8 +100,8 @@ const STRINGS = {
 
   clipTitle: { bg: 'Клип за социалните мрежи', en: 'Clip for social media' },
   clipIntro: {
-    bg: 'Избери категория — клипът тръгва от всички разходи и „влиза“ ниво по ниво до нея. Изтегли MP4 и го качи в TikTok, Instagram, Facebook или YouTube.',
-    en: 'Pick a category — the clip starts from all spending and zooms in level by level until it reaches it. Download the MP4 and post it on TikTok, Instagram, Facebook or YouTube.',
+    bg: 'Избери категория — клипът тръгва от всички разходи и „влиза“ ниво по ниво до нея. Видеото се подготвя само; споделяш го с един бутон.',
+    en: 'Pick a category — the clip starts from all spending and zooms in level by level until it reaches it. The video gets ready by itself; one button shares it.',
   },
   clipWhat: { bg: 'Какво да покаже', en: 'What to show' },
   clipSearch: { bg: 'Напиши категория — напр. болници, полиция, пенсии', en: 'Type a category — e.g. hospitals, police, pensions' },
@@ -120,12 +124,9 @@ const STRINGS = {
   clipPerPerson: { bg: 'Покажи сумата на човек', en: 'Show the amount per person' },
   clipMine: { bg: 'Покажи моя дял от „Моите пари“', en: 'Show my share from “My money”' },
   clipMineMissing: { bg: 'Попълни „Моите пари“, за да добавиш своя дял.', en: 'Fill in “My money” to add your share.' },
-  clipExport: { bg: 'Създай MP4', en: 'Create MP4' },
-  clipExporting: { bg: 'Създаване на видеото… {pct}', en: 'Rendering the video… {pct}' },
-  clipCancel: { bg: 'Отказ', en: 'Cancel' },
-  clipReady: { bg: 'Готово — {size}, {duration} сек.', en: 'Ready — {size}, {duration} s' },
+  clipExporting: { bg: 'Видеото се подготвя… {pct}', en: 'Preparing the video… {pct}' },
+  clipReady: { bg: 'Видеото е готово — {size}, {duration} сек.', en: 'The video is ready — {size}, {duration} s' },
   clipDownload: { bg: 'Изтегли видеото', en: 'Download video' },
-  clipShare: { bg: 'Сподели…', en: 'Share…' },
   clipUnsupported: {
     bg: 'Този браузър не може да създава видео. Опитай с Chrome, Edge или Safari 17+.',
     en: "This browser can't create video. Try Chrome, Edge or Safari 17+.",
@@ -141,9 +142,65 @@ const STRINGS = {
   clipSeek: { bg: 'Позиция във видеото', en: 'Position in the video' },
   clipPreview: { bg: 'Преглед на клипа', en: 'Clip preview' },
   clipSummary: { bg: '{duration} сек. · {w}×{h} · 30 кадъра/сек.', en: '{duration} s · {w}×{h} · 30 fps' },
-  clipCaption: { bg: 'Текст за публикацията', en: 'Post caption' },
   clipPoster: { bg: 'Свали картинка (PNG)', en: 'Download image (PNG)' },
-  clipCopyCaption: { bg: 'Копирай текста', en: 'Copy caption' },
+  clipShareCopied: { bg: 'Текстът е копиран — постави го в приложението.', en: 'The text is copied — paste it in the app.' },
+  clipShareVideo: { bg: 'Сподели видеото', en: 'Share video' },
+  clipRetry: { bg: 'Опитай пак', en: 'Try again' },
+
+  shareClipTitle: { bg: 'Сподели клипа', en: 'Share the clip' },
+  shareClipIntro: {
+    bg: 'Всеки бутон копира текста за мрежата и я отваря; за TikTok, Instagram и YouTube дава и видеото.',
+    en: 'Each button copies the network’s text and opens it; for TikTok, Instagram and YouTube it hands over the video too.',
+  },
+  postOn: { bg: 'Публикувай в:', en: 'Post on:' },
+  postWaitVideo: { bg: 'Видеото още се подготвя', en: 'The video is still being prepared' },
+  postHintUpload: {
+    bg: 'Видеото е в изтеглените файлове, а текстът е копиран — качи видеото в {network} и постави текста.',
+    en: 'The video is in your downloads and the text is copied — upload the video to {network} and paste the text.',
+  },
+  postHintYoutube: {
+    bg: 'Видеото е в изтеглените файлове, а заглавието е копирано — качи видеото в YouTube и постави заглавието. Описанието е по-долу.',
+    en: 'The video is in your downloads and the title is copied — upload the video to YouTube and paste the title. The description is below.',
+  },
+  postHintShare: { bg: 'Текстът за {network} е копиран — избери {network} и постави текста.', en: 'The {network} text is copied — choose {network} and paste the text.' },
+  postHintCard: {
+    bg: 'Текстът е копиран — постави го в публикацията. Връзката показва карта със заглавието и фактите.',
+    en: 'The text is copied — paste it into the post. The link shows a card with the headline and the facts.',
+  },
+  postHintFilled: { bg: 'Текстът е попълнен — можеш да прикачиш и видеото.', en: 'The text is filled in — you can attach the video too.' },
+  postTexts: { bg: 'Текстът за всяка мрежа', en: 'The text for each network' },
+  postNetwork: { bg: 'Мрежа', en: 'Network' },
+  postText: { bg: 'Текст', en: 'Text' },
+  postYtTitle: { bg: 'Заглавие', en: 'Title' },
+  postYtDescription: { bg: 'Описание', en: 'Description' },
+  postCopyText: { bg: 'Копирай текста', en: 'Copy text' },
+  postCopyTitle: { bg: 'Копирай заглавието', en: 'Copy title' },
+  postCopyDescription: { bg: 'Копирай описанието', en: 'Copy description' },
+  postReset: { bg: 'Върни автоматичния текст', en: 'Restore the automatic text' },
+  postCount: { bg: '{n} от {max}', en: '{n} of {max}' },
+  postOver: { bg: 'Над лимита на мрежата', en: 'Over the network’s limit' },
+  postTooManyTags: { bg: 'Instagram приема до {max} хаштага', en: 'Instagram takes up to {max} hashtags' },
+  tipTiktok: { bg: 'Добави звук в TikTok — клиповете с музика стигат до повече хора.', en: 'Add a sound in TikTok — clips with music reach more people.' },
+  tipInstagram: { bg: 'Публикувай видеото като Reel. Instagram приема до 5 хаштага.', en: 'Post the video as a Reel. Instagram takes up to 5 hashtags.' },
+  tipFacebook: {
+    bg: 'Бутонът „Facebook“ споделя връзката с карта; за да публикуваш видеото, качи го през „Снимка/видео“.',
+    en: 'The Facebook button shares the link with its card; to post the video, upload it with “Photo/video”.',
+  },
+  tipYoutube: {
+    bg: 'Вертикално видео до 3 минути става Short. Във Shorts връзките в описанието не се отварят; видеото 16:9 е обикновено видео.',
+    en: 'A vertical video of up to 3 minutes becomes a Short. Links in Shorts descriptions are not clickable; the 16:9 video is a regular video.',
+  },
+  tipX: { bg: 'До 280 знака; връзката се брои за 23, а € — за 2.', en: 'Up to 280 characters; the link counts as 23 and € as 2.' },
+  tipLinkedin: {
+    bg: 'Бутонът „LinkedIn“ споделя връзката с карта; можеш да прикачиш и видеото.',
+    en: 'The LinkedIn button shares the link with its card; you can attach the video too.',
+  },
+  tipThreads: { bg: 'До 500 знака и една тема (хаштаг).', en: 'Up to 500 characters and one topic tag.' },
+  tipBluesky: { bg: 'До 300 знака.', en: 'Up to 300 characters.' },
+  tipMessengers: {
+    bg: 'За групи и канали: връзката показва карта със заглавието и фактите.',
+    en: 'For groups and channels: the link shows a card with the headline and the facts.',
+  },
 } satisfies Record<string, LocalizedText>
 
 export type StringKey = keyof typeof STRINGS

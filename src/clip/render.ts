@@ -7,7 +7,7 @@ import { formatPercent, moneyParts } from '../lib/format'
 import { translate } from '../lib/i18n'
 import { arcFill, inkOn, seriesHex, type Mode } from '../lib/palette'
 import { placeOf } from '../lib/tree'
-import { publicTotal, type BudgetNode, type Dataset, type DatasetFamily, type Lang } from '../lib/types'
+import { publicTotal, type BudgetNode, type Dataset, type Lang } from '../lib/types'
 import { formatPersonal } from '../lib/valueMode'
 import { clipLayout, type Box, type ClipFormat, type ClipLayout } from './layout'
 import { buildTimeline, sceneAt, TOUR_STEPS, type Scene, type Speed, type Timeline } from './timeline'
@@ -41,67 +41,6 @@ const THEME = {
 } as const
 
 const FONT = '"Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif'
-
-const GEOGRAPHIC = new Set(['Община', 'Municipality', 'Област (регион)', 'Province'])
-/** A programme's own staff, running and capital costs ("Персонал", "Издръжка" …) only mean something with the programme. */
-const DEPARTMENTAL = 'Ведомствен разход'
-const GENERIC = /^(администрация|други|друго|резерв|инвестиции|издръжка|заплати|членски внос|стипендии|administration|other|contingency|investment|running costs|staff pay|membership fees|scholarships)/i
-
-/** A node that only makes sense together with its parent ("Administration", a municipality …). */
-function needsContext(node: BudgetNode): boolean {
-  return (
-    (node.kind !== undefined && (GEOGRAPHIC.has(node.kind.bg) || node.kind.bg === DEPARTMENTAL)) ||
-    GENERIC.test(node.name.bg) ||
-    node.id.endsWith('~other')
-  )
-}
-
-/** Titles for the central budget's transfers to municipalities: what a place gets, and for what. */
-function municipalTitle(path: BudgetNode[], lang: Lang): string {
-  const target = path[path.length - 1]
-  const place = path.findLast((n) => n.kind !== undefined && GEOGRAPHIC.has(n.kind.bg))
-  if (!place) return lang === 'bg' ? 'Колко пари получават общините от държавния бюджет?' : 'How much do municipalities get from the state budget?'
-  const name = place.name[lang]
-  if (place !== target) return lang === 'bg' ? `${name}: колко за „${target.name.bg}“?` : `${name}: how much for “${target.name.en}”?`
-  if (place.kind?.en === 'Province') {
-    return lang === 'bg' ? `Колко получават общините в ${name} от държавния бюджет?` : `How much do the municipalities of ${name} get from the state budget?`
-  }
-  return lang === 'bg' ? `Колко получава ${name} от държавния бюджет?` : `How much does ${name} get from the state budget?`
-}
-
-/** Titles for the big cities' whole budgets: what a city spends, and on what (with its activity when the item is generic). */
-function cityTitle(path: BudgetNode[], lang: Lang): string {
-  const city = path.find((n) => n.kind !== undefined && GEOGRAPHIC.has(n.kind.bg))
-  if (!city) return lang === 'bg' ? 'Колко харчат София, Пловдив и Бургас?' : 'How much do Sofia, Plovdiv and Burgas spend?'
-  const target = path[path.length - 1]
-  const name = city.name[lang]
-  if (target === city) return lang === 'bg' ? `Колко харчи ${name}?` : `How much does ${name} spend?`
-  // "Running costs" or "Water, fuel and energy" mean something only with the activity they belong to.
-  const activity = path.find((n) => n.kind?.en === 'Activity')
-  const what = activity && activity !== target ? `${activity.name[lang]} — ${target.name[lang]}` : target.name[lang]
-  return lang === 'bg' ? `Колко харчи ${name} за „${what}“?` : `How much does ${name} spend on “${what}”?`
-}
-
-export function defaultTitle(path: BudgetNode[], lang: Lang, family?: DatasetFamily): string {
-  if (family === 'municipalities') return municipalTitle(path, lang)
-  if (family === 'cities') return cityTitle(path, lang)
-  const target = path[path.length - 1]
-  if (path.length === 1) {
-    return lang === 'bg' ? 'Накъде отиват публичните пари на България?' : "Where does Bulgaria's public money go?"
-  }
-  const name = target.name[lang]
-  if (needsContext(target)) {
-    const category = [...path.slice(1, -1)].reverse().find((n) => !needsContext(n))
-    if (category) {
-      const geographic = target.kind !== undefined && GEOGRAPHIC.has(target.kind.bg)
-      if (geographic) return lang === 'bg' ? `${name}: колко за „${category.name.bg}“?` : `${name}: how much for “${category.name.en}”?`
-      return lang === 'bg'
-        ? `Колко харчи България за „${category.name.bg} — ${name}“?`
-        : `How much does Bulgaria spend on “${category.name.en} — ${name}”?`
-    }
-  }
-  return lang === 'bg' ? `Колко харчи България за „${name}“?` : `How much does Bulgaria spend on “${name}”?`
-}
 
 export function prepareClip(spec: ClipSpec): PreparedClip {
   const levels = spec.path.map((node, i) => (node.children?.length ? layoutSlices(node, spec.path[i + 1]?.id) : []))
@@ -558,48 +497,4 @@ function drawFooter(ctx: CanvasRenderingContext2D, clip: PreparedClip) {
   ctx.moveTo(box.x, box.y - 6 * u)
   ctx.lineTo(box.x + box.w, box.y - 6 * u)
   ctx.stroke()
-}
-
-/** Suggested text to post alongside the clip. */
-export function postCaption(spec: ClipSpec): string {
-  const { path, lang, dataset } = spec
-  const root = path[0]
-  const target = path[path.length - 1]
-  const amount = moneyParts(target.value, lang).text
-  const place = placeOf(path)
-  const pp = formatPersonal(target.value / (place?.residents ?? dataset.population), lang)
-  const year = dataset.year
-  const plan = dataset.kind === 'plan'
-  const forecast = dataset.stage === 'forecast'
-  const all = publicTotal(dataset)
-  const share = target.value === all ? '' : ` (${formatPercent(target.value / all, lang)} ${translate(lang, 'clipOfAll')})`
-  const source = dataset.sourceShort?.[lang] ?? ''
-  // The root is all public spending only when the dataset covers all of it.
-  const everything = target === root && root.value === all
-  // A part of a place's money (a transfer of one municipality) names the place too.
-  const within = place && place.id !== target.id ? place : null
-  if (lang === 'bg') {
-    const name = `„${target.name.bg}“${within ? ` на ${within.name.bg}` : ''}`
-    const plans = forecast ? `Прогнозата на МФ за ${year} г. предвижда` : `Бюджетът за ${year} г. предвижда`
-    const head = everything
-      ? plan
-        ? `${plans} публични разходи от ${amount}`
-        : `През ${year} г. публичните разходи на България са ${amount}`
-      : plan
-        ? `${plans} ${amount} за ${name}${share}`
-        : `През ${year} г. за ${name} са похарчени ${amount}${share}`
-    const per = place ? `на жител на ${place.name.bg}` : 'на човек'
-    return `${head} — около ${pp} ${per} годишно.\n\nИзточник: ${source}\n#бюджет #България #публичнифинанси`
-  }
-  const name = `“${target.name.en}”${within ? ` in ${within.name.en}` : ''}`
-  const plans = forecast ? `The Ministry of Finance forecast for ${year} plans` : `Bulgaria's ${year} budget plans`
-  const head = everything
-    ? plan
-      ? `${plans} ${amount} of public spending`
-      : `Bulgaria's public spending in ${year}: ${amount}`
-    : plan
-      ? `${plans} ${amount} for ${name}${share}`
-      : `In ${year}, Bulgaria spent ${amount} on ${name}${share}`
-  const per = place ? `per resident of ${place.name.en}` : 'per person'
-  return `${head} — about ${pp} ${per} a year.\n\nSource: ${source}\n#Bulgaria #budget #publicfinance`
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { defaultTitle, summary } from '../clip/caption'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { ChildList } from '../components/ChildList'
 import { DatasetPicker } from '../components/DatasetPicker'
@@ -7,13 +8,16 @@ import { ListLinks } from '../components/ListLinks'
 import { SearchBox } from '../components/SearchBox'
 import { SeeAlso } from '../components/SeeAlso'
 import { Segmented } from '../components/Segmented'
+import { ShareMenu } from '../components/ShareMenu'
 import { TrendChart } from '../components/TrendChart'
 import { useDataset } from '../lib/data'
 import { findEntry, STAGE_LABEL } from '../lib/datasets'
 import { formatGdpPercent, formatNumber, formatPercent, moneyParts } from '../lib/format'
 import { useLang, useT } from '../lib/i18n'
-import { navigate, routeUrl, useRoute, type Route } from '../lib/route'
+import { navigate, useRoute, type Route } from '../lib/route'
 import { pointsFor, useSeries, type SeriesPoint } from '../lib/series'
+import { shareUrl } from '../lib/share'
+import { SITE_URL } from '../lib/site'
 import { useTaxesByYear } from '../lib/taxProfile'
 import { OTHER_SUFFIX, parentOf, pathTo, placeOf, slicesFor } from '../lib/tree'
 import { publicTotal, type DatasetIndexEntry } from '../lib/types'
@@ -28,7 +32,6 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
   const series = useSeries(entry.family)
   const taxesByYear = useTaxesByYear()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const [copied, setCopied] = useState(false)
 
   if (loaded.status === 'loading') return <p className="page-status">{t('loading')}</p>
   if (loaded.status === 'error') return <p className="page-status">{t('loadError')}</p>
@@ -83,15 +86,9 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
     return valueScale(effectiveMode, p.entry, lang, taxes).scale(p.value)
   }
 
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(routeUrl({ page: 'explore', params: route.params }))
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1600)
-    } catch {
-      /* clipboard blocked — the address bar still has the link */
-    }
-  }
+  // The view's share page (its own preview card); per person and % of GDP travel along.
+  const shareMode = effectiveMode === 'perPerson' || effectiveMode === 'gdp' ? `?m=${MODE_PARAM[effectiveMode]}` : ''
+  const shareLink = shareUrl(SITE_URL, lang, dataset.id, nodeId) + shareMode
 
   return (
     <div className="explorer">
@@ -233,9 +230,7 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
               </svg>
               {t('makeClip')}
             </button>
-            <button type="button" className="btn" onClick={copyLink}>
-              {copied ? t('copied') : t('copyLink')}
-            </button>
+            <ShareMenu url={shareLink} title={defaultTitle(path, lang, dataset.family)} text={summary(dataset, path, lang)} />
           </div>
 
           {points && points.filter((p) => p.value !== null).length > 1 && (

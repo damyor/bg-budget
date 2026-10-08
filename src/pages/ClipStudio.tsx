@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { defaultTitle, measure, NETWORKS, postTexts, type Network, type PostField } from '../clip/caption'
 import { canExportVideo, ensureClipFonts, exportClip, exportPoster, type ExportResult } from '../clip/encode'
 import { FORMAT_SIZE, type ClipFormat } from '../clip/layout'
-import { defaultTitle, postCaption, prepareClip, renderFrame } from '../clip/render'
+import { prepareClip, renderFrame, type ClipSpec, type PreparedClip } from '../clip/render'
 import type { Speed } from '../clip/timeline'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { DatasetPicker } from '../components/DatasetPicker'
@@ -10,9 +11,11 @@ import { Segmented } from '../components/Segmented'
 import { useDataset } from '../lib/data'
 import { findEntry } from '../lib/datasets'
 import { formatNumber } from '../lib/format'
-import { useLang, useT } from '../lib/i18n'
+import { useLang, useT, type StringKey } from '../lib/i18n'
 import type { Mode } from '../lib/palette'
 import { navigate, useRoute } from '../lib/route'
+import { composeUrl, hashtagCount, shareLinkUrl, shareUrl, uploadUrl } from '../lib/share'
+import { SITE_LABEL, SITE_URL } from '../lib/site'
 import { slugify } from '../lib/slug'
 import { useTaxesByYear } from '../lib/taxProfile'
 import { realPathTo } from '../lib/tree'
@@ -24,7 +27,13 @@ type ExportState =
   | { status: 'done'; result: ExportResult; url: string }
   | { status: 'error'; message: string }
 
-const SITE_LABEL = window.location.host.replace(/^www\./, '')
+/** How long the settings must stay unchanged before the video is rendered in the background. */
+const RENDER_DELAY_MS = 900
+
+function fileStem(spec: ClipSpec): string {
+  const target = spec.path[spec.path.length - 1]
+  return ['budget', spec.dataset.year, slugify(target.name.bg) || 'total', spec.format].join('-')
+}
 
 export default function ClipStudio({ datasets }: { datasets: DatasetIndexEntry[] }) {
   const t = useT()
@@ -41,8 +50,14 @@ export default function ClipStudio({ datasets }: { datasets: DatasetIndexEntry[]
   const [customTitle, setCustomTitle] = useState<string | null>(null)
   const [showPerPerson, setShowPerPerson] = useState(true)
   const [showMine, setShowMine] = useState(true)
-  const [exportState, setExportState] = useState<ExportState>({ status: 'idle' })
-  const abortRef = useRef<AbortController | null>(null)
+  /** Bumped by "Try again" after a failed render. */
+  const [attempt, setAttempt] = useState(0)
+  /** The background render, for the clip (and attempt) it was made for. */
+  const [render, setRender] = useState<{ clip: PreparedClip | null; attempt: number; state: ExportState }>({
+    clip: null,
+    attempt: 0,
+    state: { status: 'idle' },
+  })
 
   const ready = loaded.status === 'ready' ? loaded.value : null
   const nodeId = ready && route.params.n && ready.tree.byId.has(route.params.n) ? route.params.n : 'root'
@@ -65,55 +80,55 @@ export default function ClipStudio({ datasets }: { datasets: DatasetIndexEntry[]
     })
   }, [ready, path, format, theme, clipLang, speed, customTitle, autoTitle, showPerPerson, showMine, myTaxes])
 
-  // A new clip invalidates a finished export.
+  const shareLink = clip ? shareUrl(SITE_URL, clip.spec.lang, clip.spec.dataset.id, clip.spec.path[clip.spec.path.length - 1].id) : ''
+  const posts = useMemo(() => {
+    if (!clip) return null
+    const { dataset, path, lang, title } = clip.spec
+    return postTexts({ dataset, path, lang, title, url: shareLink, site: SITE_LABEL })
+  }, [clip, shareLink])
+
+  const exportState: ExportState = render.clip === clip && render.attempt === attempt ? render.state : { status: 'idle' }
+
+  // Every new clip is rendered in the background as soon as the settings rest, so the video is ready to share.
   useEffect(() => {
-    abortRef.current?.abort()
-    setExportState((s) => {
-      if (s.status === 'done') URL.revokeObjectURL(s.url)
-      return { status: 'idle' }
-    })
-  }, [clip])
+    if (!clip || !canExportVideo()) return
+    const controller = new AbortController()
+    const set = (state: ExportState) => controller.signal.aborted || setRender({ clip, attempt, state })
+    let url: string | null = null
+    const timer = setTimeout(async () => {
+      set({ status: 'running', progress: 0 })
+      try {
+        const result = await exportClip(clip, fileStem(clip.spec), (progress) => set({ status: 'running', progress }), controller.signal)
+        if (controller.signal.aborted) return
+        url = URL.createObjectURL(result.blob)
+        set({ status: 'done', result, url })
+      } catch (e) {
+        set({ status: 'error', message: e instanceof Error ? e.message : String(e) })
+      }
+    }, RENDER_DELAY_MS)
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+      if (url) URL.revokeObjectURL(url)
+    }
+  }, [clip, attempt])
 
   if (loaded.status === 'loading') return <p className="page-status">{t('loading')}</p>
-  if (loaded.status === 'error' || !ready || !clip) return <p className="page-status">{t('loadError')}</p>
+  if (loaded.status === 'error' || !ready || !clip || !posts) return <p className="page-status">{t('loadError')}</p>
 
   const { dataset, tree } = ready
   const target = path[path.length - 1]
   const setTarget = (id: string) =>
     navigate({ page: 'clip', params: { ...route.params, d: dataset.id, n: id === 'root' ? '' : id } }, { replace: true })
 
-  const startExport = async () => {
-    const controller = new AbortController()
-    abortRef.current = controller
-    setExportState({ status: 'running', progress: 0 })
-    try {
-      const result = await exportClip(clip, fileStem, (progress) => setExportState({ status: 'running', progress }), controller.signal)
-      setExportState({ status: 'done', result, url: URL.createObjectURL(result.blob) })
-    } catch (e) {
-      if (controller.signal.aborted) setExportState({ status: 'idle' })
-      else setExportState({ status: 'error', message: e instanceof Error ? e.message : String(e) })
-    }
-  }
-
-  const fileStem = ['budget', dataset.year, slugify(target.name.bg) || 'total', format].join('-')
-
   const downloadPoster = async () => {
-    const result = await exportPoster(clip, fileStem)
+    const result = await exportPoster(clip, fileStem(clip.spec))
     const url = URL.createObjectURL(result.blob)
     const a = document.createElement('a')
     a.href = url
     a.download = result.fileName
     a.click()
     setTimeout(() => URL.revokeObjectURL(url), 10_000)
-  }
-
-  const share = async (result: ExportResult) => {
-    const file = new File([result.blob], result.fileName, { type: 'video/mp4' })
-    try {
-      await navigator.share({ files: [file], title: clip.spec.title })
-    } catch {
-      /* dismissed */
-    }
   }
 
   const children = [...(target.children ?? [])].sort((a, b) => b.value - a.value)
@@ -244,59 +259,14 @@ export default function ClipStudio({ datasets }: { datasets: DatasetIndexEntry[]
           )}
         </fieldset>
 
-        <CaptionBox text={postCaption(clip.spec)} />
-
-        <div className="export">
-          {!canExportVideo() ? (
-            <p className="note">{t('clipUnsupported')}</p>
-          ) : exportState.status === 'running' ? (
-            <div className="export-progress">
-              <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(exportState.progress * 100)}>
-                <span style={{ width: `${exportState.progress * 100}%` }} />
-              </div>
-              <span>{t('clipExporting', { pct: `${Math.round(exportState.progress * 100)}%` })}</span>
-              <button type="button" className="btn" onClick={() => abortRef.current?.abort()}>
-                {t('clipCancel')}
-              </button>
-            </div>
-          ) : exportState.status === 'done' ? (
-            <div className="export-done">
-              <p>
-                {t('clipReady', {
-                  size: `${formatNumber(exportState.result.blob.size / 1e6, lang, 1)} MB`,
-                  duration: seconds,
-                })}
-              </p>
-              <div className="actions">
-                <a className="btn btn-primary btn-lg" href={exportState.url} download={exportState.result.fileName}>
-                  {t('clipDownload')}
-                </a>
-                {typeof navigator.canShare === 'function' &&
-                  navigator.canShare({ files: [new File([exportState.result.blob], exportState.result.fileName, { type: 'video/mp4' })] }) && (
-                    <button type="button" className="btn btn-lg" onClick={() => share(exportState.result)}>
-                      {t('clipShare')}
-                    </button>
-                  )}
-                <button type="button" className="btn btn-lg" onClick={startExport}>
-                  {t('clipExport')}
-                </button>
-              </div>
-              {exportState.result.codec !== 'avc' && <p className="note">{t('clipCodecNote', { codec: exportState.result.codec.toUpperCase() })}</p>}
-            </div>
-          ) : (
-            <>
-              <div className="actions">
-                <button type="button" className="btn btn-primary btn-lg" onClick={startExport}>
-                  {t('clipExport')}
-                </button>
-                <button type="button" className="btn btn-lg" onClick={downloadPoster}>
-                  {t('clipPoster')}
-                </button>
-              </div>
-              {exportState.status === 'error' && <p className="note error">{t('clipError', { msg: exportState.message })}</p>}
-            </>
-          )}
-        </div>
+        <ShareClip
+          posts={posts}
+          url={shareLink}
+          exportState={exportState}
+          duration={seconds}
+          onRetry={() => setAttempt((a) => a + 1)}
+          onPoster={downloadPoster}
+        />
       </section>
     </div>
   )
@@ -402,30 +372,331 @@ function ClipPlayer({ clip }: { clip: ReturnType<typeof prepareClip> }) {
   )
 }
 
-function CaptionBox({ text }: { text: string }) {
+
+// ---------- sharing ----------
+
+/** The networks with a button of their own; Viber, WhatsApp and Telegram share one text. */
+type Target = 'tiktok' | 'instagram' | 'youtube' | 'facebook' | 'x' | 'linkedin' | 'threads' | 'bluesky' | 'viber' | 'whatsapp' | 'telegram'
+
+const TARGETS: Target[] = ['tiktok', 'instagram', 'youtube', 'facebook', 'x', 'linkedin', 'threads', 'bluesky', 'viber', 'whatsapp', 'telegram']
+
+const TARGET_NAME: Record<Target, string> = {
+  tiktok: 'TikTok',
+  instagram: 'Instagram',
+  youtube: 'YouTube',
+  facebook: 'Facebook',
+  x: 'X',
+  linkedin: 'LinkedIn',
+  threads: 'Threads',
+  bluesky: 'Bluesky',
+  viber: 'Viber',
+  whatsapp: 'WhatsApp',
+  telegram: 'Telegram',
+}
+
+const TEXT_OF: Record<Target, Network> = {
+  tiktok: 'tiktok',
+  instagram: 'instagram',
+  youtube: 'youtube',
+  facebook: 'facebook',
+  x: 'x',
+  linkedin: 'linkedin',
+  threads: 'threads',
+  bluesky: 'bluesky',
+  viber: 'messengers',
+  whatsapp: 'messengers',
+  telegram: 'messengers',
+}
+
+/** Networks that take nothing but a video: their button hands the file over. The rest post the text and link. */
+const VIDEO_ONLY = new Set<Target>(['tiktok', 'instagram', 'youtube'])
+
+const NETWORK_NAME: Record<Network, string> = {
+  tiktok: 'TikTok',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  youtube: 'YouTube',
+  x: 'X',
+  linkedin: 'LinkedIn',
+  threads: 'Threads',
+  bluesky: 'Bluesky',
+  messengers: 'Viber · WhatsApp · Telegram',
+}
+
+const TIP = {
+  tiktok: 'tipTiktok',
+  instagram: 'tipInstagram',
+  facebook: 'tipFacebook',
+  youtube: 'tipYoutube',
+  x: 'tipX',
+  linkedin: 'tipLinkedin',
+  threads: 'tipThreads',
+  bluesky: 'tipBluesky',
+  messengers: 'tipMessengers',
+} as const
+
+/**
+ * A phone's share sheet hands a video straight to the TikTok, Instagram or YouTube app; a computer's
+ * cannot, so there the video is downloaded and the network's upload page opened.
+ */
+function sharing(): { sheet: boolean; phone: boolean } {
+  const probe = new File([], 'clip.mp4', { type: 'video/mp4' })
+  const sheet = typeof navigator.canShare === 'function' && navigator.canShare({ files: [probe] })
+  return { sheet, phone: sheet && window.matchMedia('(pointer: coarse)').matches }
+}
+
+interface ShareClipProps {
+  posts: ReturnType<typeof postTexts>
+  /** The view's share page. */
+  url: string
+  exportState: ExportState
+  duration: string
+  onRetry: () => void
+  onPoster: () => void
+}
+
+/** The video, and one button per network that copies the post's text, hands over the video where needed and opens the network. */
+function ShareClip({ posts, url, exportState, duration, onRetry, onPoster }: ShareClipProps) {
   const t = useT()
-  const [copied, setCopied] = useState(false)
+  const lang = useLang()
+  const { sheet, phone } = useMemo(() => sharing(), [])
+  const [network, setNetwork] = useState<Network>('tiktok')
+  const [textsOpen, setTextsOpen] = useState(false)
+  const [copied, setCopied] = useState<string | null>(null)
+  /** The video already downloaded, so a second network does not download it again. */
+  const [downloaded, setDownloaded] = useState<string | null>(null)
+  // Hand edits of the texts (by "<network>:<field>") and the last hint belong to the texts they were made for.
+  const [edited, setEdited] = useState({ posts, values: {} as Record<string, string> })
+  const edits = edited.posts === posts ? edited.values : {}
+  const [note, setNote] = useState<{ posts: typeof posts; key: StringKey; network?: string } | null>(null)
+  const hint = note?.posts === posts ? t(note.key, note.network ? { network: note.network } : undefined) : null
+  const setHint = (key: StringKey | null, network?: string) => setNote(key === null ? null : { posts, key, network })
+
+  const video = exportState.status === 'done' ? exportState : null
+  const valueOf = (n: Network, f: PostField) => edits[`${n}:${f.id}`] ?? f.text
+  const textOf = (n: Network) => valueOf(n, posts[n][0])
+  const copy = (text: string) => navigator.clipboard.writeText(text).catch(() => undefined)
+
+  const copyField = async (key: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(key)
+      setTimeout(() => setCopied((c) => (c === key ? null : c)), 1600)
+    } catch {
+      /* clipboard blocked — the text can still be selected by hand */
+    }
+  }
+
+  const download = () => {
+    if (!video || downloaded === video.url) return
+    const a = document.createElement('a')
+    a.href = video.url
+    a.download = video.result.fileName
+    a.click()
+    setDownloaded(video.url)
+  }
+
+  // The share sheet takes only the file: with text attached some apps (Instagram) leave the sheet.
+  const shareVideo = (text: string) => {
+    if (!video) return
+    void copy(text)
+    navigator.share({ files: [new File([video.result.blob], video.result.fileName, { type: 'video/mp4' })] }).catch(() => undefined)
+  }
+
+  const hrefOf = (target: Target): string | null => {
+    const text = textOf(TEXT_OF[target])
+    if (target === 'tiktok' || target === 'instagram' || target === 'youtube') return phone ? null : uploadUrl[target]
+    if (target === 'facebook' || target === 'linkedin') return shareLinkUrl[target](url)
+    if (target === 'telegram') return composeUrl.telegram(url, text.replace(url, '').trim())
+    return composeUrl[target](text)
+  }
+
+  const post = (target: Target) => {
+    const n = TEXT_OF[target]
+    const name = TARGET_NAME[target]
+    setNetwork(n)
+    if (VIDEO_ONLY.has(target) && phone) {
+      shareVideo(textOf(n))
+      setHint('postHintShare', name)
+      return
+    }
+    void copy(textOf(n))
+    if (VIDEO_ONLY.has(target)) {
+      download()
+      if (target === 'youtube') setTextsOpen(true)
+      if (target === 'youtube') setHint('postHintYoutube')
+      else setHint('postHintUpload', name)
+    } else if (target === 'facebook' || target === 'linkedin') {
+      setHint('postHintCard')
+    } else if (n !== 'messengers') {
+      setHint('postHintFilled')
+    } else {
+      setHint(null)
+    }
+  }
+
+  const fields = posts[network]
+  const label = { text: t('postText'), title: t('postYtTitle'), description: t('postYtDescription') }
+  const copyLabel = { text: t('postCopyText'), title: t('postCopyTitle'), description: t('postCopyDescription') }
+  const pct = exportState.status === 'running' ? Math.round(exportState.progress * 100) : 0
+  const videoMissing = canExportVideo() ? t('postWaitVideo') : t('clipUnsupported')
+
   return (
-    <fieldset className="panel-group">
-      <legend>{t('clipCaption')}</legend>
-      <textarea className="caption-text" readOnly value={text} rows={5} />
-      <div>
-        <button
-          type="button"
-          className="btn"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(text)
-              setCopied(true)
-              setTimeout(() => setCopied(false), 1600)
-            } catch {
-              /* clipboard blocked — the text can still be selected by hand */
-            }
-          }}
-        >
-          {copied ? t('copied') : t('clipCopyCaption')}
+    <fieldset className="panel-group share-clip">
+      <legend>{t('shareClipTitle')}</legend>
+
+      {!canExportVideo() ? (
+        <p className="note">{t('clipUnsupported')}</p>
+      ) : exportState.status === 'error' ? (
+        <div className="export-progress">
+          <p className="note error">{t('clipError', { msg: exportState.message })}</p>
+          <button type="button" className="btn" onClick={onRetry}>
+            {t('clipRetry')}
+          </button>
+        </div>
+      ) : video ? (
+        <p className="muted small">
+          {t('clipReady', { size: `${formatNumber(video.result.blob.size / 1e6, lang, 1)} MB`, duration })}
+        </p>
+      ) : (
+        <div className="export-progress">
+          <div className="progress" role="progressbar" aria-label={t('clipExporting', { pct: '' })} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
+            <span style={{ width: `${pct}%` }} />
+          </div>
+          <span className="muted small">{t('clipExporting', { pct: `${pct}%` })}</span>
+        </div>
+      )}
+
+      <div className="actions share-actions">
+        {sheet && (
+          <button
+            type="button"
+            className={phone ? 'btn btn-primary btn-lg' : 'btn btn-lg'}
+            disabled={!video}
+            onClick={() => {
+              shareVideo(textOf(network))
+              setHint('clipShareCopied')
+            }}
+          >
+            {t('clipShareVideo')}
+          </button>
+        )}
+        {video ? (
+          <a
+            className={phone ? 'btn btn-lg' : 'btn btn-primary btn-lg'}
+            href={video.url}
+            download={video.result.fileName}
+            onClick={() => setDownloaded(video.url)}
+          >
+            {t('clipDownload')}
+          </a>
+        ) : (
+          <button type="button" className={phone ? 'btn btn-lg' : 'btn btn-primary btn-lg'} disabled title={videoMissing}>
+            {t('clipDownload')}
+          </button>
+        )}
+        <button type="button" className="btn btn-lg" onClick={onPoster}>
+          {t('clipPoster')}
         </button>
       </div>
+      {video && video.result.codec !== 'avc' && <p className="note">{t('clipCodecNote', { codec: video.result.codec.toUpperCase() })}</p>}
+
+      <div className="post-on">
+        <span className="chips-label">{t('postOn')}</span>
+        <div className="network-buttons">
+          {TARGETS.map((target) => {
+            const name = TARGET_NAME[target]
+            if (VIDEO_ONLY.has(target) && !video) {
+              return (
+                <button key={target} type="button" className="btn btn-sm" disabled title={videoMissing}>
+                  {name}
+                </button>
+              )
+            }
+            const href = hrefOf(target)
+            if (!href) {
+              return (
+                <button key={target} type="button" className="btn btn-sm" onClick={() => post(target)}>
+                  {name}
+                </button>
+              )
+            }
+            // Viber opens its app in place; the rest open in a new tab.
+            const app = target === 'viber'
+            return (
+              <a
+                key={target}
+                className="btn btn-sm"
+                href={href}
+                target={app ? undefined : '_blank'}
+                rel={app ? undefined : 'noopener noreferrer'}
+                onClick={() => post(target)}
+              >
+                {name}
+              </a>
+            )
+          })}
+        </div>
+        <p className="muted small" role="status">
+          {hint ?? t('shareClipIntro')}
+        </p>
+      </div>
+
+      <details className="post-texts" open={textsOpen} onToggle={(e) => setTextsOpen(e.currentTarget.open)}>
+        <summary>{t('postTexts')}</summary>
+        <Segmented<Network>
+          label={t('postNetwork')}
+          value={network}
+          onChange={setNetwork}
+          options={NETWORKS.map((n) => ({ value: n, label: NETWORK_NAME[n] }))}
+        />
+        {fields.map((f) => {
+          const key = `${network}:${f.id}`
+          const value = valueOf(network, f)
+          const length = measure(value, f.counting)
+          const over = f.limit !== undefined && length > f.limit
+          const edit = (text: string | null) => {
+            const values = { ...edits }
+            if (text === null) delete values[key]
+            else values[key] = text
+            setEdited({ posts, values })
+          }
+          return (
+            <label key={key} className="field">
+              <span className="post-field-head">
+                <span className="field-label">{label[f.id]}</span>
+                {f.limit !== undefined && (
+                  <span className={over ? 'post-count over' : 'post-count'}>
+                    {t('postCount', { n: formatNumber(length, lang), max: formatNumber(f.limit, lang) })}
+                  </span>
+                )}
+              </span>
+              {f.id === 'title' ? (
+                <input type="text" value={value} onChange={(e) => edit(e.target.value)} />
+              ) : (
+                <textarea className="caption-text" value={value} rows={Math.min(12, value.split('\n').length + 2)} onChange={(e) => edit(e.target.value)} />
+              )}
+              {over && <span className="post-warning">{t('postOver')}</span>}
+              {f.maxHashtags !== undefined && hashtagCount(value) > f.maxHashtags && (
+                <span className="post-warning">{t('postTooManyTags', { max: f.maxHashtags })}</span>
+              )}
+              {edits[key] !== undefined && (
+                <button type="button" className="link-btn" onClick={() => edit(null)}>
+                  {t('postReset')}
+                </button>
+              )}
+            </label>
+          )
+        })}
+        <p className="muted small">{t(TIP[network])}</p>
+        <div className="actions post-actions">
+          {fields.map((f) => (
+            <button key={f.id} type="button" className="btn" onClick={() => copyField(`${network}:${f.id}`, valueOf(network, f))}>
+              {copied === `${network}:${f.id}` ? t('copied') : copyLabel[f.id]}
+            </button>
+          ))}
+        </div>
+      </details>
     </fieldset>
   )
 }

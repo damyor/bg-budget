@@ -10,7 +10,9 @@ Interactive visualization of Bulgaria's public spending:
   ministry, by municipality, the big cities' whole budgets, Eurostat COFOG). Amounts can be shown as totals, per
   person, as a share of GDP, or as *your* share of them; inside a municipality also per resident. "Over the years"
   under each category compares its plan and actual across all years. A city's transfers from the central budget
-  ("Municipalities") and its whole budget ("Big cities") link to each other.
+  ("Municipalities") and its whole budget ("Big cities") link to each other. "Share" copies a link to the view or
+  posts it to Facebook, Viber, WhatsApp, Telegram, X, LinkedIn, Reddit or email — with a preview card of its own
+  (see [Posting to social media](#posting-to-social-media)).
 - **Compare** — every category and year side by side in one table, in euro, per person, % of GDP or % of
   spending, with the share of each year's plan that was actually spent.
 - **Lists** — the things behind the numbers, as searchable lists (search, filters, sort, a total for the rows shown
@@ -53,8 +55,9 @@ Interactive visualization of Bulgaria's public spending:
     "Municipalities") and the 75 uniform cost standards of state-delegated education for 2026 (€44,500 per school,
     €9,438 per class, €1,859 per pupil …; linked from "Budget 2026" › Education).
 - **Clip** — pick any category (search or click) and get a short animated video that starts from total
-  spending and zooms in level by level. Rendered in the browser, exported as H.264 MP4 (9:16, 1:1 or 16:9) for
-  TikTok, Reels, Shorts, Facebook and YouTube.
+  spending and zooms in level by level. Rendered in the browser (in the background, as soon as the settings rest),
+  as H.264 MP4 (9:16, 1:1 or 16:9) for TikTok, Reels, Shorts, Facebook and YouTube. "Share the clip" posts it with
+  one button per network (see [Posting to social media](#posting-to-social-media)).
 - **My money** — estimates what a salaried person pays into public budgets in a year (income tax, own and
   employer contributions, VAT, excise on fuel, tobacco and alcohol) under the rules of 2024, 2025, 2026 or the
   2027 proposals, compares the years, and splits the taxes across that year's spending (plan or actual).
@@ -79,6 +82,43 @@ the sub-path from the Pages settings (`/bg-budget/` now, `/` if a custom domain 
 
 Video export needs WebCodecs (Chrome, Edge, Safari 17+, Firefox 130+). It uses H.264 when the browser can
 encode it and falls back to VP9/AV1.
+
+## Posting to social media
+
+Visitors post from the site in as few clicks as the networks allow — for free, with nothing to set up:
+
+- **A view** (Spending › *Share*): on a phone the device's share sheet opens straight away (every installed app);
+  on a computer a menu: copy link, Facebook, Viber, WhatsApp, Telegram, X, LinkedIn, Reddit, email. The link
+  shows a preview card with the view's headline and facts (below).
+- **A clip** (Clip › *Share the clip*): the video renders on its own, then one button per network copies that
+  network's text and opens it. TikTok, Instagram and YouTube take only video: on a phone their button opens the
+  share sheet with the video (pick the app, paste the text); on a computer it downloads the video once and opens
+  the upload page. Facebook and LinkedIn share the link with its card; X, Threads, Bluesky, Viber, WhatsApp and
+  Telegram open with the text and link filled in. *Share video* (phone) and *Download video* are there too.
+- **The texts** (under *The text for each network*, editable): headline, facts, source and hashtags (the view's
+  place and area first; at most 5 on Instagram), within each network's limits as it counts them (X: links 23,
+  € 2; Bluesky: 300 graphemes). Where captions do not open links (TikTok, Instagram) they carry the short address
+  `damyor.github.io/bg-budget`; elsewhere the link to the view.
+
+Posting straight into the visitor's accounts from the site is not possible for free: Facebook lets no app post to
+personal profiles, Instagram only to business accounts after Meta's review, and TikTok and YouTube keep posts of
+unaudited apps private (YouTube's free quota would also allow only a few uploads a day for the whole site).
+
+**Link previews.** Links behind `#` all look the same to Facebook, X, LinkedIn, Viber or Telegram, so `vite build`
+also writes a small page per view, for every dataset and both languages (`scripts/sharePages.ts`, ≈ 56,000 pages,
+≈ 6 MB compressed): `<site>/<bg|en>/<dataset>/<node>`, e.g. <https://damyor.github.io/bg-budget/bg/budget-2026/health>,
+with that view's headline and facts as Open Graph / X card tags, forwarding people to the view (in the link's
+language; `?m=pp` or `?m=gdp` keeps the display mode). `<site>/bg/` and `<site>/en/` are the front page. The pages
+follow the data and are not committed.
+
+- The site's address for absolute links is `homepage` in `package.json` (override with `VITE_SITE_URL`); change it
+  if the site moves, e.g. to a custom domain.
+- The preview image (`public/og/bg.png`, `en.png`, 1200 × 630, no figures so it does not go stale) is drawn by
+  `npm run og` (needs Chrome; `CHROME=/path` if it is not in the usual place). The donut is the latest adopted
+  budget's eight areas.
+- Networks cache previews: after changing a page, refresh it in the
+  [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) or the
+  [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
 
 ## Data
 
@@ -265,6 +305,10 @@ src/components/     donut, list, breadcrumbs, search, dataset picker, trend char
                     list view (table / cards), links from a node to its list rows and to the same place in
                     another dataset
 src/clip/           clip timeline, canvas renderer, MP4 encoder (Mediabunny + WebCodecs)
+src/clip/caption.ts      headlines, the one-sentence summary, hashtags and each network's post text (shared with the build)
+src/lib/share.ts         share-page addresses, the networks' share and upload links, how X and Bluesky count characters
+scripts/sharePages.ts    Vite plugin: a link-preview page per view, dataset and language
+scripts/og-image.ts      `npm run og`: draws the preview image public/og/<lang>.png with headless Chrome
 src/pages/          Spending, Compare, Lists (projects, payments, health, EU funds, procurement, city budgets), My money,
                     Clip, About
 ```

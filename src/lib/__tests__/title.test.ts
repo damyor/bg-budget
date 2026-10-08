@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { defaultTitle } from '../../clip/render'
+import { defaultTitle } from '../../clip/caption'
 import type { BudgetNode } from '../types'
 
 const n = (id: string, bg: string, en: string, kind?: { bg: string; en: string }): BudgetNode => ({ id, name: { bg, en }, value: 1, kind })

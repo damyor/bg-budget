@@ -1055,6 +1055,138 @@ li.selected .row-bar span {
   color: var(--danger-text);
 }
 
+/* ---------- Sharing a clip ---------- */
+
+.share-actions {
+  margin: 0;
+}
+
+.btn-sm {
+  padding: 6px 13px;
+  font-size: 13px;
+}
+
+.post-on {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.network-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.post-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--grid);
+  padding-top: 12px;
+}
+
+.post-texts summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.post-texts[open] summary {
+  margin-bottom: 12px;
+}
+
+.post-texts .segmented button {
+  padding-inline: 12px;
+}
+
+.post-field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.post-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.post-count.over,
+.post-warning {
+  color: var(--danger-text);
+  font-weight: 600;
+}
+
+.post-warning {
+  font-size: 13px;
+}
+
+.post-texts .field input[type='text']:focus,
+.post-texts .caption-text:focus {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 25%, transparent);
+}
+
+.post-texts .link-btn {
+  align-self: flex-start;
+}
+
+.post-actions {
+  margin: 0;
+}
+
+.post-texts > * + * {
+  margin-top: 12px;
+}
+
+/* ---------- Share menu ---------- */
+
+.share {
+  position: relative;
+}
+
+.share-menu {
+  position: absolute;
+  z-index: 35;
+  top: calc(100% + 6px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  padding: 6px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow);
+}
+
+.share-item {
+  display: block;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: none;
+  color: var(--text-primary);
+  font-size: 14px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.share-item:hover,
+.share-item:focus-visible {
+  background: var(--surface-2);
+}
+
+.share-item:first-child {
+  font-weight: 600;
+}
+
 @media (max-width: 960px) {
   .studio {
     grid-template-columns: minmax(0, 1fr);

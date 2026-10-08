@@ -1,5 +1,5 @@
-import { formatGdpShare, formatMoney, formatMoneyExact } from './format'
-import { publicTotal, type Dataset, type Lang } from './types'
+import { formatGdpShare, formatMoney, formatMoneyExact } from './format.ts'
+import { publicTotal, type Dataset, type Lang } from './types.ts'
 
 /** What amounts on screen mean: the full budget, one resident's share, a share of GDP, or the viewer's own taxes. */
 export type ValueMode = 'total' | 'perPerson' | 'gdp' | 'mine'

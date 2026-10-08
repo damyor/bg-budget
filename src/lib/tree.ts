@@ -1,5 +1,5 @@
-import type { BudgetNode, Lang } from './types'
-import { MAX_SLOTS } from './palette'
+import type { BudgetNode, Lang } from './types.ts'
+import { MAX_SLOTS } from './palette.ts'
 
 export const OTHER_SUFFIX = '~other'
 
