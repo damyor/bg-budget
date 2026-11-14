@@ -16,6 +16,8 @@ on parliament.bg, because minfin.bg blocks automated downloads.
 | `municipal-delegated-2024.csv` | State funding of state-delegated activities for each of the 265 municipalities, by function, thousand BGN (265 rows + the "ВСИЧКО:" row) | Закон за държавния бюджет на Република България за 2024 г., чл. 54, ДВ бр. 108 от 30.12.2023 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168 |
 | `municipal-transfers-2024.csv` | What the central budget transfers to each of the 265 municipalities, by type (delegated activities, equalising subsidy, winter roads, capital subsidy, other targeted transfers), thousand BGN, with the ЕБК code of each municipality | Same act, чл. 53 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168. Retrieved 5.10.2026 |
 | `state-budget-2024-spending-units.csv` | Expenditure of the 48 first-level spending units by policy / functional area, thousand BGN (213 rows) | Same act, чл. 2–49, ал. 2 |
+| `state-budget-2024-programmes.csv` | The 46 spending units that use programme budgets, their 99 area rows and 184 programmes within the areas, **whole leva** (`amount_BGN`) | ПМС № 13 от 29.01.2024 г. за изпълнението на държавния бюджет на Република България за 2024 г., приложение № 1, ДВ бр. 10 от 2024 г. — https://strategy.bg/bg/pris/legal-information/postanovleniia/163185, annexes as .doc: https://strategy.bg/download/1288961. Retrieved 14.11.2026 |
+| `state-budget-2024-programme-lines.csv` | One row per leaf line of each programme (655 rows): departmental staff, running costs and capital, and every named administered item, whole leva | Same annex |
 | `transfers-universities-2024.csv` | Transfers to state universities, the Academy of Sciences (BAS), the state military universities and the public media (BNT, BNR, BTA), 2024–2026, thousand BGN | Актуализирана средносрочна бюджетна прогноза за периода 2024–2026 г. (approved with РМС № 830/24.11.2023), приложение № 6 — file `4-UMTBF-2024-2026-motivi f.docx` in the bill package https://www.parliament.bg/bills/49/49-302-01-76.zip |
 | `mtbf-2024-2026-fses.parts.csv` (+ `.json`) | Drill-down part: the Electricity System Security Fund under „Енергетика, горива и минно дело“ (section "Annexes 7 and 8" below) | Актуализирана средносрочна бюджетна прогноза 2024–2026 (РМС № 830/24.11.2023), приложение № 8 — same file as above |
 | `mtbf-2024-2026-sfa-eu.parts.csv` (+ `.json`) | Drill-down part: State Fund Agriculture's EU account under „Селско стопанство …“ | Same forecast, приложение № 7 |
@@ -87,6 +89,36 @@ on parliament.bg, because minfin.bg blocks automated downloads.
 - Benefits: the memorandum's total for cash benefits and aid, 2 546,0 million, matches row 1.2 of the act
   (2 545 951,3 thousand). The listed items add up to 2 542,2 million; the rest is other benefits.
 
+## Programme budgets (ПМС № 13/2024, Annex 1)
+
+The two files have the layout of the 2025 ones (`../budget-2025/README.md` › "Programme budgets"): amounts in whole
+leva (`amount_BGN`), converted by the build at 1.95583; programme codes follow РМС № 780/2023. The annexes are an old
+binary Word file (`24p013pr.doc`), converted to HTML before extraction (the plain-text conversion garbles some digits;
+the HTML keeps them):
+
+```sh
+curl -L -o data/cache/pms-2024/pms-13-2024-annexes.doc https://strategy.bg/download/1288961
+textutil -convert html -output data/cache/pms-2024/annexes.html data/cache/pms-2024/pms-13-2024-annexes.doc
+python3 scripts/extract/programme_budgets.py data/cache/pms-2024/annexes.html data/sources/budget-2024/state-budget-2024
+```
+
+- **Correction.** The transport ministry's programme 2300.02.01 („Развитие на съобщенията и цифровата свързаност“)
+  prints III. „Общо разходи (I+II)“ as 80 115 300; I + II (1 578 600 + 86 536 700) and the structure table
+  (programme and area, 88 115 300) give 88 115 300, which is used (`CORRECTIONS` in the extractor). Its programme
+  2300.01.01 (infrastructure) has no money in 2024 (all rows blank).
+- **Cross-check.** Every other printed total checks out, and all 46 units' totals and area amounts equal the State
+  Budget Act exactly (the build checks it): 15 748 644 000 leva, the act's 17 090 141.8 thousand leva for 48 units
+  minus the National Assembly (120 172.9) and the judiciary (1 221 324.9). The "Ministries 2024" values did not change.
+- **Spot-checks** against the decree's text: 1200.01.01 „Подготовка и използване на въоръжените сили“ 1 443 752 600 лв.
+  = €738,178,983 (`p1200-01-01`, grafted into `defence`); 2100.02.01 „Рехабилитация и изграждане на пътна
+  инфраструктура“ 1 020 573 400 лв. = €521,810,894 (`p2100-02-01`, into `e-transport`); 1500.03.01 „Целеви помощи за
+  отопление …“ 186 300 000 лв. = €95,253,677 (`p1500-03-01-heating-aid`, into `s-benefits`).
+- **Names and ids.** All 329 area and programme rows have the code and name of a 2025 or 2026 row, so their English
+  and short names were copied and they get the same ids; 634 of the 655 lines match a 2025/2026 line, the other 21
+  (e.g. „Помощ за туризма заради противоепидемичните мерки“, the Paris 2024 Olympic preparation) were named by hand.
+  The innovation ministry's 7400.01.00–7400.02.00 have their 2025 names, which 2026 uses for other programmes, so they
+  share the 2025 ids (`p7400-01-02-2025`): a programme's id carries the last year it had its name.
+
 ## Transfers to municipalities (чл. 53)
 
 `municipal-transfers-2024.csv` has the layout of `../budget-2026/municipal-transfers-2026.csv` (see that README for
@@ -100,7 +132,8 @@ adds up to the act's "ВСИЧКО:" row and to the amounts in the text of art. 
 
 The programme map (`../../drilldown/programme-map.csv`; rules in `docs/drilldown.md` › "The programme map") also
 places "Ministries 2024" (`state-budget-2024-spending-units.csv`, State Budget Act 2024 art. 2–49) in "Budget 2024".
-The 2024 act gives **policy areas only** (no programme budgets are extracted for 2024), so the rule is the one used for
+The 2024 act gives **policy areas only** (the 2024 programme budgets were extracted later the same day: "At programme
+level" below), so the first rule was the one used for
 the 2027 draft: an area is grafted when, in 2025, all of it goes to one box, with the 2025 reason; an area whose 2025
 programmes go to several boxes, or partly nowhere, is left out as mixed. 79 areas and bodies, **€4,906.0 m** of the
 ministries' €8,738.1 m (56%), go into 16 boxes; €3,832.1 m is left out, mostly mixed areas: the defence ministry's
@@ -138,8 +171,8 @@ the same names and remainder names.
 | `c-culture-other` | 418.9 | 20.0 | 398.9 |
 | `e-tourism` | 43.7 | 12.7 | 31.0 |
 
-Nothing goes into defence, social benefits, housing or science in 2024 (their areas are mixed), so those boxes stay
-as they were; their ledger entries name the 2024 decree on the programme budgets as the lead.
+Nothing went into defence, social benefits, housing or science at first (their areas are mixed); the same day the
+2024 decree on the programme budgets split them (below).
 
 Cross-check against the 2024 actual (the 2024 report's state-budget column per sub-function, `report-2024`; plans
 and actuals may differ, but a plan far above the actual would point to a wrong box): police €1,475.3 m (actual
@@ -150,6 +183,52 @@ energy €30.9 m (€29.5 m). Spot-checks against the act as extracted (thousand
 ministry's area 1 1 676 279,9 = €857,068,303 (`o-police.moi-fighting-crime-and-keeping-public-order`), its area 3
 448 510,0 = €229,319,522, the finance ministry's area 2 528 926,8 = €270,435,979 — equal to the grafts.
 `budget-2024.json` grew from 326.6 KB (55.0 KB gzipped) to 393.0 KB (64.4 KB gzipped).
+
+### At programme level (ПМС № 13/2024, 14.11.2026)
+
+With the programme budgets above, each node of "Ministries 2024" is mapped at the level the 2025 map uses for the same
+id, with the 2025 reason (so the grafted copies have the ids of "Budget 2025", e.g. `defence.p1200-01-01`,
+`s-benefits.p1500-03-01-heating-aid`). This splits the eleven mixed areas into their programmes and the labour
+ministry's programmes into their items, and moves the prisons' and the economy ministry's areas to their programmes as
+in 2025 (same boxes). Two 2024 specifics: State Fund Agriculture's 8400.01.01 is all staff in 2024 (its VAT of
+municipalities is 0), so the fund's four programmes go to agriculture; the item „Други помощи по ЗСП“ (€0.4 m, 2024
+only) goes with the other social assistance. 148 nodes, **€8,425.6 m** of €8,738.1 m, go into 20 boxes; €312.5 m is
+left out with the 2025 reasons (largest: military intelligence €39.0 m, the innovation ministry's grants €27.9 m,
+military police €27.2 m, „Вероизповедания“ €25.1 m, military clubs and holiday homes €22.6 m).
+
+| Box | Box, € m | Grafted, € m | Remainder, € m |
+| --- | ---: | ---: | ---: |
+| `o-police` | 1,844.6 | 1,565.3 | 279.3 |
+| `defence` | 1,027.9 | 924.6 | 103.3 |
+| `e-transport` | 1,755.1 | 872.5 | 882.5 |
+| `s-ben-assistance` (remainder of `s-benefits`) | 1,298.3 | 847.7 | 450.6 |
+| `g-executive-other` | 1,422.6 | 773.6 | 649.0 |
+| `o-judiciary` | 733.6 | 683.4 | 50.2 |
+| `h-other` | 771.0 | 613.9 | 157.1 |
+| `ed-other` | 1,429.0 | 597.6 | 831.4 |
+| `s-svc-other` | 831.6 | 574.6 | 257.0 |
+| `e-agriculture` (after the EU account) | 1,152.3 | 397.6 | 84.5 |
+| `c-culture-other` | 418.9 | 170.0 | 248.8 |
+| `o-prisons` | 154.3 | 149.7 | 4.5 |
+| `g-services` | 76.4 | 61.0 | 15.4 |
+| `c-sport` | 84.2 | 51.7 | 32.5 |
+| `e-other` | 2,349.2 | 33.6 | 2,304.0 |
+| `c-environment` | 779.7 | 31.1 | 713.2 |
+| `e-energy` | 1,721.9 | 30.9 | 356.8 |
+| `g-science` | 368.8 | 24.5 | 306.2 |
+| `e-tourism` | 43.7 | 12.7 | 31.0 |
+| `c-housing` | 982.5 | 9.7 | 972.8 |
+
+Cross-check against the 2024 actual's state-budget column (`report-2024`): defence €924.6 m (actual €1,646.3 m),
+police €1,565.3 m (€1,741.1 m), judiciary €683.4 m (€706.1 m), transport €872.5 m (€1,700.4 m), social assistance
+€847.7 m (€857.4 m), culture €170.0 m plus heritage and archives (sub-function €208.6 m), science €24.5 m (€31.5 m)
+fit. Above the actual: services €574.6 m (€170.6 m; personal assistance, €405.8 m, is paid through the municipalities'
+column, as in 2025 — without it €168.8 m), health €613.9 m against the actual's non-NHIF, non-municipal €610.0 m
+(+€3.9 m), sport €51.7 m (€43.7 m; also over in 2025) and education €597.6 m (€514.6 m: the education ministry's
+school area alone, €528.8 m, was already above the actual; the art schools, military education and higher education
+added here are education by their ЕБК activities). Plans and actuals differ; none of these is a different box under
+the ЕБК rules. `budget-2024.json` grew from 402.3 KB (66.1 KB gzipped) to 624.2 KB (95.1 KB gzipped), part of it
+because the area-level copies now carry their programmes and lines.
 
 ## Annexes 7 and 8: ФСЕС, State Fund Agriculture's EU account and the other КФП entities (drill-down parts, 14.11.2026)
 
@@ -194,4 +273,6 @@ converted at 1.95583. Column 2 is 2.1 minus 2.2 „Трансфери (нето)
 The files contain the original adopted texts. Amendments found in the parliament bill register:
 the State Budget Act 2024 was amended by laws in ДВ бр. 38/2024 (bill 49-402-01-19), бр. 67/2024 (50-402-01-12) and
 бр. 83/2024 (50-402-01-24); the Social Security Budget Act 2024 was supplemented in ДВ бр. 34/2024
-(bill 49-454-01-39). No bill amending the NHIF Budget Act 2024 was found.
+(bill 49-454-01-39). No bill amending the NHIF Budget Act 2024 was found. ПМС № 13/2024 was amended by ПМС № 63, № 102 and
+№ 410 of 2024 (strategy.bg lists them on the decree's page); the programme files keep the original annex 1, which
+matches the original act.

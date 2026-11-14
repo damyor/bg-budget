@@ -2,7 +2,8 @@
 // Budget Act (para. 2 of each unit's article) by policy area or functional
 // area — from the adopted law (plan) or from the report on its execution
 // (actual). Where the government's decree on implementing the budget lists the
-// programme budgets (2026: ПМС № 102/2026, Annex 1), every area is split into
+// programme budgets (2024: ПМС № 13/2024, 2025: ПМС № 28/2025, 2026: ПМС № 102/2026,
+// Annex 1), every area is split into
 // its budget programmes, and every programme into its departmental costs
 // (staff, running costs, capital) and the administered items it pays out
 // (benefits, subsidies, contributions …).
@@ -282,11 +283,12 @@ export interface MinistriesConfig {
   unit: 'kEUR' | 'kBGN'
   /**
    * Programme budgets: the decree's areas, programmes and their lines (see
-   * readProgrammeBudgets). `idsFrom` is a later year's programmes file: a
-   * programme whose code is used there for another programme gets an id with
-   * the year, so the two are never compared as the same.
+   * readProgrammeBudgets). `idsFrom` are later years' programmes files, in
+   * order: a programme whose code a later year uses for another programme gets
+   * an id with the last year it had its name, so the two are never compared
+   * as the same and the years that share the name share the id.
    */
-  programmes?: { structure: URL; lines: URL; idsFrom?: URL }
+  programmes?: { structure: URL; lines: URL; idsFrom?: { year: number; file: URL }[] }
   /**
    * The ministries' transfers to the state universities and the Academy of
    * Sciences (State Budget Act); they are not part of the ministries' spending,
@@ -344,11 +346,18 @@ export function buildMinistries(config: MinistriesConfig): Dataset {
   const rows = readCsv(config.file)
   const amountColumn = Object.keys(rows[0]).find((k) => k.startsWith('amount_'))!
   const budgets = config.programmes ? readProgrammeBudgets(config.programmes.structure, config.programmes.lines) : null
-  const laterNames = new Map(config.programmes?.idsFrom ? readCsv(config.programmes.idsFrom).map((r) => [r.code, norm(r.name_bg)]) : [])
-  /** "p1500-03-01"; with the year when a later year uses the code for a different programme. */
+  const later = (config.programmes?.idsFrom ?? []).map(({ year, file }) => ({ year, names: new Map(readCsv(file).map((r) => [r.code, norm(r.name_bg)])) }))
+  /** "p1500-03-01"; with a year when a later year uses the code for a different programme. */
   const programmeId = (p: Programme) => {
-    const later = laterNames.get(p.code)
-    return `p${p.code.replace(/\./g, '-')}${later !== undefined && later !== norm(p.official) ? `-${config.year}` : ''}`
+    const base = `p${p.code.replace(/\./g, '-')}`
+    let last = config.year
+    for (const { year, names } of later) {
+      const name = names.get(p.code)
+      if (name === undefined) continue
+      if (name !== norm(p.official)) return `${base}-${last}`
+      last = year
+    }
+    return base
   }
   const transfers = config.transfers ? transferNotes(config.transfers, config.stage === 'draft') : null
   const newId = idMaker()

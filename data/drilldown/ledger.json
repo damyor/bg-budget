@@ -149,20 +149,14 @@
     "state": "todo",
     "leads": [
       {
-        "source": "The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, all of the €1,298.3 m in 2024) is not identified: the forecast gives no split by budget; the 2025 report (КФП by function, data/sources/report-2025/kfp-2025-report-by-function.csv) splits the actual by budget (state, social security, municipalities, EU funds) — compare",
+        "source": "The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, €450.6 m in 2024) is not identified: the forecast gives no split by budget; the 2025 report (КФП by function, data/sources/report-2025/kfp-2025-report-by-function.csv) splits the actual by budget (state, social security, municipalities, EU funds) — compare",
         "basis": "mapped",
         "access": "script"
       },
       {
-        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): subsidies to disability organisations and enterprises, rehabilitation (€7.4 m in 2026), social-inclusion projects (€2.7 m), foster care in 2025 (€19.6 m)",
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): subsidies to disability organisations and enterprises, rehabilitation (€7.4 m in 2026), social-inclusion projects (€2.7 m), foster care (€19.6 m in 2025, €16.9 m in 2024)",
         "basis": "mapped",
         "access": "script"
-      },
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the labour ministry's benefit items, as in 2025 and 2026 (its 2024 areas mix them with staff and personal assistance)",
-        "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
       }
     ],
     "tried": [
@@ -173,6 +167,10 @@
       {
         "date": "2026-11-14",
         "what": "Budget 2024: nothing grafted — \"Ministries 2024\" gives the labour ministry's areas only (€1,360.6 m in its three benefit areas), and each mixes benefits with staff (ЕБК 522) and personal assistance or foster care."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv), gives the same items as 2025; grafted the labour ministry's benefits item by item (ЕБК 511–519) — €847.7 m; the sub-function's remainder €1,298.3 m → €450.6 m. Their staff (€73.2 m) and personal assistance (€405.8 m) went to social services."
       }
     ]
   },
@@ -3320,12 +3318,6 @@
     "state": "todo",
     "leads": [
       {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the interior ministry's area „Управление и развитие на МВР“ (€130.2 m in 2024) is mixed; its programme 1300.04.01 (information systems) belongs here",
-        "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      },
-      {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
         "access": "script",
@@ -3333,7 +3325,7 @@
         "covers": "the ESF+ part (Human Resources Development programme)"
       },
       {
-        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the interior ministry's area „Управление и развитие на МВР“ (€130.2 m: information systems, its hospital and its academy)",
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the interior ministry's academy and research (1300.04.03, €18.6 m: education and research), the defence ministry's military police (1200.01.03, €27.2 m) and military intelligence (1200.02.02, €39.0 m): ЕБК activity not certain",
         "basis": "mapped",
         "access": "script"
       }
@@ -3342,6 +3334,10 @@
       {
         "date": "2026-11-14",
         "what": "Grafted from \"Ministries 2024\" (State Budget Act 2024, areas only) the areas that in 2025 go wholly to this box: the interior ministry's three operational areas, ДАНС, ДАТО, НСО and the intelligence agency — €1,475.3 m of €1,844.6 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "From the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv): grafted the interior ministry's programme 1300.04.01 (information systems and administrative services, €90.0 m) as in 2025 — €1,565.3 m of €1,844.6 m; remainder €369.3 m → €279.3 m. Its hospital (1300.04.02, €21.6 m) went to health."
       }
     ]
   },
@@ -3353,12 +3349,6 @@
     ],
     "state": "todo",
     "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the regional ministry's area „Пътища и техническа инфраструктура“ (€550.2 m in 2024) is mixed; its programme 2100.02.01 (national roads, €988.3 m in 2025) belongs here",
-        "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      },
       {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
@@ -3373,7 +3363,7 @@
         "covers": "the 3 cities' health activities beyond the delegated ones"
       },
       {
-        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the regional ministry's roads area (€550.2 m) and the transport ministry's administration and medical assessment (€13.2 m), both mixed",
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the regional ministry's programme 2100.02.02 (spatial planning, water and sewerage, landslide protection, €19.2 m: housing and environment mixed) and the transport ministry's administration and medical assessment (2300.03.00, €13.2 m), both mixed",
         "basis": "mapped",
         "access": "script"
       }
@@ -3382,6 +3372,10 @@
       {
         "date": "2026-11-14",
         "what": "Grafted from \"Ministries 2024\" the transport ministry's areas „Транспорт“ and „Съобщения и цифрова свързаност“ and the communications regulator — €350.7 m of €1,755.1 m. The regional ministry's roads area is mixed in 2025 (transport and housing programmes, one left out), so it stays here."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "From the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv): grafted the regional ministry's national-roads programme 2100.02.01 (€521.8 m) — €872.5 m of €1,755.1 m; remainder €1,404.4 m → €882.5 m."
       }
     ]
   },
@@ -3393,12 +3387,6 @@
     ],
     "state": "todo",
     "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): whether State Fund Agriculture's programme 8400.01.01 carries VAT refunds to municipalities in 2024; if not, its area „Земеделие и селски райони (субсидии)“ (€253.5 m) belongs here",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      },
       {
         "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
         "basis": "payments",
@@ -3424,6 +3412,10 @@
       {
         "date": "2026-11-14",
         "what": "Annex 7 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg), row 1, column 2.1 „Разходи“ 1 310 812,0 thousand BGN (€670.2 m) is now a part (e-agriculture.sfa-eu, data/sources/budget-2024/mtbf-2024-2026-sfa-eu.parts.csv); remainder €1,008.3 m → €338.0 m. The National Fund's account (annex 7 row 2) spans many functions and is not mapped."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "The decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv), prints 0 for the VAT of municipalities (and the other items) in State Fund Agriculture's programme 8400.01.01, which is all staff in 2024: grafted its four programmes (state aid, market measures, direct payments, the fund's rural-development staff) as in 2025 — €253.5 m; remainder €338.0 m → €84.5 m."
       }
     ]
   },
@@ -3531,40 +3523,41 @@
   },
   {
     "family": "functions",
-    "node": "defence",
+    "node": "defence.rest",
     "datasets": [
       "budget-2024"
     ],
     "state": "todo",
     "leads": [
       {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the defence ministry's programmes — in 2025 the armed forces, investment projects, administration, human resources, research and NATO membership go here (€2,018.0 m of €2,126.8 m)",
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the defence ministry's military police (1200.01.03, €27.2 m) and military intelligence (1200.02.02, €39.0 m): services under the minister, outside the armed forces, ЕБК activity not certain (defence or internal security); military clubs, museum, ensembles and holiday homes (1200.01.05, €22.6 m: culture and recreation)",
         "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+        "access": "script"
+      },
+      {
+        "source": "Other bodies' defence-mobilisation preparation (ЕБК 207) and EU funds: no table found",
+        "access": "unknown"
       }
     ],
     "tried": [
       {
         "date": "2026-11-14",
         "what": "\"Ministries 2024\" gives the defence ministry's two areas only; both are mixed in 2025 (military medicine → health, military education → education, military police and intelligence left out), so nothing is grafted."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "From the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv): grafted the defence ministry's programmes for the armed forces (1200.01.01), administration and infrastructure (.08), human resources (.02), research (.06), investment projects (.09) and NATO/EU membership (1200.02.01), as in 2025 — €924.6 m of €1,027.9 m; the box was a leaf, its remainder defence.rest is €103.3 m and this entry moved to it. Military medicine (.04, €70.7 m) went to health, military education (.07, €4.5 m) to education."
       }
     ]
   },
   {
     "family": "functions",
-    "node": "c-housing",
+    "node": "c-housing.rest",
     "datasets": [
       "budget-2024"
     ],
     "state": "todo",
     "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the regional ministry's programmes 2100.01.02 (housing of marginalised groups) and 2100.02.03 (construction control)",
-        "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      },
       {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
@@ -3577,12 +3570,21 @@
         "basis": "exact",
         "access": "script",
         "covers": "the 3 cities' health activities beyond the delegated ones"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the regional ministry's programme 2100.02.02 (spatial planning, water and sewerage, landslide protection, €19.2 m: housing and environment mixed)",
+        "basis": "mapped",
+        "access": "script"
       }
     ],
     "tried": [
       {
         "date": "2026-11-14",
         "what": "The regional ministry's areas are mixed in 2025 (housing, roads and other programmes) and 2024 gives areas only: nothing grafted."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "From the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv): grafted the regional ministry's construction control (2100.02.03, ДНСК, €9.2 m) and housing of marginalised groups (2100.01.02, €0.4 m), as in 2025 — €9.7 m of €982.5 m; the box was a leaf, its remainder c-housing.rest is €972.8 m (mostly municipal and EU-funded spending) and this entry moved to it."
       }
     ]
   },
@@ -3598,12 +3600,6 @@
         "source": "The Academy of Sciences' 2024 subsidy (171,899.8 thousand BGN, State Budget Act 2024 art. 16 (4); data/sources/budget-2024/transfers-universities-2024.csv) — a transfer; whether the КФП books the Academy's spending here to verify",
         "basis": "mapped",
         "access": "script"
-      },
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the education ministry's research programmes 1700.02.04 and 1700.02.05",
-        "basis": "mapped",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
       }
     ],
     "tried": [
@@ -3614,6 +3610,10 @@
       {
         "date": "2026-11-14",
         "what": "Annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg): Селскостопанска академия 71 909,0 and ДП „Научно-производствен център“ 2 699,9 thousand BGN (column 2.1; €36.8 m and €1.4 m) are now parts (data/sources/budget-2024/mtbf-2024-2026-science.parts.csv); the box was a leaf, its remainder g-science.rest is €330.7 m and this entry moved to it."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "From the decree on the 2024 programme budgets, ПМС № 13/29.01.2024 (strategy.bg/download/1288961, annex 1; data/sources/budget-2024/state-budget-2024-programmes.csv): grafted the education ministry's research programmes 1700.02.04 and 1700.02.05 (€24.5 m), as in 2025; remainder €330.7 m → €306.2 m."
       }
     ]
   },
@@ -3652,116 +3652,6 @@
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168",
         "basis": "exact",
         "access": "script"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "o-police.moi-fighting-crime-and-keeping-public-order",
-    "datasets": [
-      "budget-2024"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (one programme in 2025, split into staff, running and capital costs)."
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "education.mes-pre-school-and-school-education",
-    "datasets": [
-      "budget-2024"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its six programmes in 2025)."
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "health.moh-diagnostics-and-treatment",
-    "datasets": [
-      "budget-2024"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its six programmes in 2025)."
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-transport.motc-transport",
-    "datasets": [
-      "budget-2024"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its four programmes in 2025)."
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "g-executive.mof-collecting-taxes-and-customs-duties",
-    "datasets": [
-      "budget-2024"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
-        "basis": "exact",
-        "access": "script",
-        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (staff, running and capital costs in 2025)."
       }
     ]
   },

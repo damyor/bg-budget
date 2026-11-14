@@ -426,12 +426,26 @@ const ministriesDescription = (year: number, units: number, leva: boolean, extra
     .join(' '),
 })
 
+const PROGRAMMES_NOTE = (units: number, decree: LocalizedText): LocalizedText =>
+  t(
+    `За ${units} от тях (без Народното събрание и съдебната власт) — и по бюджетни програми според ${decree.bg}, а всяка програма — по ведомствени разходи (персонал, издръжка, капиталови разходи) и администрирани разходи (помощи, субсидии, вноски и други плащания, които ведомството управлява).`,
+    `For ${units} of them (all but Parliament and the judiciary) also by budget programme, from ${decree.en}, and each programme by departmental spending (staff, running costs, capital) and administered spending (benefits, subsidies, contributions and other payments the body manages).`,
+  )
+
 const ministries2024 = buildMinistries({
   id: 'ministries-2024',
   year: 2024,
   stage: 'law',
   file: src('budget-2024/state-budget-2024-spending-units.csv'),
   unit: 'kBGN',
+  programmes: {
+    structure: src('budget-2024/state-budget-2024-programmes.csv'),
+    lines: src('budget-2024/state-budget-2024-programme-lines.csv'),
+    idsFrom: [
+      { year: 2025, file: src('budget-2025/state-budget-2025-programmes.csv') },
+      { year: 2026, file: src('budget-2026/state-budget-2026-programmes.csv') },
+    ],
+  },
   publicTotal: publicTotal(budget2024),
   macro: macro(2024),
   title: t('Министерства 2024', 'Ministries 2024'),
@@ -440,23 +454,27 @@ const ministries2024 = buildMinistries({
     2024,
     48,
     true,
-    t('Съдебната власт е без разбивка, защото за 2024 г. законът я разпределя по органи, а не по функционални области.', 'The judiciary has no split, as the 2024 act divides it by judicial body rather than by functional area.'),
+    t(
+      `${PROGRAMMES_NOTE(46, t('постановлението за изпълнението на бюджета (ПМС № 13/2024)', 'the decree on implementing the budget (decree 13/2024)')).bg} Съдебната власт е без разбивка, защото за 2024 г. законът я разпределя по органи, а не по функционални области.`,
+      `${PROGRAMMES_NOTE(46, t('постановлението за изпълнението на бюджета (ПМС № 13/2024)', 'the decree on implementing the budget (decree 13/2024)')).en} The judiciary has no split, as the 2024 act divides it by judicial body rather than by functional area.`,
+    ),
   ),
   sources: [
     {
       name: t('Закон за държавния бюджет на Република България за 2024 г., чл. 2–49 (ДВ, бр. 108/2023)', 'State Budget Act 2024, art. 2–49 (State Gazette 108/2023)'),
       url: 'https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168',
     },
+    {
+      name: t(
+        'ПМС № 13 от 29.01.2024 г. за изпълнението на държавния бюджет за 2024 г., приложение № 1 — показатели по бюджетните програми (ДВ, бр. 10/2024)',
+        'Council of Ministers decree 13 of 29 Jan 2024 on implementing the 2024 State Budget, annex 1 — programme budgets (State Gazette 10/2024)',
+      ),
+      url: 'https://strategy.bg/bg/pris/legal-information/postanovleniia/163185',
+    },
   ],
-  sourceShort: t('Закон за държавния бюджет 2024 — министерства и ведомства', '2024 State Budget Act — ministries and agencies'),
+  sourceShort: t('Закон за държавния бюджет 2024 и ПМС № 13/2024 — министерства и програми', '2024 State Budget Act and decree 13/2024 — ministries and programmes'),
   retrieved: '2023-12-30',
 })
-
-const PROGRAMMES_NOTE = (units: number, decree: LocalizedText): LocalizedText =>
-  t(
-    `За ${units} от тях (без Народното събрание и съдебната власт) — и по бюджетни програми според ${decree.bg}, а всяка програма — по ведомствени разходи (персонал, издръжка, капиталови разходи) и администрирани разходи (помощи, субсидии, вноски и други плащания, които ведомството управлява).`,
-    `For ${units} of them (all but Parliament and the judiciary) also by budget programme, from ${decree.en}, and each programme by departmental spending (staff, running costs, capital) and administered spending (benefits, subsidies, contributions and other payments the body manages).`,
-  )
 
 const ministries2025 = buildMinistries({
   id: 'ministries-2025',
@@ -467,7 +485,7 @@ const ministries2025 = buildMinistries({
   programmes: {
     structure: src('budget-2025/state-budget-2025-programmes.csv'),
     lines: src('budget-2025/state-budget-2025-programme-lines.csv'),
-    idsFrom: src('budget-2026/state-budget-2026-programmes.csv'),
+    idsFrom: [{ year: 2026, file: src('budget-2026/state-budget-2026-programmes.csv') }],
   },
   publicTotal: publicTotal(budget2025),
   macro: macro(2025),

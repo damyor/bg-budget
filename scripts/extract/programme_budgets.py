@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Extracts the programme budgets of the State Budget spending units from Annex 1
 to the Council of Ministers decree on implementing the year's State Budget Act
-(2026: ПМС № 102/12.08.2026) into two tidy CSVs:
+(2024: ПМС № 13/29.01.2024, 2025: ПМС № 28/16.04.2025, 2026: ПМС № 102/12.08.2026)
+into two tidy CSVs:
 
   <prefix>-programmes.csv       one row per spending unit, policy / functional area
                                and budget programme, with the amounts printed
@@ -13,7 +14,7 @@ to the Council of Ministers decree on implementing the year's State Budget Act
 
 Every amount is checked against the totals printed in the decree (programme,
 area, unit; departmental and administered subtotals); the script stops on any
-mismatch. Amounts stay in the decree's currency (2026: euro, 2025: leva), in the
+mismatch. Amounts stay in the decree's currency (2026: euro, 2024–2025: leva), in the
 column amount_EUR or amount_BGN. English names and display names are
 hand-written: re-running the script keeps the ones already in the output files
 (matched by code and Bulgarian name) and leaves new rows blank.
@@ -210,6 +211,11 @@ ISSUES = []
 # document → {(programme code, field): (printed, corrected)}; field is "structure" (the area/programme table),
 # "departmental", "total" or a line ("staff", "running", "capital").
 CORRECTIONS = {
+    'state-budget-2024': {  # ПМС № 13/2024
+        # Transport: III of 2300.02.01 is printed 80 115 300; I + II (1 578 600 + 86 536 700) and the structure table
+        # (programme and area) give 88 115 300.
+        ('2300.02.01', 'total'): (80_115_300, 88_115_300),
+    },
     'state-budget-2026': {  # ПМС № 102/2026
         # Foreign affairs: running costs (and so I.) of 1100.01.03 are €200 short of the programme total
         # (12 711 700, also in the structure table and the law) and of the ministry's running-cost total (55 676 600).
@@ -317,7 +323,8 @@ def extract(path, document):
             check(dep == (prog['departmental'] or 0), f'{where}: departmental lines {dep} ≠ subtotal {prog["departmental"]}')
             grouped = group_items(prog['items'], prog['administered'], where)
             total = (prog['departmental'] or 0) + (prog['administered'] or 0)
-            check(total == prog['total'] == by_code[prog['code']]['amount'], f'{where}: I+II {total}, III {prog["total"]}, structure table {by_code[prog["code"]]["amount"]}')
+            # A programme with no money may print III blank (2024: 2300.01.01).
+            check(total == (prog['total'] or 0) == by_code[prog['code']]['amount'], f'{where}: I+II {total}, III {prog["total"]}, structure table {by_code[prog["code"]]["amount"]}')
             policy = policy_of[prog['code']]
             row = lambda **kw: lines.append({'unit_code': code, 'policy_code': policy, 'programme_code': prog['code'], **kw})
             for line, label, value in prog['lines']:

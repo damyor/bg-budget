@@ -163,7 +163,8 @@ The rules (14 November 2026):
   municipalities spent under other functions (State Fund Agriculture's VAT refunds on municipal projects) are left
   out.
 - **The 2027 draft** gives areas only: an area is grafted when, in 2026, all of it goes to one box. **"Ministries
-  2024"** (State Budget Act 2024) gives areas only too: an area is grafted when, in 2025, all of it goes to one box.
+  2024"** has the programme budgets too since 14 November 2026 (ПМС № 13/2024): each node is mapped at the level the
+  2025 map uses for the same id, with the 2025 reason, so the grafted copies have the ids of 2025.
 - **The 2025 actual** ("Ministries 2025 (actual)", areas only) goes only into the actual's state-budget boxes that are
   leaves or remainders (so far only „Здравеопазване“'s remainder takes parts: the health ministry's areas). The other
   state-budget boxes are split into current and capital spending: parts there would replace that split, which is left
@@ -355,3 +356,20 @@ the same ids. Details: data/sources/budget-2024/README.md and data/sources/budge
 | --- | ---: | ---: | ---: |
 | Budget 2024 | 8.7% | 28.8% → 24.6% | 3.07 → 3.08 |
 | Budget 2025 | 1.5% | 24.0% → 19.3% | 3.37 |
+
+## The 2024 programme budgets (14 November 2026)
+
+Annex 1 of ПМС № 13/29.01.2024 (data/sources/budget-2024/README.md) took "Ministries 2024" from policy areas down to
+197 programmes and 655 lines (130 → 884 nodes, depth 3 → 5), with the ids of 2025/2026 for the same programmes. The
+programme map then split the 2024 areas it had left out as mixed (defence, the labour ministry's benefits, roads, the
+arts, the interior ministry's support area, higher education and research, State Fund Agriculture's subsidies, justice,
+sport for students) and switched the prisons and the economy ministry's areas to programme level as in 2025: 148 nodes
+of "Ministries 2024", €8,425.6 m of €8,738.1 m, in 20 boxes of "Budget 2024" (was 79 areas, €4,906.0 m); €312.5 m left
+out with the 2025 reasons.
+
+| Dataset | ≤ 2 levels | Remainders | Economic split | Depth |
+| --- | ---: | ---: | ---: | ---: |
+| Budget 2024 | 8.7% → 1.3% | 24.6% → 21.0% | 0% → 11.5% | 3.08 → 3.34 |
+| Ministries 2024 | 99.8% → 8.1% | 0% | 0% → 57.3% | 1.89 → 3.38 |
+
+`ministries-2024.json` grew by 39.6 KB gzipped (10.1 → 49.8 KB), `budget-2024.json` by 29.0 KB (66.1 → 95.1 KB).

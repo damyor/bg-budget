@@ -12,13 +12,13 @@ transactions). ≤ 2 levels: in other leaves that are an area, function or sub-f
 
 | Dataset | Family | Total, € m | Depth | ≤ 2 levels | Remainders | Economic split | Open boxes |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| budget-2024 | functions | 41,674.9 | 3.08 | 8.7% | 24.6% | 0.0% | 1455 |
+| budget-2024 | functions | 41,674.9 | 3.34 | 1.3% | 21.0% | 11.5% | 1824 |
 | report-2024 | functions | 39,972.2 | 3.85 | 0.0% | 1.8% | 47.3% | 504 |
 | budget-2025 | functions | 49,445.0 | 3.37 | 1.5% | 19.3% | 14.7% | 1894 |
 | report-2025 | functions | 47,508.7 | 3.85 | 1.2% | 0.6% | 50.2% | 509 |
 | budget-2026 | functions | 56,807.2 | 3.33 | 2.5% | 23.6% | 13.7% | 1926 |
 | budget-2027 | functions | 55,972.1 | 2.58 | 55.1% | 19.4% | 0.0% | 1478 |
-| ministries-2024 | ministries | 8,738.1 | 1.89 | 99.8% | 0.0% | 0.0% | 106 |
+| ministries-2024 | ministries | 8,738.1 | 3.38 | 8.1% | 0.0% | 57.3% | 542 |
 | ministries-2025 | ministries | 12,439.5 | 3.49 | 6.2% | 0.0% | 60.9% | 619 |
 | ministries-report-2025 | ministries | 12,225.7 | 1.96 | 99.9% | 0.0% | 0.0% | 110 |
 | ministries-2026 | ministries | 13,326.5 | 3.51 | 6.2% | 0.0% | 60.5% | 621 |
@@ -38,48 +38,48 @@ Largest first: the top 40 of each "by purpose" dataset and the top 15 of the oth
 
 ### budget-2024 — Budget 2024
 
-1455 open boxes, €26,712.7 m (64.1% of the total).
+1824 open boxes, €24,500.0 m (58.8% of the total).
 
 | € m | Share | Path | Depth | Why open | State | First lead |
 | ---: | ---: | --- | ---: | --- | --- | --- |
 | 2,304.0 | 5.5% | Икономика и транспорт › Други икономически дейности › Други разходи за икономически дейности `e-other.rest` | 3 | remainder | todo | The national capital programme: Table III-1 of the forecast 2024–2026 says in a note „За 2024-2026 г. разходите за наци… (script) |
 | 1,826.7 | 4.4% | Здравеопазване › Здравна каса (НЗОК) › Болнична помощ `h-nhif-hospital` | 3 | leaf | todo | A link (graft mode=link) to the same box in the actuals, split by region and hospital from the НЗОК monthly reports (script) |
-| 1,404.4 | 3.4% | Икономика и транспорт › Транспорт и съобщения › Други разходи за транспорт и съобщения `e-transport.rest` | 3 | remainder | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the reg… (script) |
 | 1,334.3 | 3.2% | Икономика и транспорт › Енергетика, горива и минно дело › Фонд „Сигурност на електроенергийната система“ `e-energy.fses` | 3 | leaf | todo | fses.bg „Отчети за дейността“: monthly „Отчет приходи и разходи“ of the fund (2021 – October 2026) — to verify whether… (script) |
-| 1,298.3 | 3.1% | Пенсии и социална защита › Социални помощи и обезщетения › Социални и семейни помощи, помощи за хора с увреждания `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, all of the €1,298.3 m in 2024) is not identified: the… (script) |
-| 1,027.9 | 2.5% | Отбрана `defence` | 1 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the def… (script) |
-| 982.5 | 2.4% | Комунални дейности, култура и околна среда › Жилища, благоустройство и комунални дейности `c-housing` | 2 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the reg… (script) |
-| 895.4 | 2.1% | Образование › Други разходи за образование `ed-other` | 2 | remainder | todo | Municipalities' own funds for education: no national plan table; the big cities' B3 give actuals for 3 cities only (script) |
-| 857.1 | 2.1% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Борба с престъпността и обществен ред `o-police.moi-fighting-crime-and-keeping-public-order` | 3 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the pro… (script) |
-| 736.0 | 1.8% | Пенсии и социална защита › Социални услуги, програми за заетост и администрация › Други социални услуги и програми за заетост `s-svc-other` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 972.8 | 2.3% | Комунални дейности, култура и околна среда › Жилища, благоустройство и комунални дейности › Други разходи за жилища и благоустройство `c-housing.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 882.5 | 2.1% | Икономика и транспорт › Транспорт и съобщения › Други разходи за транспорт и съобщения `e-transport.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 831.4 | 2.0% | Образование › Други разходи за образование `ed-other` | 2 | remainder | todo | Municipalities' own funds for education: no national plan table; the big cities' B3 give actuals for 3 cities only (script) |
 | 713.2 | 1.7% | Комунални дейности, култура и околна среда › Опазване на околната среда › Други разходи за околна среда `c-environment.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
 | 670.2 | 1.6% | Икономика и транспорт › Земеделие, гори, лов и риболов › Сметка за средствата от Европейския съюз на Държавния фонд „Земеделие“ `e-agriculture.sfa-eu` | 3 | leaf | todo | State Fund Agriculture's EU account by ЕБК activity or paragraph (its annual budget and report, or the MoF's КФП execut… (unknown) |
 | 649.0 | 1.6% | Държавно управление, дълг и ЕС › Общи държавни служби › Изпълнителна и законодателна власт › Други органи на изпълнителната и законодателната власт `g-executive-other` | 4 | remainder | todo | Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 onl… (script) |
 | 624.5 | 1.5% | Ред, сигурност и правосъдие › Съдебна власт › Бюджет на съдебната власт `o-judiciary.judiciary` | 3 | leaf | todo | State Budget Act 2024, art. 2 (2): the judiciary by judicial body (Supreme Judicial Council, courts, prosecution …), al… (script) |
-| 528.8 | 1.3% | Образование › Предучилищно и училищно образование `education.mes-pre-school-and-school-education` | 2 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the pro… (script) |
 | 526.3 | 1.3% | Здравеопазване › Здравна каса (НЗОК) › Лекарства, медицински изделия и диетични храни › Лекарства за домашно лечение `h-nhif-med-home` | 4 | leaf | blocked | НЗОК medicine reports 1 and 7 by active ingredient ("Lists" › "Medicines"): gross, before the ПРУ refunds (−1.09 bn lev… (script) |
 | 465.3 | 1.1% | Здравеопазване › Здравна каса (НЗОК) › Лекарства, медицински изделия и диетични храни › Лекарства за онкологични заболявания и коагулопатии (в болница) `h-nhif-med-oncology-coag` | 4 | leaf | blocked | НЗОК medicine reports 1 and 7 by active ingredient ("Lists" › "Medicines"): gross, before the ПРУ refunds (−1.09 bn lev… (script) |
+| 450.6 | 1.1% | Пенсии и социална защита › Социални помощи и обезщетения › Други социални помощи и обезщетения `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, €450.6 m in 2024) is not identified: the forecast giv… (script) |
+| 434.6 | 1.0% | Икономика и транспорт › Транспорт и съобщения › Рехабилитация и изграждане на пътна инфраструктура › Текущ ремонт и поддръжка на републиканските пътища `e-transport.p2100-02-01.p2100-02-01-maintenance-of-national-roads` | 4 | leaf | todo | Road projects in the priority investment projects (State Budget Act annex 2; "Lists" › "Investment projects") and the R… (script) |
 | 431.3 | 1.0% | Образование › Детски градини и училища (държавни стандарти чрез общините) › София (Столична община) `ed-municipal-sofiya-grad` | 3 | leaf | todo | Sofia's allocation of the state-delegated education money to each school and kindergarten (Plovdiv publishes one, "List… (unknown) |
 | 412.7 | 1.0% | Образование › Държавни университети (субсидия) `ed-universities` | 2 | leaf | todo | The State Budget Acts 2024 and 2025, art. 16 (4): the subsidy of each state university (as data/sources/budget-2026/sta… (script) |
-| 402.9 | 1.0% | Здравеопазване › Диагностика и лечение `health.moh-diagnostics-and-treatment` | 2 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the pro… (script) |
-| 398.9 | 1.0% | Комунални дейности, култура и околна среда › Култура, спорт и религия › Култура › Други разходи за култура `c-culture-other` | 4 | remainder | todo | The State Budget Act's subsidies to the public media БНТ, БНР and БТА (data/sources/budget-2026/transfers-universities-… (script) |
-| 369.3 | 0.9% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Други разходи за полиция и сигурност `o-police.rest` | 3 | remainder | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the int… (script) |
+| 405.8 | 1.0% | Пенсии и социална защита › Социални услуги, програми за заетост и администрация › Механизъм лична помощ `s-services.p1500-04-01-personal-assistance-scheme` | 3 | leaf | todo | The mechanism by municipality (the Social Assistance Agency's allocations, or the municipalities' reports under ЕБК 562… (unknown) |
 | 356.8 | 0.9% | Икономика и транспорт › Енергетика, горива и минно дело › Други разходи за енергетика `e-energy.rest` | 3 | remainder | todo | About €356.8 m of the 2024 plan is neither ФСЕС (annex 8) nor the Ministry of Energy’s area: EU-funded energy projects… (unknown) |
-| 338.0 | 0.8% | Икономика и транспорт › Земеделие, гори, лов и риболов › Други разходи за земеделие, гори и риболов `e-agriculture.rest` | 3 | remainder | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): whether… (script) |
-| 330.7 | 0.8% | Държавно управление, дълг и ЕС › Общи държавни служби › Наука › Друга наука `g-science.rest` | 4 | remainder | todo | The Academy of Sciences' 2024 subsidy (171,899.8 thousand BGN, State Budget Act 2024 art. 16 (4); data/sources/budget-2… (script) |
-| 297.7 | 0.7% | Икономика и транспорт › Транспорт и съобщения › Транспорт `e-transport.motc-transport` | 3 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the pro… (script) |
-| 270.4 | 0.6% | Държавно управление, дълг и ЕС › Общи държавни служби › Изпълнителна и законодателна власт › Събиране на данъци и мита (НАП, Митници) `g-executive.mof-collecting-taxes-and-customs-duties` | 4 | leaf | todo | The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the pro… (script) |
-| 249.4 | 0.6% | Здравеопазване › Други разходи за здравеопазване `h-other` | 2 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
-| 229.3 | 0.6% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Пожарна безопасност и защита при бедствия `o-police.moi-fire-safety-and-civil-protection` | 3 | leaf | — |  |
-| 198.3 | 0.5% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Охрана на границите и миграция `o-police.moi-border-protection-and-migration` | 3 | leaf | — |  |
-| 149.7 | 0.4% | Ред, сигурност и правосъдие › Затвори › Затвори и изпълнение на наказанията `o-prisons.moj-prisons-and-enforcement-of-sentences` | 3 | leaf | — |  |
+| 306.2 | 0.7% | Държавно управление, дълг и ЕС › Общи държавни служби › Наука › Друга наука `g-science.rest` | 4 | remainder | todo | The Academy of Sciences' 2024 subsidy (171,899.8 thousand BGN, State Budget Act 2024 art. 16 (4); data/sources/budget-2… (script) |
+| 279.3 | 0.7% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Други разходи за полиция и сигурност `o-police.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 260.5 | 0.6% | Образование › Предучилищно и училищно образование › Училищно образование › Персонал `education.mes-pre-school-and-school-education.p1700-01-03-staff` | 4 | economic split only | todo | Each state school's own budget (the schools' sites); no central table found (docs/data-depth.md §2.1) (unknown) |
+| 257.0 | 0.6% | Пенсии и социална защита › Социални услуги, програми за заетост и администрация › Други социални услуги и програми за заетост `s-svc-other` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 248.8 | 0.6% | Комунални дейности, култура и околна среда › Култура, спорт и религия › Култура › Други разходи за култура `c-culture-other` | 4 | remainder | todo | The State Budget Act's subsidies to the public media БНТ, БНР and БТА (data/sources/budget-2026/transfers-universities-… (script) |
+| 224.6 | 0.5% | Икономика и транспорт › Земеделие, гори, лов и риболов › Държавни помощи, национални доплащания и САПАРД › Държавни помощи, преходна национална помощ и други плащания `e-agriculture.p8400-01-04.p8400-01-04-state-aid-transitional-national-aid-and-other` | 4 | leaf | — |  |
+| 198.3 | 0.5% | Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Охрана на границите и миграция `o-police.moi-border-protection-and-migration` | 3 | economic split only | — |  |
+| 157.1 | 0.4% | Здравеопазване › Други разходи за здравеопазване `h-other` | 2 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
+| 154.0 | 0.4% | Икономика и транспорт › Транспорт и съобщения › Транспорт › Управление на транспорта, безопасност и сигурност › Поддръжка и експлоатация на железопътната инфраструктура `e-transport.motc-transport.p2300-01-02-running-and-maintaining-the-railway-network` | 5 | leaf | — |  |
+| 150.9 | 0.4% | Здравеопазване › Диагностика и лечение › Спешна медицинска помощ › Персонал `health.moh-diagnostics-and-treatment.p1600-02-03-staff` | 4 | leaf | — |  |
+| 136.6 | 0.3% | Пенсии и социална защита › Социални помощи и обезщетения › Месечни помощи за дете до завършване на средно образование `s-benefits.p1500-05-01-monthly-child-benefit-until-secondary-school` | 3 | leaf | — |  |
 | 126.5 | 0.3% | Ред, сигурност и правосъдие › Защита при бедствия и аварии `o-civil` | 2 | leaf | — |  |
 | 125.7 | 0.3% | Образование › Детски градини и училища (държавни стандарти чрез общините) › Област Пловдив › Община Пловдив `ed-municipal-plovdiv-plovdiv` | 4 | leaf | — |  |
 | 122.1 | 0.3% | Здравеопазване › Здравна каса (НЗОК) › Резерв за непредвидени разходи `h-nhif-reserve` | 3 | leaf | — |  |
-| 119.8 | 0.3% | Икономика и транспорт › Земеделие, гори, лов и риболов › Земеделие и селски райони `e-agriculture.mafood-agriculture-and-rural-areas` | 3 | leaf | — |  |
 | 118.8 | 0.3% | Образование › Детски градини и училища (държавни стандарти чрез общините) › Област Варна › Община Варна `ed-municipal-varna-varna` | 4 | leaf | — |  |
-| 109.1 | 0.3% | Ред, сигурност и правосъдие › Съдебна власт › Други разходи за съдебна власт `o-judiciary.rest` | 3 | remainder | todo | Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the justice ministry's „Правна… (script) |
-| 93.9 | 0.2% | Здравеопазване › Обществено здраве и профилактика `health.moh-public-health-and-prevention` | 2 | leaf | — |  |
+| 111.8 | 0.3% | Пенсии и социална защита › Социални помощи и обезщетения › Месечни помощи за дете с трайно увреждане `s-benefits.p1500-05-01-monthly-benefit-for-a-child-with-a-permanent` | 3 | leaf | — |  |
+| 107.3 | 0.3% | Икономика и транспорт › Транспорт и съобщения › Транспорт › Управление на транспорта, безопасност и сигурност › Субсидии за пътническите влакове `e-transport.motc-transport.p2300-01-02-passenger-rail-subsidies` | 5 | leaf | — |  |
+| 103.3 | 0.2% | Отбрана › Други разходи за отбрана `defence.rest` | 2 | remainder | todo | Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the defence minis… (script) |
+| 95.3 | 0.2% | Пенсии и социална защита › Социални помощи и обезщетения › Помощи за отопление `s-benefits.p1500-03-01-heating-aid` | 3 | leaf | — |  |
+| 95.2 | 0.2% | Отбрана › Подготовка и използване на въоръжените сили › Издръжка `defence.p1200-01-01.p1200-01-01-running` | 3 | leaf | — |  |
 | 93.8 | 0.2% | Образование › Детски градини и училища (държавни стандарти чрез общините) › Област Бургас › Община Бургас `ed-municipal-burgas-burgas` | 4 | leaf | — |  |
 | 93.5 | 0.2% | Пенсии и социална защита › Социални услуги, програми за заетост и администрация › Администрация на НОИ `s-svc-noi` | 3 | leaf | — |  |
 
@@ -144,7 +144,7 @@ Largest first: the top 40 of each "by purpose" dataset and the top 15 of the oth
 | 1,034.9 | 2.1% | Икономика и транспорт › Енергетика, горива и минно дело › Фонд „Сигурност на електроенергийната система“ `e-energy.fses` | 3 | leaf | todo | fses.bg „Отчети за дейността“: monthly „Отчет приходи и разходи“ of the fund (2021 – October 2026) — to verify whether… (script) |
 | 972.3 | 2.0% | Икономика и транспорт › Други икономически дейности › Други разходи за икономически дейности `e-other.rest` | 3 | remainder | todo | The National Fund's EU account and the Recovery Plan: the box's plan falls from €2,118.6 m (2026) to €1,320.9 m, €749.9… (script) |
 | 750.3 | 1.5% | Комунални дейности, култура и околна среда › Опазване на околната среда › Други разходи за околна среда `c-environment.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
-| 690.6 | 1.4% | Пенсии и социална защита › Социални помощи и обезщетения › Други социални помощи и обезщетения `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, all of the €1,298.3 m in 2024) is not identified: the… (script) |
+| 690.6 | 1.4% | Пенсии и социална защита › Социални помощи и обезщетения › Други социални помощи и обезщетения `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, €450.6 m in 2024) is not identified: the forecast giv… (script) |
 | 679.3 | 1.4% | Отбрана › Управление на инвестиционни проекти `defence.p1200-01-09` | 2 | economic split only | todo | Priority investment projects 2026 (State Budget Act annex 2; "Lists" › "Investment projects"): defence 34 projects, €84… (script) |
 | 634.9 | 1.3% | Държавно управление, дълг и ЕС › Общи държавни служби › Изпълнителна и законодателна власт › Други органи на изпълнителната и законодателната власт `g-executive-other` | 4 | remainder | todo | Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 onl… (script) |
 | 619.0 | 1.3% | Образование › Държавни университети (субсидия) `ed-universities` | 2 | leaf | todo | The State Budget Acts 2024 and 2025, art. 16 (4): the subsidy of each state university (as data/sources/budget-2026/sta… (script) |
@@ -240,7 +240,7 @@ Largest first: the top 40 of each "by purpose" dataset and the top 15 of the oth
 | 1,239.7 | 2.2% | Образование › Други разходи за образование `ed-other` | 2 | remainder | todo | Municipalities' own funds for education: no national plan table; the big cities' B3 give actuals for 3 cities only (script) |
 | 1,136.7 | 2.0% | Здравеопазване › Здравна каса (НЗОК) › Лекарства, медицински изделия и диетични храни › Оригинални (референтни) лекарства `h-nhif-med-reference` | 4 | leaf | blocked | НЗОК medicine reports 1 and 7 by active ingredient ("Lists" › "Medicines"): gross, before the ПРУ refunds (−1.09 bn lev… (script) |
 | 994.7 | 1.8% | Държавно управление, дълг и ЕС › Общи държавни служби › Изпълнителна и законодателна власт › Други органи на изпълнителната и законодателната власт `g-executive-other` | 4 | remainder | todo | Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 onl… (script) |
-| 842.4 | 1.5% | Пенсии и социална защита › Социални помощи и обезщетения › Други социални помощи и обезщетения `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, all of the €1,298.3 m in 2024) is not identified: the… (script) |
+| 842.4 | 1.5% | Пенсии и социална защита › Социални помощи и обезщетения › Други социални помощи и обезщетения `s-ben-assistance` | 3 | remainder | todo | The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, €450.6 m in 2024) is not identified: the forecast giv… (script) |
 | 777.2 | 1.4% | Пенсии и социална защита › Социални услуги, програми за заетост и администрация › Механизъм лична помощ `s-services.p1500-04-01-personal-assistance-scheme` | 3 | leaf | todo | The mechanism by municipality (the Social Assistance Agency's allocations, or the municipalities' reports under ЕБК 562… (unknown) |
 | 752.6 | 1.3% | Комунални дейности, култура и околна среда › Опазване на околната среда › Други разходи за околна среда `c-environment.rest` | 3 | remainder | todo | MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects ("Lis… (script) |
 | 693.0 | 1.2% | Икономика и транспорт › Земеделие, гори, лов и риболов › Сметка за средствата от Европейския съюз на Държавния фонд „Земеделие“ `e-agriculture.sfa-eu` | 3 | leaf | todo | State Fund Agriculture's EU account by ЕБК activity or paragraph (its annual budget and report, or the MoF's КФП execut… (unknown) |
@@ -320,25 +320,25 @@ Largest first: the top 40 of each "by purpose" dataset and the top 15 of the oth
 
 ### ministries-2024 — Ministries 2024
 
-106 open boxes, €8,738.1 m (100.0% of the total).
+542 open boxes, €8,738.1 m (100.0% of the total).
 
 | € m | Share | Path | Depth | Why open | State | First lead |
 | ---: | ---: | --- | ---: | --- | --- | --- |
-| 1,025.4 | 11.7% | Министерство на отбраната › Отбранителни способности `mod-defence-capabilities` | 2 | leaf | — |  |
-| 857.1 | 9.8% | Министерство на вътрешните работи › Борба с престъпността и обществен ред `moi-fighting-crime-and-keeping-public-order` | 2 | leaf | — |  |
-| 764.3 | 8.7% | Министерство на труда и социалната политика › Хора с увреждания `molsp-people-with-disabilities` | 2 | leaf | — |  |
+| 799.8 | 9.2% | Министерство на вътрешните работи › Борба с престъпността и обществен ред › Персонал `p1300-01-01-staff` | 3 | leaf | — |  |
+| 642.8 | 7.4% | Министерство на отбраната › Отбранителни способности › Подготовка и използване на въоръжените сили › Персонал `p1200-01-01-staff` | 4 | leaf | — |  |
 | 624.5 | 7.1% | Съдебна власт `judiciary` | 1 | leaf | — |  |
-| 550.2 | 6.3% | Министерство на регионалното развитие и благоустройството › Пътища и техническа инфраструктура `mrdpw-roads-and-technical-infrastructure` | 2 | leaf | — |  |
-| 528.8 | 6.1% | Министерство на образованието и науката › Предучилищно и училищно образование `mes-pre-school-and-school-education` | 2 | leaf | — |  |
-| 402.9 | 4.6% | Министерство на здравеопазването › Диагностика и лечение `moh-diagnostics-and-treatment` | 2 | leaf | — |  |
-| 392.4 | 4.5% | Министерство на труда и социалната политика › Социално включване `molsp-social-inclusion` | 2 | leaf | — |  |
-| 297.7 | 3.4% | Министерство на транспорта и съобщенията › Транспорт `motc-transport` | 2 | leaf | — |  |
-| 270.4 | 3.1% | Министерство на финансите › Събиране на данъци и мита (НАП, Митници) `mof-collecting-taxes-and-customs-duties` | 2 | leaf | — |  |
-| 253.5 | 2.9% | Държавен фонд „Земеделие“ › Земеделие и селски райони (субсидии) `state-fund-agriculture-agriculture-and-rural-areas-subsidies` | 2 | leaf | — |  |
-| 229.3 | 2.6% | Министерство на вътрешните работи › Пожарна безопасност и защита при бедствия `moi-fire-safety-and-civil-protection` | 2 | leaf | — |  |
-| 203.9 | 2.3% | Министерство на труда и социалната политика › Социално подпомагане и равнопоставеност `molsp-social-assistance-and-gender-equality` | 2 | leaf | — |  |
-| 198.3 | 2.3% | Министерство на вътрешните работи › Охрана на границите и миграция `moi-border-protection-and-migration` | 2 | leaf | — |  |
-| 189.5 | 2.2% | Министерство на културата › Съвременно изкуство (театри, опери, оркестри) `moc-contemporary-arts-theatres-operas-orchestras` | 2 | leaf | — |  |
+| 434.6 | 5.0% | Министерство на регионалното развитие и благоустройството › Пътища и техническа инфраструктура › Рехабилитация и изграждане на пътна инфраструктура › Текущ ремонт и поддръжка на републиканските пътища `p2100-02-01-maintenance-of-national-roads` | 4 | leaf | — |  |
+| 405.8 | 4.6% | Министерство на труда и социалната политика › Хора с увреждания › Механизъм лична помощ `p1500-04-01-personal-assistance-scheme` | 3 | leaf | — |  |
+| 336.3 | 3.8% | Министерство на труда и социалната политика › Хора с увреждания › Финансова подкрепа за хора с трайни увреждания `p1500-04-01-financial-support-for-people-with-permanent` | 3 | leaf | — |  |
+| 260.5 | 3.0% | Министерство на образованието и науката › Предучилищно и училищно образование › Училищно образование › Персонал `p1700-01-03-staff` | 4 | economic split only | — |  |
+| 224.6 | 2.6% | Държавен фонд „Земеделие“ › Земеделие и селски райони (субсидии) › Държавни помощи, национални доплащания и САПАРД › Държавни помощи, преходна национална помощ и други плащания `p8400-01-04-state-aid-transitional-national-aid-and-other` | 4 | leaf | — |  |
+| 218.9 | 2.5% | Министерство на финансите › Събиране на данъци и мита (НАП, Митници) › Персонал `p1000-02-01-staff` | 3 | leaf | — |  |
+| 214.9 | 2.5% | Министерство на вътрешните работи › Пожарна безопасност и защита при бедствия › Персонал `p1300-03-01-staff` | 3 | leaf | — |  |
+| 198.3 | 2.3% | Министерство на вътрешните работи › Охрана на границите и миграция `moi-border-protection-and-migration` | 2 | economic split only | — |  |
+| 154.0 | 1.8% | Министерство на транспорта и съобщенията › Транспорт › Управление на транспорта, безопасност и сигурност › Поддръжка и експлоатация на железопътната инфраструктура `p2300-01-02-running-and-maintaining-the-railway-network` | 4 | leaf | — |  |
+| 150.9 | 1.7% | Министерство на здравеопазването › Диагностика и лечение › Спешна медицинска помощ › Персонал `p1600-02-03-staff` | 4 | leaf | — |  |
+| 136.6 | 1.6% | Министерство на труда и социалната политика › Социално включване › Месечни помощи за дете до завършване на средно образование `p1500-05-01-monthly-child-benefit-until-secondary-school` | 3 | leaf | — |  |
+| 111.8 | 1.3% | Министерство на труда и социалната политика › Социално включване › Месечни помощи за дете с трайно увреждане `p1500-05-01-monthly-benefit-for-a-child-with-a-permanent` | 3 | leaf | — |  |
 
 ### ministries-2025 — Ministries 2025
 
@@ -586,7 +586,7 @@ Largest first: the top 40 of each "by purpose" dataset and the top 15 of the oth
 
 No stale entries.
 
-Open boxes of €250 m or more with no ledger entry (110):
+Open boxes of €250 m or more with no ledger entry (106):
 
 - **report-2024**
   - €1,741.1 m Ред, сигурност и правосъдие › Полиция, вътрешен ред и сигурност › Държавен бюджет (министерства и ведомства) `o-police.state` (economic split only)
@@ -601,17 +601,13 @@ Open boxes of €250 m or more with no ledger entry (110):
   - €383.5 m Икономика и транспорт › Земеделие, гори, лов и риболов › Европейски средства `e-agriculture.eu` (economic split only)
   - €320.0 m Комунални дейности, култура и околна среда › Жилища, благоустройство и комунални дейности `c-housing` (economic split only)
 - **ministries-2024**
-  - €1,025.4 m Министерство на отбраната › Отбранителни способности `mod-defence-capabilities` (leaf)
-  - €857.1 m Министерство на вътрешните работи › Борба с престъпността и обществен ред `moi-fighting-crime-and-keeping-public-order` (leaf)
-  - €764.3 m Министерство на труда и социалната политика › Хора с увреждания `molsp-people-with-disabilities` (leaf)
+  - €799.8 m Министерство на вътрешните работи › Борба с престъпността и обществен ред › Персонал `p1300-01-01-staff` (leaf)
+  - €642.8 m Министерство на отбраната › Отбранителни способности › Подготовка и използване на въоръжените сили › Персонал `p1200-01-01-staff` (leaf)
   - €624.5 m Съдебна власт `judiciary` (leaf)
-  - €550.2 m Министерство на регионалното развитие и благоустройството › Пътища и техническа инфраструктура `mrdpw-roads-and-technical-infrastructure` (leaf)
-  - €528.8 m Министерство на образованието и науката › Предучилищно и училищно образование `mes-pre-school-and-school-education` (leaf)
-  - €402.9 m Министерство на здравеопазването › Диагностика и лечение `moh-diagnostics-and-treatment` (leaf)
-  - €392.4 m Министерство на труда и социалната политика › Социално включване `molsp-social-inclusion` (leaf)
-  - €297.7 m Министерство на транспорта и съобщенията › Транспорт `motc-transport` (leaf)
-  - €270.4 m Министерство на финансите › Събиране на данъци и мита (НАП, Митници) `mof-collecting-taxes-and-customs-duties` (leaf)
-  - €253.5 m Държавен фонд „Земеделие“ › Земеделие и селски райони (субсидии) `state-fund-agriculture-agriculture-and-rural-areas-subsidies` (leaf)
+  - €434.6 m Министерство на регионалното развитие и благоустройството › Пътища и техническа инфраструктура › Рехабилитация и изграждане на пътна инфраструктура › Текущ ремонт и поддръжка на републиканските пътища `p2100-02-01-maintenance-of-national-roads` (leaf)
+  - €405.8 m Министерство на труда и социалната политика › Хора с увреждания › Механизъм лична помощ `p1500-04-01-personal-assistance-scheme` (leaf)
+  - €336.3 m Министерство на труда и социалната политика › Хора с увреждания › Финансова подкрепа за хора с трайни увреждания `p1500-04-01-financial-support-for-people-with-permanent` (leaf)
+  - €260.5 m Министерство на образованието и науката › Предучилищно и училищно образование › Училищно образование › Персонал `p1700-01-03-staff` (economic split only)
 - **ministries-2025**
   - €1,210.4 m Министерство на вътрешните работи › Борба с престъпността и обществен ред › Персонал `p1300-01-01-staff` (leaf)
   - €966.6 m Министерство на отбраната › Отбранителни способности › Подготовка и използване на въоръжените сили › Персонал `p1200-01-01-staff` (leaf)

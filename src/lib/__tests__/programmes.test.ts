@@ -124,16 +124,22 @@ describe('series-ministries.json', () => {
     }
   })
 
-  it('compares programmes and their items between the 2025 and 2026 plans', () => {
-    const [, plan2025, , plan2026] = series.values['p1500-03-01-heating-aid']
+  it('compares programmes and their items between the 2024, 2025 and 2026 plans', () => {
+    const [plan2024, plan2025, , plan2026] = series.values['p1500-03-01-heating-aid']
     expect(plan2026).toBe(49_549_300)
     expect(plan2025).toBeGreaterThan(0)
+    // ПМС № 13/2024: 186 300 000 leva.
+    expect(plan2024).toBe(Math.round(186_300_000 / 1.95583))
   })
 
   it('does not compare different programmes that share a code', () => {
-    // 7400.01.02 was investment promotion in 2025 and is competitiveness in 2026.
+    // 7400.01.02 was investment promotion in 2024–2025 and is competitiveness in 2026: the 2024 and 2025 programme
+    // share the id with the last year it had that name.
     expect(series.values['p7400-01-02']).toBeUndefined()
-    expect(series.nodes['p7400-01-02-2025']).toBeUndefined()
+    const [plan2024, plan2025, , plan2026] = series.values['p7400-01-02-2025']
+    expect(plan2024).toBeGreaterThan(0)
+    expect(plan2025).toBeGreaterThan(0)
+    expect(plan2026).toBeNull()
   })
 })
 
