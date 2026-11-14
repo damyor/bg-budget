@@ -70,7 +70,7 @@ Bulgarian is the default language; everything is also available in English.
 ```sh
 npm install
 npm run dev      # http://localhost:5173
-npm test         # unit tests (datasets, series, tree folding, zoom geometry, formatting, tax rules, clip timeline and titles, programmes, municipalities, big cities and the ЕБК codes, lists and their links, projects, SEBRA payees and payments, health, EU funds and farm subsidies, procurement)
+npm test         # unit tests (datasets, series, tree folding, zoom geometry, formatting, tax rules, clip timeline and titles, programmes, municipalities, big cities and the ЕБК codes, lists and their links, projects, SEBRA payees and payments, health, EU funds and farm subsidies, procurement, the drill-down mechanism)
 npm run build    # static site in dist/
 ```
 
@@ -141,7 +141,7 @@ holds every dataset's description, sources and totals without its tree, for the 
 | Dataset | Source | Levels |
 | --- | --- | --- |
 | **Budget 2024 / 2025 / 2026** (plan) | Consolidated fiscal programme (КФП) by function and sub-function from the medium-term budget forecasts (2024, 2025: explanatory memorandum to the 2025 budget bill, РМС № 88/2025; 2026: РМС № 597/2026); the year's Health Insurance Fund and Social Security budget acts; the State Budget Act's per-municipality funding of state-delegated activities (2024/2025: art. 54; 2026: art. 52); for 2026 also the subsidy to each of the 33 state universities and the transfer to the Academy of Sciences (art. 16(4)) | area → function → fund / item → … → municipality (up to 6 levels) |
-| **Budget 2027** (draft) | The government's draft 2027 budget, published for public consultation on 6 November 2026 and not yet in Parliament: КФП 2027 by function and sub-function (Table III-1) and its totals (Table II-1) from the updated medium-term budget forecast 2027–2029 published with the bill (€55.97 bn with the EU contribution, deficit 3.5% of GDP); from the draft State Budget Act the per-municipality funding of state-delegated activities (art. 53) and the subsidy to each of the 33 state universities and the transfer to the Academy of Sciences (art. 16(4)). the Health Insurance Fund as one box with its expenditure ceiling (the forecast's Annex 4, €5.68 bn, the amount the NHIF announced for its draft). The 2027 NHIF and Social Security bills are not published, so those funds are not itemised | area → function → fund / item → … → municipality |
+| **Budget 2027** (draft) | The government's draft 2027 budget, published for public consultation on 6 November 2026 and not yet in Parliament: КФП 2027 by function and sub-function (Table III-1) and its totals (Table II-1) from the updated medium-term budget forecast 2027–2029 published with the bill (€55.97 bn with the EU contribution, deficit 3.5% of GDP); from the draft State Budget Act the per-municipality funding of state-delegated activities (art. 53) and the subsidy to each of the 33 state universities and the transfer to the Academy of Sciences (art. 16(4)); the Health Insurance Fund as one box with its expenditure ceiling (the forecast's Annex 4, €5.68 bn, the amount the NHIF announced for its draft). The 2027 NHIF and Social Security bills are not published, so those funds are not itemised | area → function → fund / item → … → municipality |
 | **2024 / 2025 actual** | Reports on the execution of the State Budget (РМС № 673/2025 and № 737/2026): КФП expenditure by function and group, split by budget (state budget, social security, municipalities, EU funds …) and into current/capital spending. Health: the Health Insurance Fund's own execution report by expense line (2025 preliminary), on the same nodes as the plans; its hospital-care line is split by region (RZOK) and by each of the 383 / 388 establishments the fund paid, from its monthly reports per hospital (99.8% / 99.9% of the line; the rest is a separate "not attributed" slice) | area → function → sub-function → spent by → type of expense; Health › NHIF › hospital care → region → hospital |
 | **Ministries 2024 / 2025 / 2026** (plan) and **2025** (actual) | State Budget Acts, para. 2 of each spending unit's article (2024/2025: art. 2–49, 48 units; 2026: art. 2–47, 46 units) — ministries and agencies by policy / functional area. For the 2025 and 2026 plans also every budget programme of the 46 / 44 programme-format units (all but Parliament and the judiciary), split into departmental staff, running and capital costs and the named administered items (benefits, subsidies, contributions …), from Annex 1 to the Council of Ministers decree on implementing the budget (ПМС № 28/2025, № 102/2026). The 2025 actual comes from the report on the 2025 State Budget (attachment 4 to РМС № 737/2026); the 2024 report tables are published only as scans. Policy areas get ids from their names and programmes from their codes (`p1500-03-01`), so the same area or programme is comparable across years | ministry → policy area → programme → staff / running costs / capital / administered item → part (up to 5 levels) |
 | **Ministries 2027** (draft) | The draft State Budget Act 2027, published for public consultation on 6 November 2026 (minfin.bg, the bill's PDF): para. 2 of art. 2–48, 47 units, by policy / functional area, in the Council of Ministers' version (the PDF also prints the Supreme Judicial Council's own version of the judiciary's budget, noted on its node). No programmes: they are set only after the act is adopted. Same ids as 2026 | ministry → policy area (→ programme where the bill lists one) |
@@ -159,6 +159,14 @@ municipalities' own revenue and EU funds are not in it), and "Big cities" the wh
 of the year (`publicTotal`). Where an itemised source covers only part of a
 function (e.g. the Health Insurance Fund within all health spending), the difference is shown as an explicit
 "other" item, so every level still adds up to its parent.
+
+**Drilling down further.** Such a remainder is marked (`rest`) and shown as computed; boxes are split further, round
+by round, with parts taken from other documents (`*.parts.csv` next to a topic's extracts in `data/sources/`, each
+with its source and how it relates to the box) or with subtrees another dataset already has
+(`data/drilldown/grafts.csv`) — never over the box, the gap staying an explicit remainder. Every box that goes no
+further has an entry in `data/drilldown/ledger.json` (to do, no source, blocked or final, with a short note visitors
+see and the leads and attempts for the next round), and `npm run data` writes `data/drilldown/frontier.md`: how deep
+each dataset goes and its largest open boxes. How it works and how a round goes: [`docs/drilldown.md`](docs/drilldown.md).
 
 GDP is Eurostat's for past years and the Ministry of Finance autumn 2026 forecast for 2026–2027; population is
 taken at the start of each year (`data/sources/macro/`). The source tables are CSV extracts of the official
@@ -280,6 +288,8 @@ scripts/cap.ts           farm subsidies: by measure, by recipient (legal entitie
 scripts/procurement.ts   public procurement: contracts, by CPV category, suppliers and buyers with their pages
 scripts/cities.ts        the big cities' whole budgets by ЕБК activity and kind of spending ("Big cities"), and the
                          city-budget lists (Plovdiv's schools, the education cost standards)
+scripts/lib/drilldown.ts drilling down: parts files and grafts applied to the built trees, the ledger's notes, the
+                         frontier report (docs/drilldown.md; files in data/drilldown/)
 scripts/lib/lists.ts     list building: cell checks against column types, totals, shards, node links, index, each
                          dataset's links file, and the check that every link between trees and lists resolves
 scripts/lib/sebra.ts     SEBRA payments: reading the published rows, payee names, grouping spellings, classes
@@ -304,11 +314,12 @@ scripts/extract/         one-off extractors that turn official documents into da
                          kfp_forecast.py reads the КФП tables of the medium-term budget forecast PDF (2027–2029))
 src/lib/            data loading, tree indexing/search, formatting, i18n, palette, tax calculator (rules per year)
 src/lib/donutLayout.ts   zoom geometry shared by the SVG chart and the video renderer
+src/lib/nodeNotes.ts     what a box says about how far it goes (remainder, finest level, ledger state) and its source
 src/lib/listData.ts      lists: search, filters, sorting, totals, shards, URL state (shared with the build)
 src/lib/lists.ts         lists: loading the index, a dataset's links, list files and shards (and the names they bring)
 src/components/     donut, list, breadcrumbs, search, dataset picker, trend chart, segmented control,
                     list view (table / cards), links from a node to its list rows and to the same place in
-                    another dataset
+                    another dataset, the note on how far a box goes (DrilldownNote)
 src/clip/           clip timeline, canvas renderer, MP4 encoder (Mediabunny + WebCodecs)
 src/clip/caption.ts      headlines, the one-sentence summary, hashtags and each network's post text (shared with the build)
 src/lib/share.ts         share-page addresses, the networks' share and upload links, how X and Bluesky count characters

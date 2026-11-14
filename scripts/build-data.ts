@@ -16,6 +16,7 @@ import { buildCities, buildCityLists, CITY_BUDGETS } from './cities.ts'
 import { buildEuFundsLists, EU_FUNDS } from './eufunds.ts'
 import { buildEurostatDataset } from './eurostat.ts'
 import { buildHealthLists, HEALTH, hospitalCare, readHospitals } from './health.ts'
+import { applyDrilldown, applyLedger, frontierReport, readGrafts, readLedger, readPartsFiles } from './lib/drilldown.ts'
 import { readKfpPlan, readKfpTotals } from './lib/kfp.ts'
 import { checkLinks, checkList, datasetLinks, writeLists } from './lib/lists.ts'
 import { loadMacro } from './lib/macro.ts'
@@ -29,6 +30,7 @@ import { unmaskedIds } from './lib/sebra.ts'
 
 const OUT_DIR = new URL('../public/data/', import.meta.url)
 const SOURCES = new URL('../data/sources/', import.meta.url)
+const DRILLDOWN = new URL('../data/drilldown/', import.meta.url)
 const refresh = process.argv.includes('--refresh')
 const t = (bg: string, en: string): LocalizedText => ({ bg, en })
 
@@ -835,6 +837,14 @@ const datasets: Dataset[] = [
   await buildEurostatDataset({ macro, refresh }),
 ]
 
+// ---------- drilling down (docs/drilldown.md): parts from other documents, grafts, and the ledger's notes ----------
+
+// Every *.parts.csv under data/sources/ and every row of data/drilldown/grafts.csv split a box further; the build stops on
+// parts that do not fit. The ledger says, for the boxes that stay as they are, what is known about finer data.
+applyDrilldown(datasets, readPartsFiles(SOURCES), readGrafts(new URL('grafts.csv', DRILLDOWN)))
+const ledger = readLedger(new URL('ledger.json', DRILLDOWN))
+const stale = applyLedger(datasets, ledger)
+
 // Every link between datasets leads to an existing node.
 for (const dataset of datasets) {
   const walk = (node: BudgetNode) => {
@@ -876,6 +886,12 @@ for (const dataset of datasets) {
   const pct = ((publicTotal(dataset) / dataset.gdp) * 100).toFixed(1)
   console.log(`✓ ${dataset.id}: €${(dataset.root.value / 1e9).toFixed(2)} bn (${pct}% of GDP) → public/data/${file}`)
 }
+
+// Where the data stops: data/drilldown/frontier.md (committed, so each round's progress shows in its diff).
+const frontier = frontierReport(datasets, ledger, stale)
+writeFileSync(new URL('frontier.md', DRILLDOWN), frontier.markdown + '\n')
+for (const line of frontier.summary) console.log(`◦ frontier ${line}`)
+console.log(`✓ data/drilldown/frontier.md: ${ledger.length} ledger entries, ${stale.length} stale`)
 
 // ---------- series for comparing years ----------
 

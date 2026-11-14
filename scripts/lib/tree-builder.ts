@@ -20,7 +20,7 @@ export interface Spec {
 }
 
 /** Rounding tolerance: €0.2 m (sources are in thousands or millions with one decimal). */
-const TOLERANCE = 200_000
+export const TOLERANCE = 200_000
 
 export function build(spec: Spec, path = spec.name.bg): BudgetNode {
   const children = (spec.children ?? []).map((c) => build(c, `${path} › ${c.name.bg}`)).filter((c) => c.value > 0)
@@ -37,7 +37,7 @@ export function build(spec: Spec, path = spec.name.bg): BudgetNode {
     if (!spec.rest) throw new Error(`${path}: children miss ${(gap / 1e6).toFixed(1)} m and no rest node is defined`)
     // The remainder is the same kind of item as its siblings unless it says otherwise.
     const kind = spec.rest.kind ?? children.find((c) => c.kind)?.kind
-    children.push({ id: spec.rest.id, name: spec.rest.name, value: Math.round(gap), note: spec.rest.note, ...(kind ? { kind } : {}) })
+    children.push({ id: spec.rest.id, name: spec.rest.name, value: Math.round(gap), note: spec.rest.note, ...(kind ? { kind } : {}), rest: true })
   }
   const node: BudgetNode = { id: spec.id, name: spec.name, value: Math.round(value) }
   if (spec.code) node.code = spec.code

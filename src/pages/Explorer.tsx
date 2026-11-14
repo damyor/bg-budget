@@ -3,6 +3,7 @@ import { defaultTitle, summary } from '../clip/caption'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { ChildList } from '../components/ChildList'
 import { DatasetPicker } from '../components/DatasetPicker'
+import { DrilldownNote } from '../components/DrilldownNote'
 import { Donut } from '../components/Donut'
 import { ListLinks } from '../components/ListLinks'
 import { SearchBox } from '../components/SearchBox'
@@ -221,7 +222,7 @@ export function Explorer({ datasets }: { datasets: DatasetIndexEntry[] }) {
           <ListLinks dataset={dataset} nodeId={nodeId} enabled={Boolean(entry.lists)} />
           <SeeAlso node={node} datasets={datasets} mode={MODE_PARAM[effectiveMode]} />
           {node.note && <p className="note">{node.note[lang]}</p>}
-          {isLeaf && node !== tree.root && <p className="muted small">{t('noDeeper')}</p>}
+          <DrilldownNote node={node} parent={parent} dataset={dataset} leaf={isLeaf} />
           <div className="actions">
             <button type="button" className="btn btn-primary" onClick={() => navigate(clipRoute)}>
               <svg viewBox="0 0 20 20" aria-hidden="true">

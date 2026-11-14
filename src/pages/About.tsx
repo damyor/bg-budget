@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getJson } from '../lib/data'
 import { formatMoney, formatNumber } from '../lib/format'
-import { useLang } from '../lib/i18n'
+import { translate, useLang } from '../lib/i18n'
 import { countText } from '../lib/listData'
 import { useListIndex } from '../lib/lists'
 import { navigate } from '../lib/route'
@@ -19,6 +19,7 @@ const TEXT: Record<
     gdp: string
     updated: string
     sources: string
+    refs: string
     lists: string
     rows: string
     asOf: string
@@ -77,6 +78,13 @@ const TEXT: Record<
         ],
       },
       {
+        h: 'Докъде стигат данните',
+        p: [
+          'Всяка категория е разделена толкова подробно, колкото позволяват документите, които сайтът използва досега. Когато източник покрива само част от категорията, останалото е отделно парче с бележка „остатък“: то е изчислено като разлика, а не е публикувано като такова — затова всяко ниво се събира точно до горното.',
+          'Сайтът разделя категориите още по-надолу стъпка по стъпка с данни от други официални документи (например програмите на министерствата или плащанията на един фонд), без да надхвърля сумата на категорията. Където сумата на парче идва от такъв документ, под нея пише източникът и как е поставена там. Под категориите, които засега не могат да се разделят, пише защо: проучваме източници; по-подробни данни не са публикувани (и кога е проверено); или такива данни има, но засега не могат да се използват.',
+        ],
+      },
+      {
         h: 'Закръгляне',
         p: [
           'Сумите се показват закръглени до три значещи цифри. Повечето изходни таблици са в милиони или хиляди с една десетична, затова сборът на подкатегориите може да се различава от общата сума с до няколкостотин хиляди евро.',
@@ -89,6 +97,7 @@ const TEXT: Record<
     gdp: 'БВП за изчисленията като % от БВП',
     updated: 'Данните са обновени',
     sources: 'Източници',
+    refs: 'Допълнителни разбивки',
     lists: 'Списъци',
     rows: 'Редове',
     asOf: 'Данни към',
@@ -146,6 +155,13 @@ const TEXT: Record<
         ],
       },
       {
+        h: 'Where the data stops',
+        p: [
+          'Every category is split as far as the documents the site uses so far allow. Where a source covers only part of a category, the rest is a separate slice marked “remainder”: it is computed as the difference, not published as such — so every level adds up exactly to the one above.',
+          'The site splits categories further, step by step, with figures from other official documents (such as the ministries’ programmes or one fund’s payments), never beyond the category’s amount. Where a slice’s amount comes from such a document, its source and how it was placed there are shown with it. Categories that cannot be split yet say why: sources are being looked into; no finer data has been published (and when that was checked); or such data exists but cannot be used yet.',
+        ],
+      },
+      {
         h: 'Rounding',
         p: [
           'Amounts are shown rounded to three significant digits. Most source tables are in millions or thousands with one decimal, so subcategories can differ from their total by a few hundred thousand euro.',
@@ -158,6 +174,7 @@ const TEXT: Record<
     gdp: 'GDP used for “% of GDP”',
     updated: 'Data updated',
     sources: 'Sources',
+    refs: 'Further splits',
     lists: 'Lists',
     rows: 'Rows',
     asOf: 'Data as of',
@@ -232,6 +249,27 @@ export function About() {
                   ))}
                 </ul>
               </dd>
+              {dataset.refs && (
+                <>
+                  <dt>{text.refs}</dt>
+                  <dd>
+                    <ul>
+                      {Object.entries(dataset.refs).map(([key, ref]) => (
+                        <li key={key}>
+                          {ref.url ? (
+                            <a href={ref.url} target="_blank" rel="noreferrer">
+                              {ref.name[lang]}
+                            </a>
+                          ) : (
+                            ref.name[lang]
+                          )}
+                          {ref.basis !== 'exact' && <span className="muted"> — {translate(lang, ref.basis === 'mapped' ? 'refMapped' : 'refPayments')}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </>
+              )}
             </dl>
           </div>
         ))}

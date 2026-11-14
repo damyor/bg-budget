@@ -84,10 +84,23 @@ const STRINGS = {
   colAmount: { bg: 'Сума', en: 'Amount' },
   colShare: { bg: 'Дял', en: 'Share' },
   openDetails: { bg: 'Натисни за разбивка', en: 'Click for breakdown' },
-  noDeeper: {
-    bg: 'По-подробна публична разбивка няма.',
-    en: 'No finer public breakdown is available.',
+  finestLevel: {
+    bg: 'Засега това е най-подробното ниво в данните на сайта.',
+    en: 'For now this is the finest level in the site’s data.',
   },
+  statusTodo: { bg: 'Проучваме източници за по-подробна разбивка.', en: 'We are looking into sources for a finer breakdown.' },
+  statusNoSource: { bg: 'Не са публикувани по-подробни данни (проверено на {date}).', en: 'No finer data has been published (checked {date}).' },
+  statusNoSourceUndated: { bg: 'Не са публикувани по-подробни данни.', en: 'No finer data has been published.' },
+  statusBlocked: { bg: 'По-подробни данни има, но засега не могат да се използват.', en: 'Finer data exists but cannot be used yet.' },
+  remainderNote: {
+    bg: 'Изчислено като разлика — частта от „{parent}“, която източниците още не разпределят.',
+    en: 'Computed as the remainder — the part of “{parent}” the sources do not itemise yet.',
+  },
+  remainderTag: { bg: 'остатък', en: 'remainder' },
+  remainderTagHint: { bg: 'Изчислено като разлика', en: 'Computed as the remainder' },
+  refSource: { bg: 'Източник на сумата', en: 'Source of this amount' },
+  refMapped: { bg: 'поставена тук по документирано съответствие', en: 'placed here by a documented mapping' },
+  refPayments: { bg: 'по отделните плащания', en: 'from individual payments' },
   groupedOther: {
     bg: 'Сивото „Други“ събира малките категории под 1,5%.',
     en: 'Grey “Other” groups the small categories under 1.5%.',

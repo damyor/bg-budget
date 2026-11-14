@@ -33,7 +33,7 @@ export function ChildList({ node, selectedId, hoveredId, onHover, onOpen, format
   const total = children.reduce((s, c) => s + c.value, 0)
   const max = Math.max(1, ...children.map((c) => c.value))
 
-  if (!children.length) return <p className="muted">{t('noDeeper')}</p>
+  if (!children.length) return <p className="muted">{t('finestLevel')}</p>
 
   return (
     <div className="child-list">
@@ -54,6 +54,11 @@ export function ChildList({ node, selectedId, hoveredId, onHover, onOpen, format
               <span className="row-key" style={{ background: seriesVar(slot) }} aria-hidden="true" />
               <span className="row-name">
                 {child.name[lang]}
+                {child.rest && (
+                  <span className="row-tag" title={t('remainderTagHint')}>
+                    {t('remainderTag')}
+                  </span>
+                )}
                 {open && <span className="row-chevron" aria-hidden="true">›</span>}
               </span>
               <span className="row-value">{formatValue(child.value)}</span>

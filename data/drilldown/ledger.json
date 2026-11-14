@@ -1,0 +1,1547 @@
+[
+  {
+    "family": "functions",
+    "node": "s-pen-labour",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
+        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-art69",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
+        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
+        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-sickness",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    }
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-maternity",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    }
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-unemployment",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    }
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-childcare",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    }
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-assistance",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: the Ministry of Labour and Social Policy's administered items (monthly social assistance €78.6 m, heating aid €49.5 m, family and disability benefits …), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "most of it, to verify"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-svc-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: the labour ministry's employment and social-services programmes (ministries-2026), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the state-budget part"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the transport ministry's and the regional ministry's road programmes"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Transport Connectivity programme, Recovery Plan transport investments"
+      },
+      {
+        "source": "MTBF 2026–2028 (РМС № 597/2026) annex 8: other КФП entities (state enterprises?) — to verify which ones are transport",
+        "url": "https://strategy.bg/download/1324547",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Голяма част от сумата са разходите на Фонд „Сигурност на електроенергийната система“ — по средносрочната прогноза 2026–2028 1,49 млрд. € през 2026 г.",
+      "en": "Much of this is the Electricity System Security Fund’s spending — €1.49 bn in 2026 by the medium-term forecast 2026–2028."
+    },
+    "checked": "2026-10-13",
+    "leads": [
+      {
+        "source": "MTBF 2026–2028 (РМС № 597/2026) annex 8 „Размери на разходите и трансферите (нето) по други икономически обособени лица и структурни единици, включени в КФП“: ФСЕС 1 487 826.0 (2026), 1 285 995.9 (2027), 1 145 757.1 (2028) thousand EUR",
+        "url": "https://strategy.bg/download/1324547",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "2026 ≈53%, 2027 ≈95% of the box",
+        "note": "in the 2024 and 2025 actuals all of ФСЕС's КФП spending is in this sub-function (kfp-202x-report-by-function.csv: ФСЕС appears only under VIII.А)"
+      },
+      {
+        "source": "ПМС № 102/2026 annex 1: Ministry of Energy (2400) area 2400.01 „Енергетика“ €38.4 m (of which the РАО/ИЕЯС funds €27.8 m + €2.4 m capital transfers), administration 2400.02 €4.9 m",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "≈1.5% of the 2026 box"
+      },
+      {
+        "source": "About €1.27 bn of 2026 is not attributed by any table found so far: EU-funded energy projects (Recovery Plan)? to verify — in 2027 ФСЕС alone is 95% of the box, so the 2026 gap may be one-off",
+        "basis": "mapped",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-10-13",
+        "what": "MTBF 2026–2028 (РМС № 597/2026, DOCX) Table III-1: function totals only."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "АЕЦ „Козлодуй“ ЕАД is a state company outside the budget: SEBRA paid it €0.48 m in 07.2022–06.2026, mostly court-fee refunds; its own purchases are in the procurement lists as a buyer (ЕИК 106513772; €204.8 m in 363 contracts in 2025); the unit 7 loans carry a state guarantee of up to €1,500,417,089 (ЗДБ 2024 and 2026), which is not spending."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-other",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "economy, innovation, tourism and other agencies' programmes"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the competitiveness programmes"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "Ministry of Agriculture and State Fund Agriculture programmes"
+      },
+      {
+        "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
+        "basis": "payments",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-hospital",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Плановете не разделят болничната помощ по болници; отчетите за 2024 и 2025 г. я разделят по региони и болници.",
+      "en": "The plans do not split hospital care by hospital; the 2024 and 2025 actuals split it by region and hospital."
+    },
+    "leads": [
+      {
+        "source": "A link (graft mode=link) to the same box in the actuals, split by region and hospital from the НЗОК monthly reports",
+        "basis": "payments",
+        "access": "script"
+      },
+      {
+        "source": "НЗОК distribution of its budget by regional fund (РЗОК) or by hospital — to verify whether published",
+        "url": "https://www.nhif.bg/",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-med-reference",
+    "state": "blocked",
+    "note": {
+      "bg": "Колко НЗОК плаща за всяко активно вещество, има в „Списъци“ › „Лекарства“. Сумите там са преди отстъпките, които фирмите връщат на касата, затова не се събират в тази сума.",
+      "en": "What the NHIF pays for each active ingredient is in “Lists” › “Medicines”. Those amounts are before the discounts companies pay back to the fund, so they do not add up to this amount."
+    },
+    "leads": [
+      {
+        "source": "НЗОК medicine reports 1 and 7 by active ingredient (\"Lists\" › \"Medicines\"): gross, before the ПРУ refunds (−1.09 bn leva in 2025) the budget lines deduct (data/sources/health/README.md)",
+        "url": "https://www.nhif.bg/bg/nzok/medicine/1",
+        "basis": "payments",
+        "access": "script",
+        "note": "usable as parts only with net figures per ingredient"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-med-home",
+    "state": "blocked",
+    "note": {
+      "bg": "Колко НЗОК плаща за всяко активно вещество, има в „Списъци“ › „Лекарства“. Сумите там са преди отстъпките, които фирмите връщат на касата, затова не се събират в тази сума.",
+      "en": "What the NHIF pays for each active ingredient is in “Lists” › “Medicines”. Those amounts are before the discounts companies pay back to the fund, so they do not add up to this amount."
+    },
+    "leads": [
+      {
+        "source": "НЗОК medicine reports 1 and 7 by active ingredient (\"Lists\" › \"Medicines\"): gross, before the ПРУ refunds (−1.09 bn leva in 2025) the budget lines deduct (data/sources/health/README.md)",
+        "url": "https://www.nhif.bg/bg/nzok/medicine/1",
+        "basis": "payments",
+        "access": "script",
+        "note": "usable as parts only with net figures per ingredient"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-med-oncology",
+    "state": "blocked",
+    "note": {
+      "bg": "Колко НЗОК плаща за всяко активно вещество, има в „Списъци“ › „Лекарства“. Сумите там са преди отстъпките, които фирмите връщат на касата, затова не се събират в тази сума.",
+      "en": "What the NHIF pays for each active ingredient is in “Lists” › “Medicines”. Those amounts are before the discounts companies pay back to the fund, so they do not add up to this amount."
+    },
+    "leads": [
+      {
+        "source": "НЗОК medicine reports 1 and 7 by active ingredient (\"Lists\" › \"Medicines\"): gross, before the ПРУ refunds (−1.09 bn leva in 2025) the budget lines deduct (data/sources/health/README.md)",
+        "url": "https://www.nhif.bg/bg/nzok/medicine/1",
+        "basis": "payments",
+        "access": "script",
+        "note": "usable as parts only with net figures per ingredient"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-gp",
+    "state": "no-source",
+    "note": {
+      "bg": "НЗОК не публикува колко плаща на всеки общопрактикуващ лекар.",
+      "en": "The NHIF does not publish what it pays each general practitioner."
+    },
+    "checked": "2026-10-13",
+    "tried": [
+      {
+        "date": "2026-10-05",
+        "what": "Inventory of deeper sources (docs/data-depth.md §2.5, §5): the НЗОК publishes no amounts per GP, specialist, dentist, laboratory or pharmacy (sub-agent survey, 2–5 Oct 2026)."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "nhif.bg checked again (navigation of https://www.nhif.bg/bg and its report pages): payments are published per hospital (/bg/hospitals/bmp/<year>) and medicines by product, diagnosis, RZOK or hospital (/bg/nzok/medicine/1–7); for GPs, specialists, dentists and laboratories only activity counts are published per establishment (/bg/outpatientcare-report/zol2/<year>: examinations and insured persons by ICD code, RZOK, establishment and month), no amounts. /bg/medicine_food/quarter-payments/<year> is gross medicine spending by quarter."
+      }
+    ],
+    "leads": [
+      {
+        "source": "НЗОК, брой прегледи и ЗОЛ при ОПЛ и специалисти по МКБ, РЗОК, лечебно заведение и месец (activity counts, not payments: never turn counts into amounts)",
+        "url": "https://www.nhif.bg/bg/outpatientcare-report/zol2/2026",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-specialists",
+    "state": "no-source",
+    "note": {
+      "bg": "НЗОК не публикува колко плаща на всеки лекар специалист.",
+      "en": "The NHIF does not publish what it pays each specialist."
+    },
+    "checked": "2026-10-13",
+    "tried": [
+      {
+        "date": "2026-10-05",
+        "what": "Inventory of deeper sources (docs/data-depth.md §2.5, §5): the НЗОК publishes no amounts per GP, specialist, dentist, laboratory or pharmacy (sub-agent survey, 2–5 Oct 2026)."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "nhif.bg checked again (navigation of https://www.nhif.bg/bg and its report pages): payments are published per hospital (/bg/hospitals/bmp/<year>) and medicines by product, diagnosis, RZOK or hospital (/bg/nzok/medicine/1–7); for GPs, specialists, dentists and laboratories only activity counts are published per establishment (/bg/outpatientcare-report/zol2/<year>: examinations and insured persons by ICD code, RZOK, establishment and month), no amounts. /bg/medicine_food/quarter-payments/<year> is gross medicine spending by quarter."
+      }
+    ],
+    "leads": [
+      {
+        "source": "НЗОК, брой прегледи и ЗОЛ при ОПЛ и специалисти по МКБ, РЗОК, лечебно заведение и месец (activity counts, not payments: never turn counts into amounts)",
+        "url": "https://www.nhif.bg/bg/outpatientcare-report/zol2/2026",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-dental",
+    "state": "no-source",
+    "note": {
+      "bg": "НЗОК не публикува колко плаща на всеки зъболекар.",
+      "en": "The NHIF does not publish what it pays each dentist."
+    },
+    "checked": "2026-10-13",
+    "tried": [
+      {
+        "date": "2026-10-05",
+        "what": "Inventory of deeper sources (docs/data-depth.md §2.5, §5): the НЗОК publishes no amounts per GP, specialist, dentist, laboratory or pharmacy (sub-agent survey, 2–5 Oct 2026)."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "nhif.bg checked again (navigation of https://www.nhif.bg/bg and its report pages): payments are published per hospital (/bg/hospitals/bmp/<year>) and medicines by product, diagnosis, RZOK or hospital (/bg/nzok/medicine/1–7); for GPs, specialists, dentists and laboratories only activity counts are published per establishment (/bg/outpatientcare-report/zol2/<year>: examinations and insured persons by ICD code, RZOK, establishment and month), no amounts. /bg/medicine_food/quarter-payments/<year> is gross medicine spending by quarter."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-labs",
+    "state": "no-source",
+    "note": {
+      "bg": "НЗОК не публикува колко плаща на всяка лаборатория.",
+      "en": "The NHIF does not publish what it pays each laboratory."
+    },
+    "checked": "2026-10-13",
+    "tried": [
+      {
+        "date": "2026-10-05",
+        "what": "Inventory of deeper sources (docs/data-depth.md §2.5, §5): the НЗОК publishes no amounts per GP, specialist, dentist, laboratory or pharmacy (sub-agent survey, 2–5 Oct 2026)."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "nhif.bg checked again (navigation of https://www.nhif.bg/bg and its report pages): payments are published per hospital (/bg/hospitals/bmp/<year>) and medicines by product, diagnosis, RZOK or hospital (/bg/nzok/medicine/1–7); for GPs, specialists, dentists and laboratories only activity counts are published per establishment (/bg/outpatientcare-report/zol2/<year>: examinations and insured persons by ICD code, RZOK, establishment and month), no amounts. /bg/medicine_food/quarter-payments/<year> is gross medicine spending by quarter."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: Ministry of Health programmes (emergency care, public health, state hospitals …), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the state-budget part"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "EU-funded health projects"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "ed-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: Ministry of Education and Science programmes (pre-school and school education €703.1 m in 2026 …), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the state-budget part"
+      },
+      {
+        "source": "Municipalities' own funds for education: no national plan table; the big cities' B3 give actuals for 3 cities only",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Education programme 2021–2027, Recovery Plan education investments"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "ed-municipal-sofiya-grad",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Sofia's allocation of the state-delegated education money to each school and kindergarten (Plovdiv publishes one, \"Lists\" › \"City budgets\"; Sofia — to verify)",
+        "basis": "exact",
+        "access": "unknown"
+      },
+      {
+        "source": "Education cost standards 2026 (РМС № 497/2026, \"Lists\" › \"City budgets\"): national standards × counts; no per-municipality counts",
+        "url": "https://strategy.bg/download/1323211",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "State Budget Act art. 2–47 units and ПМС № 102/2026 programmes (Parliament, Presidency, Council of Ministers, regional governors, agencies' administration programmes), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the state-budget part"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-science-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "science programmes of the ministries (education ministry's research programme, the Science Fund)"
+      },
+      {
+        "source": "The Academy's own revenue and EU funds, university research: no source found (docs/data-depth.md §2.9)",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The contribution by own resource (GNI-based, VAT-based, plastics, customs duties): the State Budget Act / budget report lines or the European Commission's revenue tables by member state — to verify",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-interest",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Interest by instrument (domestic / external debt, by bond): State Budget Act art. 1 lines, the MoF debt bulletins — to verify",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the interior ministry's and the security agencies' programmes"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "State Budget Act 2026, the judiciary's article (by functional area: \"Ministries 2026\" › Съдебна власт), and a table by judicial body if the act has one — to verify; plus the justice ministry's programmes (ПМС № 102/2026)",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the defence ministry's programmes — larger than the КФП function (military hospitals, schools …), so a mapping is needed"
+      },
+      {
+        "source": "Priority investment projects 2026 (State Budget Act annex 2; \"Lists\" › \"Investment projects\"): defence 34 projects, €841.5 m capital — a list, not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-housing",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the regional ministry's water and housing programmes"
+      },
+      {
+        "source": "Investment Programme for Municipal Projects (ПМС № 103/2026, \"Lists\"): capital transfers whose functions are not given — to verify",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Development of the Regions programme"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the environment ministry's programmes"
+      },
+      {
+        "source": "MTBF 2026–2028 annex 8: ПУДООС and other КФП entities — to verify",
+        "url": "https://strategy.bg/download/1324547",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Environment programme"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-culture-other",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПМС № 102/2026 annex 1: Ministry of Culture programmes (theatres, operas, museums), mapped and grafted into this remainder",
+        "url": "https://strategy.bg/download/1325203",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the state-budget part"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pensions",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Разбивката по видове ще дойде със законопроекта за бюджета на ДОО за 2027 г. и програмните бюджети, когато бъдат внесени в Народното събрание.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. The split by type will come with the 2027 social security budget bill and the programme budgets once they are submitted to Parliament."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-benefits",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Разбивката по видове ще дойде със законопроекта за бюджета на ДОО за 2027 г. и програмните бюджети, когато бъдат внесени в Народното събрание.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. The split by type will come with the 2027 social security budget bill and the programme budgets once they are submitted to Parliament."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-other",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-housing",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
+      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+    },
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      }
+    ],
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pensions",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-benefits.social-security",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
+        "basis": "exact",
+        "access": "unknown",
+        "covers": "benefits by type (the plans take them from the bill's memorandum)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-benefits.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "labour ministry areas: people with disabilities €467.7 m, social inclusion €400.6 m, social assistance €231.3 m — mapping needed"
+      },
+      {
+        "source": "2025 report pr.4: each unit's actuals by economic category with named subsidy recipients (2,823 rows; not extracted yet, docs/data-depth.md §2.1)",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Кого плаща фондът, се вижда в „Списъци“ › „Кой получава парите“ (платец: Фонд „Сигурност на електроенергийната система“); плащанията през СЕБРА покриват 99,8% от сумата за 2025 г.",
+      "en": "Whom the fund pays is in “Lists” › “Who gets paid” (payer: Electricity System Security Fund); its SEBRA payments cover 99.8% of the 2025 amount."
+    },
+    "checked": "2026-10-13",
+    "leads": [
+      {
+        "source": "SEBRA payments of system 124 (ФСЕС) in 2025: €1,240.6 m = 99.8% of the КФП €1,243.3 m — companies €1,211.7 m (НЕК €317.3 m, Булгаргаз €72.7 m, Електрохолд Трейд €50.3 m, ЕВН България Електроснабдяване €49.2 m …), natural persons €27.7 m (never named)",
+        "basis": "payments",
+        "access": "script",
+        "covers": "99.8%",
+        "note": "data/sources/sebra/flows.csv.gz, payees.csv.gz; the current/capital split below is 99.99% current, so a parts file with \"replace\": true (reason: an economic split only)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses",
+    "datasets": [
+      "report-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "SEBRA payments of system 124 (ФСЕС) in 2024: €1,298.5 m = 100.6% of the КФП €1,290.4 m — over 100%, so not parts as they are: check payments to public bodies (consolidation) and timing",
+        "basis": "payments",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "regional ministry \"Roads and technical infrastructure\" €1,197.7 m, transport ministry \"Transport\" €653.2 m — mapping needed"
+      },
+      {
+        "source": "SEBRA payments of the transport and regional ministries and the road agency (\"Lists\" › \"Who gets paid\") — coverage to check",
+        "basis": "payments",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.eu",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Transport Connectivity / Transport Infrastructure programmes, Recovery Plan transport investments"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.eu",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "State Fund Agriculture payments by measure, FY2025 (\"Lists\" › \"EU funds\" › farm subsidies): EU direct payments and rural development — financial year 16 Oct – 15 Oct, scope against the КФП to verify",
+        "basis": "payments",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "agriculture ministry €250.9 m, State Fund Agriculture €235.2 m"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "interior ministry areas €2,181.3 m (crime and public order €1,283.5 m, fire safety €339.5 m, borders €328.2 m …) — some belong to other sub-functions"
+      },
+      {
+        "source": "Interior ministry quarterly programme reports (forms Б.1 / Б.2) on mvr.bg (docs/data-depth.md §2.2)",
+        "url": "https://mvr.bg/",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the judiciary by functional area €694.6 m (courts €398.8 m, prosecution €250.3 m …); the justice ministry's \"Justice\" €121.1 m"
+      },
+      {
+        "source": "2025 report pr.4: the judiciary's table by judicial body (not extracted: data/sources/report-2025/README.md)",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ministries-report-2025: the defence ministry's \"Defence capabilities\" €2,258.1 m is larger than the box (€2,129.7 m), so a link (graft mode=link), not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "the administration areas of all units, Parliament, Council of Ministers, regional governors"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-interest.state",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Interest by instrument (domestic / external debt): the debt section of the budget report, MoF debt bulletins — to verify",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "education ministry: pre-school and school education €483.3 m, higher education and science €35.5 m"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.universities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Universities' own budget reports (no central table found) or SEBRA payments of the universities' systems — to verify",
+        "basis": "mapped",
+        "access": "unknown"
+      },
+      {
+        "source": "Per-university transfers of the 2024–2025 State Budget Acts (plans; still open in docs/data-depth.md §4.1) — plans, so only a reference for the actuals",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.other",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "url": "https://www.strategy.bg/download/1327215",
+        "basis": "mapped",
+        "access": "script",
+        "covers": "health ministry areas: diagnostics and treatment €475.8 m, public health €88.1 m …"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "EU-funded health projects"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' education activities (kindergartens, schools …)",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-services.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' social services activities",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-housing.municipalities",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' housing, water, street lighting, parks",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' municipal administration (activity 122)",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' waste and street cleaning",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' public transport and roads",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-culture-culture.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' community centres, libraries, museums",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.municipalities",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' nurseries, school health offices",
+        "note": "scope to verify: the cities' data include their EU-funds accounts, which the КФП may book under \"EU funds\""
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.eu",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Education programme 2021–2027, Science and Education for Smart Growth 2014–2020, Recovery Plan education investments"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-services.eu",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Human Resources Development programme (ESF+)"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-housing.eu",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Development of the Regions / Regions in Growth"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Голяма част от сумата са разходите на Фонд „Сигурност на електроенергийната система“ — 1,36 млрд. € през 2027 г. по средносрочната прогноза 2027–2029.",
+      "en": "Much of this is the Electricity System Security Fund’s spending — €1.36 bn in 2027 by the medium-term forecast 2027–2029."
+    },
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "Updated medium-term budget forecast 2027–2029 (6.11.2026) annex 8 „Размери на разходите и трансферите (нето) по други икономически обособени лица и структурни единици, включени в КФП“: ФСЕС 1 356 342.9 (2027), 1 076 282.9 (2028), 1 076 282.9 (2029) thousand EUR",
+        "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
+        "basis": "mapped",
+        "access": "browser",
+        "covers": "2027 ≈95% of the box (€1,356.3 m of €1,422.6 m)",
+        "note": "as for 2026: in the 2024 and 2025 actuals all of ФСЕС’s КФП spending is in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "forecast 2027–2029 annex 8 read (local copy data/cache/mtbf-2027-2029/); not yet a part: the mapping of ФСЕС to this sub-function is inferred, not printed"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Сумата е таванът на разходите на НЗОК за 2027 г. в средносрочната прогноза. Разбивката по дейности (болнична помощ, лекарства, общопрактикуващи лекари …) ще дойде със законопроекта за бюджета на НЗОК за 2027 г.: Надзорният съвет на НЗОК го прие на 10.11.2026 г., но текстът му още не е публикуван.",
+      "en": "The amount is the NHIF’s 2027 spending ceiling in the medium-term forecast. The split by activity (hospital care, medicines, GPs …) will come with the NHIF’s 2027 budget bill: the NHIF board adopted it on 10 Nov 2026, but its text is not published yet."
+    },
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "Закон за бюджета на НЗОК за 2027 г. — the bill and its memorandum once in Parliament (parliament.bg bill ZIP); art. 1 tables as used for Budget 2026 (budget-2026/nhif-2026-tables.csv)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the whole box, as in Budget 2026"
+      },
+      {
+        "source": "NHIF news 10.11.2026: the board adopted the draft (≈€5.68 bn, +8.1%); no text attached",
+        "url": "https://www.nhif.bg/bg/news/1106",
+        "basis": "exact",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "nhif.bg news 1106 and the minfin.bg draft package (legislation7/632): no text of the NHIF bill; Annex 4 of the forecast gives only the total"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-svc-rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP) — the ДОО bill (NOI administration) and the Ministry of Labour and Social Policy programmes (employment programmes, social services)",
+        "basis": "exact",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      }
+    ]
+  }
+]

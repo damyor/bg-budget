@@ -67,6 +67,8 @@ Most of this can be downloaded by a script.
 
 The site's tree is built on the КФП functions (levels 0–2). Levels 3–5 follow a different, organisational tree: spending unit → programme → economic element. Programme codes come from РМС № 478/24.06.2026 and are stable for 2026–2030. Levels 8–10 are "examples inside" a slice rather than parts that add up to it, because project and payment amounts are commitments or cash flows that do not map onto КФП functions.
 
+**Using these sources box by box (since 13 October 2026).** The drill-down mechanism ([`docs/drilldown.md`](drilldown.md)) puts parts from any of the sources below into a КФП box — as a parts file, or as a graft of a subtree another dataset already has (e.g. a ministry's programmes) — with the rest as an explicit remainder. `data/drilldown/ledger.json` records, for every box that cannot be split yet, its leads (from this inventory) and what was tried, and `data/drilldown/frontier.md` lists the largest open boxes after each `npm run data`. Payments (levels 9–10) become parts only when they cover 95–100% of a box for the same payer and period, e.g. the Electricity System Security Fund's SEBRA payments, 99.8% of its 2025 box.
+
 ---
 
 ## 2. Findings by area
@@ -480,6 +482,19 @@ and caveats in `data/sources/projects/README.md`.
      plans (PDF only); Sofia's capital programme (~1,390 rows) and other cities' per-school data; the cost standards of
      the other delegated functions; links from the city nodes to the lists that link municipalities (EU projects,
      procurement, hospitals) — they are reached from the city's node in "Municipalities".
+
+8. **Drilling down, round by round — mechanism done (13 October 2026), parts to come.**
+   - The machinery for splitting a box further with parts from any of these sources, or with grafts of another
+     dataset's subtree, and for recording what is still open (`docs/drilldown.md`): remainders are marked and shown
+     as computed, every box that goes no further has a visitor-facing note, and `data/drilldown/frontier.md` ranks
+     the open boxes. The ledger's first fill covers every open box of €250 m or more in Budget 2026, the 2027
+     forecast and the 2025 actual (78 entries).
+   - Next rounds, largest first: the ministries' programmes (ПМС № 102/2026) mapped to the КФП sub-functions and
+     grafted (state-budget part of almost every box; Budget 2026 has €9.4 bn in remainders); the Electricity System
+     Security Fund in Energy (MTBF 2026–2028 annex 8 for the plans, €1.49 bn of €2.80 bn in 2026; its SEBRA payments,
+     99.8% of the 2025 box, for the actual); the 2027 draft budget (due 31.10.2026); the ДОО execution data
+     (pensions, €12.4 bn in the 2025 actual, are one box); the 2025 actuals by policy area (pr.4) mapped to the
+     report's state-budget boxes.
 
 Smaller items:
 - Eurostat subsector split (central / local / social security): about half a day.

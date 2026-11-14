@@ -20,7 +20,41 @@ export interface BudgetNode {
   residents?: number
   /** The same place or thing in other datasets, shown as links (a city's central-budget transfers ↔ its whole budget). */
   seeAlso?: NodeSeeAlso[]
+  /** A remainder: the parent's amount minus the parts the sources itemise (computed, not published as such). */
+  rest?: true
+  /** Where the amount comes from when not from the dataset's own sources: a key of Dataset.refs (a parts file or graft). */
+  ref?: string
+  /** What is known about finer data for this box (data/drilldown/ledger.json). */
+  status?: NodeStatus
   children?: BudgetNode[]
+}
+
+/**
+ * Whether a box can be split further: todo = sources are being looked into; no-source = nothing finer is published;
+ * blocked = finer data exists but cannot be used yet; final = this is as fine as it should go.
+ */
+export type DrilldownState = 'todo' | 'no-source' | 'blocked' | 'final'
+
+/** The visitor-facing part of a ledger entry, copied onto the node it is about. */
+export interface NodeStatus {
+  state: DrilldownState
+  note?: LocalizedText
+  /** ISO date the sources were last checked. */
+  checked?: string
+}
+
+/**
+ * How parts from another document relate to the box they split: exact = finer rows of the same accounts or document;
+ * mapped = official figures of another document placed into this box by a documented mapping; payments = recipients
+ * from payment records.
+ */
+export type RefBasis = 'exact' | 'mapped' | 'payments'
+
+/** The source of nodes added by a parts file or a graft (Dataset.refs). */
+export interface DatasetRef {
+  name: LocalizedText
+  url?: string
+  basis: RefBasis
 }
 
 /** A link from a tree node to a node of another dataset, with that node's amount. */
@@ -83,6 +117,8 @@ export interface Dataset {
    * shares are computed against this. Defaults to the root's value.
    */
   publicTotal?: number
+  /** Sources of nodes split further by parts files and grafts, by the key in their `ref`. */
+  refs?: Record<string, DatasetRef>
   root: BudgetNode
 }
 
