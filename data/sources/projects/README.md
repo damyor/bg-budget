@@ -12,16 +12,24 @@ municipality instead.
 
 | File | Content | Source |
 | --- | --- | --- |
+| `national-priority-projects-2027.csv` | The 226 projects of the **draft** programme for 2027–2029: capital spending in 2027, forecasts for 2028 and 2029, result indicator, responsible institution; **thousand EUR**. Retrieved 14.11.2026 | Проект на Закон за държавния бюджет на Република България за 2027 г., приложение № 2 към чл. 108, ал. 1 „Програма за приоритетни стратегически инвестиционни проекти с национално финансиране за периода 2027-2029 г.“, published for public consultation on 6.11.2026 — https://www.minfin.bg/upload/65607/PZDBRB-2027.pdf (pages 126–159; see `../budget-2027/README.md`) |
 | `national-priority-projects-2026.csv` | The 199 projects of the programme for 2026–2028: capital spending in 2026, forecasts for 2027 and 2028, result indicator, responsible institution; **thousand EUR** | Закон за държавния бюджет на Република България за 2026 г., приложение № 2 към чл. 110, ал. 1 „Програма за приоритетни стратегически инвестиционни проекти с национално финансиране за периода 2026 – 2028 г.“, ДВ бр. 69 от 31.07.2026 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041 |
 | `national-priority-projects-2025-report.csv` | 2025: section I, the programme (176 projects), and section II, the reserve list (228 rows): planned (section II: indicative) capital spending for 2025 and the capital spending or transfers reported at 31.12.2025; **thousand BGN** | Отчет за изпълнението на държавния бюджет за 2025 г., приложение № 6 (`Приложение № 2, Раздел I и II, към чл. 110`) към РМС № 737 от 24.09.2026 — https://strategy.bg/download/1327217 (decision: https://www.strategy.bg/bg/pris/legal-information/reseniia/171087) |
 | `municipal-investment-2025-report.csv` | 3,492 municipal projects with the municipality's ЕБК code: the transfer paid in 2025, the financing through the Bulgarian Development Bank in 2025 and their total; **thousand BGN** | Same report, приложение № 7 „Справка по Инвестиционната програма за общински проекти по чл. 113 от ЗДБРБ за 2025 година (Приложение 3)“ — https://strategy.bg/download/1327218 |
 | `municipal-investment-2026-decree.csv` | The same 3,492 projects as listed for 2026: application and agreement (no., date), agreement value, total transfers so far, the 2026 forecast and the amount left for later years; **EUR** (cents) | ПМС № 103 от 12.08.2026 г. за определяне на проекти от Инвестиционната програма за общински проекти … и условия и ред за финансирането им през 2026 г., приложение № 1, ДВ бр. 75/2026 — annex https://dv.parliament.bg/DVPics/2026/75_26/4508_1.pdf (178 pages, text layer), decree https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245381 |
 | `municipal-investment-ipop.csv` | The same 3,492 projects in the regional development ministry's public register: agreement value, payment claims under review, approved and awaiting payment, total paid, paid by the ministry in 2024–2025 / 2026 / another year and paid by the Bulgarian Development Bank; **EUR** (cents) | МРРБ, https://ipop.mrrb.bg/reports_projects_export.php (CSV export, `;` separated, decimal comma; served as `spravka_proekti_20261005_145207.csv`) |
 
-All files were retrieved on **5 October 2026**. The ipop.mrrb.bg export is live: the committed file is the state
+All files except the 2027 draft's were retrieved on **5 October 2026**. The ipop.mrrb.bg export is live: the committed file is the state
 of the register at 14:52 that day.
 
 ## Columns
+
+`national-priority-projects-2027.csv` — the 2026 columns with the years moved on (`capex_2027_kEUR`,
+`capex_2028_kEUR`, `capex_2029_kEUR`; empty where the annex prints "-"); `indicator_bg` is empty where the annex
+prints "-" (the defence and National Protection Service projects); `footnote` is always empty. The PDF letter-spaces
+the institution of six transport projects ("М и н и с т ерство на т р а н с п о р т а …"); the extractor takes the
+2025–2026 name that is the same without spaces. The draft writes “БДЖ- Пътнически превози“ ЕООД; the site matches it to
+„БДЖ – Пътнически превози“ ЕООД.
 
 `national-priority-projects-2026.csv` — `no` (1–199, as printed), `code` (`NP-25.001-0001` …), `name_bg`,
 `capex_2026_kEUR`, `capex_2027_kEUR`, `capex_2028_kEUR` (one decimal as printed; empty where the annex prints "–" or
@@ -84,6 +92,13 @@ extractor checks this), so they are not repeated here.
   case, with those three aliases.
 
 ## Checks (the extractor stops on any failure)
+
+- Annex 2 (2027 draft): projects numbered 1–226, codes unique, no footnotes. 2027: 1 805 379,2; 2028: 2 335 458,6;
+  2029: 2 616 368,1 thousand EUR. The annex prints no total, so the check is art. 108(2): each of the 14 institutions'
+  2027 total stays within its own capital spending (para. 1, row 2 of its article). Defence: 44 projects,
+  1 193 984,0; regional development: 384 389,7. 155 of the projects were in the 2026–2028 programme (70 of them
+  with the same 2027 amount as forecast there). Spot-checks: NP-25.001-0001 (ГКПП Струмяни – Берово) 1 609,5 /
+  1 473,7 / 1 444,9; NP-25.001-0016 (F-16 Block 70, stage II) 177 146,8 / 526 790,0 / 171 329,6.
 
 - Annex 2 (2026): projects numbered 1–199, codes unique. 2026: 1 438 621,1; 2027: 1 773 490,5; 2028: 2 244 940,1
   thousand EUR. Defence: 34 projects, 841 511,2; regional development: 67 projects, 357 231,1.

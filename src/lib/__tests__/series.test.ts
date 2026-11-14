@@ -30,8 +30,8 @@ describe('dataset selection', () => {
   it('keeps the version when switching years, and falls back when it is missing', () => {
     const report2024 = index.find((d) => d.id === 'report-2024')!
     expect(switchEntry(index, report2024, { year: 2025 }).id).toBe('report-2025')
-    // 2027 has no actual: the closest version is the forecast.
-    expect(switchEntry(index, report2024, { year: 2027 }).stage).toBe('forecast')
+    // 2027 has no actual: the closest version is the government's draft.
+    expect(switchEntry(index, report2024, { year: 2027 }).stage).toBe('draft')
     // Eurostat exists only for 2024: moving to 2026 returns to the main breakdown.
     const cofog = index.find((d) => d.family === 'cofog')!
     expect(switchEntry(index, cofog, { year: 2026 }).family).toBe('functions')

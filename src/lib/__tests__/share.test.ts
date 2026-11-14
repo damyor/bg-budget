@@ -126,7 +126,7 @@ describe('share pages', () => {
     expect(pages).toHaveLength(nodes * 2)
     const health = pages.find((p) => p.file === 'en/budget-2027/health.html')!
     expect(health.html).toContain('How much does Bulgaria spend on “Health”?')
-    expect(health.html).toContain('The Ministry of Finance forecast for 2027 plans')
+    expect(health.html).toContain('draft 2027 budget plans')
     expect(health.html).toContain('"/bg-budget/#/explore?d=budget-2027&n=health&lang=en"')
     expect(pages.find((p) => p.file === 'bg/budget-2027/index.html')!.html).toContain('"/bg-budget/#/explore?d=budget-2027&lang=bg"')
     expect([...homeSharePages(SITE, '/bg-budget/')].map((p) => p.file)).toEqual(['bg/index.html', 'en/index.html'])

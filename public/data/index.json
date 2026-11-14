@@ -3,21 +3,63 @@
     "id": "budget-2027",
     "year": 2027,
     "kind": "plan",
-    "stage": "forecast",
+    "stage": "draft",
     "family": "functions",
     "title": {
-      "bg": "Прогноза 2027",
-      "en": "2027 forecast"
+      "bg": "Бюджет 2027 (проект)",
+      "en": "Budget 2027 (draft)"
     },
     "subtitle": {
-      "bg": "Средносрочна бюджетна прогноза, август 2026 г.",
-      "en": "Medium-term budget forecast, August 2026"
+      "bg": "Консолидирана фискална програма, проект на правителството от 6.11.2026 г.",
+      "en": "Consolidated fiscal programme, government draft of 6 Nov 2026"
     },
     "file": "budget-2027.json",
-    "total": 55350800000,
-    "publicTotal": 55350800000,
+    "total": 55972100000,
+    "publicTotal": 55972100000,
     "gdp": 141302000000,
     "population": 6423207
+  },
+  {
+    "id": "ministries-2027",
+    "year": 2027,
+    "kind": "plan",
+    "stage": "draft",
+    "family": "ministries",
+    "title": {
+      "bg": "Министерства 2027 (проект)",
+      "en": "Ministries 2027 (draft)"
+    },
+    "subtitle": {
+      "bg": "Разходи на министерствата и ведомствата по проекта на Закона за държавния бюджет",
+      "en": "Spending of ministries and agencies in the draft State Budget Act"
+    },
+    "file": "ministries-2027.json",
+    "total": 14394993000,
+    "publicTotal": 55972100000,
+    "gdp": 141302000000,
+    "population": 6423207,
+    "lists": true
+  },
+  {
+    "id": "municipalities-2027",
+    "year": 2027,
+    "kind": "plan",
+    "stage": "draft",
+    "family": "municipalities",
+    "title": {
+      "bg": "Общини 2027 (проект)",
+      "en": "Municipalities 2027 (draft)"
+    },
+    "subtitle": {
+      "bg": "Трансфери от централния бюджет към общините по проектобюджета",
+      "en": "Transfers from the central budget to municipalities in the draft budget"
+    },
+    "file": "municipalities-2027.json",
+    "total": 5162139300,
+    "publicTotal": 55972100000,
+    "gdp": 141302000000,
+    "population": 6423207,
+    "lists": true
   },
   {
     "id": "budget-2026",

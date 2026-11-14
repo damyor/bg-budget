@@ -58,6 +58,7 @@ const src = (path: string) => new URL(path, SOURCES)
 const totalsFile = src('kfp/kfp-totals.csv')
 const mtbf2025 = src('kfp/mtbf-2025-2028-by-function.csv')
 const kfp2026 = src('budget-2026/kfp-2026-by-function.csv')
+const kfp2027 = src('budget-2027/kfp-2027-by-function.csv')
 const municipalRegister = src('places/municipalities.csv')
 const healthDir = src('health/')
 // Every establishment the Health Insurance Fund pays for hospital care, 2024 – August 2026 (scripts/health.ts).
@@ -261,23 +262,87 @@ const budget2026 = buildBudgetPlan({
   sourceCurrency: 'EUR',
 })
 
+// ---------- the 2027 draft budget (published for consultation on 6.11.2026) ----------
+
+const DRAFT_2027 = {
+  name: t(
+    'Проект на Закон за държавния бюджет на Република България за 2027 г. — материали към проекта на РМС за одобряването му, публикувани за обществено обсъждане на 6.11.2026 г.',
+    'Draft State Budget Act of the Republic of Bulgaria for 2027 — published with the draft government decision approving it for public consultation on 6 Nov 2026',
+  ),
+  url: 'https://www.minfin.bg/bg/legislation7/632',
+}
+const DRAFT_2027_PDF = { name: t('Законопроектът (PDF)', 'The bill (PDF)'), url: 'https://www.minfin.bg/upload/65607/PZDBRB-2027.pdf' }
+const MTBF_2027 = {
+  name: t(
+    'Актуализирана средносрочна бюджетна прогноза за периода 2027–2029 г. (мотиви към законопроекта, приложение към т. 4 от проекта на РМС) — КФП по функции (табл. III-1) и основни показатели (табл. II-1)',
+    'Updated medium-term budget forecast 2027–2029 (the explanatory memorandum to the bill, annex to item 4 of the draft government decision) — КФП by function (table III-1) and main indicators (table II-1)',
+  ),
+  url: 'https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf',
+}
+const DRAFT_2027_NOTE = t(
+  'Това е проект, не закон: Министерството на финансите го публикува за обществено обсъждане на 6 ноември 2026 г.; Министерският съвет още не го е внесъл в Народното събрание и сумите може да се променят.',
+  'This is a draft, not a law: the Ministry of Finance published it for public consultation on 6 November 2026; the government has not yet submitted it to Parliament, and the amounts may change.',
+)
+
+const details2027: PlanDetails = {
+  dir: src('budget-2027/'),
+  unit: 'kEUR',
+  municipal: { file: 'municipal-delegated-2027.csv', article: t('чл. 53', 'Art. 53'), register: municipalRegister },
+  nhifCeiling: {
+    file: 'expenditure-ceilings-2027-2029.csv',
+    note: t(
+      'Разходите на НЗОК за 2027 г. — таванът им по средносрочната бюджетна прогноза 2027–2029 г. (приложение № 4), същата сума, която НЗОК обяви за проектобюджета си на 10.11.2026 г. Разделянето по видове медицинска помощ и лекарства ще дойде със законопроекта за бюджета на НЗОК за 2027 г., който още не е публикуван.',
+      'The NHIF’s 2027 expenditure — its ceiling in the medium-term budget forecast 2027–2029 (annex 4), the amount the NHIF announced for its draft budget on 10 Nov 2026. The split by type of care and medicines will come with the 2027 NHIF budget bill, not yet published.',
+    ),
+  },
+  universities: {
+    file: 'transfers-universities-media.csv',
+    column: '2027 г.',
+    unit: 'kEUR',
+    institutions: { file: 'state-budget-2027-university-transfers.csv', article: t('чл. 16, ал. 4', 'Art. 16(4)') },
+  },
+}
+
 const budget2027 = buildBudgetPlan({
   id: 'budget-2027',
   year: 2027,
-  stage: 'forecast',
-  kfp: readKfpPlan(kfp2026, '2027_forecast_mEUR', 'mEUR'),
+  stage: 'draft',
+  kfp: readKfpPlan(kfp2027, '2027_draft_mEUR', 'mEUR'),
   totals: readKfpTotals(totalsFile, 'budget-2027'),
+  details: details2027,
   macro: macro(2027),
-  title: t('Прогноза 2027', '2027 forecast'),
-  subtitle: t('Средносрочна бюджетна прогноза, август 2026 г.', 'Medium-term budget forecast, August 2026'),
-  description: t(
-    'Прогнозата на Министерството на финансите за публичните разходи през 2027 г. по функции — от актуализираната средносрочна бюджетна прогноза 2026–2028, одобрена заедно с бюджета за 2026 г. Проектобюджетът за 2027 г. се подготвя: Министерството на финансите стартира процедурата през септември 2026 г. с цел дефицит до 3% от БВП, а Министерският съвет трябва да го внесе в Народното събрание до 31 октомври 2026 г.',
-    'The Ministry of Finance forecast of public spending in 2027 by function — from the updated medium-term budget forecast 2026–2028 approved with the 2026 budget. The 2027 draft budget is in preparation: the Ministry of Finance started the procedure in September 2026 aiming for a deficit of at most 3% of GDP, and the government has to submit it to Parliament by 31 October 2026.',
-  ),
-  sources: [MTBF_2026],
-  sourceShort: t('Прогноза за 2027 г. — Министерство на финансите (август 2026)', '2027 forecast — Ministry of Finance (August 2026)'),
-  retrieved: '2026-08-06',
+  title: t('Бюджет 2027 (проект)', 'Budget 2027 (draft)'),
+  subtitle: t('Консолидирана фискална програма, проект на правителството от 6.11.2026 г.', 'Consolidated fiscal programme, government draft of 6 Nov 2026'),
+  description: {
+    bg: [
+      'Публичните разходи през 2027 г. по проектобюджета на правителството — държава, общини, НОИ, НЗОК и европейски средства — по функции и подфункции на консолидираната фискална програма, плюс вноската в бюджета на ЕС — от актуализираната средносрочна бюджетна прогноза 2027–2029 г., публикувана с проекта на Закона за държавния бюджет.',
+      DRAFT_2027_NOTE.bg,
+      'Средствата за делегираните дейности в общините, за всеки от 33-те държавни университета и за БАН са по законопроекта (чл. 53 и чл. 16, ал. 4). Здравната каса е с общите си разходи по прогнозата (таванът ѝ в приложение № 4, който НЗОК потвърди за проектобюджета си). Законопроектите за бюджета на НЗОК и на ДОО за 2027 г. още не са публикувани, затова здравната каса, пенсиите и обезщетенията не са разделени по видове разходи.',
+    ].join(' '),
+    en: [
+      'Public spending in 2027 under the government’s draft budget — central government, municipalities, social security, health insurance and EU funds — by function and sub-function of the consolidated fiscal programme, plus the contribution to the EU budget — from the updated medium-term budget forecast 2027–2029 published with the draft State Budget Act.',
+      DRAFT_2027_NOTE.en,
+      'The funding of state-delegated activities in municipalities, of each of the 33 state universities and of the Academy of Sciences comes from the bill (art. 53 and art. 16(4)). The health insurance fund is shown with its total expenditure from the forecast (its ceiling in annex 4, which the NHIF confirmed for its draft budget). The 2027 health insurance and social security budget bills are not published yet, so the health fund, pensions and benefits are not split by type of spending.',
+    ].join(' '),
+  },
+  sources: [
+    MTBF_2027,
+    DRAFT_2027,
+    DRAFT_2027_PDF,
+    {
+      name: t('НЗОК — Проект на Закон за бюджета на НЗОК за 2027 г. (новина от 10.11.2026 г.)', 'NHIF — draft NHIF Budget Act 2027 (news of 10 Nov 2026)'),
+      url: 'https://www.nhif.bg/bg/news/1106',
+    },
+  ],
+  sourceShort: t('Проектобюджет 2027 (6.11.2026) — Министерство на финансите', 'Draft 2027 budget (6 Nov 2026) — Ministry of Finance'),
+  retrieved: '2026-11-14',
   sourceCurrency: 'EUR',
+  unsplit: {
+    socialSecurity: t(
+      'Законопроектът за бюджета на ДОО за 2027 г. още не е публикуван, затова администрацията на НОИ не е отделена.',
+      'The 2027 social security budget bill is not published yet, so the Social Security Institute’s administration is not shown separately.',
+    ),
+  },
 })
 
 const NHIF_REPORT = {
@@ -558,6 +623,85 @@ const municipalities2026 = municipalities(
   '2026-07-31',
 )
 
+// ---------- the 2027 draft State Budget Act (Council of Ministers' version) ----------
+
+const ministries2027 = buildMinistries({
+  id: 'ministries-2027',
+  year: 2027,
+  stage: 'draft',
+  file: src('budget-2027/state-budget-2027-spending-units.csv'),
+  unit: 'kEUR',
+  transfers: {
+    file: src('budget-2027/state-budget-2027-university-transfers.csv'),
+    seeAlso: {
+      '1700': t(
+        'Всеки университет е показан поотделно в „Бюджет 2027 (проект)“ › Образование › Държавни университети (субсидия), а БАН — в Държавно управление, дълг и ЕС › Общи държавни служби › Наука.',
+        'Each university is shown in “Budget 2027 (draft)” › Education › State universities (subsidy), and the Academy in Government, debt & EU › General public services › Science.',
+      ),
+    },
+  },
+  unitNotes: {
+    judiciary: t(
+      'Законопроектът съдържа и варианта на Висшия съдебен съвет: 868,1 млн. € разходи. Тук е вариантът на Министерския съвет — 752,2 млн. €.',
+      'The bill also prints the Supreme Judicial Council’s own version: €868.1 m of spending. Shown here is the Council of Ministers’ version, €752.2 m.',
+    ),
+  },
+  publicTotal: publicTotal(budget2027),
+  macro: macro(2027),
+  title: t('Министерства 2027 (проект)', 'Ministries 2027 (draft)'),
+  subtitle: t('Разходи на министерствата и ведомствата по проекта на Закона за държавния бюджет', 'Spending of ministries and agencies in the draft State Budget Act'),
+  description: {
+    bg: [
+      'Бюджетите на 47-те министерства и ведомства (първостепенни разпоредители) по проекта на Закона за държавния бюджет за 2027 г. (чл. 2–48), по политики и функционални области — по варианта на Министерския съвет.',
+      DRAFT_2027_NOTE.bg,
+      'Бюджетните програми се определят едва след приемането на закона (с постановлението за изпълнението на бюджета), затова тук няма разделяне по програми.',
+      'Не включва пенсиите (НОИ), здравната каса, общините, европейските средства, лихвите и вноската в ЕС.',
+    ].join(' '),
+    en: [
+      'The budgets of the 47 ministries and agencies (first-level spending units) in the draft 2027 State Budget Act (art. 2–48), by policy and functional area — in the Council of Ministers’ version.',
+      DRAFT_2027_NOTE.en,
+      'Budget programmes are set only after the act is adopted (by the decree on implementing the budget), so there is no split by programme here.',
+      'Pensions, the health insurance fund, municipalities, EU funds, interest and the EU contribution are not included.',
+    ].join(' '),
+  },
+  sources: [DRAFT_2027, DRAFT_2027_PDF],
+  sourceShort: t('Проект на Закон за държавния бюджет 2027 (6.11.2026) — министерства', 'Draft 2027 State Budget Act (6 Nov 2026) — ministries'),
+  retrieved: '2026-11-14',
+})
+
+const municipalities2027 = buildMunicipalities({
+  id: 'municipalities-2027',
+  year: 2027,
+  stage: 'draft',
+  transfers: src('budget-2027/municipal-transfers-2027.csv'),
+  delegated: src('budget-2027/municipal-delegated-2027.csv'),
+  register: municipalRegister,
+  articles: { transfers: t('чл. 52', 'Art. 52'), delegated: t('чл. 53', 'Art. 53') },
+  // The latest population figures (NSI) are for 31 December 2025.
+  residentsAt: 2025,
+  publicTotal: publicTotal(budget2027),
+  macro: macro(2027),
+  title: t('Общини 2027 (проект)', 'Municipalities 2027 (draft)'),
+  subtitle: t('Трансфери от централния бюджет към общините по проектобюджета', 'Transfers from the central budget to municipalities in the draft budget'),
+  description: {
+    bg: [
+      'Парите, които проектът на държавния бюджет за 2027 г. предвижда за всяка от 265-те общини (чл. 52 от законопроекта): обща субсидия за делегираните от държавата дейности — училища, детски градини, социални услуги, общинска администрация и др., по функции според чл. 53; обща изравнителна субсидия; целева субсидия за капиталови разходи и средства за зимното поддържане на общинските пътища. За разлика от 2024–2026 г. проектът няма отделен целеви трансфер за други разходи за местни дейности (досега — за минималната работна заплата).',
+      DRAFT_2027_NOTE.bg,
+      'Това са само трансферите от централния бюджет. Общините харчат и собствени приходи (местни данъци и такси) и европейски средства, които не са тук, както и пари, отпуснати през годината с решения на Министерския съвет или по Инвестиционната програма за общински проекти.',
+      'Сумите на жител са спрямо населението на общината към 31 декември 2025 г. (НСИ, последните данни).',
+    ].join(' '),
+    en: [
+      'The money the draft 2027 State Budget plans for each of the 265 municipalities (art. 52 of the bill): the general subsidy for state-delegated activities — schools, kindergartens, social services, municipal administration etc., by function as set in art. 53; the general equalising subsidy; the targeted subsidy for capital spending; and funds for the winter maintenance of municipal roads. Unlike 2024–2026, the draft has no separate targeted transfer for other spending on local activities (so far, for the minimum wage).',
+      DRAFT_2027_NOTE.en,
+      'These are transfers from the central budget only. Municipalities also spend their own revenue (local taxes and fees) and EU funds, which are not here, as well as money granted during the year by government decisions or through the municipal investment programme.',
+      'Amounts per resident use the municipality’s population on 31 December 2025 (NSI, the latest figures).',
+    ].join(' '),
+  },
+  sources: [DRAFT_2027, DRAFT_2027_PDF, NSI_MUNICIPALITIES],
+  sourceShort: t('Проект на Закон за държавния бюджет 2027 (6.11.2026), чл. 52 — трансфери за общините', 'Draft 2027 State Budget Act (6 Nov 2026), art. 52 — transfers to municipalities'),
+  retrieved: '2026-11-14',
+})
+
 // ---------- the big cities' whole budgets, by ЕБК activity (their own year-end reports) ----------
 
 const EBK_2026 = {
@@ -645,6 +789,7 @@ for (const [municipal, whole, back] of [
   [municipalities2024, cities2024, true],
   [municipalities2025, cities2025, true],
   [municipalities2026, cities2025, false],
+  [municipalities2027, cities2025, false],
 ] as const) {
   for (const city of whole.root.children ?? []) {
     const node = nodeById(municipal.root, city.id)
@@ -671,6 +816,8 @@ for (const [municipal, whole, back] of [
 
 const datasets: Dataset[] = [
   budget2027,
+  ministries2027,
+  municipalities2027,
   budget2026,
   ministries2026,
   municipalities2026,

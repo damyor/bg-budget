@@ -140,6 +140,7 @@ export function TrendChart({ points, currentId, mode, scale, onSelect }: Props) 
                     <button type="button" {...columnProps(p)} aria-pressed={p.entry.id === currentId} title={`${y} · ${STAGE_LABEL[p.entry.stage][lang]}`}>
                       {v === null || v === undefined ? '—' : cells.format(v)}
                       {p.entry.stage === 'forecast' && <span className="trend-tag">{t('forecastShort')}</span>}
+                      {p.entry.stage === 'draft' && <span className="trend-tag">{t('draftShort')}</span>}
                       {rate !== null && <span className="trend-rate">{formatPercent(rate, lang)}</span>}
                     </button>
                   </td>

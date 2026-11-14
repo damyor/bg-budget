@@ -3,9 +3,10 @@
 strategic investment projects (2026-2028 and the 2025 plan vs actual) and the municipal
 investment programme (2025 payments, the 2026 list and the live status).
 
-  python3 scripts/extract/capital_projects.py
+  python3 -P scripts/extract/capital_projects.py
 
 Reads the cached downloads (see data/cache/projects/MANIFEST.md):
+  data/cache/zdb-2027-draft/PZDBRB-2027.pdf       draft State Budget Act 2027, Annex 2 to art. 108 (zdb_pdf.py)
   data/cache/zdb-2026/zdb-2026.html               State Budget Act 2026, Annex 2 to art. 110
   data/cache/projects/report-2025-pr6.xlsx        2025 report, attachment pr.6 (priority projects)
   data/cache/zdb-2025/zdb-2025.html               State Budget Act 2025, Annex 2 (the plan pr.6 reports on)
@@ -14,6 +15,7 @@ Reads the cached downloads (see data/cache/projects/MANIFEST.md):
   data/cache/projects/ipop-projects.csv           ipop.mrrb.bg export (live status of the programme)
 
 Writes data/sources/projects/:
+  national-priority-projects-2027.csv         226 projects of the 2027 draft: capital spending 2027, forecasts 2028-2029
   national-priority-projects-2026.csv         199 projects: capital spending 2026, forecasts 2027-2028
   national-priority-projects-2025-report.csv  pr.6 sections I (176) and II (228): 2025 plan vs actual
   municipal-investment-2025-report.csv        3,492 projects: transfer and Development Bank money paid in 2025
@@ -140,6 +142,84 @@ def national_2026():
           f'{by_institution["Министерство на регионалното развитие и благоустройството"]:,}')
     write('national-priority-projects-2026.csv',
           ['no', 'code', 'name_bg', 'capex_2026_kEUR', 'capex_2027_kEUR', 'capex_2028_kEUR', 'indicator_bg', 'institution_bg', 'footnote'], rows)
+
+
+# ---------- national priority projects 2027-2029 (draft State Budget Act 2027, Annex 2, PDF) ----------
+
+DRAFT_2027 = os.path.join(CACHE, 'zdb-2027-draft', 'PZDBRB-2027.pdf')
+
+
+def national_2027():
+    """Annex 2 to art. 108 of the draft; each institution's projects stay within its unit's capital spending (art. 108(2))."""
+    sys.path.insert(0, os.path.dirname(__file__))
+    from zdb_pdf import articles, paragraph, rows_between, split_versions, stream, text_of, value_of
+
+    items = stream(DRAFT_2027)
+    start = next(i for i, it in enumerate(items) if it['kind'] == 'text' and it['text'] == 'Приложение № 2')
+    if not text_of(items, start).startswith('Приложение № 2 към чл. 108, ал. 1 Програма за приоритетни стратегически инвестиционни проекти с национално финансиране за периода 2027-2029 г.'):
+        fail('Annex 2 to art. 108 not found in the draft State Budget Act 2027')
+    # The PDF letter-spaces a few institution names ("М и н и с т ерство на т р а н с п о р т а …"): take the
+    # institution of the 2026 programme whose name is the same without spaces.
+    known = {}
+    for name in ('national-priority-projects-2026.csv', 'national-priority-projects-2025-report.csv'):
+        with open(os.path.join(OUT, name), newline='', encoding='utf-8') as f:
+            known.update({re.sub(r'\s', '', r['institution_bg']): r['institution_bg'] for r in csv.DictReader(f)})
+
+    def institution(text):
+        if re.search(r'(?:(?<!\S)[^\W\d] ){3,}', text):
+            if re.sub(r'\s', '', text) not in known:
+                fail(f'Annex 2 (2027): letter-spaced institution not known from 2025-2026: {text}')
+            return known[re.sub(r'\s', '', text)]
+        return fix_cyrillic(text)
+
+    rows = []
+    for item in items[start:]:
+        if item['kind'] == 'text':
+            if not re.fullmatch(r'\d+|\(хил\. евро\)|Програма за .*|към чл\. 108, ал\. 1|Приложение № 2', item['text']):
+                fail(f'Annex 2 (2027): unexpected text {item["text"][:80]}')
+            continue
+        for cells in item['rows']:
+            if cells[0] == '№':
+                if not (cells[3].startswith('Размер на капиталови разходи по проекта през 2027') and cells[7] == 'Отговорна институция'):
+                    fail(f'Annex 2 (2027): unexpected header {cells}')
+                continue
+            if len(cells) != 8 or not re.fullmatch(r'\d+', cells[0]) or not NP_CODE.match(cells[1]):
+                fail(f'Annex 2 (2027): unexpected row {cells[:3]}')
+            amounts = [kilo(c) for c in cells[3:6]]
+            if any(m for _, m in amounts):
+                fail(f'Annex 2 (2027): a footnote mark in row {cells[0]}')
+            rows.append([int(cells[0]), cells[1], fix_cyrillic(cells[2]), *(a for a, _ in amounts),
+                         '' if cells[6] in ('-', '–') else fix_cyrillic(cells[6]), institution(cells[7]), ''])
+    n = len(rows)
+    if [r[0] for r in rows] != list(range(1, n + 1)) or len({r[1] for r in rows}) != n:
+        fail(f'Annex 2 (2027): {n} rows, expected numbers 1-{n} with unique codes')
+    # Art. 108(2): the money is within the capital spending of the institutions' budgets (para. 1, row 2).
+    government, _, _ = split_versions(items)
+    capital = {}
+    for art, its in articles(government).items():
+        m = re.match(r'^Чл\. \d+\. \(1\) Приема бюджета на (.+?) за 2027 г\.', text_of(its))
+        if m and art >= 2:
+            capital[norm(m.group(1))] = value_of(rows_between(its, 1, paragraph(its, 2, 'Утвърждава')), '2.', 'Капиталови разходи')
+    genitive = lambda name: norm(re.sub(r'^(Министерство|Комисия|Агенция|Държавна агенция|Национална служба|Държавна комисия|Национален статистически институт|Министерски съвет|Сметна палата)',
+                                        lambda m: {'Министерство': 'Министерството', 'Комисия': 'Комисията', 'Агенция': 'Агенцията', 'Държавна агенция': 'Държавната агенция',
+                                                   'Национална служба': 'Националната служба', 'Държавна комисия': 'Държавната комисия',
+                                                   'Национален статистически институт': 'Националния статистически институт', 'Министерски съвет': 'Министерския съвет',
+                                                   'Сметна палата': 'Сметната палата'}[m.group(1)], name))
+    by_institution = Counter()
+    for r in rows:
+        by_institution[r[7].split('/')[0].strip()] += r[3] or 0
+    for name, value in by_institution.items():
+        unit = genitive(name)
+        if unit not in capital:
+            fail(f'Annex 2 (2027): no spending unit for {name}')
+        if value > Decimal(str(capital[unit])):
+            fail(f'Annex 2 (2027): {name} projects {value:,} > its capital spending {capital[unit]:,}')
+    total = [sum(r[i] or 0 for r in rows) for i in (3, 4, 5)]
+    print(f'Annex 2 (draft ЗДБ 2027): {n} projects of {len(by_institution)} institutions, each within its capital spending; '
+          f'2027 {total[0]:,} 2028 {total[1]:,} 2029 {total[2]:,} thousand EUR; defence {by_institution["Министерство на отбраната"]:,}, '
+          f'regional development {by_institution["Министерство на регионалното развитие и благоустройството"]:,}')
+    write('national-priority-projects-2027.csv',
+          ['no', 'code', 'name_bg', 'capex_2027_kEUR', 'capex_2028_kEUR', 'capex_2029_kEUR', 'indicator_bg', 'institution_bg', 'footnote'], rows)
 
 
 # ---------- national priority projects 2025, plan vs actual (2025 report, attachment pr.6) ----------
@@ -381,6 +461,7 @@ def municipal_ipop(by_name, pr7):
 
 
 def main():
+    national_2027()
     national_2026()
     national_2025()
     by_name, names = read_register()

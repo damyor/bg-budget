@@ -1,5 +1,6 @@
 // Named capital projects as lists (format: ListFile in src/lib/types.ts), from the
 // CSV extracts in data/sources/projects/ (see its README):
+//   national-projects-2027          draft State Budget Act 2027, Annex 2: 226 priority projects, 2027–2029
 //   national-projects-2026          State Budget Act 2026, Annex 2: 199 priority projects, 2026–2028
 //   national-projects-2025          2025 report, attachment pr.6, section I: plan vs actual
 //   national-projects-2025-reserve  the same, section II: the reserve list
@@ -30,6 +31,13 @@ const UNIT = { one: t('инвестиционен проект', 'investment pro
 const ZDB_2026 = {
   name: t('Закон за държавния бюджет на Република България за 2026 г., приложение № 2 към чл. 110 (ДВ, бр. 69/2026)', 'State Budget Act 2026, Annex 2 to art. 110 (State Gazette 69/2026)'),
   url: 'https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041',
+}
+const DRAFT_2027 = {
+  name: t(
+    'Проект на Закон за държавния бюджет на Република България за 2027 г., приложение № 2 към чл. 108 (публикуван за обществено обсъждане на 6.11.2026 г.)',
+    'Draft State Budget Act 2027, Annex 2 to art. 108 (published for public consultation on 6 Nov 2026)',
+  ),
+  url: 'https://www.minfin.bg/upload/65607/PZDBRB-2027.pdf',
 }
 const ZDB_2025 = {
   name: t('Закон за държавния бюджет на Република България за 2025 г., приложение № 2 към чл. 110 (ДВ, бр. 26/2025)', 'State Budget Act 2025, Annex 2 to art. 110 (State Gazette 26/2025)'),
@@ -126,12 +134,16 @@ const NOTE_2026: Record<string, LocalizedText> = {
 
 // ---------- national priority projects ----------
 
+/** Company names compared without quotes, dashes and spaces (the 2027 draft prints “БДЖ- Пътнически превози“). */
+const companyKey = (name: string) => name.replace(/[„“”"\s–-]/g, '')
+
 function institutionOf(printed: string, where: string): { unit: string; implementer: string | null } {
   const [ministry, company] = printed.split('/')
   const unit = INSTITUTIONS[ministry]
   if (!unit) throw new Error(`${where}: no spending unit for "${ministry}"`)
-  if (company && !IMPLEMENTERS[company]) throw new Error(`${where}: unknown implementer "${company}"`)
-  return { unit, implementer: company ? IMPLEMENTERS[company].id : null }
+  const implementer = company ? Object.entries(IMPLEMENTERS).find(([name]) => companyKey(name) === companyKey(company))?.[1] : undefined
+  if (company && !implementer) throw new Error(`${where}: unknown implementer "${company}"`)
+  return { unit, implementer: implementer?.id ?? null }
 }
 
 const dataset = (datasets: Dataset[], id: string) => {
@@ -235,6 +247,82 @@ function national2026(dir: URL, datasets: Dataset[]): ListSpec {
     summary: ['capex.2026', 'capex.2027', 'capex.2028'],
     sort: '-capex.2026',
     links: [{ family: 'ministries', column: 'institution', years: [2026], value: 'capex.2026', label: t('за 2026 г.', 'in 2026') }],
+    columns,
+    key: 'code',
+    rows,
+  }
+}
+
+function national2027(dir: URL, datasets: Dataset[]): ListSpec {
+  const rows2027 = readCsv(new URL('national-priority-projects-2027.csv', dir))
+  const before = new Map(readCsv(new URL('national-priority-projects-2026.csv', dir)).map((r) => [r.code, r]))
+  const where = 'national-projects-2027'
+  const units = rows2027.map((r) => institutionOf(r.institution_bg, where))
+  const usedImplementers = Object.values(IMPLEMENTERS).filter((i) => units.some((u) => u.implementer === i.id))
+  const columns: ListColumn[] = [
+    CODE,
+    NAME,
+    institution(dataset(datasets, 'ministries-2027'), new Set(units.map((u) => u.unit))),
+    {
+      id: 'implementer',
+      type: 'category',
+      label: t('Изпълнява се от', 'Carried out by'),
+      detail: true,
+      labels: Object.fromEntries(usedImplementers.map((i) => [i.id, i.name])),
+    },
+    {
+      id: 'capex',
+      type: 'series',
+      label: t('Капиталови разходи (2028–2029: прогноза)', 'Capital spending (2028–2029: forecast)'),
+      periods: ['2027', '2028', '2029'],
+      total: true,
+      source: t('Проект на Закон за държавния бюджет за 2027 г., приложение № 2 (6.11.2026 г.)', 'Draft State Budget Act 2027, Annex 2 (6 Nov 2026)'),
+    },
+    INDICATOR,
+    { id: 'plan2026', type: 'money', label: t('По закона за 2026 г.: 2026', 'In the 2026 act: 2026'), detail: true, source: ZDB_2026.name },
+    { id: 'forecast2027', type: 'money', label: t('По закона за 2026 г.: прогноза за 2027', 'In the 2026 act: 2027 forecast'), detail: true, source: ZDB_2026.name },
+  ]
+  const rows: ListCell[][] = rows2027.map((r, i) => {
+    const prior = before.get(r.code)
+    return [
+      r.code,
+      r.name_bg,
+      units[i].unit,
+      units[i].implementer,
+      [fromKEur(r.capex_2027_kEUR), fromKEur(r.capex_2028_kEUR), fromKEur(r.capex_2029_kEUR)],
+      indicator(r.indicator_bg),
+      prior ? fromKEur(prior.capex_2026_kEUR) : null,
+      prior ? fromKEur(prior.capex_2027_kEUR) : null,
+    ]
+  })
+  const inBoth = rows2027.filter((r) => before.has(r.code)).length
+  return {
+    id: 'national-projects-2027',
+    group: PROJECTS.id,
+    title: t('Приоритетни инвестиционни проекти 2027–2029 (проект)', 'Priority investment projects 2027–2029 (draft)'),
+    short: t('Национални 2027–2029 (проект)', 'National 2027–2029 (draft)'),
+    description: t(
+      `Програмата за приоритетни стратегически инвестиционни проекти с национално финансиране за 2027–2029 г. от проекта на Закона за държавния бюджет за 2027 г., публикуван за обществено обсъждане на 6 ноември 2026 г.: ${rows2027.length} проекта на министерствата и ведомствата с капиталовите разходи по всеки за 2027 г. и прогнозата за 2028 и 2029 г., индикатор за резултат и отговорна институция. Това е проект, не закон.`,
+      `The programme of priority strategic investment projects with national funding for 2027–2029, from the draft 2027 State Budget Act published for public consultation on 6 November 2026: ${rows2027.length} projects of ministries and agencies with the capital spending on each in 2027 and the forecast for 2028 and 2029, a result indicator and the responsible institution. This is a draft, not a law.`,
+    ),
+    sources: [DRAFT_2027, ZDB_2026],
+    caveats: [
+      t(
+        'Парите за 2027 г. са част от капиталовите разходи на министерствата по законопроекта (чл. 108, ал. 2), а не допълнителни; за всяка институция сборът на проектите ѝ е в рамките на капиталовите ѝ разходи. Между проектите може да се преразпределя (ал. 3).',
+        'The 2027 money is part of the ministries’ capital spending in the bill (art. 108(2)), not extra; each institution’s projects stay within its capital spending. It can be moved between projects (para. 3).',
+      ),
+      CLASSIFIED,
+      t(
+        `Сумите по закона за 2026 г. (в подробностите на проекта) са по същия номер на проект; ${inBoth} от проектите са и в програмата за 2026–2028 г.`,
+        `The amounts in the 2026 act (in a project’s details) are matched on the project code; ${inBoth} of the projects were also in the 2026–2028 programme.`,
+      ),
+    ],
+    asOf: '2026-11-06',
+    retrieved: '2026-11-14',
+    unit: UNIT,
+    summary: ['capex.2027', 'capex.2028', 'capex.2029'],
+    sort: '-capex.2027',
+    links: [{ family: 'ministries', column: 'institution', years: [2027], value: 'capex.2027', label: t('за 2027 г. (проект)', 'in 2027 (draft)') }],
     columns,
     key: 'code',
     rows,
@@ -458,5 +546,5 @@ function municipal(dir: URL, register: URL, datasets: Dataset[]): ListSpec {
 
 export function buildProjectLists(config: { dir: URL; register: URL; datasets: Dataset[] }): ListSpec[] {
   const { dir, register, datasets } = config
-  return [national2026(dir, datasets), national2025(dir, datasets, 'I'), national2025(dir, datasets, 'II'), municipal(dir, register, datasets)]
+  return [national2027(dir, datasets), national2026(dir, datasets), national2025(dir, datasets, 'I'), national2025(dir, datasets, 'II'), municipal(dir, register, datasets)]
 }

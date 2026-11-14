@@ -276,7 +276,8 @@ const areaId = (unitId: string, name: LocalizedText) => `${unitId}-${slug(name.e
 export interface MinistriesConfig {
   id: string
   year: number
-  stage: Extract<DatasetStage, 'law' | 'report'>
+  /** The act, the government's draft (a bill) or the report on its execution. */
+  stage: Extract<DatasetStage, 'law' | 'draft' | 'report'>
   file: URL
   unit: 'kEUR' | 'kBGN'
   /**
@@ -292,6 +293,8 @@ export interface MinistriesConfig {
    * so they are only mentioned in a note on the paying ministry.
    */
   transfers?: { file: URL; seeAlso: Record<string, LocalizedText> }
+  /** Further notes on units, by unit id (e.g. the judiciary's own version of its budget in a draft). */
+  unitNotes?: Record<string, LocalizedText>
   /** All public spending in the year, for shares "of all spending". */
   publicTotal: number
   macro: YearMacro
@@ -304,7 +307,7 @@ export interface MinistriesConfig {
 }
 
 /** Note on a ministry that transfers money to universities: how much, to whom, and that it is not its spending. */
-function transferNotes(config: NonNullable<MinistriesConfig['transfers']>): Map<string, LocalizedText> {
+function transferNotes(config: NonNullable<MinistriesConfig['transfers']>, draft: boolean): Map<string, LocalizedText> {
   const byPayer = new Map<string, Record<string, string>[]>()
   for (const r of readCsv(config.file)) byPayer.set(r.from_unit_code, [...(byPayer.get(r.from_unit_code) ?? []), r])
   const notes = new Map<string, LocalizedText>()
@@ -317,7 +320,9 @@ function transferNotes(config: NonNullable<MinistriesConfig['transfers']>): Map<
       `${n} държавни висши училища${academy ? ' и на Българската академия на науките' : ''}`,
       `${n} state higher education institutions${academy ? ' and the Bulgarian Academy of Sciences' : ''}`,
     )
-    const where = t(`чл. ${rows[0].article}, ал. ${rows[0].paragraph} от закона`, `Art. ${rows[0].article}(${rows[0].paragraph}) of the act`)
+    const where = draft
+      ? t(`чл. ${rows[0].article}, ал. ${rows[0].paragraph} от законопроекта`, `Art. ${rows[0].article}(${rows[0].paragraph}) of the bill`)
+      : t(`чл. ${rows[0].article}, ал. ${rows[0].paragraph} от закона`, `Art. ${rows[0].article}(${rows[0].paragraph}) of the act`)
     const largest = [...rows].sort((a, b) => value(b) - value(a)).slice(0, 5)
     const list = (lang: keyof LocalizedText) => largest.map((r) => `${lang === 'bg' ? r.short_bg || r.name_bg : r.name_en} ${euros(value(r))[lang]}`).join('; ')
     const more = rows.length > largest.length
@@ -345,7 +350,7 @@ export function buildMinistries(config: MinistriesConfig): Dataset {
     const later = laterNames.get(p.code)
     return `p${p.code.replace(/\./g, '-')}${later !== undefined && later !== norm(p.official) ? `-${config.year}` : ''}`
   }
-  const transfers = config.transfers ? transferNotes(config.transfers) : null
+  const transfers = config.transfers ? transferNotes(config.transfers, config.stage === 'draft') : null
   const newId = idMaker()
   const units = new Map<string, { total: number; areas: { no: string; label: string; value: number }[] }>()
   for (const r of rows) {
@@ -429,7 +434,7 @@ export function buildMinistries(config: MinistriesConfig): Dataset {
         kind: KIND.unit,
         name: meta.name,
         value: unit.total,
-        note: transfers?.get(UNIT_CODES[meta.id] ?? ''),
+        note: joinNotes(config.unitNotes?.[meta.id], transfers?.get(UNIT_CODES[meta.id] ?? '')),
         children: areaSpecs,
       }),
     )

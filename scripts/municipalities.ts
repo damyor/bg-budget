@@ -1,15 +1,15 @@
 // "Municipalities <year>": what the central budget sends to each of the 265
-// municipalities under the State Budget Act (2024, 2025: art. 53; 2026: art. 51),
-// by type of transfer — and the general subsidy for state-delegated activities
-// by function (art. 54 / art. 52), the part for municipal administration split
-// into mayors and staff.
+// municipalities under the State Budget Act (2024, 2025: art. 53; 2026: art. 51;
+// the 2027 draft: art. 52), by type of transfer — and the general subsidy for
+// state-delegated activities by function (art. 54 / 52 / 53), the part for
+// municipal administration split into mayors and staff.
 //
 // Province → municipality → type of transfer → function. Ids come from
 // scripts/lib/places.ts ("plovdiv-plovdiv", "plovdiv-plovdiv-equalising"), so a
 // municipality is the same node in every year; each municipality node carries
 // its ЕБК code (the key of project and payment data) and its residents.
 
-import type { Dataset, DatasetSource, LocalizedText } from '../src/lib/types.ts'
+import type { Dataset, DatasetSource, DatasetStage, LocalizedText } from '../src/lib/types.ts'
 import { num, readCsv } from './lib/csv.ts'
 import { toEur } from './lib/kfp.ts'
 import type { YearMacro } from './lib/macro.ts'
@@ -60,6 +60,8 @@ const FUNCTIONS: { column: string; id: string; name: LocalizedText; parts?: { co
 export interface MunicipalitiesConfig {
   id: string
   year: number
+  /** The act (default) or the government's draft. */
+  stage?: Extract<DatasetStage, 'law' | 'draft'>
   /** municipal-transfers-<year>.csv (see data/sources/budget-<year>/README.md). */
   transfers: URL
   /** municipal-delegated-<year>.csv: the delegated-activities subsidy by function. */
@@ -139,7 +141,8 @@ export function buildMunicipalities(config: MunicipalitiesConfig): Dataset {
     amounts.set(place, own)
   }
   if (amounts.size !== register.all.length) throw new Error(`${where}: ${amounts.size} municipalities, the register has ${register.all.length}`)
-  for (const type of TRANSFER_TYPES) {
+  // A type the act does not have (the 2027 draft has no "other targeted" column) is not in the file.
+  for (const type of TRANSFER_TYPES.filter((type) => printed.has(type))) {
     const sum = [...amounts.values()].reduce((s, m) => s + (m.get(type) ?? 0), 0)
     if (Math.abs(sum - (printed.get(type) ?? NaN)) > 0.05) throw new Error(`${where}: ${type} adds up to ${sum}, the act prints ${printed.get(type)}`)
   }
@@ -204,7 +207,7 @@ export function buildMunicipalities(config: MunicipalitiesConfig): Dataset {
     id: config.id,
     year: config.year,
     kind: 'plan',
-    stage: 'law',
+    stage: config.stage ?? 'law',
     family: 'municipalities',
     title: config.title,
     subtitle: config.subtitle,

@@ -1,5 +1,5 @@
 // Display names for the first-level spending units of the 2024–2026 State Budget
-// Acts and their policy / functional areas. The law's wording ("бюджета на
+// Acts (and the 2027 draft) and their policy / functional areas. The law's wording ("бюджета на
 // Министерството на …", "Политика в областта на …") is shortened for charts;
 // the official wording is kept in each node's note.
 
@@ -159,6 +159,10 @@ export const AREAS: Record<string, LocalizedText> = {
   'Функционална област „Контрол по изпълнението на бюджета и управлението на публичните средства и дейности“': t(
     'Одит на бюджета и публичните средства',
     'Audit of the budget and public funds',
+  ),
+  'Функционална област „Превенция и противодействие на корупцията сред лица, заемащи публични длъжности“': t(
+    'Противодействие на корупцията сред заемащите публични длъжности',
+    'Fighting corruption among public office holders',
   ),
   'Функционална област „Осъществяване на превенция на корупцията и установяване на конфликт на интереси“': t(
     'Превенция на корупцията и конфликт на интереси',

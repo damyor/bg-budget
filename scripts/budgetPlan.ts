@@ -37,6 +37,11 @@ export interface PlanDetails {
   /** Unit of the law tables and the municipal table. */
   unit: 'kEUR' | 'kBGN'
   nhif?: { file: string; citation: LocalizedText }
+  /**
+   * Before the fund's budget act or bill: its total expenditure from the expenditure ceilings of the
+   * medium-term budget forecast (organisation, `<year>_kEUR`), without a split by type of care.
+   */
+  nhifCeiling?: { file: string; note: LocalizedText }
   socialSecurity?: { file: string; citation: LocalizedText; benefits?: { file: string; unit: Unit; citation: LocalizedText } }
   /**
    * State Budget Act article with the per-municipality funding of state-delegated
@@ -95,6 +100,19 @@ function nhifSpec(details: PlanDetails, year: number): Spec {
       `NHIF budget for ${year} (${details.nhif!.citation.en}): payments for the medical care and medicines of insured people.`,
     ),
   )
+}
+
+function nhifCeilingSpec(details: PlanDetails, year: number): Spec {
+  const { file, note } = details.nhifCeiling!
+  const row = readCsv(new URL(file, details.dir)).find((r) => r.organisation.startsWith('Национална здравноосигурителна каса'))
+  if (!row) throw new Error(`${file}: no NHIF row`)
+  return {
+    id: 'h-nhif',
+    kind: KIND.fund,
+    name: t('Здравна каса (НЗОК)', 'Health Insurance Fund (NHIF)'),
+    value: toEur(num(row[`${year}_kEUR`]), 'kEUR'),
+    note,
+  }
 }
 
 /**
@@ -327,7 +345,7 @@ function universitySubsidy(details: PlanDetails): number {
  * Academy of Sciences, from the State Budget Act (the Ministry of Defence's
  * transfers to the military schools have no matching node here and are left out).
  */
-function institutionTransfers(details: PlanDetails, year: number): { universities: Spec[]; academy: Spec | null } {
+function institutionTransfers(details: PlanDetails, act: LocalizedText): { universities: Spec[]; academy: Spec | null } {
   const inst = details.universities?.institutions
   if (!inst) return { universities: [], academy: null }
   const rows = readCsv(new URL(inst.file, details.dir)).filter((r) => r.from_unit_code === '1700')
@@ -347,8 +365,8 @@ function institutionTransfers(details: PlanDetails, year: number): { universitie
       ? {
           ...spec(academy, 'g-science-bas', KIND.institution),
           note: t(
-            `Трансферът от бюджета на Министерството на образованието и науката (${inst.article.bg} от Закона за държавния бюджет за ${year} г.). Академията има и собствени приходи и европейски средства.`,
-            `The transfer from the Ministry of Education and Science (${inst.article.en} of the ${year} State Budget Act). The Academy also has its own revenue and EU funds.`,
+            `Трансферът от бюджета на Министерството на образованието и науката (${inst.article.bg} от ${act.bg}). Академията има и собствени приходи и европейски средства.`,
+            `The transfer from the Ministry of Education and Science (${inst.article.en} of ${act.en}). The Academy also has its own revenue and EU funds.`,
           ),
         }
       : null,
@@ -372,16 +390,25 @@ export interface PlanConfig {
   sourceShort: LocalizedText
   retrieved: string
   sourceCurrency: 'BGN' | 'EUR'
+  /** Why the fund is not itemised (no budget act or bill yet), shown on the rest that holds it. */
+  unsplit?: { socialSecurity?: LocalizedText }
 }
 
 export function buildBudgetPlan(config: PlanConfig): Dataset {
   const { kfp: k, totals, details, year } = config
+  // The health rest is "outside the NHIF", so the fund must be there whenever health is itemised.
+  if (details?.municipal && !details.nhif && !details.nhifCeiling) throw new Error(`${config.id}: no NHIF budget or ceiling`)
+  // A draft cites the bill, not the act.
+  const act =
+    config.stage === 'draft'
+      ? t(`проекта на Закона за държавния бюджет за ${year} г.`, `the draft ${year} State Budget Act`)
+      : t(`Закона за държавния бюджет за ${year} г.`, `the ${year} State Budget Act`)
   const ss = details?.socialSecurity ? socialSecurity(details, year) : null
-  const institutions = details ? institutionTransfers(details, year) : { universities: [], academy: null }
+  const institutions = details ? institutionTransfers(details, act) : { universities: [], academy: null }
   const delegatedNote = details?.municipal
     ? t(
-        `Средства от държавния бюджет за делегираните от държавата дейности в общините (${details.municipal.article.bg} от Закона за държавния бюджет за ${year} г.), разпределени по области и общини. Общините добавят и собствени средства.`,
-        `State-budget funding for state-delegated activities run by municipalities (${details.municipal.article.en} of the ${year} State Budget Act), by province and municipality. Municipalities add their own funds on top.`,
+        `Средства от държавния бюджет за делегираните от държавата дейности в общините (${details.municipal.article.bg} от ${act.bg}), разпределени по области и общини. Общините добавят и собствени средства.`,
+        `State-budget funding for state-delegated activities run by municipalities (${details.municipal.article.en} of ${act.en}), by province and municipality. Municipalities add their own funds on top.`,
       )
     : null
   const delegated = (column: DelegatedColumn, idPrefix: string, name: LocalizedText): Spec[] => {
@@ -429,7 +456,13 @@ export function buildBudgetPlan(config: PlanConfig): Dataset {
                 ...delegated('social_services(6)', 's-svc-municipal', t('Социални услуги, делегирани на общините', 'Social services delegated to municipalities')),
                 ...(ss ? [{ id: 's-svc-noi', name: t('Администрация на НОИ', 'Social Security Institute administration'), value: ss.administration }] : []),
               ],
-              { id: 's-svc-other', name: t('Програми за заетост, социални услуги и др.', 'Employment programmes, social services etc.') },
+              ss
+                ? { id: 's-svc-other', name: t('Програми за заетост, социални услуги и др.', 'Employment programmes, social services etc.') }
+                : {
+                    id: 's-svc-rest',
+                    name: t('Програми за заетост, социални услуги, администрация на НОИ и др.', 'Employment programmes, social services, Social Security Institute administration etc.'),
+                    note: config.unsplit?.socialSecurity,
+                  },
             ),
           ),
         ],
@@ -448,7 +481,7 @@ export function buildBudgetPlan(config: PlanConfig): Dataset {
         value: k.fn('health'),
         ...itemised(
           [
-            ...(details?.nhif ? [nhifSpec(details, year)] : []),
+            ...(details?.nhif ? [nhifSpec(details, year)] : details?.nhifCeiling ? [nhifCeilingSpec(details, year)] : []),
             ...delegated(
               'health(5)',
               'h-municipal',
@@ -485,8 +518,8 @@ export function buildBudgetPlan(config: PlanConfig): Dataset {
                     value: universitySubsidy(details),
                     note: institutions.universities.length
                       ? t(
-                          `Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища, по висши училища според ${details.universities.institutions!.article.bg} от Закона за държавния бюджет за ${year} г. Университетите имат и собствени приходи.`,
-                          `Subsidy from the Ministry of Education and Science to state universities, by university as set in ${details.universities.institutions!.article.en} of the ${year} State Budget Act. Universities also have their own income.`,
+                          `Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища, по висши училища според ${details.universities.institutions!.article.bg} от ${act.bg} Университетите имат и собствени приходи.`,
+                          `Subsidy from the Ministry of Education and Science to state universities, by university as set in ${details.universities.institutions!.article.en} of ${act.en}. Universities also have their own income.`,
                         )
                       : t(
                           'Субсидия от бюджета на Министерството на образованието и науката за държавните висши училища. Университетите имат и собствени приходи.',

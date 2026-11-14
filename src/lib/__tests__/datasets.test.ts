@@ -62,3 +62,23 @@ describe.each(index.map((entry) => [entry.id, entry] as const))('dataset %s', (_
     expect(dataset.kind).toBe(dataset.stage === 'report' ? 'actual' : 'plan')
   })
 })
+
+// A draft is compared with the year before: its ministries, policy areas and municipalities keep that year's ids.
+describe.each(index.filter((e) => e.stage === 'draft' && e.family !== 'functions').map((e) => [e.id, e] as const))('draft %s', (_, entry) => {
+  const load = (file: string) => JSON.parse(readFileSync(new URL(file, dir), 'utf8')) as Dataset
+  const before = index.find((e) => e.family === entry.family && e.year === entry.year - 1 && e.stage === 'law')
+  const idsAt = (node: BudgetNode, depth: number): string[] =>
+    depth === 0 ? [node.id] : (node.children ?? []).flatMap((c) => idsAt(c, depth - 1))
+
+  it('keeps the previous year’s ids', () => {
+    expect(before).toBeDefined()
+    const draft = load(entry.file).root
+    const law = load(before!.file).root
+    // Ministries: unit → area; municipalities: province → municipality (Sofia is both).
+    const known = new Set([...idsAt(law, 1), ...idsAt(law, 2)])
+    const ids = [...idsAt(draft, 1), ...idsAt(draft, 2)].filter((id) => !/^p\d{4}-/.test(id))
+    const unknown = ids.filter((id) => !known.has(id))
+    // A unit or area that is new in the draft is allowed, but only a few.
+    expect(unknown.length, unknown.join(', ')).toBeLessThanOrEqual(Math.ceil(ids.length * 0.02))
+  })
+})

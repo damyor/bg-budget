@@ -104,9 +104,9 @@ describe('Municipalities datasets', () => {
     expect(budget.get('ed-municipal-plovdiv-plovdiv')!.node.code).toBe(municipalities.get('plovdiv-plovdiv')!.node.code)
   })
 
-  it('compares every municipality across the three years', () => {
+  it('compares every municipality across the three years and the 2027 draft', () => {
     const series = read<SeriesFile>('series-municipalities.json')
-    expect(series.datasets).toEqual(['municipalities-2024', 'municipalities-2025', 'municipalities-2026'])
+    expect(series.datasets).toEqual(['municipalities-2024', 'municipalities-2025', 'municipalities-2026', 'municipalities-2027'])
     for (const id of ['root', 'plovdiv', 'plovdiv-plovdiv', 'plovdiv-plovdiv-delegated-education', 'sofiya-grad-stolichna-obshtina', 'kyustendil-treklyano']) {
       expect(series.values[id]?.every((v) => v !== null), id).toBe(true)
     }

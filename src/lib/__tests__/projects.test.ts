@@ -180,6 +180,10 @@ describe('links from the tree to the lists', () => {
 
   it('totals each ministry’s and municipality’s projects', () => {
     expect(link('national-projects-2026', 'capex.2026').nodes.mod).toEqual([34, 841_511_200])
+    // The 2027 draft's annex: 44 defence projects, €1,193,984.0 thousand in 2027, linked from "Ministries 2027 (draft)".
+    const draft = link('national-projects-2027', 'capex.2027')
+    expect(draft.nodes.mod).toEqual([44, 1_193_984_000])
+    expect(draft.years).toEqual([2027])
     const municipal = read<ListFile>('lists/municipal-projects.json')
     const plovdiv = rowsOf(municipal).filter((r) => r.municipality === 'plovdiv-plovdiv')
     expect(link('municipal-projects', 'forecast2026').nodes['plovdiv-plovdiv']).toEqual([plovdiv.length, sum(plovdiv.map((r) => r.forecast2026))])
@@ -191,7 +195,7 @@ describe('links from the tree to the lists', () => {
     expect(link('national-projects-2025', 'actual').stages).toEqual(['report'])
     const datasets = read<{ id: string; lists?: boolean }[]>('index.json')
     const flagged = datasets.filter((d) => d.lists).map((d) => d.id).sort()
-    // Payments link to the ministries and to Sofia in every year from 2024; hospitals and medicines to the NHIF lines
+    // Payments link to the ministries and to Sofia in every year from 2024 (the 2027 drafts too); hospitals and medicines to the NHIF lines
     // of the plans and actuals of 2024–2026 (the 2027 forecast has no NHIF lines); Plovdiv's schools to its activities
     // in "Big cities".
     expect(flagged).toEqual([
@@ -203,10 +207,12 @@ describe('links from the tree to the lists', () => {
       'ministries-2024',
       'ministries-2025',
       'ministries-2026',
+      'ministries-2027',
       'ministries-report-2025',
       'municipalities-2024',
       'municipalities-2025',
       'municipalities-2026',
+      'municipalities-2027',
       'report-2024',
       'report-2025',
     ])

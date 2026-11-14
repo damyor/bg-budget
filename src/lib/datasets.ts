@@ -12,7 +12,7 @@ export const STAGE_LABEL: Record<DatasetStage, LocalizedText> = {
 
 export const STAGE_HINT: Record<DatasetStage, LocalizedText> = {
   law: { bg: 'Бюджетът, приет от Народното събрание', en: 'The budget voted by Parliament' },
-  draft: { bg: 'Проектобюджетът, внесен в Народното събрание', en: 'The draft budget submitted to Parliament' },
+  draft: { bg: 'Проектобюджетът на правителството — още не е приет от Народното събрание', en: 'The government’s draft budget — not yet adopted by Parliament' },
   forecast: { bg: 'Средносрочна прогноза на Министерството на финансите', en: 'Ministry of Finance medium-term forecast' },
   report: { bg: 'Реално изразходваните средства', en: 'What was actually spent' },
 }

@@ -2,7 +2,7 @@ import type { LocalizedText } from '../types'
 
 export interface TaxParams {
   year: number
-  /** law = rules in force; proposed = assumptions of the budget procedure, not yet law. */
+  /** law = rules in force; proposed = the government's drafts and budget-procedure assumptions, not yet law. */
   status: 'law' | 'proposed'
   /** Date the parameters below are in force from (ISO). */
   validFrom: string
@@ -221,12 +221,16 @@ export const TAX_2024: TaxParams = {
   ],
 }
 
-/** The assumptions of the 2027 budget procedure (Ministry of Finance, September 2026) — not yet law. */
+/** The government's November 2026 drafts for 2027 (draft State Budget Act and tax bills) — not yet adopted. */
 export const TAX_2027: TaxParams = {
   ...TAX_2026,
   year: 2027,
   status: 'proposed',
+  // The drafts take effect on 1 January 2027 but change none of the modelled rates; the cigarette
+  // excise step already in law starts on 1 March 2027, so the full set applies from then.
   validFrom: '2027-03-01',
+  // Stated in the medium-term budget forecast 2027–2029 published with the draft budget (pp. 11, 40);
+  // the 2027 Social Security Budget Act sets it.
   maxInsurableMonthly: 2400,
   minWageMonthly: 660,
   // Q2 2026 average wage grown by the 6.2% forecast for compensation per employee (MoF autumn forecast).
@@ -237,7 +241,10 @@ export const TAX_2027: TaxParams = {
     cigarettesPerPack: cigarettePack({ specificPer1000: 82, adValorem: 0.205, minimumPer1000: 126, typicalPackPrice: 4 }),
   },
   notes: {
-    maxInsurable: { bg: '2400 € на месец (предложение в бюджетната процедура)', en: '€2,400 a month (proposed in the budget procedure)' },
+    maxInsurable: {
+      bg: '2400 € на месец от 1 януари 2027 г. — по средносрочната бюджетна прогноза 2027–2029, публикувана с проектобюджета на 6.11.2026 г.; законопроектът за бюджета на ДОО за 2027 г., който го определя, още не е публикуван',
+      en: '€2,400 a month from 1 January 2027 — per the medium-term budget forecast 2027–2029 published with the draft budget on 6 Nov 2026; the 2027 Social Security budget bill, which sets it, is not yet published',
+    },
     averageWage: {
       bg: 'средната заплата за II тримесечие на 2026 г., увеличена с прогнозирания от МФ ръст от 6,2%',
       en: 'the Q2 2026 average wage grown by the 6.2% the Ministry of Finance forecasts',
@@ -249,15 +256,38 @@ export const TAX_2027: TaxParams = {
     },
     extra: [
       {
-        bg: 'Минималната заплата (660 €) и максималният осигурителен доход (2400 €) са допусканията в указанията на Министерството на финансите за бюджет 2027 (септември 2026 г.). Ставките на данъците и осигуровките се запазват; бюджетът за 2027 г. още не е внесен в Народното събрание.',
-        en: 'The minimum wage (€660) and the contribution ceiling (€2,400) are the assumptions in the Ministry of Finance guidelines for the 2027 budget (September 2026). Tax and contribution rates stay the same; the 2027 budget has not yet been submitted to Parliament.',
+        bg: 'Правилата за 2027 г. следват проектите на правителството, а не приети закони: проектобюджета за 2027 г. (публикуван от Министерството на финансите на 6.11.2026 г., още не е внесен в Народното събрание) и данъчните законопроекти, внесени в Народното събрание на 5.11.2026 г. Минималната заплата е 660 € (от 620 €), както обяви Министерството на финансите с проектобюджета, в който 660 € е и минималната основна заплата на държавните служители за 2027 г. (чл. 60).',
+        en: 'The 2027 rules follow the government’s drafts, not adopted laws: the draft 2027 budget (published by the Ministry of Finance on 6 Nov 2026, not yet submitted to Parliament) and the tax bills submitted to Parliament on 5 Nov 2026. The minimum wage is €660 (up from €620), as the Ministry of Finance announced with the draft budget, which also sets €660 as the civil-service minimum base pay for 2027 (art. 60).',
+      },
+      {
+        bg: 'Данъчните законопроекти не променят ставката на данъка върху доходите (10%), ставката на ДДС (20%) и акцизите върху горивата, цигарите, бирата и спирта — в акцизите левовите ставки само се изписват в евро по фиксирания курс. Средносрочната бюджетна прогноза запазва ставките на осигуровките и разпределението им между работодател и работник на нивата от 2026 г. (с изключение на държавните служители и заетите в съдебната власт) и здравноосигурителната вноска от 8%.',
+        en: 'The tax bills keep the income tax rate (10%), the VAT rate (20%) and the excise on fuel, cigarettes, beer and spirits; the excise rates still in leva are only restated in euro at the fixed rate. The medium-term budget forecast keeps the contribution rates and their split between employer and employee at the 2026 levels (except for civil servants and judiciary staff) and the health insurance contribution at 8%.',
       },
     ],
   },
   sources: [
     {
-      name: { bg: 'Сега — Бюджет 2027: 660 евро минимална заплата и 2400 евро таван за осигуровки', en: 'Sega — Budget 2027: €660 minimum wage and €2,400 contribution ceiling' },
-      url: 'https://www.segabg.com/hot/category-bulgaria/byudzhet-2027-660-evro-minimalna-zaplata-i-2400-evro-tavan-za-osigurovki',
+      name: { bg: 'Министерство на финансите — проект на Закон за държавния бюджет за 2027 г.', en: 'Ministry of Finance — draft State Budget Act 2027' },
+      url: 'https://www.minfin.bg/bg/legislation7/632',
+    },
+    {
+      name: {
+        bg: 'Министерство на финансите — актуализирана средносрочна бюджетна прогноза 2027–2029 г. (мотиви към проектобюджета за 2027 г.)',
+        en: 'Ministry of Finance — updated medium-term budget forecast 2027–2029 (explanatory memorandum to the draft 2027 budget)',
+      },
+      url: 'https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf',
+    },
+    {
+      name: { bg: 'Законопроект за изменение и допълнение на ЗДДФЛ (52-602-01-63)', en: 'Bill amending the Personal Income Tax Act (52-602-01-63)' },
+      url: 'https://www.parliament.bg/bg/bills/ID/167627',
+    },
+    {
+      name: { bg: 'Законопроект за изменение и допълнение на ЗДДС (52-602-01-60)', en: 'Bill amending the VAT Act (52-602-01-60)' },
+      url: 'https://www.parliament.bg/bg/bills/ID/167624',
+    },
+    {
+      name: { bg: 'Законопроект за изменение и допълнение на ЗАДС (52-602-01-64)', en: 'Bill amending the Excise Duties Act (52-602-01-64)' },
+      url: 'https://www.parliament.bg/bg/bills/ID/167628',
     },
     {
       name: { bg: 'Фискален съвет — становище за есенната макроикономическа прогноза 2026–2029', en: 'Fiscal Council — opinion on the autumn 2026 macroeconomic forecast' },

@@ -7,11 +7,14 @@ build gives them the same node ids (see `scripts/lib/kfp.ts`).
 | File | Content | Source |
 | --- | --- | --- |
 | `mtbf-2025-2028-by-function.csv` | КФП expenditure by function and sub-function (Table III-1, with the reserve distributed by function, without the EU contribution), million BGN: 2024 programme, 2025 draft, 2026–2028 forecast, plus the % of GDP printed in the table | Мотиви към законопроекта за държавния бюджет за 2025 г. (актуализирана средносрочна бюджетна прогноза 2025–2028), attachment to РМС № 88 of 24.02.2025 — https://www.strategy.bg/bg/pris/legal-information/reseniia/166337, file https://www.strategy.bg/download/1296995 |
-| `kfp-totals.csv` | Per dataset: total expenditure including the EU contribution, expenditure, interest and the EU contribution, in the unit stated on each row | 2024 programme: the same memorandum (table "КФП"); 2024 actual, 2025 programme and 2025 actual: the report on the 2025 State Budget (table comparing "Отчет 2024 г.", "Програма 2025 г.", "Отчет 2025 г."); 2026 and 2027: the 2026–2028 forecast (РМС № 597/2026), see `../budget-2026/` |
+| `kfp-totals.csv` | Per dataset: total expenditure including the EU contribution, expenditure, interest and the EU contribution, in the unit stated on each row | 2024 programme: the same memorandum (table "КФП"); 2024 actual, 2025 programme and 2025 actual: the report on the 2025 State Budget (table comparing "Отчет 2024 г.", "Програма 2025 г.", "Отчет 2025 г."); 2026: the 2026–2028 forecast (РМС № 597/2026), see `../budget-2026/`; 2027 (`draft`): the updated medium-term budget forecast 2027–2029 published with the draft 2027 budget on 6.11.2026, Table II-1, column „2027 Проект“, see `../budget-2027/` |
 
 Checks: the functions of each column add up to the expenditure in `kfp-totals.csv` (2024 programme BGN 79 238.0 m,
 2025 programme BGN 94 685.4 m), and sub-functions add up to their function (one 0.2 m rounding difference in 2024
 "Отбрана и сигурност"). The "2025 Проект" column equals the programme the 2025 report compares the outturn with,
 and the "2025 programme" column of the 2026–2028 forecast (in euro).
 
-The 2026 programme and the 2027–2028 forecast by function are in `../budget-2026/kfp-2026-by-function.csv`.
+The 2026 programme and the 2027–2028 forecast by function are in `../budget-2026/kfp-2026-by-function.csv`; the
+2027 draft (and the 2028–2029 forecast) in `../budget-2027/kfp-2027-by-function.csv`, whose functions add up to the
+2027 expenditure here (54 465,3 m EUR). The `budget-2027` row was the August 2026 forecast (РМС № 597/2026: 55 350,8;
+expenditure 53 964,3; interest 1 429,2; EU contribution 1 386,5) until the draft budget replaced it in November 2026.

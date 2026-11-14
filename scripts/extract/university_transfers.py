@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 """Extracts the transfers to each state university and to the Academy of Sciences
-from the State Budget Act (State Gazette HTML): the Ministry of Education's
-transfers (2026: art. 16(4)) and the Ministry of Defence's transfers to the
-military schools (2026: art. 11(4)).
+from the State Budget Act (State Gazette HTML, or a PDF such as the 2027 draft):
+the Ministry of Education's transfers (2026, 2027: art. 16(4)) and the Ministry
+of Defence's transfers to the military schools (2026, 2027: art. 11(4)).
 
   python3 scripts/extract/university_transfers.py data/cache/zdb-2026/zdb-2026.html \
+      data/sources/budget-2026/state-budget-2026-university-transfers.csv
+  python3 -P scripts/extract/university_transfers.py data/cache/zdb-2027-draft/PZDBRB-2027.pdf \
+      data/sources/budget-2027/state-budget-2027-university-transfers.csv \
       data/sources/budget-2026/state-budget-2026-university-transfers.csv
 
 Every list is checked against its printed "Всичко:" total. Ids, display names and
 English names are hand-written: re-running keeps the ones already in the output
-file (matched by the Bulgarian name). Needs bs4 and lxml.
+file, or takes them from an earlier year's file given as the third argument
+(matched by the Bulgarian name); a name found in neither stops the script. Needs
+bs4 and lxml (HTML) or pdfplumber (PDF, see zdb_pdf.py).
 """
 
 import csv
@@ -72,15 +77,47 @@ def extract(path):
     return rows
 
 
+def extract_pdf(path):
+    """The same lists from a PDF, in the Council of Ministers' version."""
+    sys.path.insert(0, os.path.dirname(__file__))
+    from zdb_pdf import articles, split_versions, stream, table_after, text_of
+
+    government, _, _ = split_versions(stream(path))
+    rows = []
+    for caption_text, payer in TABLES:
+        found = [(n, i) for n, items in articles(government).items() for i, item in enumerate(items)
+                 if item['kind'] == 'text' and re.match(r'^\(\d+\) ', item['text']) and caption_text in text_of(items, i)]
+        if len(found) != 1:
+            raise ValueError(f'caption found {len(found)} times: {caption_text}')
+        article, i = found[0]
+        items = articles(government)[article]
+        paragraph = re.match(r'^\((\d+)\)', items[i]['text']).group(1)
+        table, _ = table_after(items, i)
+        items_, total = [], None
+        for cells in table:
+            if cells[0].startswith('Всичко'):
+                total = amount(cells[-1])
+            elif len(cells) == 3 and re.fullmatch(r'\d+\.', cells[0]):
+                items_.append({'article': str(article), 'paragraph': paragraph, 'from_unit_code': payer, 'item_no': cells[0].rstrip('.'),
+                               'name_bg': cells[1], 'amount_kEUR': f'{amount(cells[2]):.1f}'})
+        if total is None or round(sum(float(r['amount_kEUR']) for r in items_), 1) != round(total, 1):
+            raise ValueError(f'art. {article}({paragraph}): items do not add up to {total}')
+        rows += items_
+    return rows
+
+
 def main():
     source, target = sys.argv[1], sys.argv[2]
-    rows = extract(source)
-    if os.path.exists(target):
-        with open(target, newline='', encoding='utf-8') as f:
-            old = {r['name_bg']: r for r in csv.DictReader(f)}
-        for r in rows:
-            for col in ('id', 'short_bg', 'name_en'):
-                r[col] = old.get(r['name_bg'], {}).get(col, '')
+    rows = extract_pdf(source) if source.endswith('.pdf') else extract(source)
+    old = {}
+    for path in [p for p in (sys.argv[3] if len(sys.argv) > 3 else None, target) if p and os.path.exists(p)]:
+        with open(path, newline='', encoding='utf-8') as f:
+            old.update({r['name_bg']: r for r in csv.DictReader(f)})
+    for r in rows:
+        for col in ('id', 'short_bg', 'name_en'):
+            r[col] = old.get(r['name_bg'], {}).get(col, '')
+    if len(sys.argv) > 3 and any(not r['id'] for r in rows):
+        raise ValueError(f'no id for: {", ".join(r["name_bg"] for r in rows if not r["id"])}')
     with open(target, 'w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, COLUMNS, lineterminator='\n')
         w.writeheader()

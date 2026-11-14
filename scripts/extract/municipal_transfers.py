@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
 """Extracts what the central budget sends to each of the 265 municipalities, by
-transfer type, from the State Budget Acts (State Gazette HTML), and a register of
-the municipalities with their ЕБК codes and residents.
+transfer type, from the State Budget Acts (State Gazette HTML; the 2027 draft
+from its PDF), and a register of the municipalities with their ЕБК codes and
+residents.
 
-  python3 scripts/extract/municipal_transfers.py
+  python3 -P scripts/extract/municipal_transfers.py
 
 Reads the cached downloads (see data/cache/*/MANIFEST.md):
   data/cache/zdb-<year>/zdb-<year>.html        State Budget Act 2024, 2025, 2026
+  data/cache/zdb-2027-draft/PZDBRB-2027.pdf    draft State Budget Act 2027 (6.11.2026)
   data/cache/municipalities/EBK-2026-public.xlsx  ЕБК 2026, section VII (municipality codes)
   data/cache/municipalities/report-2025-pr7.xlsx  2025 report, annex pr.7 (codes, cross-check)
   data/cache/municipalities/Pop_6.1.1_Pop_DR.xlsx NSI population by municipality at 31 Dec
 
 Writes:
   data/sources/budget-<year>/municipal-transfers-<year>.csv  one row per municipality and
-      transfer type (art. 53 in 2024 and 2025, art. 51 in 2026), plus the printed totals
+      transfer type (art. 53 in 2024 and 2025, art. 51 in 2026, art. 52 in the 2027 draft),
+      plus the printed totals
+  data/sources/budget-2027/municipal-delegated-2027.csv  the 2027 draft's art. 53 (for the
+      acts, municipal-delegated-<year>.csv was extracted earlier and is checked here)
   data/sources/places/municipalities.csv  ЕБК code, province, name, residents at 31 Dec 2023-2025
 
 Checks, stopping on any failure: every column adds up to the act's "ВСИЧКО:" row and to
 the amounts in the article's text; on every row column 2 = 3 + 4 + 5 + 6; the grand total
 equals "Общините" in art. 1(2); the delegated-activities column equals, municipality by
 municipality, the total of the art. 52/54 table, and that table equals the existing
-municipal-delegated-<year>.csv cell by cell; every municipality has exactly one ЕБК code
+municipal-delegated-<year>.csv cell by cell; all years list the same municipalities in the
+same order; every municipality has exactly one ЕБК code
 (the ЕБК and annex pr.7 agree); the NSI municipalities add up to their provinces and to
-the national total. Needs bs4, lxml and openpyxl.
+the national total. Needs bs4, lxml and openpyxl, and pdfplumber for the PDF (zdb_pdf.py).
 """
 
 import csv
@@ -42,7 +48,10 @@ YEARS = {
     2024: ('53', '54', 'kBGN'),
     2025: ('53', '54', 'kBGN'),
     2026: ('51', '52', 'kEUR'),
+    2027: ('52', '53', 'kEUR'),
 }
+# Drafts read from a PDF: year → the file (the 2027 draft has no column 7, "other targeted spending").
+PDF = {2027: os.path.join(CACHE, 'zdb-2027-draft', 'PZDBRB-2027.pdf')}
 # Columns 3-7 of the transfers table: id, the words that start its amount in the article's text.
 TRANSFERS = [
     ('delegated', 3, r'обща субсидия за делегираните от държавата дейности'),
@@ -106,9 +115,14 @@ def caption(soup, start):
 
 def municipal_rows(table, width):
     """(province, municipality, cells) for each municipality row of a per-municipality table, and the "ВСИЧКО:" cells."""
+    return rows_of_cells(([clean(td.get_text()) for td in tr.find_all(['td', 'th'])] for tr in table.find_all('tr')), width)
+
+
+def rows_of_cells(lines, width):
     rows, total, province = [], None, None
-    for tr in table.find_all('tr'):
-        cells = [clean(td.get_text()) for td in tr.find_all(['td', 'th'])]
+    for cells in lines:
+        if len(cells) < width and re.match(r'^ОБ\s*ЛАСТ\s', fix_cyrillic(cells[0]), re.I) and not any(re.search(r'\d', c) for c in cells):
+            cells = [' '.join(cells)] + [''] * (width - 1)  # a heading in a PDF: no empty cells, maybe split in two
         if len(cells) != width or not cells[0]:
             continue
         first = fix_cyrillic(cells[0])
@@ -128,8 +142,8 @@ def municipal_rows(table, width):
     return rows, total
 
 
-def transfers(year):
-    article, delegated_article, unit = YEARS[year]
+def source_html(year, article, delegated_article):
+    """The article's text, its table, the delegated-activities table and art. 1(2) "Общините", from the Gazette HTML."""
     soup = soup_of(year)
     head = caption(soup, f'Чл. {article}. Приема размерите на бюджетните взаимоотношения между централния бюджет и бюджетите на общините')
     # The article's text up to its table: the amounts of each type.
@@ -139,29 +153,6 @@ def transfers(year):
         if node.name == 'p':
             text.append(clean(node.get_text()))
         node = node.find_next(['p', 'table'])
-    text = ' '.join(text)
-    printed = {}
-    for key, _, words in TRANSFERS:
-        m = re.search(words + r'\s+([\d ]+,\d)\s*хил', text)
-        if not m:
-            raise ValueError(f'{year}: no amount for {key} in the text of art. {article}')
-        printed[key] = amount(m.group(1))
-
-    rows, total = municipal_rows(table, 7)
-    if len(rows) != 265:
-        raise ValueError(f'{year}: {len(rows)} municipalities in art. {article}')
-    for province, name, cells in rows:
-        main = sum(c or 0 for c in cells[1:5])
-        if r1(cells[0] or 0) != r1(main):
-            raise ValueError(f'{year} {name}: column 2 {cells[0]} != 3+4+5+6 {main}')
-    for key, column, _ in TRANSFERS:
-        i = column - 2
-        col_sum = sum(c[i] or 0 for _, _, c in rows)
-        if not (r1(col_sum) == r1(total[i]) == r1(printed[key])):
-            raise ValueError(f'{year} {key}: column {col_sum}, "ВСИЧКО:" {total[i]}, text {printed[key]}')
-    if r1(total[0]) != r1(sum(total[1:5])):
-        raise ValueError(f'{year}: "ВСИЧКО:" column 2 != 3+4+5+6')
-
     # Art. 1(2): "Предоставени трансфери за: … Общините".
     cap = caption(soup, f'(2) Приема държавния бюджет за {year} г. по разходите')
     art1 = None
@@ -169,20 +160,94 @@ def transfers(year):
         cells = [clean(td.get_text()) for td in tr.find_all(['td', 'th'])]
         if len(cells) == 3 and cells[1] == 'Общините':
             art1 = amount(cells[2])
-    grand = total[0] + total[5]
+    dhead = caption(soup, f'Чл. {delegated_article}. Определя стойностните показатели на общините за делегираните от държавата дейности')
+    return {'text': ' '.join(text), 'table': municipal_rows(table, 7), 'art1': art1, 'delegated': municipal_rows(dhead.find_next('table'), 11)}
+
+
+def source_pdf(year, article, delegated_article):
+    """The same from a PDF (the Council of Ministers' version of art. 1)."""
+    sys.path.insert(0, os.path.dirname(__file__))
+    from zdb_pdf import articles, is_page_number, paragraph, rows_between, split_row, split_versions, stream, text_of, value_of
+
+    government, _, _ = split_versions(stream(PDF[year]))
+    arts = articles(government)
+
+    def table(items, width):
+        lines = []
+        for item in items:
+            if item['kind'] == 'table':
+                lines += item['rows']
+            elif not is_page_number(item):
+                lines.append(split_row(item['text']))
+            if lines and lines[-1][0].startswith('ВСИЧКО'):
+                return rows_of_cells(lines, width)
+        raise ValueError(f'{year}: no "ВСИЧКО:" row')
+
+    items = arts[int(article)]
+    text = text_of(items)
+    if not text.startswith(f'Чл. {article}. Приема размерите на основните бюджетни взаимоотношения между централния бюджет и бюджетите на общините'):
+        raise ValueError(f'{year}: art. {article} is not the transfers to municipalities')
+    ditems = arts[int(delegated_article)]
+    if not text_of(ditems).startswith(f'Чл. {delegated_article}. Определя стойностните показатели на общините за делегираните от държавата дейности'):
+        raise ValueError(f'{year}: art. {delegated_article} is not the delegated activities')
+    a1 = arts[1]
+    art1 = value_of(rows_between(a1, paragraph(a1, 2), paragraph(a1, 3)), '1.1.', 'Общините')
+    width = 2 + sum(1 for _, column, _ in TRANSFERS if column <= 6)
+    transfers_table, (drows, dtotal) = table(items[1:], width), table(ditems[1:], 11)
+    # Two province headings of the delegated table are cut short in the PDF ("ОБЛАСТ ВЕЛИКО"): complete them from the transfers table.
+    provinces = {p for p, _, _ in transfers_table[0]}
+
+    def full(p):
+        longer = [q for q in provinces if q.startswith(p + ' ')]
+        return longer[0] if p not in provinces and len(longer) == 1 else p
+
+    drows = [(full(p), n, c) for p, n, c in drows]
+    return {'text': text, 'table': transfers_table, 'art1': art1, 'delegated': (drows, dtotal)}
+
+
+def transfers(year):
+    article, delegated_article, unit = YEARS[year]
+    source = (source_pdf if year in PDF else source_html)(year, article, delegated_article)
+    text = source['text']
+    rows, total = source['table']
+    # The 2027 draft has no column 7 ("other targeted spending on local activities").
+    types = [t for t in TRANSFERS if t[1] - 2 < len(total)]
+    printed = {}
+    for key, _, words in types:
+        m = re.search(words + r'\s+([\d ]+,\d)\s*хил', text)
+        if not m:
+            raise ValueError(f'{year}: no amount for {key} in the text of art. {article}')
+        printed[key] = amount(m.group(1))
+
+    if len(rows) != 265:
+        raise ValueError(f'{year}: {len(rows)} municipalities in art. {article}')
+    for province, name, cells in rows:
+        main = sum(c or 0 for c in cells[1:5])
+        if r1(cells[0] or 0) != r1(main):
+            raise ValueError(f'{year} {name}: column 2 {cells[0]} != 3+4+5+6 {main}')
+    for key, column, _ in types:
+        i = column - 2
+        col_sum = sum(c[i] or 0 for _, _, c in rows)
+        if not (r1(col_sum) == r1(total[i]) == r1(printed[key])):
+            raise ValueError(f'{year} {key}: column {col_sum}, "ВСИЧКО:" {total[i]}, text {printed[key]}')
+    if r1(total[0]) != r1(sum(total[1:5])):
+        raise ValueError(f'{year}: "ВСИЧКО:" column 2 != 3+4+5+6')
+
+    # Art. 1(2): "Предоставени трансфери за: … Общините" = columns 2 + 7.
+    art1 = source['art1']
+    grand = total[0] + (total[5] if len(total) > 5 else 0)
     if art1 is None or r1(art1) != r1(grand):
         raise ValueError(f'{year}: art. 1(2) "Общините" {art1} != {grand}')
 
-    check_delegated(year, soup, delegated_article, rows)
-    print(f'{year}: art. {article}, {len(rows)} municipalities; ' + ', '.join(f'{k} {total[c - 2]:,.1f}' for k, c, _ in TRANSFERS)
+    delegated = check_delegated(year, delegated_article, source['delegated'], rows)
+    print(f'{year}: art. {article}, {len(rows)} municipalities; ' + ', '.join(f'{k} {total[c - 2]:,.1f}' for k, c, _ in types)
           + f'; all {grand:,.1f} = art. 1(2) "Общините" {art1:,.1f} {unit}')
-    return rows, total, unit, article
+    return rows, total, unit, article, types, delegated
 
 
-def check_delegated(year, soup, article, transfer_rows):
-    """Art. 52/54 by function: equals the existing CSV, and its totals equal the transfers table's column 3."""
-    head = caption(soup, f'Чл. {article}. Определя стойностните показатели на общините за делегираните от държавата дейности')
-    rows, total = municipal_rows(head.find_next('table'), 11)
+def check_delegated(year, article, table, transfer_rows):
+    """Art. 52/53/54 by function: its totals equal the transfers table's column 3, and it equals the existing CSV (acts only)."""
+    rows, total = table
     if [(p, n) for p, n, _ in rows] != [(p, n) for p, n, _ in transfer_rows]:
         raise ValueError(f'{year}: art. {article} lists different municipalities')
     for (_, name, cells), (_, _, tcells) in zip(rows, transfer_rows):
@@ -191,6 +256,12 @@ def check_delegated(year, soup, article, transfer_rows):
         parts = sum(c or 0 for c in (cells[1], *cells[4:]))
         if r1(cells[0]) != r1(parts) or r1(cells[1] or 0) != r1((cells[2] or 0) + (cells[3] or 0)):
             raise ValueError(f'{year} {name}: art. {article} row does not add up')
+    if [r1(sum(c[i] or 0 for _, _, c in rows)) for i in range(10)] != [r1(x or 0) for x in total]:
+        raise ValueError(f'{year}: art. {article} columns do not add up to "ВСИЧКО:"')
+    if year in PDF:
+        print(f'{year}: art. {article} (delegated activities by function): {len(rows)} municipalities, {total[0]:,.1f}; every row and column adds up, '
+              'and every municipality\'s total equals its delegated subsidy in the transfers table')
+        return rows, total
     path = os.path.join(SOURCES, f'budget-{year}', f'municipal-delegated-{year}.csv')
     with open(path, newline='', encoding='utf-8') as f:
         existing = [r for r in csv.DictReader(f)]
@@ -208,6 +279,7 @@ def check_delegated(year, soup, article, transfer_rows):
         raise ValueError(f'{path}: "ВСИЧКО:" differs from the act')
     print(f'{year}: art. {article} (delegated activities by function) equals {os.path.relpath(path, ROOT)} in all '
           f'{len(rows)} rows and the total ({total[0]:,.1f}); every municipality\'s total equals its delegated subsidy in the transfers table')
+    return rows, total
 
 
 # ---------- register: ЕБК codes and residents ----------
@@ -300,7 +372,7 @@ def nsi_residents(municipalities):
 
 # ---------- output ----------
 
-def write_transfers(year, rows, total, unit, codes):
+def write_transfers(year, rows, total, unit, codes, types):
     path = os.path.join(SOURCES, f'budget-{year}', f'municipal-transfers-{year}.csv')
     value_col = f'amount_{unit}'
     with open(path, 'w', newline='', encoding='utf-8') as f:
@@ -308,10 +380,23 @@ def write_transfers(year, rows, total, unit, codes):
         w.writerow(['province', 'municipality', 'ebk_code', 'transfer', 'column', value_col])
         fmt = lambda v: '' if v is None else f'{v:.1f}'
         for province, name, cells in rows:
-            for key, column, _ in TRANSFERS:
+            for key, column, _ in types:
                 w.writerow([province, name, codes[(province, name)], key, column, fmt(cells[column - 2])])
-        for key, column, _ in TRANSFERS:
+        for key, column, _ in types:
             w.writerow(['', 'ВСИЧКО:', '', key, column, fmt(total[column - 2])])
+    print(f'  → {os.path.relpath(path, ROOT)}')
+
+
+def write_delegated(year, rows, total):
+    """municipal-delegated-<year>.csv for a draft read from a PDF; Sofia under its own province."""
+    path = os.path.join(SOURCES, f'budget-{year}', f'municipal-delegated-{year}.csv')
+    fmt = lambda v: '' if v is None else f'{v:.1f}'
+    with open(path, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f, lineterminator='\n')
+        w.writerow(['oblast', 'municipality'] + DELEGATED_COLUMNS)
+        for province, name, cells in rows:
+            w.writerow([f'ОБЛАСТ {province.upper()}', name] + [fmt(c) for c in cells])
+        w.writerow(['', 'ВСИЧКО:'] + [fmt(c) for c in total])
     print(f'  → {os.path.relpath(path, ROOT)}')
 
 
@@ -329,13 +414,24 @@ def write_register(municipalities, codes, residents):
 def main():
     results = {year: transfers(year) for year in YEARS}
     lists = {year: [(p, n) for p, n, _ in r[0]] for year, r in results.items()}
-    if not (lists[2024] == lists[2025] == lists[2026]):
+    if any(lists[year] != lists[2026] for year in lists if year not in PDF):
         raise ValueError('the acts list different municipalities')
+    # A draft may spell a name differently ("Бобов дол", „Марица”): the same municipality in the same place keeps the act's name.
+    for year in PDF:
+        if [(p, norm(n)) for p, n in lists[year]] != [(p, norm(n)) for p, n in lists[2026]]:
+            raise ValueError(f'{year}: the draft lists different municipalities')
+        renamed = [(a, b) for (_, a), (_, b) in zip(lists[year], lists[2026]) if a != b]
+        print(f'{year}: same 265 municipalities in the same order as 2026; named as in the 2026 act: ' + ', '.join(f'{a} → {b}' for a, b in renamed))
+        rows, total, unit, article, types, (drows, dtotal) = results[year]
+        rename = lambda table: [(p, n, c) for (p, n), (_, _, c) in zip(lists[2026], table)]
+        results[year] = (rename(rows), total, unit, article, types, (rename(drows), dtotal))
     municipalities = lists[2026]
     codes = match_codes(municipalities)
     residents = nsi_residents(municipalities)
-    for year, (rows, total, unit, _) in results.items():
-        write_transfers(year, rows, total, unit, codes)
+    for year, (rows, total, unit, _, types, delegated) in results.items():
+        write_transfers(year, rows, total, unit, codes, types)
+        if year in PDF:
+            write_delegated(year, *delegated)
     write_register(municipalities, codes, residents)
 
 

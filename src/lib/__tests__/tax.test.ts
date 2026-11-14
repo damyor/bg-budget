@@ -92,6 +92,22 @@ describe('tax rules by year', () => {
     expect(at(2500, 2026)).toBeLessThan(at(2500, 2027))
   })
 
+  it('follows the November 2026 drafts for 2027: new minimum wage, unchanged rates', () => {
+    const p27 = paramsFor(2027)!
+    expect(p27.minWageMonthly).toBe(660)
+    expect(p27.maxInsurableMonthly).toBe(2400) // from 1 January 2027, per the medium-term budget forecast 2027–2029
+    expect(p27.notes.maxInsurable.en).toContain('1 January 2027')
+    expect(p27.sources.some((s) => s.url.endsWith('UMTBF-2027-2029-motivi.pdf'))).toBe(true)
+    expect(p27.validFrom).toBe('2027-03-01')
+    // The tax bills restate the leva excise rates in euro without changing them.
+    expect(p27.incomeTaxRate).toBe(P.incomeTaxRate)
+    expect(p27.vat).toEqual(P.vat)
+    expect(p27.contributions).toEqual(P.contributions)
+    expect(p27.excise.petrolPerLitre).toBeCloseTo(0.36302, 9) // €363.02 per 1000 l
+    expect(p27.excise.dieselPerLitre).toBeCloseTo(0.33029, 9) // €330.29 per 1000 l
+    expect(p27.sources.some((s) => s.url.includes('parliament.bg/bg/bills/ID/'))).toBe(true)
+  })
+
   it('applies the minimum tobacco excise where it binds', () => {
     expect(paramsFor(2026)!.excise.cigarettesPerPack).toBeCloseTo(2.4, 6) // €120 per 1000
     expect(paramsFor(2027)!.excise.cigarettesPerPack).toBeCloseTo(2.52, 6) // €126 per 1000

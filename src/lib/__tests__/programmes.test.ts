@@ -117,8 +117,8 @@ describe('Ministries 2026', () => {
 describe('series-ministries.json', () => {
   const series = read<SeriesFile>('series-ministries.json')
 
-  it('compares ministries and their areas across all four datasets', () => {
-    expect(series.datasets).toEqual(['ministries-2024', 'ministries-2025', 'ministries-report-2025', 'ministries-2026'])
+  it('compares ministries and their areas across all five datasets', () => {
+    expect(series.datasets).toEqual(['ministries-2024', 'ministries-2025', 'ministries-report-2025', 'ministries-2026', 'ministries-2027'])
     for (const id of ['root', 'mod', 'molsp', 'mes', 'molsp-social-assistance-and-gender-equality', 'mof-collecting-taxes-and-customs-duties']) {
       expect(series.values[id].every((v) => v !== null), id).toBe(true)
     }
