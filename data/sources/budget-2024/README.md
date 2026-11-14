@@ -17,6 +17,9 @@ on parliament.bg, because minfin.bg blocks automated downloads.
 | `municipal-transfers-2024.csv` | What the central budget transfers to each of the 265 municipalities, by type (delegated activities, equalising subsidy, winter roads, capital subsidy, other targeted transfers), thousand BGN, with the ЕБК code of each municipality | Same act, чл. 53 — https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168. Retrieved 5.10.2026 |
 | `state-budget-2024-spending-units.csv` | Expenditure of the 48 first-level spending units by policy / functional area, thousand BGN (213 rows) | Same act, чл. 2–49, ал. 2 |
 | `transfers-universities-2024.csv` | Transfers to state universities, the Academy of Sciences (BAS), the state military universities and the public media (BNT, BNR, BTA), 2024–2026, thousand BGN | Актуализирана средносрочна бюджетна прогноза за периода 2024–2026 г. (approved with РМС № 830/24.11.2023), приложение № 6 — file `4-UMTBF-2024-2026-motivi f.docx` in the bill package https://www.parliament.bg/bills/49/49-302-01-76.zip |
+| `mtbf-2024-2026-fses.parts.csv` (+ `.json`) | Drill-down part: the Electricity System Security Fund under „Енергетика, горива и минно дело“ (section "Annexes 7 and 8" below) | Актуализирана средносрочна бюджетна прогноза 2024–2026 (РМС № 830/24.11.2023), приложение № 8 — same file as above |
+| `mtbf-2024-2026-sfa-eu.parts.csv` (+ `.json`) | Drill-down part: State Fund Agriculture's EU account under „Селско стопанство …“ | Same forecast, приложение № 7 |
+| `mtbf-2024-2026-entities.parts.csv` (+ `.json`), `mtbf-2024-2026-science.parts.csv` (+ `.json`) | Drill-down parts: ПУДООС, the dam enterprise; the Agricultural Academy and ДП „Научно-производствен център“ under „Наука“ (a leaf until now, hence its own file naming the remainder) | Same forecast, приложение № 8 |
 
 ## How the files were made
 
@@ -92,6 +95,99 @@ the columns, the totals of all three years and how the file is made), with amoun
 adds up to the act's "ВСИЧКО:" row and to the amounts in the text of art. 53, the grand total equals row III.1.1
 „Общините“ of art. 1 (2) (7 872 497,4 thousand BGN), and the delegated-activities column equals the totals of art. 54
 (and `municipal-delegated-2024.csv`, re-checked cell by cell against the Gazette) for every municipality.
+
+## The ministries' areas in the КФП boxes (grafts, 14.11.2026)
+
+The programme map (`../../drilldown/programme-map.csv`; rules in `docs/drilldown.md` › "The programme map") also
+places "Ministries 2024" (`state-budget-2024-spending-units.csv`, State Budget Act 2024 art. 2–49) in "Budget 2024".
+The 2024 act gives **policy areas only** (no programme budgets are extracted for 2024), so the rule is the one used for
+the 2027 draft: an area is grafted when, in 2025, all of it goes to one box, with the 2025 reason; an area whose 2025
+programmes go to several boxes, or partly nowhere, is left out as mixed. 79 areas and bodies, **€4,906.0 m** of the
+ministries' €8,738.1 m (56%), go into 16 boxes; €3,832.1 m is left out, mostly mixed areas: the defence ministry's
+„Отбранителни способности“ (€1,025.4 m: armed forces, but also military medicine and education), the labour
+ministry's three benefit areas (€1,360.6 m: benefits with their staff and personal assistance), the regional
+ministry's roads area (€550.2 m), the culture ministry's arts area (with the art schools, €189.5 m) and the interior
+ministry's „Управление и развитие на МВР“ (€130.2 m). Two more are left out on purpose:
+
+- State Fund Agriculture's „Земеделие и селски райони (субсидии)“ (€253.5 m): all of it goes to agriculture in 2025,
+  but in 2026 its programme 8400.01.01 also carries VAT refunds to municipalities (a transfer the tree counts under the
+  municipalities); the 2024 area alone cannot rule that out.
+- The Council of Ministers' „Вероизповедания“ (€25.07 m) equals the box „Религиозни дейности“ (€25.05 m; the КФП is in
+  0.1 m BGN): a single part would split nothing.
+
+The grafted copies have the ids of 2025/2026 where the same area is grafted whole there (e.g.
+`o-police.moi-fighting-crime-and-keeping-public-order`, `g-executive.mof-collecting-taxes-and-customs-duties`), and
+the same names and remainder names.
+
+| Box | Box, € m | Grafted, € m | Remainder, € m |
+| --- | ---: | ---: | ---: |
+| `o-police` | 1,844.6 | 1,475.3 | 369.3 |
+| `g-executive-other` | 1,422.6 | 773.6 | 649.0 |
+| `o-judiciary` | 733.6 | 624.5 | 109.1 |
+| `ed-other` | 1,429.0 | 533.6 | 895.4 |
+| `h-other` | 771.0 | 521.6 | 249.4 |
+| `e-transport` | 1,755.1 | 350.7 | 1,404.4 |
+| `o-prisons` | 154.3 | 149.7 | 4.5 |
+| `e-agriculture` | 1,152.3 | 144.1 | 1,008.3 |
+| `s-svc-other` | 831.6 | 95.6 | 736.0 |
+| `g-services` | 76.4 | 61.0 | 15.4 |
+| `c-sport` | 84.2 | 48.1 | 36.2 |
+| `e-other` | 2,349.2 | 33.6 | 2,315.7 |
+| `c-environment` | 779.7 | 31.1 | 748.7 |
+| `e-energy` | 1,721.9 | 30.9 | 1,691.1 |
+| `c-culture-other` | 418.9 | 20.0 | 398.9 |
+| `e-tourism` | 43.7 | 12.7 | 31.0 |
+
+Nothing goes into defence, social benefits, housing or science in 2024 (their areas are mixed), so those boxes stay
+as they were; their ledger entries name the 2024 decree on the programme budgets as the lead.
+
+Cross-check against the 2024 actual (the 2024 report's state-budget column per sub-function, `report-2024`; plans
+and actuals may differ, but a plan far above the actual would point to a wrong box): police €1,475.3 m (actual
+€1,741.1 m), executive bodies €773.6 m (€887.8 m), judiciary €624.5 m (€706.1 m), health €521.6 m (the actual's
+non-NHIF, non-municipal remainder €610.0 m), agriculture €144.1 m (€718.0 m), prisons €149.7 m (€162.3 m), services
+€95.6 m (€170.6 m). Slightly above: education €533.6 m (€514.6 m), sport €48.1 m (€43.7 m; also over in 2025) and
+energy €30.9 m (€29.5 m). Spot-checks against the act as extracted (thousand BGN at 1.95583): the interior
+ministry's area 1 1 676 279,9 = €857,068,303 (`o-police.moi-fighting-crime-and-keeping-public-order`), its area 3
+448 510,0 = €229,319,522, the finance ministry's area 2 528 926,8 = €270,435,979 — equal to the grafts.
+`budget-2024.json` grew from 326.6 KB (55.0 KB gzipped) to 393.0 KB (64.4 KB gzipped).
+
+## Annexes 7 and 8: ФСЕС, State Fund Agriculture's EU account and the other КФП entities (drill-down parts, 14.11.2026)
+
+The same parts as in the 2026 and 2027 plans (`../budget-2026/README.md`, sections "Energy" and "Annexes 7 and 8":
+why each entity goes where it does, and why column 2.1 and not the net figure), from the forecast that accompanied
+the 2024 budget: „Актуализирана средносрочна бюджетна прогноза за периода 2024–2026 г.“ (approved with РМС №
+830/24.11.2023), file `4-UMTBF-2024-2026-motivi f.docx` in the bill package
+https://www.parliament.bg/bills/49/49-302-01-76.zip (retrieved 14.11.2026 into `data/cache/mtbf-2024-2026/`, with a
+manifest), приложение № 7 (DOCX table 80) and № 8 (table 81), column 2.1 „Разходи“ for 2024, **thousand BGN**,
+converted at 1.95583. Column 2 is 2.1 minus 2.2 „Трансфери (нето)“ in every row used. Basis `mapped`.
+
+| Part | Box (remainder before → after, € m) | 2.1 „Разходи“, thousand BGN | € | 2.2 (net transfers) |
+| --- | --- | ---: | ---: | --- |
+| `e-energy.fses` Фонд „Сигурност на електроенергийната система“ | `e-energy` (1,691.1 → 356.8) | 2 609 569,0 | 1,334,251,443 | none (the State Budget Act 2024 has no transfer to the fund) |
+| `e-agriculture.sfa-eu` Сметка за средствата от ЕС на ДФ „Земеделие“ | `e-agriculture` (1,008.3 → 338.0) | 1 310 812,0 | 670,207,533 | 456 301,7 = the central budget's transfer to the account, State Budget Act 2024 art. 1(1) section III item 1.5 |
+| `c-environment.pudoos` ПУДООС | `c-environment` (748.7 → 713.2) | 69 314,9 | 35,440,146 | 40 040,1 = the environment ministry's 46 040,1 to it less 6 000,0 back (same act) |
+| `e-other.dpusya` ДП „Управление и стопанисване на язовири“ | `e-other` (2,315.7 → 2,304.0) | 22 836,7 | 11,676,219 | 22 836,7 = the economy ministry's transfer (same act) |
+| `g-science.ssa` Селскостопанска академия | `g-science` (a leaf of 368.8 → remainder `g-science.rest` 330.7) | 71 909,0 | 36,766,488 | 53 909,0 = the agriculture ministry's transfer (same act) |
+| `g-science.dpnpc` ДП „Научно-производствен център“ | `g-science` | 2 699,9 | 1,380,437 | — |
+
+- *Plans with plans.* The boxes are the 2024 programme as printed in the 2025 forecast's Table III-1
+  (`../kfp/mtbf-2025-2028-by-function.csv`); the 2024–2026 forecast's own Table III-1 has the same 2024 figure for
+  energy (3 367,8 m BGN) and environment (1 525,0), and slightly different ones for agriculture (2 256,2 against
+  2 253,8) and other economic activities (4 584,7 against 4 594,7). The parts are the entities' plans for the same
+  year; every transfer in column 2.2 equals the adopted State Budget Act 2024.
+- *No double counting.* The grafted ministry areas (energy, environment, economy, agriculture) are the ministries'
+  own expenditure; their transfers to these entities are not in them. Nothing is grafted under „Наука“ in 2024.
+- *Not mapped:* the National Fund's EU account (annex 7 row 2: 6 703 610,8) and the other EU accounts (row 3:
+  475 800,3) span many functions; the forecast gives totals only.
+- *Cross-check against the 2024 actual* (`../report-2024/`): ФСЕС spent 2 523,7 m BGN (all in this sub-function),
+  96.7% of its plan here; the fund is 77.5% of the box. The sub-function's EU-funds column was 750,1 m BGN, below
+  the account's planned 1 310,8 (a plan far above the outturn, as in the other plan years).
+- *Checked against the DOCX* (thousand BGN, columns 2 / 2.1 / 2.2): ФСЕС 2 609 569,0 / 2 609 569,0 / —; State Fund
+  Agriculture's account 854 510,3 / 1 310 812,0 / 456 301,7; ПУДООС 29 274,8 / 69 314,9 / 40 040,1; Селскостопанска
+  академия 18 000,0 / 71 909,0 / 53 909,0; ДП НПЦ 2 699,9 / 2 699,9 / —; ДП УСЯ — / 22 836,7 / 22 836,7.
+- *Also found:* a note under Table III-1 says „За 2024-2026 г. разходите за националната капиталова програма са
+  разчетени в други дейности по икономиката“ — a lead for `e-other.rest` (ledger).
+- *Size*: `budget-2024.json` grew from 393.0 KB (64.4 KB gzipped) to 402.1 KB (66.2 KB gzipped).
 
 ## Later amendments (not reflected)
 

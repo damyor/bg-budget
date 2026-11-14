@@ -46,6 +46,7 @@ a note with the Council's €868.1 m.
 | `kfp-main-indicators.csv`, `kfp-national-budget.csv` | КФП main indicators (revenue, expenditure, interest, EU contribution, balance) and the national budget's, 2025 report – 2029 forecast, million EUR and % of GDP | Forecast, Tables II-1 and II-2 (pp. 35–36) |
 | `expenditure-ceilings-2027-2029.csv` | Expenditure ceilings of the 49 budget organisations (45 state-budget units, the National Social Security Institute with its pensions, two smaller funds and the NHIF), 2027–2029, thousand EUR | Forecast, Annex 4 (pp. 195–196) |
 | `transfers-universities-media.csv` | Transfers to public media, the Academy of Sciences, the state universities and the military schools, 2027–2029, thousand EUR (the layout of the 2026 file) | Forecast, Annex 6 (p. 197) |
+| `mtbf-2027-2029-fses.parts.csv`, `mtbf-2027-2029-sfa-eu.parts.csv`, `mtbf-2027-2029-entities.parts.csv` (+ `.json`) | Drill-down parts from annexes 7 and 8 of the forecast 2027–2029: ФСЕС, State Fund Agriculture's EU account, ПУДООС, the Agricultural Academy and two state enterprises (sections "Energy" and "Annexes 7 and 8" below) | Forecast 2027–2029, annexes 7 and 8 |
 
 Column formats are those of the 2026 files (see `../budget-2026/README.md`). Article numbers differ from 2026: the
 units are art. 2–48 (2026: 2–47; the Anti-Corruption Commission, a unit in 2024–2025 but not in 2026, is art. 32
@@ -214,3 +215,83 @@ Against the 2026 programme (`../budget-2026/kfp-2026-by-function.csv`), total wi
 # the PDF, downloaded by hand: data/cache/mtbf-2027-2029/UMTBF-2027-2029-motivi.pdf
 python3 -P -E scripts/extract/kfp_forecast.py data/cache/mtbf-2027-2029/UMTBF-2027-2029-motivi.pdf data/sources/budget-2027
 ```
+
+## Energy: the Electricity System Security Fund (drill-down part)
+
+**`mtbf-2027-2029-fses.parts.csv`** (+ `.json`) splits the draft's „Енергетика, горива и минно дело“ (`e-energy`,
+€1,422.6 m) into the Electricity System Security Fund (`e-energy.fses`, **€1,356,342,900**) and a remainder
+(`e-energy.rest`, €66,257,100). Source: the updated medium-term budget forecast 2027–2029 (6.11.2026),
+https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf (browser-only; the local copy
+`data/cache/mtbf-2027-2029/UMTBF-2027-2029-motivi.pdf`, see its MANIFEST), PDF page 199, приложение № 8 „Размери на
+разходите и трансферите (нето) по други икономически обособени лица и структурни единици, включени в КФП за периода
+2027–2029 г.“, row 2, column 2.1 „Разходи“, thousand EUR (1 356 342,9). The fund has no net transfers in 2027–2029
+(column 2.2 is empty and column 2 equals 2.1: 1 356 342,9; 1 076 282,9; 1 076 282,9).
+
+Basis `mapped`, with the same mapping as the 2026 part (`../budget-2026/README.md`, "Energy"): in the 2024 and 2025
+reports all the fund's КФП spending is in this sub-function. Cross-check: the fund is 95.3% of the box (in the
+actuals 95.8% and 91.1%); the previous forecast (РМС № 597/2026, annex 8) had 1 285 995,9 thousand EUR of
+expenditure for the fund in 2027. "Ministries 2027" has no programmes yet (they are set after the act); since
+14.11.2026 the Ministry of Energy's area „Енергетика“ (€36.8 m in the draft) is grafted at area level (below), and
+the remainder is €29.5 m.
+
+## Annexes 7 and 8: State Fund Agriculture's EU account and the other КФП entities (drill-down parts, 14.11.2026)
+
+The same reading as for 2026 (`../budget-2026/README.md`, "Annexes 7 and 8": why each entity belongs to its box,
+the 2024 and 2025 report columns, no double counting), from the forecast 2027–2029 (6.11.2026),
+https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf (browser-only; the local copy
+`data/cache/mtbf-2027-2029/UMTBF-2027-2029-motivi.pdf`, see its MANIFEST): приложение № 7 (PDF page 198) and
+приложение № 8 (page 199), column 2.1 „Разходи“, thousand EUR ×1000, basis `mapped`.
+
+| Part | Box | 2.1 „Разходи“, € | Remainder after, € m |
+| --- | --- | ---: | ---: |
+| `e-agriculture.sfa-eu` Сметка за средствата от ЕС на Държавния фонд „Земеделие“ (`mtbf-2027-2029-sfa-eu.parts.csv`) | `e-agriculture` | 615,744,300 | `e-agriculture.rest` 982.9 → 367.1 |
+| `c-environment.pudoos` ПУДООС (`mtbf-2027-2029-entities.parts.csv`: this row and those below) | `c-environment` | 47,753,400 | `c-environment.rest` 945.2 → 897.4 |
+| `g-science.ssa` Селскостопанска академия | `g-science` | 55,483,200 | `g-science-other` 360.6 → 303.4 |
+| `g-science.dpnpc` ДП „Научно-производствен център“ | `g-science` | 1,677,300 | (same) |
+| `e-other.dpusya` ДП „Управление и стопанисване на язовири“ | `e-other` (a leaf until now) | 8,672,200 | `e-other.rest` 1,312.2 (new) |
+
+- *Checked against the PDF* (columns 2 / 2.1 / 2.2): State Fund Agriculture's account 199 036,4 / 615 744,3 /
+  416 707,9 (2.2 equals the draft act's art. 1, section III, item 1.5, 416 707,9); ПУДООС 29 896,2 / 47 753,4 /
+  17 857,2; Селскостопанска академия 9 203,3 / 55 483,2 / 46 279,9; ДП НПЦ 1 677,3 / 1 677,3 / —; ДП УСЯ — /
+  8 672,2 / 8 672,2 (the two figures sit under 2.1 and 2.2 by their position on the page, as in 2026). Each
+  column 2 equals 2.1 − 2.2.
+- *Cross-check.* The forecast's text (pp. 141–142) gives State Fund Agriculture's EU-funded expenditure and payments
+  as up to €1,629.8 m in 2027 (direct payments €850.5 m, market measures €95.6 m, rural development €846.5 m;
+  Table V-1 €1,604.3 m), more than the account's КФП expenditure; the 2025 actual's EU funds in the sub-function were
+  €859.9 m. The previous forecast had 728 987,2 thousand EUR for the account in 2027 and 44 446,9 for ПУДООС.
+- *„Други дейности по икономиката“* (€1,320.9 m; 2025 actual €410.5 m) is one line of Table III-1 (p. 73) here
+  too; the remainder keeps the leads (ledger `e-other.rest`, budget-2027).
+- *Size*: `budget-2027.json` grew from 396.7 KB (61.8 KB gzipped) to 403.1 KB (63.1 KB gzipped).
+
+## The ministries' areas in the КФП boxes (grafts, 14.11.2026)
+
+"Ministries 2027 (draft)" has policy areas only (no programme budgets until the 2027 decree). The programme map
+(`../../drilldown/programme-map.csv`, rules in `docs/drilldown.md` › "The programme map") grafts an area only when,
+in 2026, all of it goes to one box; the reasons are those of 2026. 79 areas and units, **€6,849.1 m** of the
+draft's €14,395.0 m, go into 16 boxes; the rest (€7,545.8 m) waits for the programme budgets, chiefly the defence
+ministry (€2,987.0 m: military medicine, education and recreation are outside the defence function), the labour
+ministry's benefit areas (€2,243.1 m: benefits and the services that pay them), the regional ministry's roads area
+(€1,186.1 m: roads with water, landslides and construction control) and State Fund Agriculture's subsidies
+(€257.9 m: a transfer to municipalities in 2026).
+
+| Box | Box, € m | Grafted, € m | Remainder, € m |
+| --- | ---: | ---: | ---: |
+| `o-police` | 2,670.5 | 2,186.3 | 484.2 |
+| `g-executive-other` | 1,964.3 | 978.0 | 986.2 |
+| `ed-other` | 1,775.5 | 800.8 | 974.7 |
+| `o-judiciary` | 870.5 | 752.2 | 118.3 |
+| `h-other` | 1,017.4 | 702.1 | 315.3 |
+| `e-transport` | 3,242.4 | 571.8 | 2,670.6 |
+| `o-prisons` | 235.6 | 226.6 | 9.0 |
+| `e-agriculture` | 1,165.4 | 182.5 | 982.9 |
+| `s-svc-rest` | 1,812.3 | 104.8 | 1,707.5 |
+| `g-services` | 107.1 | 93.1 | 14.0 |
+| `c-sport` | 150.1 | 78.5 | 71.6 |
+| `c-environment` | 985.9 | 40.7 | 945.2 |
+| `e-energy` | 1,422.6 | 36.8 | ФСЕС 1,356.3 + 29.5 |
+| `c-culture-other` | 561.5 | 36.7 | 524.9 |
+| `c-religion` | 46.3 | 36.7 | 9.6 |
+| `e-tourism` | 47.5 | 21.5 | 26.0 |
+
+Plans with plans: the draft's area amounts (art. 2–48 of the bill) under the boxes of the forecast 2027–2029 that
+came with it. `budget-2027.json` grew from 325.8 KB (52.5 KB gzipped) to 393.3 KB (62.4 KB gzipped).

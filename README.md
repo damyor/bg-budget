@@ -70,7 +70,7 @@ Bulgarian is the default language; everything is also available in English.
 ```sh
 npm install
 npm run dev      # http://localhost:5173
-npm test         # unit tests (datasets, series, tree folding, zoom geometry, formatting, tax rules, clip timeline and titles, programmes, municipalities, big cities and the ЕБК codes, lists and their links, projects, SEBRA payees and payments, health, EU funds and farm subsidies, procurement, the drill-down mechanism)
+npm test         # unit tests (datasets, series, tree folding, zoom geometry, formatting, tax rules, clip timeline and titles, programmes, municipalities, big cities and the ЕБК codes, lists and their links, projects, SEBRA payees and payments, health, EU funds and farm subsidies, procurement, the drill-down mechanism and the programme map)
 npm run build    # static site in dist/
 ```
 
@@ -163,7 +163,8 @@ function (e.g. the Health Insurance Fund within all health spending), the differ
 **Drilling down further.** Such a remainder is marked (`rest`) and shown as computed; boxes are split further, round
 by round, with parts taken from other documents (`*.parts.csv` next to a topic's extracts in `data/sources/`, each
 with its source and how it relates to the box) or with subtrees another dataset already has
-(`data/drilldown/grafts.csv`) — never over the box, the gap staying an explicit remainder. Every box that goes no
+(`data/drilldown/grafts.csv`; the ministries' programmes and areas — plans 2024–2027 and the 2025 actual — are placed in
+the КФП sub-functions by an ЕБК-based map, `data/drilldown/programme-map.csv`) — never over the box, the gap staying an explicit remainder. Every box that goes no
 further has an entry in `data/drilldown/ledger.json` (to do, no source, blocked or final, with a short note visitors
 see and the leads and attempts for the next round), and `npm run data` writes `data/drilldown/frontier.md`: how deep
 each dataset goes and its largest open boxes. How it works and how a round goes: [`docs/drilldown.md`](docs/drilldown.md).
@@ -172,9 +173,12 @@ GDP is Eurostat's for past years and the Ministry of Finance autumn 2026 forecas
 taken at the start of each year (`data/sources/macro/`). The source tables are CSV extracts of the official
 documents in `data/sources/` — one folder per budget or report year plus `kfp/`, `macro/` and `places/` (the
 municipalities' ЕБК codes and residents), `projects/` (named capital projects), `sebra/` (the SEBRA payments,
-aggregated), `health/` (hospitals and medicines), `eu-funds/` (EU programmes, the Recovery Plan, ИСУН projects),
-`cap/` (farm subsidies), `procurement/` (contracts, suppliers, buyers) and `cities/` (the big cities' reports by
-activity and paragraph, the ЕБК activities, Plovdiv's school allocations, the education cost standards), each with a
+aggregated, and the Electricity System Security Fund's recipients as parts of its box), `health/` (hospitals and medicines), `eu-funds/` (EU programmes, the Recovery Plan, ИСУН projects),
+`cap/` (farm subsidies), `procurement/` (contracts, suppliers, buyers), `pensions/` (actual pension spending by fund
+and kind of pension, from the NSSI yearbook), `doo-benefits/` (actual social-security benefits by kind, from the NSSI's
+report on the ДОО budget), `interest-eu/` (interest by budget and kind of debt, the EU contribution by own resource)
+and `cities/` (the big cities' reports by activity and paragraph, the
+ЕБК activities, Plovdiv's school allocations, the education cost standards), each with a
 README naming the exact documents and articles. Large raw downloads are cached in
 `data/cache/` (not committed); where a CSV was produced by a script, the script is in `scripts/extract/` and the
 folder's README says how to run it.
@@ -303,7 +307,8 @@ scripts/lib/ministries-labels.ts names of the spending units, their policy areas
 scripts/lib/             also CSV reading (csv.ts), tree building (tree-builder.ts), GDP and population (macro.ts),
                          COFOG labels and Eurostat's JSON-stat (cofog.ts, jsonstat.ts)
 scripts/extract/         one-off extractors that turn official documents into data/sources/ CSVs (Python; the SEBRA
-                         downloader and extractor are TypeScript: sebra-download.ts, sebra.ts; the health ones
+                         downloader and extractor are TypeScript: sebra-download.ts, sebra.ts, and sebra-fses-parts.ts
+                         makes the parts of the reports' ФСЕС box from its payments; the health ones
                          download their own files: nhif_hospitals.py, moh_hospitals.py, nhif_medicines.py; so do
                          eu_funds.py, cap.py and procurement.py with --download; persons.py holds the shared rule
                          for keeping natural persons unnamed, and sole traders too unless a list names them: those

@@ -1,0 +1,15 @@
+{
+  "source": {
+    "bg": "НОИ, Статистически отчет за изпълнението на консолидирания бюджет на ДОО за 2025 г., раздел II „Разходи“, група Б „Социални помощи и обезщетения“ (§ 42-01)",
+    "en": "NSSI (НОИ), Statistical report on the execution of the consolidated state social security (ДОО) budget for 2025, section II “Expenditure”, group Б “Social assistance and benefits” (§ 42-01)"
+  },
+  "url": "https://www.noi.bg/wp-content/uploads/Statisticheski-otchet_2025.xls",
+  "basis": "mapped",
+  "rest": {
+    "name": { "bg": "Разлика спрямо отчета на КФП", "en": "Difference from the consolidated fiscal programme report" },
+    "note": {
+      "bg": "Отчетът на КФП дава 3 181,0 млн. лв. за социалноосигурителните фондове, а според текста на същия доклад обезщетенията по бюджета на ДОО са 2 958,0 млн. лв. Разликата е извън бюджета на ДОО и източниците засега не я разпределят.",
+      "en": "The consolidated fiscal programme report gives 3,181.0 million leva for the social security funds, while the same report's text puts the benefits of the ДОО budget at 2,958.0 million leva. The difference lies outside the ДОО budget and the sources do not itemise it yet."
+    }
+  }
+}

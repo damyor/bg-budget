@@ -1,0 +1,14 @@
+{
+  "source": {
+    "bg": "Актуализирана средносрочна бюджетна прогноза за периода 2024–2026 г. (РМС № 830/2023, към законопроекта за държавния бюджет за 2024 г.), приложение № 7, колона „Разходи“",
+    "en": "Updated medium-term budget forecast 2024–2026 (Council of Ministers decision 830/2023, with the 2024 State Budget bill), annex 7, column “Expenditure”"
+  },
+  "url": "https://www.parliament.bg/bills/49/49-302-01-76.zip",
+  "basis": "mapped",
+  "rest": {
+    "name": {
+      "bg": "Други разходи за земеделие",
+      "en": "Other agricultural spending"
+    }
+  }
+}

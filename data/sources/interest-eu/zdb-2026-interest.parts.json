@@ -1,0 +1,18 @@
+{
+  "source": {
+    "bg": "Закон за държавния бюджет на Република България за 2026 г., чл. 1, ал. 2, ред 1.3 „Лихви“ (ДВ бр. 69 от 31.07.2026)",
+    "en": "State Budget Act 2026, art. 1(2), line 1.3 “Interest” (State Gazette 69 of 31.07.2026)"
+  },
+  "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041",
+  "basis": "mapped",
+  "rest": {
+    "name": {
+      "bg": "Лихви по другите бюджети (общини и др.)",
+      "en": "Interest paid by other budgets (municipalities etc.)"
+    },
+    "note": {
+      "bg": "Разликата между лихвите по консолидираната фискална програма и тези по държавния бюджет: лихвите по общинските и другите бюджети в програмата.",
+      "en": "The difference between the interest of the consolidated fiscal programme and the State Budget’s: the interest paid by the municipalities and the other budgets of the programme."
+    }
+  }
+}

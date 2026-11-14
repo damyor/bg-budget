@@ -1,0 +1,14 @@
+{
+  "source": {
+    "bg": "Актуализирана средносрочна бюджетна прогноза за периода 2025–2028 г. (мотиви към законопроекта за държавния бюджет за 2025 г., РМС № 88/2025), приложение № 8, колона „Разходи“",
+    "en": "Updated medium-term budget forecast 2025–2028 (explanatory memorandum to the 2025 State Budget bill, Council of Ministers decision 88/2025), annex 8, column “Expenditure”"
+  },
+  "url": "https://www.strategy.bg/download/1296995",
+  "basis": "mapped",
+  "rest": {
+    "name": {
+      "bg": "Други разходи за икономически дейности",
+      "en": "Other spending on economic activities"
+    }
+  }
+}

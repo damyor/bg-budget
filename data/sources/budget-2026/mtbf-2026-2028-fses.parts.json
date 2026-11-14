@@ -1,0 +1,15 @@
+{
+  "source": {
+    "bg": "Актуализирана средносрочна бюджетна прогноза за периода 2026–2028 г. (РМС № 597/2026), приложение № 8, колона „Разходи“",
+    "en": "Updated medium-term budget forecast 2026–2028 (Council of Ministers decision 597/2026), annex 8, column “Expenditure”"
+  },
+  "url": "https://strategy.bg/download/1324547",
+  "basis": "mapped",
+  "rest": {
+    "name": { "bg": "Други разходи за енергетика", "en": "Other energy spending" },
+    "note": {
+      "bg": "Частта от подфункцията, която намерените досега таблици не разпределят: не е нито във Фонд „Сигурност на електроенергийната система“, нито в програмите на Министерството на енергетиката.",
+      "en": "The part of the sub-function that the tables found so far do not attribute: it is neither the Electricity System Security Fund nor the Ministry of Energy’s programmes."
+    }
+  }
+}

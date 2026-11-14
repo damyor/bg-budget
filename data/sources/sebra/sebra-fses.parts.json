@@ -1,0 +1,16 @@
+{
+  "source": {
+    "bg": "СЕБРА: индивидуални плащания на Фонд „Сигурност на електроенергийната система“ от 5000 лв. нагоре (data.egov.bg, набор 20439), по получатели и години",
+    "en": "SEBRA: the Electricity System Security Fund’s individual payments of 5,000 leva or more (data.egov.bg, dataset 20439), by recipient and year"
+  },
+  "url": "https://data.egov.bg/data/view/57f1e2e7-b235-45e8-94c4-4d69f0b1a690",
+  "basis": "payments",
+  "replace": true,
+  "rest": {
+    "name": { "bg": "Разлика спрямо отделните плащания", "en": "Difference from the individual payments" },
+    "note": {
+      "bg": "Разликата между разходите на фонда в отчета на КФП и отделните му плащания от 5000 лв. нагоре: по-малките плащания, заплатите на служителите и разлики в отчитането.",
+      "en": "The difference between the fund’s spending in the consolidated fiscal programme report and its individual payments of 5,000 leva or more: smaller payments, staff pay and accounting differences."
+    }
+  }
+}

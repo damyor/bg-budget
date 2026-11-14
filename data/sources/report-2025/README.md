@@ -77,6 +77,37 @@ The NHIF's formal annual report, "Годишен отчет за изпълне�
 the National Assembly as вх. № 52-602-00-20 on 06.07.2026, but only as a scanned PDF without a text layer (689 pages,
 https://www.parliament.bg/pub/plenary_documents/52-602-00-20_.pdf), so it was not used.
 
+## The ministries' actual areas in the КФП boxes (grafts and links, 14.11.2026)
+
+The programme map (`../../drilldown/programme-map.csv`, rows `report-2025`; rules in `docs/drilldown.md` › "The
+programme map") places "Ministries 2025 (actual)" (`state-budget-2025-report-spending-units.csv`, areas only) in
+"2025 actual" with the reasons of the 2025 plan. Parts go only into boxes of the state budget's column that are leaves
+or remainders; the other state-budget boxes are split into current and capital spending, and grafting parts there
+would mean replacing that split, which is left open.
+
+- **Health** (`health.other`, a remainder of €762.4 m): the health ministry's three areas „Диагностика и лечение“
+  (€475.8 m), „Обществено здраве и профилактика“ (€88.1 m) and „Лекарства и медицински изделия“ (€24.4 m), **€588.2 m**,
+  go under „Здравеопазване“ (its administration belongs to the executive bodies). They are spending (the units'
+  „II. РАЗХОДИ“), not transfers to the NHIF, and fit the state-budget column of health (1 672,4 million BGN = €855.1 m,
+  `kfp-2025-report-by-function.csv`). The remainder, now „Други разходи за здравеопазване (болници на министерствата,
+  европейски средства и др.)“, is €174.2 m: the other ministries' hospitals (inside mixed areas of the defence and
+  interior ministries; €119.6 m in the 2025 plan) and EU funds (€133.6 m), less the NHIF report's wider scope than the
+  КФП's NHIF column (€4,827.6 m against 8 999,1 million BGN = €4,601.2 m: €226.5 m).
+- **No parts, links instead** (`grafts.csv` mode=link): from „Социални помощи и обезщетения“ (state budget, a leaf of
+  €986.5 m) to the labour ministry's three benefit areas, which mix benefits with their staff and personal assistance;
+  from „Спорт“ (state budget, a leaf of €53.3 m) to the sport ministry, whose elite-sport area alone (€56.8 m) is
+  larger than the box; and from ten boxes with a current/capital split to their ministries or areas — police (the
+  interior ministry, ДАНС, ДАТО, НСО, the intelligence agency: €2,247.5 m of €2,402.2 m, they fit), defence (the
+  defence ministry, €2,334.0 m, larger than the box), transport (the roads area and the transport ministry), executive
+  bodies (finance, foreign affairs, the National Assembly, the regional governors; all administration areas and
+  independent bodies €1,000.6 m of €1,016.2 m), judiciary, education, agriculture (€446.8 m of €447.1 m), prisons and
+  religion (each equal to its box) and energy (the energy ministry's area, €58.5 m, larger than the box). What fits and
+  what does not is in each box's ledger entry.
+
+Spot-checks (section 15 of pr.4, thousand BGN at 1.95583): row 2 „Политика в областта на диагностиката и лечението“
+930 538,571 = €475,776,816, row 1 172 257,801 = €88,074,015, row 3 47 643,966 = €24,359,973 — equal to the grafted
+nodes. `report-2025.json` grew from 248.4 KB (41.2 KB gzipped) to 257.1 KB (43.0 KB gzipped).
+
 ## `kfp-YYYY-report-by-function.csv`
 
 Read by `scripts/budgetReport.ts` (via `readKfpReport` in `scripts/lib/kfp.ts`). Checks run when the files were made:

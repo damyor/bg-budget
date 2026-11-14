@@ -217,3 +217,55 @@ same comparison for every system, code and year.
   Plovdiv University, an EU programme of the innovation ministry); by year 56,947 / 34,389 / 151,455 / 402,056 /
   128,766 → the payee's page shows the same by unit and year (2026: 128,765, rounding).
 - Q2 2026 as a whole, see above.
+
+## The Electricity System Security Fund's recipients (parts of a tree box)
+
+`sebra-fses.parts.csv` (+ `sebra-fses.parts.json`, 177 rows) is a parts file (docs/drilldown.md) that splits the
+reports' box „Енергетика, горива и минно дело › Фонд „Сигурност на електроенергийната система“ (`e-energy.fses`,
+report-2024 and report-2025) into the fund's recipients. Written by `node scripts/extract/sebra-fses-parts.ts` from
+`flows.csv.gz` and `payees.csv.gz` (the payer is SEBRA system 124, the fund itself; one unit, `124-0j2u9`). Basis
+`payments`, with `"replace": true`: the box's children were only its current / capital split (99.99% current), which
+says nothing more, and the payments rule of docs/drilldown.md is met (the box's own spending body, the same year,
+95–100% coverage).
+
+What counts. Only payment codes of spending (10 running costs, 18, 20, 30 subsidies, 40, 50 capital): code 60
+(transfers to other budgets: €5,173,939.63 to the Ministry of Energy on 23.12.2024), 89 (other financing:
+€1,669,711.72 in 2024 to „ФСЕЛС“, the fund's own account) and 90 (refunds of revenue, €24,681.25 in 2025, less than
+the rounding of the box) are not spending. Payees in the КФП are not recipients in a consolidated tree: Sofia
+municipality (€2,699.83 in 2024, €3,249.21 in 2025). ДП НКЖИ, a state enterprise outside the КФП, is a recipient
+(under €1 m). The script stops on any other public-sector payee, so a new one has to be decided. One payment is left
+out because it came back: on 13.11.2024 the fund paid ЕВН България Електроснабдяване 3,206,918.64 BGN
+(€1,639,671.46) to a closed account; SEBRA's daily totals show the same amount back on 14.11.2024 (payment code 98,
+−3,206,918.64 BGN), the individual list also has a code-89 payment of the same amount to the fund's own account
+(„ФСЕЛС“, 13.11.2024, purpose „ЗАКРИТ IBAN …“), and the fund paid ЕВН the same amount again on 14.11.2024 (same
+decision and month in the purpose) — the individual list has both payments to ЕВН.
+
+Parts of each year: every payee (as grouped in this folder) paid €1 m or more by name (as published; in English
+the official transliteration, as for the hospitals) — its id `e-energy.fses.<ЕИК>`
+where the procurement suppliers give the company number (the rule the supplier pages use to link to SEBRA payees: the
+normalised name with its legal form matches exactly one supplier and one payee), otherwise `e-energy.fses.<payee id>`;
+natural persons as one group (`.persons`, never named, by the rule of the lists); all other payees as one part
+(`.other-payees`, whose note points to the list "Who gets paid — by payer", which the box and that part link to).
+Sole traders follow the lists' rule (named); the fund paid none in 2024–2025. The gap to the box is the remainder
+(`.rest`): smaller payments, staff pay and accounting differences.
+
+| Year | КФП box (report, VIII.А, column ФСЕС) | Payments counted | Coverage | Named (with ЕИК) | Persons | Others | Remainder |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2025 | 2 431,7 m BGN = €1,243,308,468 | €1,240,580,769.44 | 99.78% | 90 (28), €1,097.3 m | €27,657,584.29 | 295 payees, €115,633,636.07 | €2,727,698 |
+| 2024 | 2 523,7 m BGN = €1,290,347,321 | €1,290,002,622.66 | 99.97% | 83 (24), €1,177.2 m | €4,950,375.17 | 328 payees, €107,819,833.52 | €344,698 |
+
+Without the exclusions 2024 would be 100.63% (€1,298,488,645.30, all the fund's individual payments) and not parts.
+
+**Cross-check against independent totals.** SEBRA's daily totals (dataset 7806, all payments of any size, by
+payment code): the fund's spending codes 01–50 come to €1,243.30 m in 2025 — the КФП box (€1,243.31 m) to
+€0.01 m. In 2024 they come to €1,297.35 m; less the returned payments (code 98, €1.81 m, among them the one above)
+and the €5.17 m transfer to the Ministry of Energy, €1,290.37 m — the КФП €1,290.35 m to €0.02 m: the 2024 КФП
+figure appears net of that transfer. So in 2024 the remainder (€0.34 m) is the payments under 5,000 leva and staff
+pay (about €5.5 m) less that €5.17 m.
+
+**Spot-checks against the raw rows** (`data/cache/sebra/2024Q*.json`, `2025Q*.json`, summed by an independent script,
+per payment at 1.95583): БУЛГАРГАЗ ЕАД 2025, 24 payments, €72,700,664.64 = the part; ТОПЛОФИКАЦИЯ ПЕРНИК (АД) 2025,
+12 payments, €35,585,228.34 = the part; НЕК ЕАД 2024, 15 payments, €534,427,539.12 = the part, and 2025, 11
+payments under the spelling „НЕК ЕАД“, €317,311,297.57 = the part (two more payments typed „НЕК ЕАД ДПИ“, €204,006.77,
+and „НЕК ЕАД ТЪРГОВЕЦ“, €16,274.47, went to other accounts and are grouped with those payees, under €1 m); all the
+fund's rows: 2024 €1,298,488,645.30, 2025 €1,240,605,450.69 = `flows.csv.gz`.

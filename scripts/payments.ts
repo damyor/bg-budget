@@ -30,6 +30,9 @@ const PAYEE_FILES = 64
 const YEARS = ['2022', '2023', '2024', '2025', '2026']
 const QUARTERS = ['I', 'II', 'III', 'IV']
 const SOFIA_SYSTEM = '422'
+/** The Electricity System Security Fund (ФСЕС), and the reports whose box of it is split into its recipients. */
+const FSES_SYSTEM = '124'
+const FSES_REPORT_YEARS = [2024, 2025]
 
 export const PAYMENTS: ListGroup = {
   id: 'payments',
@@ -277,6 +280,18 @@ function byPayer(data: PaymentsData, datasets: Dataset[], register: Register): L
       value: 'amount',
       label: during(data, year),
       text: t(`Плащания на общината към фирми, организации и лица: {total} ${during(data, year).bg}`, `Paid by the municipality to companies, organisations and people: {total} ${during(data, year).en}`),
+    })),
+    // The reports' Electricity System Security Fund box, split into its recipients (data/sources/sebra/sebra-fses.parts.csv).
+    ...FSES_REPORT_YEARS.map((year) => ({
+      family: 'functions' as const,
+      column: 'system',
+      nodes: { [FSES_SYSTEM]: ['e-energy.fses', 'e-energy.fses.other-payees'] },
+      years: [year],
+      stages: ['report' as const],
+      filters: { year: String(year) },
+      value: 'amount',
+      label: during(data, year),
+      text: t(`Всички плащания на фонда към фирми, организации и лица: {total} ${during(data, year).bg}`, `All the fund’s payments to companies, organisations and people: {total} ${during(data, year).en}`),
     })),
   ]
   return {

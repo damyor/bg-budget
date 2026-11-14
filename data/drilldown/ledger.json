@@ -2,54 +2,108 @@
   {
     "family": "functions",
     "node": "s-pen-labour",
-    "state": "todo",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "no-source",
+    "note": {
+      "bg": "Бюджетът на ДОО планира пенсиите само по фондове. Разбивка по видове пенсии (за осигурителен стаж и възраст, за инвалидност …) НОИ публикува само за изпълнението — вж. отчетите за 2024 и 2025 г.",
+      "en": "The social security budget plans pensions by fund only. The NSSI publishes the split by kind of pension (old-age, disability …) for actual spending only: see the 2024 and 2025 reports."
+    },
+    "checked": "2026-11-14",
     "leads": [
       {
-        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
-        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "source": "Future ДОО budget bills and memoranda (2027: not in Parliament on 14.11.2026): check whether they add planned pensions by kind",
         "basis": "exact",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Explanatory memoranda to the ДОО budget bills 2024 (вх. № 49-302-01-75), 2025 (51-502-01-6) and 2026 (52-602-01-18), parliament.bg bill files: only the total for pensions (2026: €13,503.9 m, state-budget pensions included) and the drivers of its change (indexation, Easter supplement …); no split by kind of pension."
       },
       {
-        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
-        "basis": "exact",
-        "access": "unknown"
+        "date": "2026-11-14",
+        "what": "ДОО Budget Acts 2024–2026 (2026: ДВ бр. 68/2026, чл. 2–4, dv.parliament.bg idMat=244982): pensions by fund only. Fund „Пенсии“ splits only into 1.1.1 pensions (€12,204.8 m) and 1.1.3 capital transfer of pension rights to the EU, ECB and EIB schemes (€0.9 m); the Art. 69 and non-contributory funds have one pension line each."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "noi.bg (answers scripts, 14.11.2026): the page „Бюджет на фондовете администрирани от НОИ“ is empty. The statistical report on the execution of the consolidated ДОО budget (Statisticheski-otchet_2025.xls, Statisticheski_otchet_2024.xls) gives an amended plan by ЕБК paragraph (§41-11 labour pensions, §41-12 Art. 69, §41-21 state-budget pensions …): the amended plan of the year reported, not the act, and by fund rather than kind. The yearbook „Пенсии“ (table 6.3) splits by kind of pension for actual spending only: used for the 2024 and 2025 reports (data/sources/pensions)."
       }
     ]
   },
   {
     "family": "functions",
     "node": "s-pen-art69",
-    "state": "todo",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "no-source",
+    "note": {
+      "bg": "Бюджетът на ДОО планира пенсиите само по фондове. Разбивка по видове пенсии НОИ публикува само за изпълнението — вж. отчетите за 2024 и 2025 г.",
+      "en": "The social security budget plans pensions by fund only. The NSSI publishes the split by kind of pension for actual spending only: see the 2024 and 2025 reports."
+    },
+    "checked": "2026-11-14",
     "leads": [
       {
-        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
-        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "source": "Future ДОО budget bills and memoranda (2027: not in Parliament on 14.11.2026): check whether they add planned pensions by kind",
         "basis": "exact",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Explanatory memoranda to the ДОО budget bills 2024 (вх. № 49-302-01-75), 2025 (51-502-01-6) and 2026 (52-602-01-18), parliament.bg bill files: only the total for pensions (2026: €13,503.9 m, state-budget pensions included) and the drivers of its change (indexation, Easter supplement …); no split by kind of pension."
       },
       {
-        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
-        "basis": "exact",
-        "access": "unknown"
+        "date": "2026-11-14",
+        "what": "ДОО Budget Acts 2024–2026 (2026: ДВ бр. 68/2026, чл. 2–4, dv.parliament.bg idMat=244982): pensions by fund only. Fund „Пенсии“ splits only into 1.1.1 pensions (€12,204.8 m) and 1.1.3 capital transfer of pension rights to the EU, ECB and EIB schemes (€0.9 m); the Art. 69 and non-contributory funds have one pension line each."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "noi.bg (answers scripts, 14.11.2026): the page „Бюджет на фондовете администрирани от НОИ“ is empty. The statistical report on the execution of the consolidated ДОО budget (Statisticheski-otchet_2025.xls, Statisticheski_otchet_2024.xls) gives an amended plan by ЕБК paragraph (§41-11 labour pensions, §41-12 Art. 69, §41-21 state-budget pensions …): the amended plan of the year reported, not the act, and by fund rather than kind. The yearbook „Пенсии“ (table 6.3) splits by kind of pension for actual spending only: used for the 2024 and 2025 reports (data/sources/pensions)."
       }
     ]
   },
   {
     "family": "functions",
     "node": "s-pen-noncontrib",
-    "state": "todo",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "no-source",
+    "note": {
+      "bg": "Бюджетът на ДОО планира пенсиите само по фондове. Разбивка по видове (социални пенсии за инвалидност и за старост, за военна инвалидност …) НОИ публикува само за изпълнението — вж. отчетите за 2024 и 2025 г.",
+      "en": "The social security budget plans pensions by fund only. The NSSI publishes the split by kind (social disability and old-age pensions, military disability …) for actual spending only: see the 2024 and 2025 reports."
+    },
+    "checked": "2026-11-14",
     "leads": [
       {
-        "source": "Explanatory memorandum to the ДОО budget bill (2026: вх. № 52-602-01-18), already used for benefits by type: pensions by type? (to verify)",
-        "url": "https://www.parliament.bg/bg/bills/ID/167156",
+        "source": "Future ДОО budget bills and memoranda (2027: not in Parliament on 14.11.2026): check whether they add planned pensions by kind",
         "basis": "exact",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Explanatory memoranda to the ДОО budget bills 2024 (вх. № 49-302-01-75), 2025 (51-502-01-6) and 2026 (52-602-01-18), parliament.bg bill files: only the total for pensions (2026: €13,503.9 m, state-budget pensions included) and the drivers of its change (indexation, Easter supplement …); no split by kind of pension."
       },
       {
-        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
-        "basis": "exact",
-        "access": "unknown"
+        "date": "2026-11-14",
+        "what": "ДОО Budget Acts 2024–2026 (2026: ДВ бр. 68/2026, чл. 2–4, dv.parliament.bg idMat=244982): pensions by fund only. Fund „Пенсии“ splits only into 1.1.1 pensions (€12,204.8 m) and 1.1.3 capital transfer of pension rights to the EU, ECB and EIB schemes (€0.9 m); the Art. 69 and non-contributory funds have one pension line each."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "noi.bg (answers scripts, 14.11.2026): the page „Бюджет на фондовете администрирани от НОИ“ is empty. The statistical report on the execution of the consolidated ДОО budget (Statisticheski-otchet_2025.xls, Statisticheski_otchet_2024.xls) gives an amended plan by ЕБК paragraph (§41-11 labour pensions, §41-12 Art. 69, §41-21 state-budget pensions …): the amended plan of the year reported, not the act, and by fund rather than kind. The yearbook „Пенсии“ (table 6.3) splits by kind of pension for actual spending only: used for the 2024 and 2025 reports (data/sources/pensions)."
       }
     ]
   },
@@ -95,11 +149,30 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ПМС № 102/2026 annex 1: the Ministry of Labour and Social Policy's administered items (monthly social assistance €78.6 m, heating aid €49.5 m, family and disability benefits …), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
+        "source": "The rest of the sub-function (€842.4 m in 2026, €690.6 m in 2025, all of the €1,298.3 m in 2024) is not identified: the forecast gives no split by budget; the 2025 report (КФП by function, data/sources/report-2025/kfp-2025-report-by-function.csv) splits the actual by budget (state, social security, municipalities, EU funds) — compare",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): subsidies to disability organisations and enterprises, rehabilitation (€7.4 m in 2026), social-inclusion projects (€2.7 m), foster care in 2025 (€19.6 m)",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the labour ministry's benefit items, as in 2025 and 2026 (its 2024 areas mix them with staff and personal assistance)",
         "basis": "mapped",
         "access": "script",
-        "covers": "most of it, to verify"
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Социални помощи и обезщетения“ the labour ministry's benefits, item by item (family and child benefits, social assistance, heating aid, disability benefits — ЕБК 511–519): €1,100.9 m in 2026, €955.1 m in 2025. Their staff costs went to social services (ЕБК 522). Cross-check: €974.7 m on the 2025 plan items against a 2025 state-budget column of €986.5 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: nothing grafted — \"Ministries 2024\" gives the labour ministry's areas only (€1,360.6 m in its three benefit areas), and each mixes benefits with staff (ЕБК 522) and personal assistance or foster care."
       }
     ]
   },
@@ -109,139 +182,26 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ПМС № 102/2026 annex 1: the labour ministry's employment and social-services programmes (ministries-2026), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the state-budget part"
-      },
-      {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
         "access": "script",
         "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
         "covers": "the ESF+ part (Human Resources Development programme)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-transport",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the transport ministry's and the regional ministry's road programmes"
       },
       {
-        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
-        "basis": "mapped",
-        "access": "script",
-        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
-        "covers": "Transport Connectivity programme, Recovery Plan transport investments"
-      },
-      {
-        "source": "MTBF 2026–2028 (РМС № 597/2026) annex 8: other КФП entities (state enterprises?) — to verify which ones are transport",
-        "url": "https://strategy.bg/download/1324547",
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the labour ministry's running and capital costs of its benefit programmes (≈ €7 m), living standards and demography (€0.7 m)",
         "basis": "mapped",
         "access": "script"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-energy",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "Голяма част от сумата са разходите на Фонд „Сигурност на електроенергийната система“ — по средносрочната прогноза 2026–2028 1,49 млрд. € през 2026 г.",
-      "en": "Much of this is the Electricity System Security Fund’s spending — €1.49 bn in 2026 by the medium-term forecast 2026–2028."
-    },
-    "checked": "2026-10-13",
-    "leads": [
-      {
-        "source": "MTBF 2026–2028 (РМС № 597/2026) annex 8 „Размери на разходите и трансферите (нето) по други икономически обособени лица и структурни единици, включени в КФП“: ФСЕС 1 487 826.0 (2026), 1 285 995.9 (2027), 1 145 757.1 (2028) thousand EUR",
-        "url": "https://strategy.bg/download/1324547",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "2026 ≈53%, 2027 ≈95% of the box",
-        "note": "in the 2024 and 2025 actuals all of ФСЕС's КФП spending is in this sub-function (kfp-202x-report-by-function.csv: ФСЕС appears only under VIII.А)"
-      },
-      {
-        "source": "ПМС № 102/2026 annex 1: Ministry of Energy (2400) area 2400.01 „Енергетика“ €38.4 m (of which the РАО/ИЕЯС funds €27.8 m + €2.4 m capital transfers), administration 2400.02 €4.9 m",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "≈1.5% of the 2026 box"
-      },
-      {
-        "source": "About €1.27 bn of 2026 is not attributed by any table found so far: EU-funded energy projects (Recovery Plan)? to verify — in 2027 ФСЕС alone is 95% of the box, so the 2026 gap may be one-off",
-        "basis": "mapped",
-        "access": "unknown"
       }
     ],
     "tried": [
       {
-        "date": "2026-10-13",
-        "what": "MTBF 2026–2028 (РМС № 597/2026, DOCX) Table III-1: function totals only."
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Социални услуги, програми за заетост и администрация“: personal assistance (Механизъм лична помощ, ЕБК 562; €777.2 m in 2026), the employment and labour-relations areas, and the staff of the benefit programmes (ЕБК 522) — €984.4 m in 2026, €795.2 m in 2025. Cross-check: the 2025 state-budget column (€203.6 m) is smaller than the mapped €770.9 m because personal assistance is paid through the municipalities (their column, €1,485.9 m); without it the mapping gives €179.2 m."
       },
       {
-        "date": "2026-10-13",
-        "what": "АЕЦ „Козлодуй“ ЕАД is a state company outside the budget: SEBRA paid it €0.48 m in 07.2022–06.2026, mostly court-fee refunds; its own purchases are in the procurement lists as a buyer (ЕИК 106513772; €204.8 m in 363 contracts in 2025); the unit 7 loans carry a state guarantee of up to €1,500,417,089 (ЗДБ 2024 and 2026), which is not spending."
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-other",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "economy, innovation, tourism and other agencies' programmes"
-      },
-      {
-        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
-        "basis": "mapped",
-        "access": "script",
-        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
-        "covers": "the competitiveness programmes"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-agriculture",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "Ministry of Agriculture and State Fund Agriculture programmes"
-      },
-      {
-        "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
-        "basis": "payments",
-        "access": "script"
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the labour ministry's areas „Пазар на труда и заетост“ and „Трудови отношения“ (€95.6 m of €831.6 m); personal assistance and the benefit programmes' staff are inside mixed areas in 2024."
       }
     ]
   },
@@ -426,18 +386,27 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ПМС № 102/2026 annex 1: Ministry of Health programmes (emergency care, public health, state hospitals …), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the state-budget part"
-      },
-      {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
         "access": "script",
         "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
         "covers": "EU-funded health projects"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' health activities beyond the delegated ones"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Здравеопазване“: the health ministry's three areas (its administration went to the executive bodies), the defence ministry's military medicine (1200.01.04) and the interior ministry's hospital (1300.04.02) — €755.6 m in 2026, €712.0 m in 2025, €702.1 m in the 2027 draft (the health ministry's areas). No programme line is a transfer to the NHIF (those are outside „Разходи“ in the decree)."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the health ministry's three areas (€521.6 m of €771.0 m); the defence and interior ministries' hospitals are inside mixed areas in 2024."
       }
     ]
   },
@@ -446,13 +415,6 @@
     "node": "ed-other",
     "state": "todo",
     "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: Ministry of Education and Science programmes (pre-school and school education €703.1 m in 2026 …), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the state-budget part"
-      },
       {
         "source": "Municipalities' own funds for education: no national plan table; the big cities' B3 give actuals for 3 cities only",
         "basis": "exact",
@@ -464,6 +426,21 @@
         "access": "script",
         "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
         "covers": "Education programme 2021–2027, Recovery Plan education investments"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the interior ministry's academy (inside 1300.04.03), sport for pupils and students (2500.01.01); in the 2027 draft the education ministry's „Висше образование и наука“ (mixed with science)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Образование“: the education ministry's area „Предучилищно и училищно образование“ and its higher-education programmes 1700.02.01–03, the culture ministry's art schools (1800.02.08, ЕБК 323), the youth programmes (2500.05, ЕБК 369) and military education (1200.01.07) — €783.8 m in 2026, €707.0 m in 2025, €800.8 m in the 2027 draft (areas). None of it is the delegated school funding by municipality or the universities' subsidies, which are separate parts. Cross-check: €573.7 m on the 2025 actual against a state-budget column of €587.7 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the education ministry's area „Предучилищно и училищно образование“ and the youth area (€533.6 m of €1,429.0 m); higher education, the art schools and military education are inside mixed areas in 2024."
       }
     ]
   },
@@ -491,11 +468,32 @@
     "state": "todo",
     "leads": [
       {
-        "source": "State Budget Act art. 2–47 units and ПМС № 102/2026 programmes (Parliament, Presidency, Council of Ministers, regional governors, agencies' administration programmes), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "municipalities' own administration (ЕБК 122/123) beyond the delegated part shown separately"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
         "basis": "mapped",
         "access": "script",
-        "covers": "the state-budget part"
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "technical assistance of the EU programmes"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the economy ministry's offices abroad, the justice ministry's „Правна рамка“ (with the party subsidies), the transport ministry's administration and medical assessment (mixed)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Изпълнителна и законодателна власт“: the finance ministry's areas (NRA, Customs, budget, control), the foreign ministry's diplomacy, the National Assembly, the Presidency, the government and the regional governors, the ministries' administration programmes, e-government, and the control and independent bodies (ЕБК 101–139) — €926.3 m in 2026, €956.8 m in 2025, €978.0 m in the 2027 draft. Cross-check: €1,000.6 m on the 2025 actual against a state-budget column of €1,016.2 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted 42 administration areas, the finance and foreign ministries' areas, the National Assembly, the Presidency and the independent bodies (€773.6 m of €1,422.6 m)."
       }
     ]
   },
@@ -505,159 +503,84 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "science programmes of the ministries (education ministry's research programme, the Science Fund)"
-      },
-      {
         "source": "The Academy's own revenue and EU funds, university research: no source found (docs/data-depth.md §2.9)",
         "access": "unknown"
+      },
+      {
+        "source": "Budget 2024 and 2025: the forecasts' annex 8 (MTBF 2024–2026, РМС № 830/2023; the 2025 forecast, РМС № 88/2025) — the Agricultural Academy and ДП „Научно-производствен център“, parts as in 2026 and 2027 — to verify",
+        "url": "https://www.strategy.bg/download/1296995",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the education ministry's research programmes 1700.02.04 and 1700.02.05 (€19.3 m in 2026); in the 2027 draft its area „Висше образование и наука“ is mixed. The innovation ministry's innovation area and the meteorology institute (НИМХ) are left out (ЕБК not certain)."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecasts 2026–2028 and 2027–2029: the Agricultural Academy (column 2.1 „Разходи“ 52 434,9 / 55 483,2 thousand EUR; it receives 43 231,6 / 46 279,9 net, the agriculture ministry's transfer, State Budget Act 2026 art. 24) and ДП „Научно-производствен център“ (1 872,6 / 1 677,3) are now parts of budget-2026 and budget-2027 (g-science.ssa, g-science.dpnpc). In the 2024 and 2025 reports both columns are in „Наука“ (the academy: 86,7 / 105,9 m BGN, and 0,01 m BGN in function IX)."
       }
     ]
   },
   {
     "family": "functions",
     "node": "g-eu",
-    "state": "todo",
-    "leads": [
-      {
-        "source": "The contribution by own resource (GNI-based, VAT-based, plastics, customs duties): the State Budget Act / budget report lines or the European Commission's revenue tables by member state — to verify",
-        "basis": "exact",
-        "access": "unknown"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "g-interest",
     "datasets": [
-      "budget-2024",
-      "budget-2025",
       "budget-2026",
       "budget-2027"
     ],
     "state": "todo",
+    "note": {
+      "bg": "Бюджетът дава вноската като една сума. Разбивката по видове собствени ресурси се публикува с отчета за изпълнението на бюджета (вж. 2024 и 2025 г.).",
+      "en": "The budget gives the contribution as one amount. The split by own resource is published with the budget execution report (see 2024 and 2025)."
+    },
     "leads": [
       {
-        "source": "Interest by instrument (domestic / external debt, by bond): State Budget Act art. 1 lines, the MoF debt bulletins — to verify",
+        "source": "The MoF's report on the execution of the 2026 State Budget (autumn 2027, strategy.bg): the law's amount and the actual by own resource, as in the 2024 and 2025 reports",
         "basis": "exact",
-        "access": "unknown"
+        "access": "script",
+        "covers": "100%"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "State Budget Act 2026 and the 2027 draft, art. 1(2), item IV: one amount. MTBF 2026–2028 (motives in bill 52-602-01-19) and 2027–2029 (minfin.bg, cached): totals by year only (1,282.2 m EUR for 2026); the 2027–2029 forecast names the own resources in a footnote without amounts."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025 (strategy.bg): the contribution by own resource, law and actual — now the parts of Budget 2024, Budget 2025 and the 2024 and 2025 actuals (data/sources/interest-eu)."
       }
     ]
   },
   {
     "family": "functions",
-    "node": "o-police",
+    "node": "g-interest.state",
     "datasets": [
+      "budget-2024",
+      "budget-2025",
       "budget-2026"
     ],
-    "state": "todo",
-    "leads": [
+    "state": "no-source",
+    "checked": "2026-11-14",
+    "note": {
+      "bg": "Законът за бюджета дава лихвите по държавния бюджет като една сума. Разбивка по външен и вътрешен дълг има в отчетите за изпълнението и в прогнозата за 2027 г.",
+      "en": "The Budget Act gives the State Budget's interest as one amount. The split between external and domestic debt is in the execution reports and in the forecast for 2027."
+    },
+    "tried": [
       {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the interior ministry's and the security agencies' programmes"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "o-judiciary",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "State Budget Act 2026, the judiciary's article (by functional area: \"Ministries 2026\" › Съдебна власт), and a table by judicial body if the act has one — to verify; plus the justice ministry's programmes (ПМС № 102/2026)",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041",
-        "basis": "mapped",
-        "access": "script"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "defence",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the defence ministry's programmes — larger than the КФП function (military hospitals, schools …), so a mapping is needed"
+        "date": "2026-11-14",
+        "what": "State Budget Acts 2024, 2025 and 2026, art. 1(2): one line, 1.3 „Лихви“ — now the part „Държавен бюджет“ of the КФП box (data/sources/interest-eu); the rest is other budgets' interest."
       },
       {
-        "source": "Priority investment projects 2026 (State Budget Act annex 2; \"Lists\" › \"Investment projects\"): defence 34 projects, €841.5 m capital — a list, not parts",
-        "basis": "mapped",
-        "access": "script"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "c-housing",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the regional ministry's water and housing programmes"
+        "date": "2026-11-14",
+        "what": "MTBF 2026–2028 (motives in bill 52-602-01-19, parliament.bg), section on government debt: external / domestic interest for 2024 and 2025 (actuals) only, nothing for 2026. MTBF 2027–2029 (minfin.bg, cached): the 2027 plan split and an expected 2026 outturn (983.4 m EUR: 844.4 external, 139.0 domestic), which is not the 2026 plan (1,030.7 m EUR) and was not used."
       },
       {
-        "source": "Investment Programme for Municipal Projects (ПМС № 103/2026, \"Lists\"): capital transfers whose functions are not given — to verify",
-        "basis": "mapped",
-        "access": "script"
-      },
-      {
-        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
-        "basis": "mapped",
-        "access": "script",
-        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
-        "covers": "Development of the Regions programme"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "c-environment",
-    "datasets": [
-      "budget-2026"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "ПМС № 102/2026 annex 1: every ministry programme (ministries-2026), mapped programme → sub-function and grafted (next round)",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "the environment ministry's programmes"
-      },
-      {
-        "source": "MTBF 2026–2028 annex 8: ПУДООС and other КФП entities — to verify",
-        "url": "https://strategy.bg/download/1324547",
-        "basis": "mapped",
-        "access": "script"
-      },
-      {
-        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
-        "basis": "mapped",
-        "access": "script",
-        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
-        "covers": "Environment programme"
+        "date": "2026-11-14",
+        "what": "MTBF 2025–2027 (motives in bill 51-502-01-4, parliament.bg): the section on government debt gives the 2023 actual and the expected 2024 outturn (953.3 m BGN: 830.9 external, 122.4 domestic), nothing for 2025."
       }
     ]
   },
@@ -667,11 +590,25 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ПМС № 102/2026 annex 1: Ministry of Culture programmes (theatres, operas, museums), mapped and grafted into this remainder",
-        "url": "https://strategy.bg/download/1325203",
-        "basis": "mapped",
+        "source": "The State Budget Act's subsidies to the public media БНТ, БНР and БТА (data/sources/budget-2026/transfers-universities-media.csv): parts of this box, as the reports show them",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
         "access": "script",
-        "covers": "the state-budget part"
+        "covers": "the 3 cities' culture activities beyond the delegated ones"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted under „Култура“: the culture ministry's arts programmes (theatres, operas, film, libraries, the National Culture Fund …; its art schools went to education), its heritage area and the state archives (ЕБК 747) — €226.1 m in 2026, €191.3 m in 2025, €36.7 m in the 2027 draft (heritage and archives; the arts area includes the schools). Cross-check: €187.0 m on the 2025 actual against a state-budget column of €214.1 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the culture ministry's heritage area and the state archives (€20.0 m of €418.9 m); its arts area (€189.5 m) also holds the art schools in 2024 and is left out."
       }
     ]
   },
@@ -731,14 +668,14 @@
   },
   {
     "family": "functions",
-    "node": "e-transport",
+    "node": "e-other.rest",
     "datasets": [
       "budget-2027"
     ],
     "state": "todo",
     "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
+      "bg": "Проектобюджетът за 2027 г. предвижда тук 1 320,9 млн. €, а по отчета за 2025 г. цялата подфункция е 410,5 млн. €. Прогнозата 2027–2029 не казва какво стои зад тази сума; повече подробности може да дадат програмните бюджети на министерствата.",
+      "en": "The 2027 draft budget puts €1,320.9 m here, while in the 2025 actual the whole sub-function was €410.5 m. The forecast 2027–2029 does not say what is behind the amount; the ministries' programme budgets may say more."
     },
     "leads": [
       {
@@ -746,6 +683,17 @@
         "basis": "exact",
         "access": "script",
         "covers": "the same detail as Budget 2026"
+      },
+      {
+        "source": "The National Fund's EU account and the Recovery Plan: the box's plan falls from €2,118.6 m (2026) to €1,320.9 m, €749.9 m and €631.3 m (2027–2029, Table III-1 of the forecast 2027–2029) as the account falls from €6,458.2 m to €2,823.1 m, €3,079.2 m and €2,453.7 m (annex 7) and the Recovery Plan ends (payments up to €3,960 m in 2026); in the 2025 actual 55% of the box was EU funds (€226.2 m). The RRP investments list (public/data/lists/rrp-investments.json) and the EU programme tables, mapped to ЕБК activities 888 „Структурни реформи“ and 897 (EU programmes in this group), are the next place to look — to verify",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Table III-1 gives the functions „с разпределен резерв по функции“ (with the contingency reserve distributed) without saying where it goes; the КФП reserve for disasters is €66.5 m a year (2026–2029, annex 3 of the forecast 2027–2029) and ЕБК activity 874 „Ликвидиране на последици от стихийни бедствия и производствени аварии“ is in this group — to verify",
+        "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
+        "basis": "mapped",
+        "access": "script"
       }
     ],
     "checked": "2026-11-14",
@@ -753,114 +701,14 @@
       {
         "date": "2026-11-14",
         "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-other",
-    "datasets": [
-      "budget-2027"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
-    },
-    "leads": [
-      {
-        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
-        "basis": "exact",
-        "access": "script",
-        "covers": "the same detail as Budget 2026"
-      }
-    ],
-    "checked": "2026-11-14",
-    "tried": [
+      },
       {
         "date": "2026-11-14",
-        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-agriculture",
-    "datasets": [
-      "budget-2027"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
-    },
-    "leads": [
-      {
-        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
-        "basis": "exact",
-        "access": "script",
-        "covers": "the same detail as Budget 2026"
-      }
-    ],
-    "checked": "2026-11-14",
-    "tried": [
+        "what": "\"Ministries 2027\" (draft): the economy ministry's area „Икономическо развитие и конкурентоспособност“ includes investment promotion in 2027, which is left out in 2026; nothing else maps here, so nothing is grafted."
+      },
       {
         "date": "2026-11-14",
-        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "o-police",
-    "datasets": [
-      "budget-2027"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
-    },
-    "leads": [
-      {
-        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
-        "basis": "exact",
-        "access": "script",
-        "covers": "the same detail as Budget 2026"
-      }
-    ],
-    "checked": "2026-11-14",
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "o-judiciary",
-    "datasets": [
-      "budget-2027"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
-    },
-    "leads": [
-      {
-        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
-        "basis": "exact",
-        "access": "script",
-        "covers": "the same detail as Budget 2026"
-      }
-    ],
-    "checked": "2026-11-14",
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+        "what": "Annex 8 of the forecast 2027–2029 (PDF p. 199): ДП „Управление и стопанисване на язовири“, column 2.1 „Разходи“ 8 672,2 thousand EUR, is now a part (e-other.dpusya); the box (€1,320.9 m) is no longer a leaf and this entry moved from e-other to its remainder e-other.rest (€1,312.2 m)."
       }
     ]
   },
@@ -888,6 +736,10 @@
       {
         "date": "2026-11-14",
         "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      },
+      {
+        "date": "2026-11-14",
+        "what": "\"Ministries 2027\" (draft) gives the defence ministry's two areas only; in 2026 both are mixed (military medicine, education and recreation, military police and intelligence), so nothing is grafted until the 2027 programme budgets."
       }
     ]
   },
@@ -915,66 +767,36 @@
       {
         "date": "2026-11-14",
         "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      },
+      {
+        "date": "2026-11-14",
+        "what": "\"Ministries 2027\" (draft): the regional ministry's areas are mixed in 2026 (roads, water, landslides, construction control, housing), so nothing is grafted until the 2027 programme budgets."
       }
     ]
   },
   {
     "family": "functions",
-    "node": "c-environment",
+    "node": "s-benefits.social-security.rest",
     "datasets": [
-      "budget-2027"
+      "report-2024",
+      "report-2025"
     ],
     "state": "todo",
-    "note": {
-      "bg": "В проектобюджета за 2027 г. (6.11.2026) това е една сума. Повече подробности ще има, когато законопроектът бъде внесен в Народното събрание с програмните бюджети на министерствата.",
-      "en": "In the 2027 draft budget (6 Nov 2026) this is a single amount. More detail will come when the bill reaches Parliament with the ministries’ programme budgets."
-    },
     "leads": [
       {
-        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
-        "basis": "exact",
-        "access": "script",
-        "covers": "the same detail as Budget 2026"
+        "source": "Which social-security budget other than the ДОО pays the rest of the КФП column (2025: 3,181.0 − 2,958.0 = 223.0 m BGN; 2024: 2,963.5 − 2,755.2 = 208.3 m BGN)? The MoF report puts the ДОО at 2,958.0 itself. Candidates to verify: Фонд „Гарантирани вземания на работниците и служителите“, the NHIF's aids for people with disabilities (NHIF 2025 report row 1.1.4.5, 39.7 m BGN; the КФП NHIF column in health is 443 m BGN below the NHIF's own total), the КФП monthly data by budget (minfin.bg, browser only)",
+        "basis": "mapped",
+        "access": "unknown"
       }
     ],
-    "checked": "2026-11-14",
     "tried": [
       {
         "date": "2026-11-14",
-        "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "s-pensions",
-    "datasets": [
-      "report-2024",
-      "report-2025"
-    ],
-    "state": "todo",
-    "leads": [
+        "what": "NSSI statistical report on the ДОО budget execution 2024 and 2025 (noi.bg, Excel), group Б by ЕБК paragraph: the ДОО's benefits only (2,755.2 and 2,958.0 m BGN) — now the parts by kind of benefit (data/sources/doo-benefits)."
+      },
       {
-        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
-        "basis": "exact",
-        "access": "unknown"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "s-benefits.social-security",
-    "datasets": [
-      "report-2024",
-      "report-2025"
-    ],
-    "state": "todo",
-    "leads": [
-      {
-        "source": "НОИ / ДОО execution data: reports on the ДОО budget by fund and benefit (not researched yet, docs/data-depth.md §5)",
-        "basis": "exact",
-        "access": "unknown",
-        "covers": "benefits by type (the plans take them from the bill's memorandum)"
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025 (РМС 673/2025 pr. 2, 737/2026 pr. 3), function V group Б: the text gives the ДОО's benefits (2,755.2; 2,958.0 m BGN) and the КФП table the social-security column (2,963.5; 3,181.0); neither names the rest. NHIF 2025 execution report (data/sources/report-2025): no benefit lines."
       }
     ]
   },
@@ -987,54 +809,21 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
-        "url": "https://www.strategy.bg/download/1327215",
-        "basis": "mapped",
-        "access": "script",
-        "covers": "labour ministry areas: people with disabilities €467.7 m, social inclusion €400.6 m, social assistance €231.3 m — mapping needed"
-      },
-      {
         "source": "2025 report pr.4: each unit's actuals by economic category with named subsidy recipients (2,823 rows; not extracted yet, docs/data-depth.md §2.1)",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
         "access": "script"
-      }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-energy.fses",
-    "datasets": [
-      "report-2025"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "Кого плаща фондът, се вижда в „Списъци“ › „Кой получава парите“ (платец: Фонд „Сигурност на електроенергийната система“); плащанията през СЕБРА покриват 99,8% от сумата за 2025 г.",
-      "en": "Whom the fund pays is in “Lists” › “Who gets paid” (payer: Electricity System Security Fund); its SEBRA payments cover 99.8% of the 2025 amount."
-    },
-    "checked": "2026-10-13",
-    "leads": [
+      },
       {
-        "source": "SEBRA payments of system 124 (ФСЕС) in 2025: €1,240.6 m = 99.8% of the КФП €1,243.3 m — companies €1,211.7 m (НЕК €317.3 m, Булгаргаз €72.7 m, Електрохолд Трейд €50.3 m, ЕВН България Електроснабдяване €49.2 m …), natural persons €27.7 m (never named)",
-        "basis": "payments",
-        "access": "script",
-        "covers": "99.8%",
-        "note": "data/sources/sebra/flows.csv.gz, payees.csv.gz; the current/capital split below is 99.99% current, so a parts file with \"replace\": true (reason: an economic split only)"
+        "source": "The labour ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown"
       }
-    ]
-  },
-  {
-    "family": "functions",
-    "node": "e-energy.fses",
-    "datasets": [
-      "report-2024"
     ],
-    "state": "todo",
-    "leads": [
+    "tried": [
       {
-        "source": "SEBRA payments of system 124 (ФСЕС) in 2024: €1,298.5 m = 100.6% of the КФП €1,290.4 m — over 100%, so not parts as they are: check payments to public bodies (consolidation) and timing",
-        "basis": "payments",
-        "access": "script"
+        "date": "2026-11-14",
+        "what": "Programme map on \"Ministries 2025 (actual)\" (pr.4, areas only): the labour ministry's three benefit areas (€1,099.6 m) each mix benefits (ЕБК 511–519) with staff (522, social services) and personal assistance (paid through the municipalities' column) or foster care, so none is a part; linked instead. On the 2025 plan's items the benefits would fit (€955.1 m of €986.5 m)."
       }
     ]
   },
@@ -1047,16 +836,21 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
-        "url": "https://www.strategy.bg/download/1327215",
+        "source": "The regional ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
         "basis": "mapped",
-        "access": "script",
-        "covers": "regional ministry \"Roads and technical infrastructure\" €1,197.7 m, transport ministry \"Transport\" €653.2 m — mapping needed"
+        "access": "unknown",
+        "covers": "programme 2100.02.01 (national roads) inside the mixed roads area"
       },
       {
         "source": "SEBRA payments of the transport and regional ministries and the road agency (\"Lists\" › \"Who gets paid\") — coverage to check",
         "basis": "payments",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the transport ministry's areas „Транспорт“ and „Съобщения“ and the communications regulator (€720.3 m) fit, but the regional ministry's roads area (€1,197.7 m) is mixed (with the plan's roads programme instead, €1,708.5 m of €1,914.0 m; with the whole area €4.0 m over). They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
@@ -1101,11 +895,16 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "source": "\"Ministries 2025 (actual)\" mapped by the programme map (data/drilldown/programme-map.csv, report-2025): the agriculture ministry's three areas and State Fund Agriculture's subsidies area (€446.8 m) — ready as parts if the current/capital split may be replaced",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
-        "access": "script",
-        "covers": "agriculture ministry €250.9 m, State Fund Agriculture €235.2 m"
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the agriculture ministry's three areas and State Fund Agriculture's subsidies area come to €446.8 m of €447.1 m — they fit. They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
@@ -1118,17 +917,22 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "source": "\"Ministries 2025 (actual)\" mapped by the programme map (data/drilldown/programme-map.csv, report-2025): the interior ministry's three operational areas, ДАНС, ДАТО, НСО and the intelligence agency (€2,247.5 m) — ready as parts if the current/capital split may be replaced",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
-        "access": "script",
-        "covers": "interior ministry areas €2,181.3 m (crime and public order €1,283.5 m, fire safety €339.5 m, borders €328.2 m …) — some belong to other sub-functions"
+        "access": "script"
       },
       {
         "source": "Interior ministry quarterly programme reports (forms Б.1 / Б.2) on mvr.bg (docs/data-depth.md §2.2)",
         "url": "https://mvr.bg/",
         "basis": "mapped",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the interior ministry's three operational areas, ДАНС, ДАТО, НСО and the intelligence agency come to €2,247.5 m (with the plan's information-systems programme 1300.04.01, €2,351.7 m) of €2,402.2 m — they fit. They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
@@ -1141,17 +945,22 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "source": "\"Ministries 2025 (actual)\" mapped by the programme map (data/drilldown/programme-map.csv, report-2025): the judiciary's budget (€694.6 m) — ready as parts if the current/capital split may be replaced",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
-        "access": "script",
-        "covers": "the judiciary by functional area €694.6 m (courts €398.8 m, prosecution €250.3 m …); the justice ministry's \"Justice\" €121.1 m"
+        "access": "script"
       },
       {
         "source": "2025 report pr.4: the judiciary's table by judicial body (not extracted: data/sources/report-2025/README.md)",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
         "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the judiciary (€694.6 m), with the plan's court security and legal aid (justice ministry, mixed area „Правосъдие“) €779.7 m of €792.1 m — they fit. They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
@@ -1164,9 +973,16 @@
     "state": "todo",
     "leads": [
       {
-        "source": "ministries-report-2025: the defence ministry's \"Defence capabilities\" €2,258.1 m is larger than the box (€2,129.7 m), so a link (graft mode=link), not parts",
+        "source": "The defence ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
         "basis": "mapped",
-        "access": "script"
+        "access": "unknown",
+        "covers": "the armed forces, investment projects, administration (in the 2025 plan €2,018.0 m)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the defence ministry (€2,334.0 m) and its area „Отбранителни способности“ (€2,258.1 m) are larger than the box: they hold military medicine, education, police and intelligence. On the plan's programmes the defence part would fit (€2,018.0 m). Linked; parts would also need the current/capital split replaced (left open)."
       }
     ]
   },
@@ -1179,27 +995,41 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "source": "\"Ministries 2025 (actual)\" mapped by the programme map (data/drilldown/programme-map.csv, report-2025): the administration areas, the finance and foreign ministries' areas, the National Assembly, the regional governors and the independent bodies (€1,000.6 m) — ready as parts if the current/capital split may be replaced",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
-        "access": "script",
-        "covers": "the administration areas of all units, Parliament, Council of Ministers, regional governors"
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the administration areas and independent bodies come to €1,000.6 m of €1,016.2 m — they fit. They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
   {
     "family": "functions",
-    "node": "g-interest.state",
-    "datasets": [
-      "report-2024",
-      "report-2025"
-    ],
+    "node": "g-interest.state.external",
     "state": "todo",
     "leads": [
       {
-        "source": "Interest by instrument (domestic / external debt): the debt section of the budget report, MoF debt bulletins — to verify",
+        "source": "By instrument (each eurobond issue, loans): the MoF's monthly bulletin „Държавен дълг“ and annual report on government debt management (minfin.bg) — to verify",
         "basis": "exact",
-        "access": "unknown"
+        "access": "browser"
+      },
+      {
+        "source": "The execution reports split it into the central budget's external loans (2025: 1,165.2 m BGN) and the state investment loans run by ministries (13.3 m BGN; 2024: 814.1 and 16.8)",
+        "url": "https://www.strategy.bg/download/1327172",
+        "basis": "exact",
+        "access": "script",
+        "covers": "99% / 1%"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025 (strategy.bg): the State Budget's interest on external and domestic debt — now the parts (data/sources/interest-eu); the same figures in euro are in the MTBF 2026–2028 (487.4 = 424.8 + 62.6; 708.9 = 602.5 + 106.4)."
       }
     ]
   },
@@ -1212,11 +1042,16 @@
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
+        "source": "\"Ministries 2025 (actual)\" mapped by the programme map (data/drilldown/programme-map.csv, report-2025): the education ministry's area „Предучилищно и училищно образование“ and the youth area (€486.3 m) — ready as parts if the current/capital split may be replaced",
         "url": "https://www.strategy.bg/download/1327215",
         "basis": "mapped",
-        "access": "script",
-        "covers": "education ministry: pre-school and school education €483.3 m, higher education and science €35.5 m"
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the education ministry's school area and the youth area (€486.3 m), with the plan's higher-education programmes, art schools and military education €573.7 m of €587.7 m — they fit. They are not parts: the box is split into current and capital spending only, and parts would replace that split — a decision left open. Linked instead (grafts.csv mode=link)."
       }
     ]
   },
@@ -1245,17 +1080,14 @@
     "family": "functions",
     "node": "health.other",
     "datasets": [
-      "report-2024",
-      "report-2025"
+      "report-2024"
     ],
     "state": "todo",
     "leads": [
       {
-        "source": "2025 report pr.4: the ministries' actuals by policy area (ministries-report-2025), mapped area → sub-function",
-        "url": "https://www.strategy.bg/download/1327215",
+        "source": "2024 report (РМС № 673/2025) pr.4: the ministries' actuals by policy area — not extracted yet; the programme map would place the health ministry's areas here as in 2025",
         "basis": "mapped",
-        "access": "script",
-        "covers": "health ministry areas: diagnostics and treatment €475.8 m, public health €88.1 m …"
+        "access": "script"
       },
       {
         "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
@@ -1462,35 +1294,6 @@
   },
   {
     "family": "functions",
-    "node": "e-energy",
-    "datasets": [
-      "budget-2027"
-    ],
-    "state": "todo",
-    "note": {
-      "bg": "Голяма част от сумата са разходите на Фонд „Сигурност на електроенергийната система“ — 1,36 млрд. € през 2027 г. по средносрочната прогноза 2027–2029.",
-      "en": "Much of this is the Electricity System Security Fund’s spending — €1.36 bn in 2027 by the medium-term forecast 2027–2029."
-    },
-    "checked": "2026-11-14",
-    "leads": [
-      {
-        "source": "Updated medium-term budget forecast 2027–2029 (6.11.2026) annex 8 „Размери на разходите и трансферите (нето) по други икономически обособени лица и структурни единици, включени в КФП“: ФСЕС 1 356 342.9 (2027), 1 076 282.9 (2028), 1 076 282.9 (2029) thousand EUR",
-        "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
-        "basis": "mapped",
-        "access": "browser",
-        "covers": "2027 ≈95% of the box (€1,356.3 m of €1,422.6 m)",
-        "note": "as for 2026: in the 2024 and 2025 actuals all of ФСЕС’s КФП spending is in this sub-function"
-      }
-    ],
-    "tried": [
-      {
-        "date": "2026-11-14",
-        "what": "forecast 2027–2029 annex 8 read (local copy data/cache/mtbf-2027-2029/); not yet a part: the mapping of ФСЕС to this sub-function is inferred, not printed"
-      }
-    ]
-  },
-  {
-    "family": "functions",
     "node": "h-nhif",
     "datasets": [
       "budget-2027"
@@ -1541,7 +1344,2697 @@
       {
         "date": "2026-11-14",
         "what": "Draft State Budget Act 2027 and the updated medium-term budget forecast 2027–2029 (minfin.bg/bg/legislation7/632, 6.11.2026, browser only): this box is one amount there; no programme budgets, НЗОК or ДОО tables are published yet; the bills are not in Parliament (parliament.bg checked 14.11.2026)"
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2027\" (areas only) the labour ministry's areas „Пазар на труда и заетост“ and „Трудови отношения“ (€104.8 m); its other areas mix benefits and services in 2026 and wait for the 2027 programme budgets."
       }
     ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-accident",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "One kind of pension: disability pensions due to a work accident or occupational disease (yearbook table 6.3: three rows by scheme and one for Art. 69 persons, all of this kind)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-teachers.pensions",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "ДОО Budget Acts 2024–2026, annex 4 (Teachers’ Pension Fund) and NSSI yearbook „Пенсии“ table 10.17: pensions and supplements are the fund’s two kinds of payment (plus a supplement for assistance, €6 k in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-teachers.supplements",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "ДОО Budget Acts 2024–2026, annex 4 (Teachers’ Pension Fund) and NSSI yearbook „Пенсии“ table 10.17: pensions and supplements are the fund’s two kinds of payment (plus a supplement for assistance, €6 k in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-labour.old-age",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-labour.disability",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-labour.one-off",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Table 6.1 itemises it into the Easter and Christmas supplements of the year and amounts for past years (2025: €18.0 m, €32.4 m, €2.2 m); kept as one box."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-labour.earlier-schemes",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Five small rows of table 6.3 (ЗПЗСК, СВОК на ТПК, private craftsmen and traders), €11.1 m in 2025."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-labour.transfers",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-art69.old-age",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-art69.disability",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.social-disability",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.social-old-age",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.military-disability",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.repressed",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.personal",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.civil-disability",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-pen-noncontrib.other",
+    "state": "final",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI yearbook „Пенсии“ 2024 and 2025 (noi.bg, Excel): table 6.3 is the finest split of pension spending (fund × kind of pension); survivors’ pensions are counted under the kind they derive from (table 2.4) and not costed separately; tables 6.1, 9.7 add only totals and NSSI regional offices."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Eight small rows of table 6.3 (€0.2 m in 2025): kept together."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "fses.bg „Отчети за дейността“: monthly „Отчет приходи и разходи“ of the fund (2021 – October 2026) — to verify whether the fund’s budget for the year is published there or elsewhere by kind of expenditure (premiums to renewable and cogeneration producers, НЕК’s long-term contracts, the compensation programmes …)",
+        "url": "https://www.fses.bg/reports",
+        "basis": "mapped",
+        "access": "script",
+        "note": "the site answers scripts (HTTP 200, 14.11.2026); the reports are actuals, so a plan split needs the fund’s own budget"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Split off from „Енергетика, горива и минно дело“ with annex 8 of the forecasts (2026: РМС № 597/2026, strategy.bg/download/1324547; 2027: the forecast 2027–2029, local copy data/cache/mtbf-2027-2029/), column 2.1 „Разходи“ (expenditure without the net transfers of column 2.2; in 2026 the €36.4 m from the Ministry of Energy, State Budget Act 2026 art. 21(1) III.2.1.1). The forecasts give the fund one line only."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "fses.bg answers scripts: „Отчети за дейността“ lists monthly income and expenditure reports 2021–2026 (actuals); not read yet."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024 and 2025: the same row of annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg) and the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995), column 2.1 „Разходи“: 2 609 569,0 and 2 024 055,1 thousand BGN (€1,334.3 m, €1,034.9 m). Net transfers (2.2): none in 2024; 685 026,1 in 2025 = the Ministry of Energy's transfer to the fund in the State Budget Act 2025."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses",
+    "datasets": [
+      "report-2024",
+      "report-2025"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "fses.bg „Отчети за дейността“: monthly „Отчет приходи и разходи“ of the fund (2021 – October 2026; the December report covers the year), e.g. https://www.fses.bg/otcheti/Otchet_prihodi_12.2025%20%20МЕ_6973237e65d7c.pdf — to verify whether it splits expenditure by kind (premiums to renewable and cogeneration producers, the public supplier НЕК’s long-term contracts, the compensation programmes …)",
+        "url": "https://www.fses.bg/reports",
+        "basis": "exact",
+        "access": "script",
+        "note": "the site answers scripts (HTTP 200, 14.11.2026); not downloaded yet. A split by kind would be a second view of the box (the recipients are its parts now): a link, or parts under the recipients"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Split into recipients from the fund’s SEBRA payments (data/sources/sebra/sebra-fses.parts.csv): 2025 €1,240.6 m = 99.78% of the box, 2024 €1,290.0 m = 99.97%, after leaving out payment codes that are not spending (60 transfers: the Ministry of Energy €5.17 m in 2024; 89 financing: the fund’s own account „ФСЕЛС“ €1.67 m in 2024; 90 refunds of revenue €0.02 m in 2025), КФП bodies (Sofia municipality, €2.7 k and €3.2 k) and one payment returned to the fund (13.11.2024, ЕВН България Електроснабдяване, €1,639,671.46: a closed account; back on 14.11.2024 as code 98 in SEBRA’s daily totals and paid again that day). Before that, 2024 was 100.6%."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "2024 accounting check: SEBRA’s daily totals for the fund’s spending codes 01–50 (all payments, any size) are €1,297.35 m; less the returned payments (code 98, €1.81 m) and the €5.17 m transfer to the Ministry of Energy they give €1,290.37 m = the КФП €1,290.35 m to €0.02 m — the КФП figure appears net of that transfer. In 2025 the daily totals (€1,243.30 m) equal the КФП (€1,243.31 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.rest",
+    "state": "no-source",
+    "checked": "2026-11-14",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The individual SEBRA list (data.egov.bg dataset 20439) has only payments of 5,000 leva or more; smaller payments and staff pay are only in SEBRA’s daily totals by payment code (dataset 7806), without payees."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.rest",
+    "datasets": [
+      "budget-2026"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "About €1.27 bn of the 2026 sub-function is neither ФСЕС (annex 8) nor the Ministry of Energy’s programmes (ПМС № 102/2026): EU-funded energy projects (Recovery Plan: energy storage, renewables, heating …)? to verify — in 2027 ФСЕС alone is 95% of the box, so the 2026 gap may be one-off",
+        "basis": "mapped",
+        "access": "unknown",
+        "note": "the reports show the sub-function’s EU column at €26.8 m (2024) and €69.4 m (2025); the RRP investments list (public/data/lists/rrp-investments.json) and the 2026 forecast’s Recovery Plan section are the next places to look"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-10-13",
+        "what": "MTBF 2026–2028 (РМС № 597/2026, DOCX) Table III-1: function totals only."
+      },
+      {
+        "date": "2026-10-13",
+        "what": "АЕЦ „Козлодуй“ ЕАД is a state company outside the budget: SEBRA paid it €0.48 m in 07.2022–06.2026, mostly court-fee refunds; its own purchases are in the procurement lists as a buyer (ЕИК 106513772; €204.8 m in 363 contracts in 2025); the unit 7 loans carry a state guarantee of up to €1,500,417,089 (ЗДБ 2024 and 2026), which is not spending."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2026–2028: ФСЕС €1,487.8 m is now a part (data/sources/budget-2026/mtbf-2026-2028-fses.parts.csv); the Ministry of Energy’s policy area 2400.01 „Енергетика“ (€38.4 m) is grafted from \"Ministries 2026\" (ЕБК activities 801–809 are all in this sub-function); its administration 2400.02 (€4.9 m) is not (ЕБК activity 108, function I). Annex 8’s other entities (the environment enterprise ПУДООС, the Agricultural Academy, research centres …) are not energy."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The rest (€29.5 m): EU-funded energy projects and other bodies — to verify",
+        "basis": "mapped",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "forecast 2027–2029 annex 8 read (local copy data/cache/mtbf-2027-2029/); not yet a part: the mapping of ФСЕС to this sub-function is inferred, not printed"
+      },
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 forecast’s annex 8 ФСЕС (€1,356.3 m) is now a part (data/sources/budget-2027/mtbf-2027-2029-fses.parts.csv), basis mapped as in 2026; \"Ministries 2027\" has no programmes yet, so no graft."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the Ministry of Energy's area „Енергетика“ from \"Ministries 2027\" (draft, €36.8 m) at area level; its programmes come with the 2027 programme budgets."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.e956gxbm",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.175203485",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.201398872",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.113012360",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.114005624",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.brv67g5a",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.117005106",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.113570147",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.115016602",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.4xjbro94",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.k6nnwvrt",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.175370769",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.yqdt35f6",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ww1lt0i5",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.109513731",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.102011085",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.sl5ufg2m",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.202668908",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.8qp9kfty",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.41ooz9f0",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.z0ho0p26",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.115552190",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.6yn58btl",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.106006256",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.123655865",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.206705510",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.kpzp0nvp",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.103195446",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.131346040",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.7evczo1v",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.7cy94ull",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.p8mj6mx6",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.n773by0g",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.205606662",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.103533691",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.aizoot70",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.y0vrinad",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.56q9b2tr",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.104003977",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.daag2jhg",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.q8klul68",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.5ttesomr",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.b5m9woo3",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ovjquyd5",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ulcuvse6",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.6mfe4tie",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.m4g57ggi",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.b0mrz89j",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.nx1w8uea",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.amju22hm",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.jdi1uvrd",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.106588084",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.8glapg4p",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.qkru5jkg",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ur7cbw97",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.8d58aovn",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.campmiee",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.uyg9o874",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.omqadkzz",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.0qc03x86",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.qs2q7nfk",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.201325372",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.06myhdrh",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.e6gnmlc1",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.l7v4oilh",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.hgkc1nlu",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.tyausuv3",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.le1in567",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.201149482",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.7ch0h0r9",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ri6epy1a",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.ml0q79ki",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.uw3q9d09",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.fcq4jdoq",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.w6yis4md",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.dga86xom",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.qcf0gfko",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.hwqy2787",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.d4j1h9dd",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.xqt60bds",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.106028833",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.1rfou854",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.hurm38sv",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.persons",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.other-payees",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.175133827",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.200907117",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.200929754",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.nu2of2s9",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.lofj6ir8",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.sg3f80t4",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.zvplbwel",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.175392783",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.zs4u5kk4",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.fses.2k5173vk",
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В отчета за 2025 г. извън държавния бюджет са 878,0 млн. € европейски средства и 542,9 млн. € на общините в тази подфункция.",
+      "en": "In the 2025 actual, €878.0 m of this sub-function came from EU funds and €542.9 m from municipalities, outside the state budget."
+    },
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Transport Connectivity programme, Recovery Plan transport investments"
+      },
+      {
+        "source": "MTBF 2026–2028 (РМС № 597/2026) annex 8: other КФП entities (state enterprises?) — to verify which ones are transport",
+        "url": "https://strategy.bg/download/1324547",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' transport activities (public transport …)"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the transport ministry's area „Администрация, медицинска и психологическа експертиза“ (€17.7 m in 2026: central administration and the medical assessment of transport staff — mixed)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted from \"Ministries 2026\" / \"Ministries 2025\": the regional ministry's national-roads programme 2100.02.01 (€962.6 m in 2026), the transport ministry's areas „Транспорт“ (2300.01) and „Съобщения и цифрова свързаност“ (2300.02), and the Communications Regulation Commission (ЕБК 838) — €1,529.0 m of €3,449.4 m in 2026, €1,558.5 m of €2,921.5 m in 2025. In the 2025 actual the state-budget column of this sub-function was €1,914.0 m; the same mapping on the 2025 actuals (areas) and plan (split programmes) gives €1,708.5 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "Проектобюджетът за 2027 г. дава само политиките на министерствата: тук са тези на транспортното министерство; пътищата (програма на регионалното министерство) ще се видят с програмните бюджети за 2027 г.",
+      "en": "The 2027 draft gives only the ministries’ policy areas: the transport ministry’s are shown; the national roads (a programme of the regional ministry) will show with the 2027 programme budgets."
+    },
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      },
+      {
+        "source": "2027 bills in Parliament — State Budget (with the ministries’ programme budgets), НЗОК and ДОО — and their memoranda; not yet submitted on 14.11.2026 (parliament.bg bill ZIP)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the same detail as Budget 2026"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Transport Connectivity programme, Recovery Plan transport investments"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2027\" (draft, areas only) the areas that in 2026 go wholly to this box: the transport ministry's „Транспорт“ and „Съобщения и цифрова свързаност“ and the Communications Regulation Commission (€571.8 m). The regional ministry's area „Пътища и техническа инфраструктура“ (€1,186.1 m) mixes roads with water, landslides and construction control in 2026, so it waits for the programme budgets."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В отчета за 2025 г. 123,3 млн. € от тази подфункция са европейски средства и 21,2 млн. € — на общините.",
+      "en": "In the 2025 actual, €123.3 m of this sub-function came from EU funds and €21.2 m from municipalities."
+    },
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "EU home-affairs funds (Internal Security Fund, Border Management and Visa Instrument) — to verify"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the defence ministry's military police (1200.01.03, €40.0 m) and military intelligence (1200.02.02, €55.2 m): ЕБК activity not certain; the interior ministry's academy and research (1300.04.03, €30.6 m: education and research)",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "municipal police and guards (ЕБК 239)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted: the interior ministry's areas „Борба с престъпността и обществен ред“, „Охрана на границите и миграция“, „Пожарна безопасност и защита при бедствия“ (fire service, ЕБК 224) and its programme 1300.04.01, ДАНС, НСО, ДА „Разузнаване“ and ДА „Технически операции“ — €2,344.8 m of €2,750.3 m in 2026, €2,357.6 m of €2,750.4 m in 2025. The ministry's hospital (1300.04.02) went to health. Cross-check: on the 2025 actuals the same mapping gives €2,351.7 m against a state-budget column of €2,402.2 m; adding the Information Security Commission or the military services would exceed it."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "EU home-affairs funds — to verify"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2027\" (areas only): the interior ministry's three operational areas and the four security agencies (€2,186.3 m of €2,670.5 m). The ministry's area „Управление и развитие на МВР“ (€201.4 m) holds its hospital and academy in 2026, so it waits for the 2027 programme budgets."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-fighting-crime-and-keeping-public-order",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into staff, running and capital costs (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-fire-safety-and-civil-protection",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into staff, running and capital costs (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-border-protection-and-migration",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into staff, running and capital costs (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-fighting-crime-and-keeping-public-order.p1300-01-01-staff",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Staff costs of the police (ПМС annex 1, departmental spending): a kind of spending; finer splits would be by unit, not by purpose."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-fire-safety-and-civil-protection.p1300-03-01-staff",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Staff costs of the fire service (ПМС annex 1): a kind of spending."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-border-protection-and-migration",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "One programme, split in the decree only into staff, running and capital costs: as fine as the programme budgets go."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the defence ministry's military police (1200.01.03, €40.0 m in 2026) and military intelligence (1200.02.02, €55.2 m): services under the minister, outside the armed forces; ЕБК activity not certain (defence or internal security)",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Other bodies' defence-mobilisation preparation (ЕБК 207) and EU funds: no table found",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted the defence ministry's programmes for the armed forces (1200.01.01), administration and infrastructure (.08), investment projects (.09), human resources (.02), research (.06) and NATO/EU membership (1200.02.01) — €2,354.7 m of €2,467.8 m in 2026, €2,018.0 m of €2,126.8 m in 2025. Military medicine (.04) went to health, military education (.07) to education; recreation and military clubs (.05) are left out (culture and recreation). Cross-check: in the 2025 actual the defence column (€2,129.7 m) is €82.6 m less than the ministry's actual minus the three programmes placed elsewhere, so about that much more of its spending is booked under other functions — not identified, which is why the military police and intelligence are left out."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence.p1200-01-09",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Priority investment projects 2026 (State Budget Act annex 2; \"Lists\" › \"Investment projects\"): defence 34 projects, €841.5 m capital — a list, not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Investment projects of the armed forces: the decree splits them only into staff, running and capital costs."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence.p1200-01-01.p1200-01-01-staff",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Staff costs of the armed forces (ПМС annex 1): a kind of spending."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence.p1200-01-08.p1200-01-08-capital",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Priority investment projects 2026 (State Budget Act annex 2; \"Lists\" › \"Investment projects\"): defence 34 projects, €841.5 m capital — a list, not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Capital spending of the programme for administration, infrastructure and risk management: no finer split in the decree."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-other.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The National Fund's EU account and the Recovery Plan: the box's plan falls from €2,118.6 m (2026) to €1,320.9 m, €749.9 m and €631.3 m (2027–2029, Table III-1 of the forecast 2027–2029) as the account falls from €6,458.2 m to €2,823.1 m, €3,079.2 m and €2,453.7 m (annex 7) and the Recovery Plan ends (payments up to €3,960 m in 2026); in the 2025 actual 55% of the box was EU funds (€226.2 m). The RRP investments list (public/data/lists/rrp-investments.json) and the EU programme tables, mapped to ЕБК activities 888 „Структурни реформи“ and 897 (EU programmes in this group), are the next place to look — to verify",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "Table III-1 gives the functions „с разпределен резерв по функции“ (with the contingency reserve distributed) without saying where it goes; the КФП reserve for disasters is €66.5 m a year (2026–2029, annex 3 of the forecast 2027–2029) and ЕБК activity 874 „Ликвидиране на последици от стихийни бедствия и производствени аварии“ is in this group — to verify",
+        "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the competitiveness programmes, Recovery Plan"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): investment promotion (2000.01.08 in 2026; the former Ministry of Innovation and Growth in 2025), the innovation ministry's innovation area (7400.01), the economy ministry's offices abroad (2000.02): ЕБК not certain; in the 2025 actual the state-budget column (€48.3 m) holds only the economy ministry's area",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted the economy ministry's area „Икономическо развитие и конкурентоспособност“ (2000.01; in 2026 without investment promotion) — €46.3 m in both years. Cross-check: on the 2025 actual the area is €48.8 m against a state-budget column of €48.3 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2026–2028: ДП „Управление и стопанисване на язовири“, column 2.1 „Разходи“ 9 712,1 thousand EUR (all of it the economy ministry's transfer, State Budget Act 2026 art. 19), is now a part of budget-2026 (e-other.dpusya; remainder €2,072.3 m → €2,062.6 m). In the 2024 and 2025 reports the column ДПУСЯ is only in „Други дейности по икономиката“."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Read the forecasts 2026–2028 (DOCX) and 2027–2029 (PDF) for this sub-function: it appears only as one line of Table III-1 (2025 plan €1,029.4 m; 2026 €2,118.6 m; 2027 €1,486.3 m in the 2026 forecast, €1,320.9 m in the 2027 one); the policy chapters (the economy ministry: no amounts), the EU-funds chapter (National Fund and Recovery Plan totals only) and annexes 3–8 give no figure that belongs wholly here except annex 8's dam enterprise. The 2025 report's columns: state budget €48.3 m, municipalities €126.9 m, EU funds €226.2 m, others €7.8 m, academies €1.4 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2025: annex 8 of the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995): ДП „Управление и стопанисване на язовири“, column 2.1 21 105,8 thousand BGN (€10.8 m, all of it the economy ministry's transfer in the State Budget Act 2025) is now a part (e-other.dpusya); remainder €983.1 m → €972.3 m. Annexes 7–8 hold nothing else that belongs wholly here."
+      }
+    ],
+    "note": {
+      "bg": "Плановете предвиждат тук много повече, отколкото е похарчено: 1 029,4 млн. € за 2025 г. и 2 118,6 млн. € за 2026 г., а по отчета за 2025 г. цялата подфункция е 410,5 млн. €. Средносрочните прогнози не казват какво стои зад тази сума.",
+      "en": "The plans put far more here than is spent: €1,029.4 m for 2025 and €2,118.6 m for 2026, while in the 2025 actual the whole sub-function was €410.5 m. The medium-term forecasts do not say what is behind the amount."
+    }
+  },
+  {
+    "family": "functions",
+    "node": "c-housing.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В отчета за 2025 г. тази функция е главно на общините (814,8 млн. €) и с европейски средства (258,1 млн. €); собствените разходи на държавния бюджет са 33,2 млн. €.",
+      "en": "In the 2025 actual this function was mainly municipal (€814.8 m) and EU-funded (€258.1 m); the state budget’s own spending was €33.2 m."
+    },
+    "leads": [
+      {
+        "source": "Investment Programme for Municipal Projects (ПМС № 103/2026, \"Lists\"): capital transfers whose functions are not given — to verify",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Development of the Regions programme"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' water, lighting and street works (ЕБК 603–606)"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the regional ministry's programme 2100.02.02 (spatial planning, water and sewerage, landslide protection, €44.8 m in 2026: housing and environment mixed)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted the regional ministry's construction control (2100.02.03, ДНСК, ЕБК 601) and housing renovation (2100.01.02) — €28.2 m of €1,886.4 m in 2026, €17.4 m of €1,259.2 m in 2025."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В отчета за 2025 г. 859,9 млн. € от тази подфункция са европейски средства, 17,7 млн. € — на общините.",
+      "en": "In the 2025 actual, €859.9 m of this sub-function were EU funds and €17.7 m municipal."
+    },
+    "leads": [
+      {
+        "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
+        "basis": "payments",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the Strategic Plan for Agriculture (EAFRD, EAGF), the fisheries programme"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): State Fund Agriculture's VAT refunds to municipalities on rural-development projects (€25.0 m in 2026, a transfer spent under the projects' own functions)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted the agriculture ministry's areas „Земеделие и селски райони“, „Гори и дивеч“, „Рибарство и аквакултури“ and State Fund Agriculture's programmes (state aid, market measures, direct payments, the fund's rural-development staff) — €444.4 m of €1,409.4 m in 2026, €426.4 m of €1,924.9 m in 2025. The two administrations went to the executive bodies. Cross-check: on the 2025 actual the same areas are €446.8 m against a state-budget column of €447.1 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 7 of the forecast 2026–2028 (DOCX table 32): State Fund Agriculture's EU account, column 2.1 „Разходи“ 692 956,5 thousand EUR, is now a part of budget-2026 (e-agriculture.sfa-eu, data/sources/budget-2026/mtbf-2026-2028-sfa-eu.parts.csv; remainder €965.0 m → €272.0 m). The forecast gives the National Fund's EU account (annex 7 row 2: €6,458.2 m in 2026; €2,823.1 m in the 2027–2029 forecast for 2027) and the Recovery Plan's 2026 payments (up to €3,960 m, chapter on EU funds › National Fund › expenditure) as totals only, with no figures by programme or function; nothing else placed."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2025: annex 7 of the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995), row 1, column 2.1 „Разходи“ 2 312 830,3 thousand BGN (€1,182.5 m) is now a part (e-agriculture.sfa-eu, data/sources/budget-2025/mtbf-2025-2028-sfa-eu.parts.csv); remainder €1,498.5 m → €316.0 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      },
+      {
+        "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
+        "basis": "payments",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2027\" (areas only) the agriculture ministry's three areas (€182.5 m). State Fund Agriculture's subsidies area (€257.9 m) includes a transfer to municipalities in 2026, so it waits for the 2027 programme budgets."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 7 of the forecast 2027–2029 (PDF p. 198): State Fund Agriculture's EU account, column 2.1 „Разходи“ 615 744,3 thousand EUR, is now a part (e-agriculture.sfa-eu; remainder €982.9 m → €367.1 m). The rest includes State Fund Agriculture's subsidies area (€257.9 m), which waits for the 2027 programme budgets."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary.rest",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the justice ministry's „Правна рамка“ (1400.01.01, incl. subsidies to political parties) and the Registry Agency (1400.01.02): function I and housing (property register); in the 2027 draft the whole „Правосъдие“ area waits for the programme budgets",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped and grafted the judiciary (art. of the State Budget Act, by functional area), the security of the courts (1400.01.03) and legal aid (1400.01.04) — €850.6 m of €870.6 m in 2026, €792.9 m of €819.5 m in 2025; in the 2027 draft (areas only) the judiciary (€752.2 m). Cross-check: on the 2025 actual the same mapping gives €779.7 m against a state-budget column of €792.1 m; adding the ministry's „Правна рамка“ would exceed it."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the judiciary's budget (€624.5 m of €733.6 m); the justice ministry's area „Правосъдие“ (court security, legal aid, registries) is mixed and left out."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary.judiciary.judiciary-administration-of-justice-courts",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "State Budget Act, the judiciary's article: amounts by judicial body (Supreme Court of Cassation, Supreme Administrative Court, courts, prosecution …) if the act has a table — to verify",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The courts' area has no programmes in the decree (the judiciary is not in ПМС annex 1)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary.judiciary.judiciary-upholding-the-law-prosecution",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The prosecution is one body of the judiciary; its budget is one area."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment.rest",
+    "datasets": [
+      "budget-2025",
+      "budget-2026"
+    ],
+    "state": "todo",
+    "note": {
+      "bg": "В отчета за 2025 г. общините са похарчили 627,8 млн. € и европейските средства 130,8 млн. € в тази функция; държавният бюджет — 50,5 млн. €.",
+      "en": "In the 2025 actual, municipalities spent €627.8 m and EU funds €130.8 m in this function; the state budget €50.5 m."
+    },
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "Environment programme"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' waste, cleaning and green areas (ЕБК 622–627)"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, target „left out“): the environment ministry's meteorology and hydrology (НИМХ, €19.5 m in 2026: ЕБК not certain), the regional ministry's landslide protection inside programme 2100.02.02 (mixed)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped by ЕБК activity and grafted the environment ministry's areas „Опазване на околната среда“ and „Мониторинг на околната среда“ — €39.7 m of €824.4 m in 2026, €41.2 m of €827.1 m in 2025. Cross-check: €39.4 m on the 2025 actual against a state-budget column of €50.5 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2026–2028: ПУДООС, column 2.1 „Разходи“ 32 087,1 thousand EUR (without its net transfers of 19 432,2: the environment ministry's 22 500,0 to it less 3 067,8 back, State Budget Act 2026 art. 18), is now a part of budget-2026 (c-environment.pudoos; remainder €784.7 m → €752.6 m). In the 2024 and 2025 reports the column ПУДООС has spending only in „Опазване на околната среда“."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2025: annex 8 of the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995): ПУДООС, column 2.1 69 729,9 thousand BGN (€35.7 m; net transfers 36 200,0 = the environment ministry's 42 200,0 to it less 6 000,0 back, State Budget Act 2025) is now a part (c-environment.pudoos); remainder €785.9 m → €750.3 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment.rest",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2027\" the environment ministry's two areas (€40.7 m)."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2027–2029 (PDF p. 199): ПУДООС, column 2.1 „Разходи“ 47 753,4 thousand EUR, is now a part (c-environment.pudoos; remainder €945.2 m → €897.4 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-prisons.rest",
+    "datasets": [
+      "budget-2024",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "to verify which programmes"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' activities in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped and grafted the justice ministry's programmes 1400.02.01 (prisons) and 1400.02.02 (arrests and probation): €226.0 m of €229.1 m in 2026, all of the box in 2025 (€222.2 m of €222.3 m); in the 2027 draft the area (€226.6 m of €235.6 m). Cross-check: on the 2025 actual the area equals the state-budget column (€215.8 m)."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the justice ministry's area „Затвори и изпълнение на наказанията“ (€149.7 m of €154.3 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-sport.rest",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "to verify which programmes"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' activities in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped and grafted the sport ministry's areas „Спорт за високи постижения“, „Спортни бази и съоръжения“, „Международни практики в спорта“ and programme 2500.01.02 (sport for all): €69.0 m of €162.6 m in 2026, €72.2 m of €127.9 m in 2025; 2027 areas €78.5 m. Left out: sport for pupils and students (2500.01.01: education or sport). Cross-check: on the 2025 actual the mapped areas (€62.0 m) exceed the state-budget column (€53.3 m) by €8.7 m, so part of the ministry's sport spending is booked elsewhere (perhaps the payments to athletes) — not resolved."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the sport ministry's areas for elite sport, sports facilities and international practice (€48.1 m of €84.2 m). The 2024 actual's state-budget column for sport is €43.7 m, below these plan areas, as in 2025."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-services.rest",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "to verify which programmes"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' activities in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Mapped and grafted the National Statistical Institute (ЕБК 141), the State Reserve (147), the Council of Ministers' other programmes (refugees 145, other services 149) and EU-funds management (146), and the foreign ministry's support for Bulgarians abroad (144): €122.8 m of €147.8 m in 2026, €97.9 m of €115.0 m in 2025, €93.1 m of €107.1 m in 2027. Cross-check: €88.5 m on the 2025 actual against a state-budget column of €92.3 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted the NSI, the State Reserve, the Council of Ministers' other programmes and EU-funds management, and support for Bulgarians abroad (€61.0 m of €76.4 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-religion.rest",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "to verify which programmes"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' activities in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the Council of Ministers' subsidies to religious denominations (ЕБК 762): €36.7 m of €50.6 m in 2026, €40.1 m of €46.2 m in 2025, €36.7 m of €46.3 m in 2027. Cross-check: on the 2025 actual it equals the state-budget column (€44.6 m); the rest is municipalities and other bodies."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-tourism.rest",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "to verify which programmes"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' activities in this sub-function"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the tourism ministry's area „Развитие на туризма“ (its administration went to the executive bodies): €11.9 m of €41.4 m in 2026, €12.3 m of €41.4 m in 2025, €21.5 m of €47.5 m in 2027. Cross-check: €17.9 m on the 2025 actual against a state-budget column of €17.6 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024: grafted „Развитие на туризма“ (€12.7 m of €43.7 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.rest",
+    "datasets": [
+      "budget-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "About €540.6 m of the 2025 plan is neither ФСЕС (annex 8) nor the Ministry of Energy’s area: EU-funded energy projects (Recovery Plan: energy storage, renewables, heating …)? to verify",
+        "basis": "mapped",
+        "access": "unknown",
+        "note": "the 2025 report shows the sub-function’s EU column at €69.4 m; the RRP investments list (public/data/lists/rrp-investments.json) is the next place to look"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the Ministry of Energy's area „Енергетика“ (2400.01, €37.9 m) from \"Ministries 2025\", as in 2026."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995): ФСЕС, column 2.1 „Разходи“ 2 024 055,1 thousand BGN (€1,034.9 m), is now a part (data/sources/budget-2025/mtbf-2025-2028-fses.parts.csv); remainder €1,575.5 m → €540.6 m. The forecast gives the fund one line only."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-science.rest",
+    "datasets": [
+      "budget-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The Academy of Sciences' 2025 subsidy (240,292.2 thousand BGN, MTBF 2025–2028 annex 6; data/sources/budget-2025/transfers-universities-2025.csv): a part as in 2026",
+        "url": "https://www.strategy.bg/download/1296995",
+        "basis": "exact",
+        "access": "script"
+      },
+      {
+        "source": "The Academy's own revenue and EU funds, university research: no source found (docs/data-depth.md §2.9)",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the education ministry's research programmes 1700.02.04 and 1700.02.05 (€23.6 m) from \"Ministries 2025\"."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2025: annex 8 of the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995): Селскостопанска академия 95 388,2 and ДП „Научно-производствен център“ 3 576,5 thousand BGN (column 2.1; €48.8 m and €1.8 m) are now parts (data/sources/budget-2025/mtbf-2025-2028-entities.parts.csv); remainder €414.0 m → €363.4 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-services.p1500-04-01-personal-assistance-scheme",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The mechanism by municipality (the Social Assistance Agency's allocations, or the municipalities' reports under ЕБК 562) — not researched, to verify",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "One administered item of programme 1500.04.01 in the decree."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-benefits.p1500-04-01-financial-support-for-people-with-permanent",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "One kind of benefit, paid to people (Persons with Disabilities Act)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.p2100-02-01.p2100-02-01-maintenance-of-national-roads",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Road projects in the priority investment projects (State Budget Act annex 2; \"Lists\" › \"Investment projects\") and the Road Infrastructure Agency's contracts (\"Lists\" › \"Public procurement\") — lists, not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "One administered item of programme 2100.02.01."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.p2100-02-01.p2100-02-01-construction-and-major-repair-of-national-roads",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Road projects in the priority investment projects (State Budget Act annex 2; \"Lists\" › \"Investment projects\") and the Road Infrastructure Agency's contracts (\"Lists\" › \"Public procurement\") — lists, not parts",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "One administered item of programme 2100.02.01."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.mes-pre-school-and-school-education.p1700-01-03-staff",
+    "state": "todo",
+    "leads": [
+      {
+        "source": "Each state school's own budget (the schools' sites); no central table found (docs/data-depth.md §2.1)",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Staff of the state schools, split in the decree only into delegated budgets and the rest."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive.mof-collecting-taxes-and-customs-duties.p1000-02-01-staff",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Staff costs of the revenue agency and customs (ПМС annex 1): a kind of spending."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.mes-pre-school-and-school-education",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into its six programmes (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.moh-diagnostics-and-treatment",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into its six programmes (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.motc-transport",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into its four programmes (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive.mof-collecting-taxes-and-customs-duties",
+    "datasets": [
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2027 (programme budgets, like ПМС № 102/2026 annex 1): the programmes of the areas grafted now, and of the areas that are mixed in 2026 (data/drilldown/programme-map.csv)",
+        "basis": "exact",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2027 draft gives the area only; in 2026 it splits into staff, running and capital costs (ПМС № 102/2026)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-rehab",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    },
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI statistical report on the ДОО budget execution (§ 42-01): one kind of cash aid (§ 42-01-88), split further only by the fund that pays it and by meals / accommodation / procedures."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-accident",
+    "state": "final",
+    "note": {
+      "bg": "Един вид обезщетение, изплащано направо на хората.",
+      "en": "A single kind of benefit, paid directly to people."
+    },
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI statistical report on the ДОО budget execution (§ 42-01): one kind of benefit (§ 42-01-40), split further only by the article of the Social Security Code and by sick leave / examination / spa treatment."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "s-ben-adoption",
+    "state": "final",
+    "note": {
+      "bg": "Два малки вида обезщетение, изплащани направо на хората.",
+      "en": "Two small kinds of benefit, paid directly to people."
+    },
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "NSSI statistical report on the ДОО budget execution (§ 42-01): adoption of a child under 5 (§ 42-01-09) and the father raising a child under 8 (§ 42-01-17)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-interest.state.domestic",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution: mainly interest and discounts on government securities sold on the domestic market (2025: 151.1 interest + 65.8 discounts − 8.8 premiums = 208.1 m BGN); the discounts and premiums are not separate payments."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu.gni",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025: one own resource (or one line of corrections) paid as such; the EU's own-resource tables by member state add no finer split."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu.vat",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025: one own resource (or one line of corrections) paid as such; the EU's own-resource tables by member state add no finer split."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu.tor",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025: one own resource (or one line of corrections) paid as such; the EU's own-resource tables by member state add no finer split."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu.plastics",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025: one own resource (or one line of corrections) paid as such; the EU's own-resource tables by member state add no finer split."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-eu.corrections",
+    "state": "final",
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "MoF reports on the State Budget execution 2024 and 2025: one line — the share of the gross reductions for five countries and the justice and home affairs correction, as the report prints it."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the interior ministry's area „Управление и развитие на МВР“ (€130.2 m in 2024) is mixed; its programme 1300.04.01 (information systems) belongs here",
+        "basis": "mapped",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the interior ministry's area „Управление и развитие на МВР“ (€130.2 m: information systems, its hospital and its academy)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2024\" (State Budget Act 2024, areas only) the areas that in 2025 go wholly to this box: the interior ministry's three operational areas, ДАНС, ДАТО, НСО and the intelligence agency — €1,475.3 m of €1,844.6 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the regional ministry's area „Пътища и техническа инфраструктура“ (€550.2 m in 2024) is mixed; its programme 2100.02.01 (national roads, €988.3 m in 2025) belongs here",
+        "basis": "mapped",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' health activities beyond the delegated ones"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the regional ministry's roads area (€550.2 m) and the transport ministry's administration and medical assessment (€13.2 m), both mixed",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2024\" the transport ministry's areas „Транспорт“ and „Съобщения и цифрова свързаност“ and the communications regulator — €350.7 m of €1,755.1 m. The regional ministry's roads area is mixed in 2025 (transport and housing programmes, one left out), so it stays here."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): whether State Fund Agriculture's programme 8400.01.01 carries VAT refunds to municipalities in 2024; if not, its area „Земеделие и селски райони (субсидии)“ (€253.5 m) belongs here",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      },
+      {
+        "source": "State Fund Agriculture payments by measure (\"Lists\" › \"EU funds\" › farm subsidies): financial years 16 Oct – 15 Oct, actuals — for the report years; scope against the КФП to verify",
+        "basis": "payments",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2024\" the agriculture ministry's areas „Земеделие и селски райони“, „Гори и дивеч“ and „Рибарство и аквакултури“ — €144.1 m of €1,152.3 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "State Fund Agriculture's area „Земеделие и селски райони (субсидии)“ (€253.5 m) is left out: in 2025 all of it belongs here, but in 2026 its programme 8400.01.01 also carries VAT refunds to municipalities (a transfer), which the 2024 area alone cannot rule out."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 7 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg), row 1, column 2.1 „Разходи“ 1 310 812,0 thousand BGN (€670.2 m) is now a part (e-agriculture.sfa-eu, data/sources/budget-2024/mtbf-2024-2026-sfa-eu.parts.csv); remainder €1,008.3 m → €338.0 m. The National Fund's account (annex 7 row 2) spans many functions and is not mapped."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-other.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The national capital programme: Table III-1 of the forecast 2024–2026 says in a note „За 2024-2026 г. разходите за националната капиталова програма са разчетени в други дейности по икономиката“ (the 2024 plan here €2,349.2 m, against €315.9 m in the 2024 actual); the programme's 2024 amount is not given in the forecast, and the State Budget Act 2024 does not name it — to find",
+        "url": "https://www.parliament.bg/bills/49/49-302-01-76.zip",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the innovation ministry's area „Инвестиции и иновации за растеж“ (€27.9 m) and the economy ministry's offices abroad (€9.0 m): ЕБК not certain",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2024\" the economy ministry's area „Икономическо развитие и конкурентоспособност“ — €33.6 m of €2,349.2 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annexes 7 and 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg): ДП „Управление и стопанисване на язовири“, column 2.1 22 836,7 thousand BGN (€11.7 m, all of it the economy ministry's transfer in the State Budget Act 2024), is now a part (e-other.dpusya); remainder €2,315.7 m → €2,304.0 m. Nothing else in the annexes belongs wholly here; Table III-1's note names the national capital programme (lead above)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' health activities beyond the delegated ones"
+      },
+      {
+        "source": "Left out of the programme mapping (data/drilldown/programme-map.csv, budget-2024, target „left out“): the environment ministry's meteorology and hydrology (НИМХ, €13.8 m: ЕБК not certain)",
+        "basis": "mapped",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted from \"Ministries 2024\" the environment ministry's areas „Опазване на околната среда“ and „Мониторинг на околната среда“ — €31.1 m of €779.7 m."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg): ПУДООС, column 2.1 69 314,9 thousand BGN (€35.4 m; net transfers 40 040,1 = the environment ministry's 46 040,1 to it less 6 000,0 back, State Budget Act 2024) is now a part (c-environment.pudoos, data/sources/budget-2024/mtbf-2024-2026-entities.parts.csv); remainder €748.7 m → €713.2 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "About €356.8 m of the 2024 plan is neither ФСЕС (annex 8) nor the Ministry of Energy’s area: EU-funded energy projects (Recovery Plan)? to verify",
+        "basis": "mapped",
+        "access": "unknown",
+        "note": "the 2024 report shows the sub-function’s EU column at €26.8 m"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the Ministry of Energy's area „Енергетика“ (€30.9 m) from \"Ministries 2024\", as in 2025 and 2026."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg): ФСЕС, column 2.1 „Разходи“ 2 609 569,0 thousand BGN (€1,334.3 m; no net transfers), is now a part (data/sources/budget-2024/mtbf-2024-2026-fses.parts.csv); remainder €1,691.1 m → €356.8 m."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "defence",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the defence ministry's programmes — in 2025 the armed forces, investment projects, administration, human resources, research and NATO membership go here (€2,018.0 m of €2,126.8 m)",
+        "basis": "mapped",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "\"Ministries 2024\" gives the defence ministry's two areas only; both are mixed in 2025 (military medicine → health, military education → education, military police and intelligence left out), so nothing is grafted."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-housing",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the regional ministry's programmes 2100.01.02 (housing of marginalised groups) and 2100.02.03 (construction control)",
+        "basis": "mapped",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      },
+      {
+        "source": "Big cities' year-end B3 by ЕБК activity (cities-2024/2025: Sofia, Plovdiv, Burgas); other municipalities publish B3 only on their own sites, no national table (docs/data-depth.md §2.1, §2.3)",
+        "basis": "exact",
+        "access": "script",
+        "covers": "the 3 cities' health activities beyond the delegated ones"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The regional ministry's areas are mixed in 2025 (housing, roads and other programmes) and 2024 gives areas only: nothing grafted."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-science.rest",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The Academy of Sciences' 2024 subsidy (171,899.8 thousand BGN, State Budget Act 2024 art. 16 (4); data/sources/budget-2024/transfers-universities-2024.csv) — a transfer; whether the КФП books the Academy's spending here to verify",
+        "basis": "mapped",
+        "access": "script"
+      },
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the education ministry's research programmes 1700.02.04 and 1700.02.05",
+        "basis": "mapped",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The education ministry's area „Висше образование и наука“ is mixed (higher education and research), so nothing is grafted from \"Ministries 2024\"."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg): Селскостопанска академия 71 909,0 and ДП „Научно-производствен център“ 2 699,9 thousand BGN (column 2.1; €36.8 m and €1.4 m) are now parts (data/sources/budget-2024/mtbf-2024-2026-science.parts.csv); the box was a leaf, its remainder g-science.rest is €330.7 m and this entry moved to it."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "h-nhif-med-oncology-coag",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "blocked",
+    "note": {
+      "bg": "Колко НЗОК плаща за всяко активно вещество, има в „Списъци“ › „Лекарства“. Сумите там са преди отстъпките, които фирмите връщат на касата, затова не се събират в тази сума.",
+      "en": "What the NHIF pays for each active ingredient is in “Lists” › “Medicines”. Those amounts are before the discounts companies pay back to the fund, so they do not add up to this amount."
+    },
+    "leads": [
+      {
+        "source": "НЗОК medicine reports 1 and 7 by active ingredient (\"Lists\" › \"Medicines\"): gross, before the ПРУ refunds (−1.09 bn leva in 2025) the budget lines deduct (data/sources/health/README.md)",
+        "url": "https://www.nhif.bg/bg/nzok/medicine/1",
+        "basis": "payments",
+        "access": "script",
+        "note": "usable as parts only with net figures per ingredient"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "ed-universities",
+    "datasets": [
+      "budget-2024",
+      "budget-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The State Budget Acts 2024 and 2025, art. 16 (4): the subsidy of each state university (as data/sources/budget-2026/state-budget-2026-university-transfers.csv for 2026) — not extracted",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168",
+        "basis": "exact",
+        "access": "script"
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-police.moi-fighting-crime-and-keeping-public-order",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (one programme in 2025, split into staff, running and capital costs)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "education.mes-pre-school-and-school-education",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its six programmes in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.moh-diagnostics-and-treatment",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its six programmes in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-transport.motc-transport",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (its four programmes in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-executive.mof-collecting-taxes-and-customs-duties",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The decree on the execution of the State Budget 2024 (programme budgets, annex 1, like ПМС № 28/2025 for 2025): the programmes of this area",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg (Council of Ministers decisions); the decree number and annex link are still to find — not extracted yet"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 gives the area only; the 2025 decree splits it further (staff, running and capital costs in 2025)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-judiciary.judiciary",
+    "datasets": [
+      "budget-2024"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "State Budget Act 2024, art. 2 (2): the judiciary by judicial body (Supreme Judicial Council, courts, prosecution …), already extracted (data/sources/budget-2024/state-budget-2024-spending-units.csv, breakdown_type judicial_bodies) but not a level of \"Ministries 2024\" yet",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168",
+        "basis": "exact",
+        "access": "script"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The State Budget Act 2024 has no table of the judiciary by functional area (2025 and 2026 have one), so the graft is one box."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.other",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The defence and interior ministries's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown",
+        "covers": "military medicine (1200.01.04) and the interior ministry's hospital (1300.04.02): €119.6 m in the 2025 plan"
+      },
+      {
+        "source": "MoF EU programme tables (data.egov.bg 4226, 18860), the Recovery Plan by investment (18958) and the ИСУН projects (\"Lists\" › \"EU funds\"), with a programme → sub-function mapping",
+        "basis": "mapped",
+        "access": "script",
+        "note": "paid amounts are cumulative per programme; yearly figures by difference of year ends",
+        "covers": "the ESF+ part (Human Resources Development programme)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Grafted the health ministry's three areas from \"Ministries 2025 (actual)\" (€588.2 m of €762.4 m; its administration belongs to the executive bodies). They fit the state-budget column of health (€855.1 m). The rest is the other ministries' hospitals and EU funds (€133.6 m), less the NHIF report's wider scope (€226.5 m)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "health.moh-diagnostics-and-treatment",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The health ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "The 2025 report (pr.4) gives the area only; the 2025 decree splits it into six programmes (plans)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-sport.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The sport ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the sport ministry's area „Спорт за високи постижения“ alone (€56.8 m) is larger than the box (€53.3 m), so the КФП books part of the sport areas elsewhere; not grafted, linked to the ministry."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "o-prisons.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The justice ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown",
+        "covers": "prisons (1400.02.01) and arrests and probation (1400.02.02)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the justice ministry's area „Затвори и изпълнение на наказанията“ equals the box (€215.8 m); pr.4 has no programme actuals, so nothing to graft; linked."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-religion.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The Council of Ministers' decision distributing the 2025 subsidy among the registered religious denominations — to verify",
+        "basis": "exact",
+        "access": "script",
+        "note": "strategy.bg"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the Council of Ministers' area „Вероизповедания“ equals the box (€44.6 m); linked."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-energy.state",
+    "datasets": [
+      "report-2025"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The energy ministry's own report on its 2025 programme budget (actuals by programme) — to verify",
+        "basis": "mapped",
+        "access": "unknown"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Programme map: the Ministry of Energy's area „Енергетика“ (€58.5 m) is larger than the box (€52.3 m), so part of it is booked under other functions; linked."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "e-agriculture.sfa-eu",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "checked": "2026-11-14",
+    "leads": [
+      {
+        "source": "State Fund Agriculture's EU account by ЕБК activity or paragraph (its annual budget and report, or the MoF's КФП execution by account) — not found yet",
+        "access": "unknown",
+        "basis": "exact"
+      },
+      {
+        "source": "The forecasts' text on the common agricultural policy gives payments by kind — 2026: direct payments €841.53 m, market measures €87.13 m, rural development €837.6 m; 2027: €850.5 m, €95.6 m, €846.5 m — but these are payments (with national co-financing and advances, Table V-1: €1,604.2 m / €1,604.3 m), larger than the account's КФП expenditure (€693.0 m / €615.7 m), so they are not parts of it",
+        "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
+        "basis": "mapped",
+        "access": "script",
+        "note": "the difference is not explained in the forecasts; the 2025 actual's EU funds in the whole sub-function were €859.9 m (current €291.0 m, capital €568.9 m)"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Annexes 7 (column 2.1 „Разходи“) of the forecasts 2026–2028 and 2027–2029, and their text on State Fund Agriculture (2026 DOCX; 2027 PDF pp. 141–142): the account pays the common agricultural policy (EAGF, EAFRD) and the fisheries programme; its expenditure and payments are given as up to €1,681.38 m (2026) and €1,629.8 m (2027), with no split of the КФП expenditure."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024 and 2025: row 1 of annex 7 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg) and the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995), column 2.1 „Разходи“: 1 310 812,0 and 2 312 830,3 thousand BGN (€670.2 m, €1,182.5 m); net transfers 456 301,7 and 865 687,6 = the central budget's transfers to the account in the State Budget Acts 2024 and 2025 (art. 1, section III, item 1.5)."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "c-environment.pudoos",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "ПУДООС's own annual budget and activity report (projects it finances, mostly municipal water and waste projects) — to verify",
+        "access": "unknown",
+        "basis": "exact"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecasts: one line per entity (expenditure, net transfers); nothing finer."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024 and 2025: annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg) and the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995), column 2.1: 69 314,9 and 69 729,9 thousand BGN; one line per entity, nothing finer."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-science.ssa",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "todo",
+    "leads": [
+      {
+        "source": "The Agricultural Academy's budget by institute (its own site) — to verify",
+        "access": "unknown",
+        "basis": "exact"
+      }
+    ],
+    "tried": [
+      {
+        "date": "2026-11-14",
+        "what": "Annex 8 of the forecasts: one line per entity; the State Budget Act gives only the agriculture ministry's transfer to the academy (art. 24)."
+      },
+      {
+        "date": "2026-11-14",
+        "what": "Budget 2024 and 2025: annex 8 of the forecast 2024–2026 (РМС № 830/24.11.2023; file „4-UMTBF-2024-2026-motivi f.docx“ in bill 49-302-01-76, parliament.bg) and the forecast 2025–2028 (РМС № 88/24.02.2025; strategy.bg/download/1296995), column 2.1: 71 909,0 and 95 388,2 thousand BGN; one line per entity, nothing finer."
+      }
+    ]
+  },
+  {
+    "family": "functions",
+    "node": "g-science.dpnpc",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "final"
+  },
+  {
+    "family": "functions",
+    "node": "e-other.dpusya",
+    "datasets": [
+      "budget-2024",
+      "budget-2025",
+      "budget-2026",
+      "budget-2027"
+    ],
+    "state": "final"
   }
 ]

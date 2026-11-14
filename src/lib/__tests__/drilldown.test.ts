@@ -233,6 +233,9 @@ describe('grafts', () => {
   it('copy a subtree under a box, with stable ids, a link back and the source dataset as provenance', () => {
     const d = plan()
     const m = ministries()
+    findNode(m.root, 'moen-energy')!.note = t('Официално: Енергетика', 'Official name (BG): Енергетика')
+    findNode(m.root, 'p1')!.note = t('Бележка', 'Note')
+    findNode(m.root, 'moen-energy')!.kind = t('Политика', 'Policy area')
     applyDrilldown([d, m], [], grafts('plan,e-energy,ministries,moen-energy,,,,,,'))
     const copy = findNode(d.root, 'e-energy.moen-energy')!
     expect(copy).toMatchObject({ value: 38 * M, name: t('Енергетика', 'Energy'), ref: 'ministries' })
@@ -240,8 +243,13 @@ describe('grafts', () => {
     expect(childIds(copy)).toEqual(['e-energy.moen-energy.p1', 'e-energy.moen-energy.p2'])
     expect(findNode(d.root, 'e-energy.moen-energy.p1')).toMatchObject({ value: 30 * M, ref: 'ministries' })
     expect(findNode(d.root, 'e-energy.moen-energy.p1')!.seeAlso).toBeUndefined()
+    // Only the root keeps its note; the original has the rest.
+    expect(copy.note).toEqual(t('Официално: Енергетика', 'Official name (BG): Енергетика'))
+    expect(findNode(d.root, 'e-energy.moen-energy.p1')!.note).toBeUndefined()
     expect(childIds(findNode(d.root, 'e-energy'))).toEqual(['e-energy.rest', 'e-energy.moen-energy'])
     expect(findNode(d.root, 'e-energy.rest')).toMatchObject({ value: 62 * M, rest: true })
+    // The remainder is not of the copy's kind (a level of another dataset).
+    expect(findNode(d.root, 'e-energy.rest')!.kind).toBeUndefined()
     expect(d.refs).toEqual({ ministries: { name: t('Източник ministries', 'Source ministries'), basis: 'mapped' } })
     // The source is untouched.
     expect(childIds(findNode(m.root, 'moen-energy'))).toEqual(['p1', 'p2'])
@@ -264,6 +272,22 @@ describe('grafts', () => {
     // A link larger than its box is fine; a copy is not.
     expect(() => applyDrilldown([plan(), ministries()], [], grafts('plan,e-transport,ministries,mof,,,,,,'))).toThrow(/exceed e-transport/)
     expect(() => grafts('plan,e-transport,ministries,mof,link,x,,,,')).toThrow(/a link takes no id or note/)
+  })
+
+  it('name the remainder they leave or shrink, once per box', () => {
+    const HEADER = `${GRAFT_HEADER},rest_bg,rest_en,rest_note_bg,rest_note_en`
+    const rows = (...r: string[]) => parseGrafts([HEADER, ...r].join('\n'), 'data/drilldown/grafts.csv')
+    // A leaf: the copy makes the remainder, a later row names it.
+    const d = plan()
+    applyDrilldown([d, ministries()], [], rows('plan,e-energy,ministries,p1,,,,,,,,,,', 'plan,e-energy,ministries,p2,,,,,,,Други,Other,,'))
+    expect(findNode(d.root, 'e-energy.rest')).toMatchObject({ name: t('Други', 'Other'), value: 62 * M, rest: true })
+    // A builder's remainder keeps its id and takes the new name and note.
+    const d2 = plan()
+    applyDrilldown([d2, ministries()], [], rows('plan,education,ministries,moen-admin,,,,,,,Още,More,Бележка,Note'))
+    expect(findNode(d2.root, 'ed-other')).toMatchObject({ name: t('Още', 'More'), note: t('Бележка', 'Note'), value: 25 * M, rest: true })
+    expect(() => rows('plan,e-energy,ministries,p1,,,,,,,А,A,,', 'plan,e-energy,ministries,p2,,,,,,,Б,B,,')).toThrow(/already named on line 2/)
+    expect(() => rows('plan,e-energy,ministries,p1,,,,,,,,,Б,B')).toThrow(/rest_note_bg\/en need rest_bg\/en/)
+    expect(() => rows('plan,e-energy,ministries,mof,link,,,,,,А,A,,')).toThrow(/takes no rest_bg\/en/)
   })
 
   it('run after the parts and grafts they build on, and fail on cycles', () => {

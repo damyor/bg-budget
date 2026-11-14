@@ -85,7 +85,13 @@ function lawTables(file: URL) {
     if (!row) throw new Error(`${file.pathname}: table ${table} row ${rowNo} ${labelStart ?? ''} not found`)
     return toEur(num(row[valueColumn]), unit)
   }
-  return { find, value }
+  /** The first label of a table that starts with `start` (labels differ slightly between years). */
+  const label = (table: number, start: string) => {
+    const found = (tables.get(table) ?? []).map((r) => r.label.trim()).find((l) => l.startsWith(start))
+    if (!found) throw new Error(`${file.pathname}: table ${table} has no row starting "${start}"`)
+    return found
+  }
+  return { find, value, label }
 }
 
 function nhifSpec(details: PlanDetails, year: number): Spec {
@@ -229,7 +235,7 @@ function medicines(year: number): { id: string; rows: string[] }[] {
 /** State social security (ДОО) budget, by fund. */
 function socialSecurity(details: PlanDetails, year: number) {
   const ss = details.socialSecurity!
-  const { find, value: v } = lawTables(new URL(ss.file, details.dir))
+  const { find, value: v, label } = lawTables(new URL(ss.file, details.dir))
   const expenditure = (fund: RegExp, what: string) => find((caption) => fund.test(caption) && /по разходите/.test(caption), what)
   const consolidated = expenditure(/консолидирания бюджет на държавното обществено осигуряване/, 'consolidated ДОО')
   const pensionsFund = expenditure(/фонд „Пенсии“/, 'Pensions fund')
@@ -260,6 +266,23 @@ function socialSecurity(details: PlanDetails, year: number) {
         name: t('Учителски пенсионен фонд', "Teachers' Pension Fund"),
         value: v(teachers, '', 'Пенсии'),
         note: t('Допълнителни пенсии и добавки за учители (приложение към Закона за бюджета на ДОО).', 'Additional pensions and supplements for teachers (annex to the Social Security Budget Act).'),
+        // "Пенсии от УчПФ" / "Добавки от УчПФ" (2024), "… от Учителския пенсионен фонд" (2025, 2026).
+        children: [
+          {
+            id: 's-pen-teachers.pensions',
+            kind: t('Вид пенсия', 'Kind of pension'),
+            name: t('Пенсии от Учителския пенсионен фонд', "Teachers' Pension Fund pensions"),
+            value: v(teachers, '', label(teachers, 'Пенсии от Уч')),
+            note: t('Пенсии по чл. 69в, ал. 2 и 4 от КСО за учители, пенсионирани преди възрастта за пенсия.', 'Pensions under Art. 69в(2) and (4) of the Social Security Code for teachers who retire before the pension age.'),
+          },
+          {
+            id: 's-pen-teachers.supplements',
+            kind: t('Вид пенсия', 'Kind of pension'),
+            name: t('Добавки от Учителския пенсионен фонд', "Supplements from the Teachers' Pension Fund"),
+            value: v(teachers, '', label(teachers, 'Добавки от Уч')),
+            note: t('Добавка по чл. 69в, ал. 3 от КСО към пенсията на учителите.', "Supplement under Art. 69в(3) of the Social Security Code to teachers' pensions."),
+          },
+        ],
       },
     ] satisfies Spec[],
     /** Cash benefits paid by the social security funds, by type. */

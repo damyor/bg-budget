@@ -1,0 +1,15 @@
+{
+  "source": {
+    "bg": "Актуализирана средносрочна бюджетна прогноза за периода 2027–2029 г. (6.11.2026), приложение № 8, колона „Разходи“",
+    "en": "Updated medium-term budget forecast 2027–2029 (6.11.2026), annex 8, column “Expenditure”"
+  },
+  "url": "https://www.minfin.bg/upload/65608/UMTBF-2027-2029-motivi.pdf",
+  "basis": "mapped",
+  "rest": {
+    "name": { "bg": "Други разходи за енергетика", "en": "Other energy spending" },
+    "note": {
+      "bg": "Частта от подфункцията извън Фонд „Сигурност на електроенергийната система“: програмите на Министерството на енергетиката за 2027 г. още не са публикувани.",
+      "en": "The part of the sub-function outside the Electricity System Security Fund: the Ministry of Energy’s programmes for 2027 are not published yet."
+    }
+  }
+}

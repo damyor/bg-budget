@@ -106,6 +106,8 @@ export interface GraftRow {
   id?: string
   name?: LocalizedText
   note?: LocalizedText
+  /** A name (and note) for the box's remainder once the copy is in: at most one row per box gives it. */
+  rest?: PartsMeta['rest']
   line: number
 }
 
@@ -222,7 +224,9 @@ export function readPartsFiles(dir: URL): PartsFile[] {
 }
 
 export function parseGrafts(csv: string, file: string): GraftRow[] {
-  const rows = csvRows(csv, ['dataset', 'parent', 'source_dataset', 'source_node'], ['mode', 'id', 'name_bg', 'name_en', 'note_bg', 'note_en'], file)
+  const optional = ['mode', 'id', 'name_bg', 'name_en', 'note_bg', 'note_en', 'rest_bg', 'rest_en', 'rest_note_bg', 'rest_note_en']
+  const rows = csvRows(csv, ['dataset', 'parent', 'source_dataset', 'source_node'], optional, file)
+  const restNamed = new Map<string, number>()
   return rows.map(({ row, line }) => {
     const where = `${file}:${line}`
     for (const c of ['dataset', 'parent', 'source_dataset', 'source_node']) if (!row[c]) throw new Error(`${where}: empty ${c}`)
@@ -232,6 +236,16 @@ export function parseGrafts(csv: string, file: string): GraftRow[] {
     if (mode === 'link' && (row.id || row.note_bg || row.note_en)) throw new Error(`${where}: a link takes no id or note (its name is the link's text)`)
     const name = pair(row, 'name', where)
     const note = pair(row, 'note', where)
+    const restName = pair(row, 'rest', where)
+    const restNote = pair(row, 'rest_note', where)
+    if (restNote && !restName) throw new Error(`${where}: rest_note_bg/en need rest_bg/en`)
+    if (restName) {
+      if (mode === 'link') throw new Error(`${where}: a link leaves its box as it is and takes no rest_bg/en`)
+      const key = `${row.dataset} ${row.parent}`
+      const first = restNamed.get(key)
+      if (first !== undefined) throw new Error(`${where}: the remainder of ${row.parent} is already named on line ${first}`)
+      restNamed.set(key, line)
+    }
     return {
       dataset: row.dataset,
       parent: row.parent,
@@ -241,6 +255,7 @@ export function parseGrafts(csv: string, file: string): GraftRow[] {
       ...(row.id ? { id: row.id } : {}),
       ...(name ? { name } : {}),
       ...(note ? { note } : {}),
+      ...(restName ? { rest: { name: restName, ...(restNote ? { note: restNote } : {}) } } : {}),
       line,
     }
   })
@@ -271,9 +286,9 @@ function allIds(root: BudgetNode, into = new Set<string>()): Set<string> {
 const m = (eur: number) => `€${(eur / 1e6).toFixed(1)} m`
 const byValue = (a: BudgetNode, b: BudgetNode) => b.value - a.value
 
-/** A remainder child: the parent's amount the parts do not cover. */
-function remainder(id: string, gap: number, rest: PartsMeta['rest'], siblings: BudgetNode[]): BudgetNode {
-  const kind = siblings.find((c) => c.kind)?.kind
+/** A remainder child: the parent's amount the parts do not cover; of the parts' kind, unless they come from grafts (null). */
+function remainder(id: string, gap: number, rest: PartsMeta['rest'], siblings: BudgetNode[] | null): BudgetNode {
+  const kind = siblings?.find((c) => c.kind)?.kind
   return { id, name: rest.name, value: Math.round(gap), ...(rest.note ? { note: rest.note } : {}), ...(kind ? { kind } : {}), rest: true }
 }
 
@@ -282,7 +297,7 @@ function remainder(id: string, gap: number, rest: PartsMeta['rest'], siblings: B
  * with a remainder child gets them appended and the remainder shrinks by their sum (it goes when it reaches
  * rounding); a node with children and no remainder fails unless `replace`, in which case the parts replace them.
  */
-export function attach(parent: BudgetNode, parts: BudgetNode[], rest: PartsMeta['rest'], replace: boolean, where: string): void {
+export function attach(parent: BudgetNode, parts: BudgetNode[], rest: PartsMeta['rest'], replace: boolean, where: string, restKind = true): void {
   const sum = parts.reduce((s, p) => s + p.value, 0)
   if (parent.rest) throw new Error(`${where}: ${parent.id} is a remainder; put the parts under its parent instead, and the remainder shrinks`)
   const remainders = (parent.children ?? []).filter((c) => c.rest && !isRounding(c))
@@ -290,7 +305,7 @@ export function attach(parent: BudgetNode, parts: BudgetNode[], rest: PartsMeta[
     if (sum > parent.value + TOLERANCE) throw new Error(`${where}: the parts (${m(sum)}) exceed ${parent.id} (${m(parent.value)})`)
     const gap = parent.value - sum
     const children = [...parts]
-    if (gap > TOLERANCE) children.push(remainder(`${parent.id}.rest`, gap, rest, parts))
+    if (gap > TOLERANCE) children.push(remainder(`${parent.id}.rest`, gap, rest, restKind ? parts : null))
     if (children.length < 2) throw new Error(`${where}: a single part equal to ${parent.id} splits nothing; say it in a note instead`)
     parent.children = children.sort(byValue)
     return
@@ -444,13 +459,16 @@ function partNodes(op: Extract<Op, { kind: 'parts' }>): BudgetNode[] {
   return rows.filter((r) => r.parent === op.parent).map(make)
 }
 
-/** A copy of a subtree for a graft: ids become `<root>.<id>`, the copies keep no links of their own. */
+/**
+ * A copy of a subtree for a graft: ids become `<root>.<id>`; the copies keep no links of their own, and only the root
+ * keeps its note (the original, one link away, has the rest — the copies stay small).
+ */
 function copyTree(source: BudgetNode, rootId: string, ref: (node: BudgetNode) => string): BudgetNode {
   const copy = (node: BudgetNode, id: string): BudgetNode => {
     const out: BudgetNode = { id, name: node.name, value: node.value }
     if (node.code) out.code = node.code
     if (node.kind) out.kind = node.kind
-    if (node.note) out.note = node.note
+    if (node.note && node === source) out.note = node.note
     if (node.rest) out.rest = true
     out.ref = ref(node)
     if (node.children?.length) out.children = node.children.map((c) => copy(c, `${rootId}.${c.id}`))
@@ -518,7 +536,15 @@ export function applyDrilldown(datasets: Dataset[], parts: PartsFile[], grafts: 
     if (row.note) copy.note = row.note
     copy.seeAlso = [{ dataset: source.id, node: original.id, text: t(`Същото в „${source.title.bg}“`, `The same in “${source.title.en}”`), value: original.value }]
     clash([copy])
-    attach(parent, [copy], GRAFT_REST, false, where)
+    // A copy's kind is a level of its own dataset (a ministry, an area …), so the remainder it leaves takes none.
+    attach(parent, [copy], row.rest ?? GRAFT_REST, false, where, false)
+    if (row.rest) {
+      // Rename the remainder, whether this copy made it or found it (a builder's remainder keeps its id).
+      const left = parent.children!.find((c) => c.rest && !isRounding(c))
+      if (!left) throw new Error(`${where}: names the remainder of ${parent.id}, but the parts leave none`)
+      left.name = row.rest.name
+      if (row.rest.note) left.note = row.rest.note
+    }
   }
 }
 

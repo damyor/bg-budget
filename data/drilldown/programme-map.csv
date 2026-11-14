@@ -1,0 +1,798 @@
+dataset,source_dataset,source_node,code,name_bg,value_eur,target,reason
+budget-2026,ministries-2026,mod,,Министерство на отбраната,2568607900,split,
+budget-2026,ministries-2026,mod-defence-capabilities,1200.01.00,Отбранителни способности,2476552200,split,
+budget-2026,ministries-2026,p1200-01-01,1200.01.01,Подготовка и използване на въоръжените сили,1138517000,defence,the armed forces: ЕБК 201 defence activities
+budget-2026,ministries-2026,p1200-01-08,1200.01.08,"Административно осигуряване, инфраструктура и управление на риска",620264900,defence,"the ministry's administration, infrastructure and risk management: ЕБК 201/219 (defence administration belongs to the defence function)"
+budget-2026,ministries-2026,p1200-01-09,1200.01.09,Управление на инвестиционни проекти,532206000,defence,armament and modernisation projects: ЕБК 201
+budget-2026,ministries-2026,p1200-01-04,1200.01.04,Медицинско осигуряване,88069100,h-other,military medicine (the Military Medical Academy and its hospitals): ЕБК 4xx health activities
+budget-2026,ministries-2026,p1200-01-03,1200.01.03,Военна полиция,39972100,left out,"military police: a service under the minister, outside the armed forces; ЕБК activity not certain (defence 201/219 or internal security 239), and about €83 m of the ministry's 2025 actual was booked outside the defence function, not identified"
+budget-2026,ministries-2026,p1200-01-05,1200.01.05,Военно-патриотично възпитание и военно-почивно дело,30507000,left out,"mixed: military clubs, museum and ensembles (culture, ЕБК 7xx) and military holiday homes (recreation, 701)"
+budget-2026,ministries-2026,p1200-01-02,1200.01.02,Управление на човешките ресурси и резерв,17626000,defence,human resources and the reserve: ЕБК 201/207
+budget-2026,ministries-2026,p1200-01-06,1200.01.06,Изследвания и технологии,9308800,defence,defence research and technology: ЕБК 215
+budget-2026,ministries-2026,p1200-01-07,1200.01.07,Военно образование,81300,ed-other,"military education: ЕБК 3xx (the schools themselves get transfers, art. 11(4), not counted here)"
+budget-2026,ministries-2026,mod-allied-and-international-security,1200.02.00,Съюзна и международна сигурност,92055700,split,
+budget-2026,ministries-2026,p1200-02-02,1200.02.02,Военно разузнаване,55229300,left out,"military intelligence: a service under the minister, outside the armed forces; ЕБК activity not certain (defence 201/219 or internal security 239), and about €83 m of the ministry's 2025 actual was booked outside the defence function, not identified"
+budget-2026,ministries-2026,p1200-02-01,1200.02.01,Членство в НАТО и ЕС и международно сътрудничество,36826400,defence,"NATO and EU membership, contributions to their budgets: ЕБК 205"
+budget-2026,ministries-2026,moi,,Министерство на вътрешните работи,2115233200,split,
+budget-2026,ministries-2026,moi-fighting-crime-and-keeping-public-order,1300.01.00,Борба с престъпността и обществен ред,1225550200,o-police,police: ЕБК 221
+budget-2026,ministries-2026,moi-fire-safety-and-civil-protection,1300.03.00,Пожарна безопасност и защита при бедствия,351618000,o-police,"the fire service: ЕБК 224 (fire protection, in the police group); its civil-protection share is not separable and small (the state budget spent €13.5 m on civil protection in 2025)"
+budget-2026,ministries-2026,moi-border-protection-and-migration,1300.02.00,Охрана на границите и миграция,325396000,o-police,border police and migration: ЕБК 221/239
+budget-2026,ministries-2026,moi-running-and-developing-the-interior-ministry,1300.04.00,Управление и развитие на МВР,212669000,split,
+budget-2026,ministries-2026,p1300-04-01,1300.04.01,Информационно осигуряване и административно обслужване,138555000,o-police,the ministry's information systems and administrative services: the interior ministry's spending is in the police function apart from its hospital and academy (2025 cross-check)
+budget-2026,ministries-2026,p1300-04-02,1300.04.02,Медицинско обслужване,43516000,h-other,the ministry's Medical Institute (a hospital): ЕБК 4xx
+budget-2026,ministries-2026,p1300-04-03,1300.04.03,"Научни изследвания, обучение и квалификация",30598000,left out,"mixed: the ministry's academy (higher education, ЕБК 341) and research institutes (ЕБК 225)"
+budget-2026,ministries-2026,molsp,,Министерство на труда и социалната политика,2112455500,split,
+budget-2026,ministries-2026,molsp-people-with-disabilities,1500.04.00,Хора с увреждания,1364484600,split,
+budget-2026,ministries-2026,p1500-04-01-personal-assistance-scheme,,Механизъм лична помощ,777205400,s-svc-other,"personal assistance (Закон за личната помощ): ЕБК 562 personal assistants, sub-function В (services); paid through the municipalities — not part of the delegated social services shown separately"
+budget-2026,ministries-2026,p1500-04-01-financial-support-for-people-with-permanent,,Финансова подкрепа за хора с трайни увреждания,559865000,s-ben-assistance,benefits under the Persons with Disabilities Act: ЕБК 513
+budget-2026,ministries-2026,p1500-04-01-staff,,Персонал,15417300,s-svc-other,"staff administering disability benefits: ЕБК 522 (social assistance directorates, sub-function В)"
+budget-2026,ministries-2026,p1500-04-01-subsidies-to-companies-under-the-persons-with,,Субсидии за предприятия по Закона за хората с увреждания,4563100,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2026,ministries-2026,p1500-04-01-subsidies-to-national-disability-organisations,,Субсидии за национално представителните организации на хората с увреждания,2607300,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2026,ministries-2026,p1500-04-01-targeted-aid-for-people-with-permanent,,Целеви помощи за хора с трайни увреждания,2403100,s-ben-assistance,benefits under the Persons with Disabilities Act: ЕБК 513
+budget-2026,ministries-2026,p1500-04-01-accessible-housing-and-personal-mobility,,Достъпна жилищна среда и лична мобилност,1278200,s-ben-assistance,targeted aid under the Persons with Disabilities Act: ЕБК 513
+budget-2026,ministries-2026,p1500-04-01-running,,Издръжка,915100,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2026,ministries-2026,p1500-04-01-rehabilitation-and-integration-of-people-with,,Рехабилитация и интеграция на хората с увреждания,204500,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2026,ministries-2026,p1500-04-01-capital,,Капиталови разходи,25600,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2026,ministries-2026,molsp-social-inclusion,1500.05.00,Социално включване,417867900,split,
+budget-2026,ministries-2026,p1500-05-01-monthly-child-benefit-until-secondary-school,,Месечни помощи за дете до завършване на средно образование,136617700,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-monthly-benefit-for-a-child-with-a-permanent,,Месечни помощи за дете с трайно увреждане,136163700,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-staff,,Персонал,52634800,s-svc-other,staff administering family and child benefits: ЕБК 522
+budget-2026,ministries-2026,p1500-05-01-one-off-grant-for-pupils-art-10a,,Еднократна помощ за ученици (чл. 10а),31904800,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-off-birth-grant,,Еднократна помощ при раждане на дете,17908000,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-monthly-benefit-for-a-child-under-1,,Месечни помощи за дете до 1 година,15504900,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-child-protection-assistance,,Помощи за закрила на детето,9426100,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-off-grant-for-pupils-enrolled-in-8th-grade,,"Еднократна помощ за ученици, записани в осми клас",7669400,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-running,,Издръжка,3214500,left out,"the programme's running costs: small, left out"
+budget-2026,ministries-2026,p1500-05-01-monthly-benefit-for-a-child-without-a-survivor-s,,Месечни помощи за дете без наследствена пенсия,2812100,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-off-grant-for-twins,,Еднократна помощ за отглеждане на близнаци,1288500,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-off-pregnancy-grant,,Еднократна помощ при бременност,1265400,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-off-grant-for-student-mothers,,Еднократна помощ за майки студентки,736200,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-one-free-trip-a-year-for-mothers-of-large,,Безплатно пътуване веднъж годишно за многодетни майки,341000,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-national-child-helpline-116-111,,Национална телефонна линия за деца 116 111,161000,left out,"child-protection service (ЕБК 538): small, left out"
+budget-2026,ministries-2026,p1500-05-01-children-s-council-and-inspections,,Съвет на децата и проверки в страната,92000,left out,"child-protection activity (ЕБК 538): small, left out"
+budget-2026,ministries-2026,p1500-05-01-one-off-adoption-grant,,Еднократна помощ при осиновяване на дете,89500,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2026,ministries-2026,p1500-05-01-capital,,Капиталови разходи,38300,left out,"the programme's capital costs: small, left out"
+budget-2026,ministries-2026,molsp-social-assistance-and-gender-equality,1500.03.00,Социално подпомагане и равнопоставеност,216912500,split,
+budget-2026,ministries-2026,p1500-03-01,1500.03.01,Социални помощи,216761300,split,
+budget-2026,ministries-2026,p1500-03-01-monthly-social-assistance,,Месечни социални помощи,78644100,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-heating-aid,,Помощи за отопление,49549300,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-staff,,Персонал,35510400,s-svc-other,staff administering social assistance: ЕБК 522
+budget-2026,ministries-2026,p1500-03-01-fuel-price-compensation-middle-east-conflict,,Компенсации за поскъпналите горива (конфликта в Близкия изток),25000000,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-one-off-social-assistance,,Еднократни социални помощи,17578200,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-social-inclusion-programmes-and-projects,,Социални програми и проекти за включване,2740500,left out,"programmes and projects, not benefits: ЕБК uncertain, small"
+budget-2026,ministries-2026,p1500-03-01-running,,Издръжка,2104700,left out,"the programme's running costs: small, left out"
+budget-2026,ministries-2026,p1500-03-01-medicines-dental-care-and-death-grants-for,,"Лекарства, зъболечение и помощ при смърт за ветерани и военноинвалиди",1865200,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-assistance-for-diagnosis-and-treatment,,Помощи за диагностика и лечение,1789500,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-capital,,Капиталови разходи,794300,left out,"the programme's capital costs: small, left out"
+budget-2026,ministries-2026,p1500-03-01-aid-when-an-unemployed-member-of-a-family-on,,Помощ за започнал работа член на семейство на социални помощи,782400,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-aid-for-young-people-leaving-residential-care,,"Помощ за младежи, напуснали резидентна грижа",351600,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-01-rent-assistance,,Помощи за наем,51100,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2026,ministries-2026,p1500-03-02,1500.03.02,Равнопоставеност на жените и мъжете,151200,left out,"gender equality: small, ЕБК uncertain"
+budget-2026,ministries-2026,molsp-labour-market-and-employment,1500.01.00,Пазар на труда и заетост,85286000,s-svc-other,employment programmes and the Employment Agency: ЕБК 532/533/559
+budget-2026,ministries-2026,molsp-labour-relations,1500.02.00,Трудови отношения,18346400,s-svc-other,working conditions and labour inspection: ЕБК 531 (prevention of accidents at work and occupational diseases)
+budget-2026,ministries-2026,molsp-administration,1500.07.00,Администрация,8817300,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,molsp-living-standards-and-demography,1500.06.00,Жизнено равнище и демография,740800,left out,"demography and incomes policy: small, ЕБК uncertain (142 planning or 559)"
+budget-2026,ministries-2026,mrdpw,,Министерство на регионалното развитие и благоустройството,1058603600,split,
+budget-2026,ministries-2026,mrdpw-roads-and-technical-infrastructure,2100.02.00,Пътища и техническа инфраструктура,1017660800,split,
+budget-2026,ministries-2026,p2100-02-01,2100.02.01,Рехабилитация и изграждане на пътна инфраструктура,962573500,e-transport,national roads (Road Infrastructure Agency): ЕБК 832
+budget-2026,ministries-2026,p2100-02-02,2100.02.02,"Устройство на територията, геозащита, водоснабдяване и канализация",44821700,left out,"mixed: spatial planning, water supply and sewerage (ЕБК 601/603, housing) and landslide protection (624, environment)"
+budget-2026,ministries-2026,p2100-02-03,2100.02.03,Контрол на строителните продукти и инвестиционния процес,10265600,c-housing,construction control (ДНСК): ЕБК 601; not 852 — the whole industry-and-construction sub-function is €1.5 m
+budget-2026,ministries-2026,mrdpw-regional-development,2100.01.00,Регионално развитие,21080100,split,
+budget-2026,ministries-2026,p2100-01-02,2100.01.02,Жилищни условия на маргинализирани групи,17984300,c-housing,"renovation of residential buildings, housing of marginalised groups: ЕБК 601/619"
+budget-2026,ministries-2026,p2100-01-01,2100.01.01,"Стратегическо планиране, децентрализация и териториално сътрудничество",1967700,left out,"strategic planning and territorial cooperation: small, ЕБК uncertain (106 or 619)"
+budget-2026,ministries-2026,p2100-01-03,2100.01.03,"Държавна собственост, публично-частно партньорство и концесии",1128100,left out,"state property, PPP and concessions: small, ЕБК uncertain"
+budget-2026,ministries-2026,mrdpw-administration-and-coordination,2100.03.00,Администрация и координация,19862700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,judiciary,,Съдебна власт,762033000,o-judiciary,"the judiciary (courts, prosecution, Supreme Judicial Council …): ЕБК 241–259"
+budget-2026,ministries-2026,mes,,Министерство на образованието и науката,758408400,split,
+budget-2026,ministries-2026,mes-pre-school-and-school-education,1700.01.00,Предучилищно и училищно образование,703080700,ed-other,"state schools, national education programmes, textbooks, Bulgarian schools abroad: ЕБК 3xx; none of it is the delegated school funding shown by municipality"
+budget-2026,ministries-2026,mes-higher-education-and-research,1700.02.00,Висше образование и наука,48541000,split,
+budget-2026,ministries-2026,p1700-02-01,1700.02.01,Достъп и качество във висшето образование,14704700,ed-other,higher education: ЕБК 341 (its investment grants to universities are not the art. 16(4) subsidies shown under the universities)
+budget-2026,ministries-2026,p1700-02-02,1700.02.02,Студентско подпомагане,11579500,ed-other,"student support (canteens, dormitories, loans): ЕБК 341/389"
+budget-2026,ministries-2026,p1700-02-05,1700.02.05,Интегриране в европейското изследователско пространство,10102300,g-science-other,"European research area, CERN and other memberships, scientific institutes: ЕБК 162/168 (science)"
+budget-2026,ministries-2026,p1700-02-04,1700.02.04,Национален научен потенциал и връзка образование – наука – бизнес,9195900,g-science-other,national research capacity: ЕБК 161/162 (science)
+budget-2026,ministries-2026,p1700-02-03,1700.02.03,Международен образователен обмен,2958600,ed-other,international educational exchange: ЕБК 388/389
+budget-2026,ministries-2026,mes-administration,1700.03.00,Администрация,6786700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,moh,,Министерство на здравеопазването,646423200,split,
+budget-2026,ministries-2026,moh-diagnostics-and-treatment,1600.02.00,Диагностика и лечение,506645000,h-other,"emergency care, state hospitals, blood centres, homes for children: ЕБК 4xx; hospital subsidies go to hospitals (companies), not to the NHIF"
+budget-2026,ministries-2026,moh-public-health-and-prevention,1600.01.00,Обществено здраве и профилактика,91268300,h-other,"regional health inspectorates, national centres, prevention: ЕБК 430/436/467"
+budget-2026,ministries-2026,moh-medicines-and-medical-devices,1600.03.00,Лекарства и медицински изделия,26084000,h-other,"central purchase of medicines, drug agency: ЕБК 4xx"
+budget-2026,ministries-2026,moh-administration,1600.04.00,Администрация,22425900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,motc,,Министерство на транспорта и съобщенията,571711900,split,
+budget-2026,ministries-2026,motc-transport,2300.01.00,Транспорт,504508700,e-transport,"rail, ports, air and road transport: ЕБК 831–837; subsidies to state railway companies, which are outside the КФП"
+budget-2026,ministries-2026,motc-communications-and-digital-connectivity,2300.02.00,Съобщения и цифрова свързаност,49475200,e-transport,postal services: ЕБК 839
+budget-2026,ministries-2026,motc-administration-medical-and-psychological-assessm,2300.03.00,"Администрация, медицинска и психологическа експертиза",17728000,left out,"mixed: central administration (ЕБК 108, function I) and the medical and psychological assessment of transport staff"
+budget-2026,ministries-2026,mof,,Министерство на финансите,409151900,split,
+budget-2026,ministries-2026,mof-collecting-taxes-and-customs-duties,1000.02.00,"Събиране на данъци и мита (НАП, Митници)",298713200,g-executive-other,"the National Revenue Agency and Customs: central government bodies, ЕБК 101 (function I)"
+budget-2026,ministries-2026,mof-sustainable-and-transparent-public-finances,1000.01.00,Устойчиви и прозрачни публични финанси,46687400,g-executive-other,"budget, financial control, legal costs of the state: ЕБК 101/111"
+budget-2026,ministries-2026,mof-fighting-financial-fraud-smuggling-and-money-lau,1000.03.00,"Борба с финансови измами, контрабанда и пране на пари",40829000,g-executive-other,Customs' non-fiscal control and EU financial integration: ЕБК 101 (the Customs Agency is one body)
+budget-2026,ministries-2026,mof-administration,1000.06.00,Администрация,19390900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,mof-debt-management,1000.04.00,Управление на дълга,3531400,g-executive-other,debt management staff and credit-rating fees (not interest): ЕБК 101
+budget-2026,ministries-2026,moj,,Министерство на правосъдието,360030300,split,
+budget-2026,ministries-2026,moj-prisons-and-enforcement-of-sentences,1400.02.00,Затвори и изпълнение на наказанията,226043100,split,
+budget-2026,ministries-2026,p1400-02-01,1400.02.01,Затвори — изолация на правонарушителите,159401300,o-prisons,prisons: ЕБК 261
+budget-2026,ministries-2026,p1400-02-02,1400.02.02,Арести и пробация,66641800,o-prisons,arrests and probation: ЕБК 279
+budget-2026,ministries-2026,moj-justice,1400.01.00,Правосъдие,126975300,split,
+budget-2026,ministries-2026,p1400-01-03,1400.01.03,Охрана на съдебната власт,81711500,o-judiciary,security of the courts (ГД „Охрана“): judicial function (2025 cross-check)
+budget-2026,ministries-2026,p1400-01-02,1400.01.02,Регистри,20067000,left out,"mixed: the Registry Agency keeps the property register (ЕБК 602, housing) and the commercial register (general services)"
+budget-2026,ministries-2026,p1400-01-01,1400.01.01,Правна рамка за функционирането на съдебната система,18358400,left out,mixed: the ministry's legislative work (function I) and state subsidies to political parties; the 2025 actual leaves no room for it in the judicial column
+budget-2026,ministries-2026,p1400-01-04,1400.01.04,Равен достъп до правосъдие,6838400,o-judiciary,legal aid (National Legal Aid Bureau): ЕБК 259
+budget-2026,ministries-2026,moj-administration,1400.03.00,Администрация,7011900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,state-fund-agriculture,,Държавен фонд „Земеделие“,300917500,split,
+budget-2026,ministries-2026,state-fund-agriculture-agriculture-and-rural-areas-subsidies,8400.01.00,Земеделие и селски райони (субсидии),281928200,split,
+budget-2026,ministries-2026,p8400-01-04,8400.01.04,"Държавни помощи, национални доплащания и САПАРД",229978000,e-agriculture,"state aid, transitional national aid: ЕБК 824/829"
+budget-2026,ministries-2026,p8400-01-01,8400.01.01,Развитие на селските райони,42508000,split,
+budget-2026,ministries-2026,p8400-01-01-vat-of-municipalities-on-rural-development,,ДДС на общини по проекти за развитие на селските райони,25000000,left out,"a transfer to municipalities (VAT on their rural-development projects), spent under those projects' own functions"
+budget-2026,ministries-2026,p8400-01-01-staff,,Персонал,17508000,e-agriculture,the paying agency's rural-development staff: ЕБК 827
+budget-2026,ministries-2026,p8400-01-02,8400.01.02,Селскостопански пазарни механизми,7719700,e-agriculture,agricultural market measures: ЕБК 829
+budget-2026,ministries-2026,p8400-01-03,8400.01.03,Директни плащания и специфично подпомагане,1722500,e-agriculture,direct payments: ЕБК 824
+budget-2026,ministries-2026,state-fund-agriculture-administration,8400.03.00,Администрация,18532900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,state-fund-agriculture-fisheries-and-aquaculture-subsidies,8400.02.00,Рибарство и аквакултури (субсидии),456400,left out,mostly a transfer to municipalities (VAT on fisheries projects); small
+budget-2026,ministries-2026,moc,,Министерство на културата,269051700,split,
+budget-2026,ministries-2026,moc-contemporary-arts-theatres-operas-orchestras,1800.02.00,"Съвременно изкуство (театри, опери, оркестри)",238720700,split,
+budget-2026,ministries-2026,p1800-02-03,1800.02.03,Сценични изкуства,143217000,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-08,1800.02.08,Обучение на кадри в изкуството и културата,47155300,ed-other,state schools of art and culture: ЕБК 323 (education)
+budget-2026,ministries-2026,p1800-02-02,1800.02.02,Филмово изкуство,30615400,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-06,1800.02.06,"Българска култура, книжен сектор, библиотеки и читалища",7387000,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-01,1800.02.01,Национален фонд „Култура“,5058500,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-07,1800.02.07,Популяризиране на българската култура в чужбина,3144900,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-04,1800.02.04,"Фестивали, конкурси, събития и чествания",1789200,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,p1800-02-05,1800.02.05,Авторско право и сродните му права,353400,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2026,ministries-2026,moc-cultural-heritage,1800.01.00,Културно наследство,26152000,c-culture-other,"museums, heritage protection and restoration: ЕБК 739/740/755"
+budget-2026,ministries-2026,moc-administration,1800.03.00,Администрация,4179000,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,mafood,,Министерство на земеделието и храните,200331600,split,
+budget-2026,ministries-2026,mafood-agriculture-and-rural-areas,2200.01.00,Земеделие и селски райони,158038700,e-agriculture,"farming, food-chain safety and veterinary services, irrigation: ЕБК 811–829"
+budget-2026,ministries-2026,mafood-forests-and-wildlife,2200.03.00,Гори и дивеч,24255200,e-agriculture,forests and game: ЕБК 814
+budget-2026,ministries-2026,mafood-administration,2200.04.00,Администрация,12844200,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,mafood-fisheries-and-aquaculture,2200.02.00,Рибарство и аквакултури,5193500,e-agriculture,fisheries agency: ЕБК 815/826
+budget-2026,ministries-2026,dans,,ДАНС (Държавна агенция „Национална сигурност“),142580100,o-police,state security: ЕБК 239 other internal security
+budget-2026,ministries-2026,mfa,,Министерство на външните работи,138619300,split,
+budget-2026,ministries-2026,mfa-diplomacy-embassies-and-missions,1100.01.00,Дипломация (посолства и представителства),136897000,g-executive-other,"foreign affairs and embassies: ЕБК 115/116; contributions and aid abroad 128 (all in function I, executive bodies)"
+budget-2026,ministries-2026,mfa-public-diplomacy,1100.02.00,Публична дипломация,927300,g-executive-other,public and cultural diplomacy: ЕБК 115
+budget-2026,ministries-2026,mfa-support-for-bulgarian-communities-abroad,1100.03.00,Подкрепа за българите в чужбина,795000,g-services,Bulgarians abroad: ЕБК 144 (general services)
+budget-2026,ministries-2026,council-of-ministers,,Министерски съвет,123662400,split,
+budget-2026,ministries-2026,council-of-ministers-religious-denominations,0300.04.00,Вероизповедания,36741300,c-religion,subsidies to religious denominations: ЕБК 762
+budget-2026,ministries-2026,council-of-ministers-regional-governors-administrations,0300.03.00,Областни администрации,27697700,g-executive-other,regional governors: ЕБК 121
+budget-2026,ministries-2026,council-of-ministers-other-programmes,0300.07.00,Други програми,20046000,g-services,refugees agency (ЕБК 145) and other services (149): general services; in the 2025 actual they fit its state-budget column
+budget-2026,ministries-2026,council-of-ministers-administration,0300.06.00,Администрация,18749900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,council-of-ministers-running-the-council-of-ministers,0300.01.00,Работа на Министерския съвет,11756500,g-executive-other,the government itself: ЕБК 101
+budget-2026,ministries-2026,council-of-ministers-state-archives,0300.05.00,Държавни архиви,8395900,c-culture-other,state archives: ЕБК 747 (culture)
+budget-2026,ministries-2026,council-of-ministers-managing-eu-funds,0300.02.00,Управление на средствата от ЕС,275100,g-services,management of foreign aid: ЕБК 146 (general services)
+budget-2026,ministries-2026,moys,,Министерство на младежта и спорта,89706600,split,
+budget-2026,ministries-2026,moys-elite-sport,2500.02.00,Спорт за високи постижения,58442000,c-sport,elite sport and Olympic preparation: ЕБК 711–719
+budget-2026,ministries-2026,moys-sport-for-students-and-for-everyone,2500.01.00,Спорт за учащи и за всички,18770900,split,
+budget-2026,ministries-2026,p2500-01-01,2500.01.01,Спорт за учащи,14243100,left out,school and student sport: education (ЕБК 335/389) or sport (713); the 2025 actual leaves no room for all the ministry's sport in the sport column
+budget-2026,ministries-2026,p2500-01-02,2500.01.02,Спорт в свободното време,4527800,c-sport,sport for all: ЕБК 713
+budget-2026,ministries-2026,moys-sports-facilities,2500.03.00,Спортни бази и съоръжения,5639000,c-sport,sports facilities: ЕБК 714
+budget-2026,ministries-2026,moys-young-people,2500.05.00,Младежи,4288800,ed-other,"youth programmes: ЕБК 369 other youth activities (function 3, education)"
+budget-2026,ministries-2026,moys-administration,2500.06.00,Администрация,2192600,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,moys-international-good-practice-in-sport,2500.04.00,Международни практики в спорта,373300,c-sport,sport: ЕБК 719
+budget-2026,ministries-2026,state-reserve,,Държавен резерв и военновременни запаси,78232200,g-services,state reserves and wartime stocks: ЕБК 147 (general services)
+budget-2026,ministries-2026,moew,,Министерство на околната среда и водите,77774100,split,
+budget-2026,ministries-2026,moew-environmental-protection,1900.01.00,Опазване на околната среда,28831900,c-environment,"water, waste, air, nature, climate: ЕБК 621–629"
+budget-2026,ministries-2026,moew-other-programmes,1900.03.00,Други програми,19497900,left out,meteorology and hydrology (НИМХ): ЕБК uncertain (science 163 or 149); the 2025 actual leaves no room for it in the environment column
+budget-2026,ministries-2026,moew-administration,1900.04.00,Администрация,18590500,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,moew-environmental-monitoring,1900.02.00,Мониторинг на околната среда,10853800,c-environment,environmental monitoring (Executive Environment Agency): ЕБК 621/629
+budget-2026,ministries-2026,technical-operations,,Държавна агенция „Технически операции“,76316000,o-police,special technical means for the security services: ЕБК 239
+budget-2026,ministries-2026,moe,,"Министерство на икономиката, инвестициите и индустрията",71544500,split,
+budget-2026,ministries-2026,moe-economic-development-and-competitiveness,2000.01.00,Икономическо развитие и конкурентоспособност,58021300,split,
+budget-2026,ministries-2026,p2000-01-04,2000.01.04,Инфраструктура по качеството,21064600,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-08,2000.01.08,Насърчаване на инвестициите,11717000,left out,"investment promotion, moved from the former Ministry of Innovation and Growth, whose 2025 spending did not fit the economic column; ЕБК uncertain"
+budget-2026,ministries-2026,p2000-01-06,2000.01.06,Държавна собственост,11681000,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-07,2000.01.07,Защита на потребителите,4812700,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-01,2000.01.01,По-леки регулации и по-прости административни услуги,2903200,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-03,2000.01.03,Закрила на индустриалната собственост,2695000,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-02,2000.01.02,Насърчаване на малките и средните предприятия и индустрията,2279600,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,p2000-01-05,2000.01.05,Участие в единния европейски пазар,868200,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2026,ministries-2026,moe-foreign-economic-cooperation,2000.02.00,Външноикономическо сътрудничество,7704900,left out,economic offices abroad: ЕБК uncertain (116 or 898)
+budget-2026,ministries-2026,moe-administration,2000.03.00,Администрация,5818300,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,parliament,,Народно събрание,63167000,g-executive-other,the National Assembly: ЕБК 101/139
+budget-2026,ministries-2026,nso,,Национална служба за охрана,48891000,o-police,National Protection Service: ЕБК 222
+budget-2026,ministries-2026,moen,,Министерство на енергетиката,43267800,split,
+budget-2026,ministries-2026,moen-energy,2400.01.00,Енергетика,38386400,e-energy,"mining, fuel and energy: ЕБК 801–809 (first grafted in 2026, see data/sources/budget-2026/README.md)"
+budget-2026,ministries-2026,moen-administration,2400.02.00,Администрация,4881400,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,mid,,Министерство на иновациите и дигиталната трансформация,42188700,split,
+budget-2026,ministries-2026,mid-digitalising-the-public-sector,7400.02.00,Дигитализация на държавата,22252500,g-executive-other,the administration's e-government and network security (the former e-Government ministry): ЕБК 101/139; the 2025 actual has room for it only in the executive-bodies column
+budget-2026,ministries-2026,mid-innovation-and-technology,7400.01.00,Иновации и технологии,14255600,left out,innovation grants: ЕБК uncertain (science or other economic activities); the 2025 actual leaves no room for it in the economic column
+budget-2026,ministries-2026,mid-administration,7400.00.03,Администрация,5680600,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,intelligence,,Държавна агенция „Разузнаване“,35889500,o-police,State Intelligence Agency: ЕБК 223
+budget-2026,ministries-2026,nsi,,Национален статистически институт,23427200,g-services,statistics: ЕБК 141 (general services)
+budget-2026,ministries-2026,audit-office,,Сметна палата,23180500,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,fsc,,Комисия за финансов надзор,17926000,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,mot,,Министерство на туризма,14462400,split,
+budget-2026,ministries-2026,mot-tourism-development,7100.01.00,Развитие на туризма,11940000,e-tourism,tourism policy and promotion: ЕБК 861/865
+budget-2026,ministries-2026,mot-administration,7100.02.00,Администрация,2522400,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2026,ministries-2026,crc,,Комисия за регулиране на съобщенията,12400300,e-transport,regulation of communications: ЕБК 838
+budget-2026,ministries-2026,information-security,,Държавна комисия по сигурността на информацията,10714200,g-executive-other,control body: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2026,ministries-2026,kevr,,Комисия за енергийно и водно регулиране,8550900,left out,mixed: regulates energy (ЕБК 801) and water (603)
+budget-2026,ministries-2026,asset-forfeiture,,Комисия за отнемане на незаконно придобитото имущество,7865800,g-executive-other,independent commission: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2026,ministries-2026,nuclear-regulator,,Агенция за ядрено регулиране,7233700,left out,"ЕБК 801 would put it in energy, but in the 2025 actual that sub-function's state-budget column is already smaller than the Ministry of Energy's area; not resolved"
+budget-2026,ministries-2026,president,,Администрация на президента,6595100,g-executive-other,the Presidency: ЕБК 101
+budget-2026,ministries-2026,constitutional-court,,Конституционен съд,5122500,g-executive-other,not part of the judiciary: ЕБК 139
+budget-2026,ministries-2026,competition,,Комисия за защита на конкуренцията,4725700,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,cik,,Централна избирателна комисия,3792500,g-executive-other,elections: ЕБК 117
+budget-2026,ministries-2026,data-protection,,Комисия за защита на личните данни,3346000,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,dossier-commission,,Комисия по досиетата,2849700,g-executive-other,independent body: ЕБК 139
+budget-2026,ministries-2026,ombudsman,,Омбудсман,2632600,g-executive-other,independent body: ЕБК 139
+budget-2026,ministries-2026,anti-discrimination,,Комисия за защита от дискриминация,2349700,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,cem,,Съвет за електронни медии,1980100,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,auditor-oversight,,Комисия за публичен надзор над регистрираните одитори,1465600,g-executive-other,control body: ЕБК 111
+budget-2026,ministries-2026,surveillance-oversight,,Бюро за контрол на специалните разузнавателни средства,1050900,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,mod,,Министерство на отбраната,2225880675,split,
+budget-2025,ministries-2025,mod-defence-capabilities,1200.01.00,Отбранителни способности,2150250635,split,
+budget-2025,ministries-2025,p1200-01-01,1200.01.01,Подготовка и използване на въоръжените сили,1094252721,defence,the armed forces: ЕБК 201 defence activities
+budget-2025,ministries-2025,p1200-01-09,1200.01.09,Управление на инвестиционни проекти,679297434,defence,armament and modernisation projects: ЕБК 201
+budget-2025,ministries-2025,p1200-01-08,1200.01.08,"Административно осигуряване, инфраструктура и управление на риска",192473886,defence,"the ministry's administration, infrastructure and risk management: ЕБК 201/219 (defence administration belongs to the defence function)"
+budget-2025,ministries-2025,p1200-01-04,1200.01.04,Медицинско осигуряване,87563030,h-other,military medicine (the Military Medical Academy and its hospitals): ЕБК 4xx health activities
+budget-2025,ministries-2025,p1200-01-03,1200.01.03,Военна полиция,36384604,left out,"military police: a service under the minister, outside the armed forces; ЕБК activity not certain (defence 201/219 or internal security 239), and about €83 m of the ministry's 2025 actual was booked outside the defence function, not identified"
+budget-2025,ministries-2025,p1200-01-05,1200.01.05,Военно-патриотично възпитание и военно-почивно дело,26474745,left out,"mixed: military clubs, museum and ensembles (culture, ЕБК 7xx) and military holiday homes (recreation, 701)"
+budget-2025,ministries-2025,p1200-01-02,1200.01.02,Управление на човешките ресурси и резерв,17629395,defence,human resources and the reserve: ЕБК 201/207
+budget-2025,ministries-2025,p1200-01-06,1200.01.06,Изследвания и технологии,8699836,defence,defence research and technology: ЕБК 215
+budget-2025,ministries-2025,p1200-01-07,1200.01.07,Военно образование,7474985,ed-other,"military education: ЕБК 3xx (the schools themselves get transfers, art. 11(4), not counted here)"
+budget-2025,ministries-2025,mod-allied-and-international-security,1200.02.00,Съюзна и международна сигурност,75630039,split,
+budget-2025,ministries-2025,p1200-02-02,1200.02.02,Военно разузнаване,50030626,left out,"military intelligence: a service under the minister, outside the armed forces; ЕБК activity not certain (defence 201/219 or internal security 239), and about €83 m of the ministry's 2025 actual was booked outside the defence function, not identified"
+budget-2025,ministries-2025,p1200-02-01,1200.02.01,Членство в НАТО и ЕС и международно сътрудничество,25599413,defence,"NATO and EU membership, contributions to their budgets: ЕБК 205"
+budget-2025,ministries-2025,moi,,Министерство на вътрешните работи,2114529228,split,
+budget-2025,ministries-2025,moi-fighting-crime-and-keeping-public-order,1300.01.00,Борба с престъпността и обществен ред,1273157636,o-police,police: ЕБК 221
+budget-2025,ministries-2025,moi-fire-safety-and-civil-protection,1300.03.00,Пожарна безопасност и защита при бедствия,346540343,o-police,"the fire service: ЕБК 224 (fire protection, in the police group); its civil-protection share is not separable and small (the state budget spent €13.5 m on civil protection in 2025)"
+budget-2025,ministries-2025,moi-border-protection-and-migration,1300.02.00,Охрана на границите и миграция,330433678,o-police,border police and migration: ЕБК 221/239
+budget-2025,ministries-2025,moi-running-and-developing-the-interior-ministry,1300.04.00,Управление и развитие на МВР,164397570,split,
+budget-2025,ministries-2025,p1300-04-01,1300.04.01,Информационно осигуряване и административно обслужване,104197042,o-police,the ministry's information systems and administrative services: the interior ministry's spending is in the police function apart from its hospital and academy (2025 cross-check)
+budget-2025,ministries-2025,p1300-04-02,1300.04.02,Медицинско обслужване,32025278,h-other,the ministry's Medical Institute (a hospital): ЕБК 4xx
+budget-2025,ministries-2025,p1300-04-03,1300.04.03,"Научни изследвания, обучение и квалификация",28175250,left out,"mixed: the ministry's academy (higher education, ЕБК 341) and research institutes (ЕБК 225)"
+budget-2025,ministries-2025,molsp,,Министерство на труда и социалната политика,1796645056,split,
+budget-2025,ministries-2025,molsp-people-with-disabilities,1500.04.00,Хора с увреждания,1045048343,split,
+budget-2025,ministries-2025,p1500-04-01-personal-assistance-scheme,,Механизъм лична помощ,591678776,s-svc-other,"personal assistance (Закон за личната помощ): ЕБК 562 personal assistants, sub-function В (services); paid through the municipalities — not part of the delegated social services shown separately"
+budget-2025,ministries-2025,p1500-04-01-financial-support-for-people-with-permanent,,Финансова подкрепа за хора с трайни увреждания,426417429,s-ben-assistance,benefits under the Persons with Disabilities Act: ЕБК 513
+budget-2025,ministries-2025,p1500-04-01-staff,,Персонал,15057597,s-svc-other,"staff administering disability benefits: ЕБК 522 (social assistance directorates, sub-function В)"
+budget-2025,ministries-2025,p1500-04-01-subsidies-to-companies-under-the-persons-with,,Субсидии за предприятия по Закона за хората с увреждания,4563076,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2025,ministries-2025,p1500-04-01-subsidies-to-national-disability-organisations,,Субсидии за национално представителните организации на хората с увреждания,2607282,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2025,ministries-2025,p1500-04-01-targeted-aid-for-people-with-permanent,,Целеви помощи за хора с трайни увреждания,2300813,s-ben-assistance,benefits under the Persons with Disabilities Act: ЕБК 513
+budget-2025,ministries-2025,p1500-04-01-accessible-housing-and-personal-mobility,,Достъпна жилищна среда и лична мобилност,1278230,s-ben-assistance,targeted aid under the Persons with Disabilities Act: ЕБК 513
+budget-2025,ministries-2025,p1500-04-01-running,,Издръжка,915059,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2025,ministries-2025,p1500-04-01-rehabilitation-and-integration-of-people-with,,Рехабилитация и интеграция на хората с увреждания,204517,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2025,ministries-2025,p1500-04-01-capital,,Капиталови разходи,25565,left out,"small item of the programme (subsidies to organisations and enterprises, rehabilitation), or its running and capital costs: ЕБК uncertain or too small, left out"
+budget-2025,ministries-2025,molsp-social-inclusion,1500.05.00,Социално включване,409856838,split,
+budget-2025,ministries-2025,p1500-05-01-monthly-child-benefit-until-secondary-school,,Месечни помощи за дете до завършване на средно образование,136617702,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-monthly-benefit-for-a-child-with-a-permanent,,Месечни помощи за дете с трайно увреждане,111768405,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-staff,,Персонал,50971812,s-svc-other,staff administering family and child benefits: ЕБК 522
+budget-2025,ministries-2025,p1500-05-01-one-off-grant-for-pupils-art-10a,,Еднократна помощ за ученици (чл. 10а),31904613,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-foster-families,,Приемни семейства,19565606,left out,foster care: a social service (sub-function В) or a child-protection payment (ЕБК 515) — not certain
+budget-2025,ministries-2025,p1500-05-01-one-off-birth-grant,,Еднократна помощ при раждане на дете,17907998,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-monthly-benefit-for-a-child-under-1,,Месечни помощи за дете до 1 година,15504926,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-child-protection-assistance,,Помощи за закрила на детето,7871339,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-one-off-grant-for-pupils-enrolled-in-8th-grade,,"Еднократна помощ за ученици, записани в осми клас",7669378,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-running,,Издръжка,3214543,left out,"the programme's running costs: small, left out"
+budget-2025,ministries-2025,p1500-05-01-monthly-benefit-for-a-child-without-a-survivor-s,,Месечни помощи за дете без наследствена пенсия,2812105,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-one-off-grant-for-twins,,Еднократна помощ за отглеждане на близнаци,1288456,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-one-off-pregnancy-grant,,Еднократна помощ при бременност,1265447,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-one-off-grant-for-student-mothers,,Еднократна помощ за майки студентки,736260,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-one-free-trip-a-year-for-mothers-of-large,,Безплатно пътуване веднъж годишно за многодетни майки,341032,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-national-child-helpline-116-111,,Национална телефонна линия за деца 116 111,161057,left out,"child-protection service (ЕБК 538): small, left out"
+budget-2025,ministries-2025,p1500-05-01-children-s-council-and-inspections,,Съвет на децата и проверки в страната,92033,left out,"child-protection activity (ЕБК 538): small, left out"
+budget-2025,ministries-2025,p1500-05-01-one-off-adoption-grant,,Еднократна помощ при осиновяване на дете,89476,s-ben-assistance,family and child benefits: ЕБК 511 (Family Allowances for Children Act) / 515 (Child Protection Act)
+budget-2025,ministries-2025,p1500-05-01-capital,,Капиталови разходи,74649,left out,"the programme's capital costs: small, left out"
+budget-2025,ministries-2025,molsp-social-assistance-and-gender-equality,1500.03.00,Социално подпомагане и равнопоставеност,230690755,split,
+budget-2025,ministries-2025,p1500-03-01,1500.03.01,Социални помощи,230595041,split,
+budget-2025,ministries-2025,p1500-03-01-heating-aid,,Помощи за отопление,101332938,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-monthly-social-assistance,,Месечни социални помощи,68837271,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-staff,,Персонал,34973490,s-svc-other,staff administering social assistance: ЕБК 522
+budget-2025,ministries-2025,p1500-03-01-one-off-social-assistance,,Еднократни социални помощи,14679190,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-social-inclusion-programmes-and-projects,,Социални програми и проекти за включване,2740524,left out,"programmes and projects, not benefits: ЕБК uncertain, small"
+budget-2025,ministries-2025,p1500-03-01-running,,Издръжка,2104682,left out,"the programme's running costs: small, left out"
+budget-2025,ministries-2025,p1500-03-01-medicines-dental-care-and-death-grants-for,,"Лекарства, зъболечение и помощ при смърт за ветерани и военноинвалиди",1865193,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-assistance-for-diagnosis-and-treatment,,Помощи за диагностика и лечение,1789522,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-capital,,Капиталови разходи,1436730,left out,"the programme's capital costs: small, left out"
+budget-2025,ministries-2025,p1500-03-01-aid-when-an-unemployed-member-of-a-family-on,,Помощ за започнал работа член на семейство на социални помощи,490789,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-aid-for-young-people-leaving-residential-care,,"Помощ за младежи, напуснали резидентна грижа",293584,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-01-rent-assistance,,Помощи за наем,51129,s-ben-assistance,social assistance: ЕБК 512 (Social Assistance Act) / 514 / 516–519
+budget-2025,ministries-2025,p1500-03-02,1500.03.02,Равнопоставеност на жените и мъжете,95714,left out,"gender equality: small, ЕБК uncertain"
+budget-2025,ministries-2025,molsp-labour-market-and-employment,1500.01.00,Пазар на труда и заетост,84306407,s-svc-other,employment programmes and the Employment Agency: ЕБК 532/533/559
+budget-2025,ministries-2025,molsp-labour-relations,1500.02.00,Трудови отношения,18229396,s-svc-other,working conditions and labour inspection: ЕБК 531 (prevention of accidents at work and occupational diseases)
+budget-2025,ministries-2025,molsp-administration,1500.07.00,Администрация,7879570,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,molsp-living-standards-and-demography,1500.06.00,Жизнено равнище и демография,633746,left out,"demography and incomes policy: small, ЕБК uncertain (142 planning or 559)"
+budget-2025,ministries-2025,mrdpw,,Министерство на регионалното развитие и благоустройството,1058603611,split,
+budget-2025,ministries-2025,mrdpw-roads-and-technical-infrastructure,2100.02.00,Пътища и техническа инфраструктура,1030975698,split,
+budget-2025,ministries-2025,p2100-02-01,2100.02.01,Рехабилитация и изграждане на пътна инфраструктура,988252711,e-transport,national roads (Road Infrastructure Agency): ЕБК 832
+budget-2025,ministries-2025,p2100-02-02,2100.02.02,"Устройство на територията, геозащита, водоснабдяване и канализация",33463287,left out,"mixed: spatial planning, water supply and sewerage (ЕБК 601/603, housing) and landslide protection (624, environment)"
+budget-2025,ministries-2025,p2100-02-03,2100.02.03,Контрол на строителните продукти и инвестиционния процес,9259700,c-housing,construction control (ДНСК): ЕБК 601; not 852 — the whole industry-and-construction sub-function is €1.5 m
+budget-2025,ministries-2025,mrdpw-administration-and-coordination,2100.03.00,Администрация и координация,15641288,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,mrdpw-regional-development,2100.01.00,Регионално развитие,11986625,split,
+budget-2025,ministries-2025,p2100-01-02,2100.01.02,Жилищни условия на маргинализирани групи,8090580,c-housing,"renovation of residential buildings, housing of marginalised groups: ЕБК 601/619"
+budget-2025,ministries-2025,p2100-01-01,2100.01.01,"Стратегическо планиране, децентрализация и териториално сътрудничество",2041588,left out,"strategic planning and territorial cooperation: small, ЕБК uncertain (106 or 619)"
+budget-2025,ministries-2025,p2100-01-03,2100.01.03,"Държавна собственост, публично-частно партньорство и концесии",1854456,left out,"state property, PPP and concessions: small, ЕБК uncertain"
+budget-2025,ministries-2025,judiciary,,Съдебна власт,707784726,o-judiciary,"the judiciary (courts, prosecution, Supreme Judicial Council …): ЕБК 241–259"
+budget-2025,ministries-2025,mes,,Министерство на образованието и науката,682043429,split,
+budget-2025,ministries-2025,mes-pre-school-and-school-education,1700.01.00,Предучилищно и училищно образование,616281579,ed-other,"state schools, national education programmes, textbooks, Bulgarian schools abroad: ЕБК 3xx; none of it is the delegated school funding shown by municipality"
+budget-2025,ministries-2025,mes-higher-education-and-research,1700.02.00,Висше образование и наука,58607497,split,
+budget-2025,ministries-2025,p1700-02-01,1700.02.01,Достъп и качество във висшето образование,18236554,ed-other,higher education: ЕБК 341 (its investment grants to universities are not the art. 16(4) subsidies shown under the universities)
+budget-2025,ministries-2025,p1700-02-02,1700.02.02,Студентско подпомагане,13645665,ed-other,"student support (canteens, dormitories, loans): ЕБК 341/389"
+budget-2025,ministries-2025,p1700-02-05,1700.02.05,Интегриране в европейското изследователско пространство,12342995,g-science,"European research area, CERN and other memberships, scientific institutes: ЕБК 162/168 (science)"
+budget-2025,ministries-2025,p1700-02-04,1700.02.04,Национален научен потенциал и връзка образование – наука – бизнес,11290041,g-science,national research capacity: ЕБК 161/162 (science)
+budget-2025,ministries-2025,p1700-02-03,1700.02.03,Международен образователен обмен,3092242,ed-other,international educational exchange: ЕБК 388/389
+budget-2025,ministries-2025,mes-administration,1700.03.00,Администрация,7154354,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,moh,,Министерство на здравеопазването,615507636,split,
+budget-2025,ministries-2025,moh-diagnostics-and-treatment,1600.02.00,Диагностика и лечение,475275663,h-other,"emergency care, state hospitals, blood centres, homes for children: ЕБК 4xx; hospital subsidies go to hospitals (companies), not to the NHIF"
+budget-2025,ministries-2025,moh-public-health-and-prevention,1600.01.00,Обществено здраве и профилактика,91476611,h-other,"regional health inspectorates, national centres, prevention: ЕБК 430/436/467"
+budget-2025,ministries-2025,moh-medicines-and-medical-devices,1600.03.00,Лекарства и медицински изделия,25657138,h-other,"central purchase of medicines, drug agency: ЕБК 4xx"
+budget-2025,ministries-2025,moh-administration,1600.04.00,Администрация,23098224,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,motc,,Министерство на транспорта и съобщенията,575448735,split,
+budget-2025,ministries-2025,motc-transport,2300.01.00,Транспорт,508112719,e-transport,"rail, ports, air and road transport: ЕБК 831–837; subsidies to state railway companies, which are outside the КФП"
+budget-2025,ministries-2025,motc-communications-and-digital-connectivity,2300.02.00,Съобщения и цифрова свързаност,49278721,e-transport,postal services: ЕБК 839
+budget-2025,ministries-2025,motc-administration-medical-and-psychological-assessm,2300.03.00,"Администрация, медицинска и психологическа експертиза",18057295,left out,"mixed: central administration (ЕБК 108, function I) and the medical and psychological assessment of transport staff"
+budget-2025,ministries-2025,mof,,Министерство на финансите,453816947,split,
+budget-2025,ministries-2025,mof-collecting-taxes-and-customs-duties,1000.02.00,"Събиране на данъци и мита (НАП, Митници)",311992198,g-executive-other,"the National Revenue Agency and Customs: central government bodies, ЕБК 101 (function I)"
+budget-2025,ministries-2025,mof-sustainable-and-transparent-public-finances,1000.01.00,Устойчиви и прозрачни публични финанси,77607154,g-executive-other,"budget, financial control, legal costs of the state: ЕБК 101/111"
+budget-2025,ministries-2025,mof-fighting-financial-fraud-smuggling-and-money-lau,1000.03.00,"Борба с финансови измами, контрабанда и пране на пари",36676756,g-executive-other,Customs' non-fiscal control and EU financial integration: ЕБК 101 (the Customs Agency is one body)
+budget-2025,ministries-2025,mof-administration,1000.06.00,Администрация,23804830,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,mof-debt-management,1000.04.00,Управление на дълга,3736010,g-executive-other,debt management staff and credit-rating fees (not interest): ЕБК 101
+budget-2025,ministries-2025,moj,,Министерство на правосъдието,353957706,split,
+budget-2025,ministries-2025,moj-prisons-and-enforcement-of-sentences,1400.02.00,Затвори и изпълнение на наказанията,222169054,split,
+budget-2025,ministries-2025,p1400-02-01,1400.02.01,Затвори — изолация на правонарушителите,159758977,o-prisons,prisons: ЕБК 261
+budget-2025,ministries-2025,p1400-02-02,1400.02.02,Арести и пробация,62410077,o-prisons,arrests and probation: ЕБК 279
+budget-2025,ministries-2025,moj-justice,1400.01.00,Правосъдие,124369194,split,
+budget-2025,ministries-2025,p1400-01-03,1400.01.03,Охрана на съдебната власт,79361908,o-judiciary,security of the courts (ГД „Охрана“): judicial function (2025 cross-check)
+budget-2025,ministries-2025,p1400-01-02,1400.01.02,Регистри,20661918,left out,"mixed: the Registry Agency keeps the property register (ЕБК 602, housing) and the commercial register (general services)"
+budget-2025,ministries-2025,p1400-01-01,1400.01.01,Правна рамка за функционирането на съдебната система,18641140,left out,mixed: the ministry's legislative work (function I) and state subsidies to political parties; the 2025 actual leaves no room for it in the judicial column
+budget-2025,ministries-2025,p1400-01-04,1400.01.04,Равен достъп до правосъдие,5704228,o-judiciary,legal aid (National Legal Aid Bureau): ЕБК 259
+budget-2025,ministries-2025,moj-administration,1400.03.00,Администрация,7419459,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,state-fund-agriculture,,Държавен фонд „Земеделие“,277346242,split,
+budget-2025,ministries-2025,state-fund-agriculture-agriculture-and-rural-areas-subsidies,8400.01.00,Земеделие и селски райони (субсидии),256547655,split,
+budget-2025,ministries-2025,p8400-01-04,8400.01.04,"Държавни помощи, национални доплащания и САПАРД",230111155,e-agriculture,"state aid, transitional national aid: ЕБК 824/829"
+budget-2025,ministries-2025,p8400-01-01,8400.01.01,Развитие на селските райони,17256919,e-agriculture,the paying agency's rural-development staff (in 2025 the programme is all staff): ЕБК 827
+budget-2025,ministries-2025,p8400-01-02,8400.01.02,Селскостопански пазарни механизми,7483319,e-agriculture,agricultural market measures: ЕБК 829
+budget-2025,ministries-2025,p8400-01-03,8400.01.03,Директни плащания и специфично подпомагане,1696262,e-agriculture,direct payments: ЕБК 824
+budget-2025,ministries-2025,state-fund-agriculture-administration,8400.03.00,Администрация,20546213,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,state-fund-agriculture-fisheries-and-aquaculture-subsidies,8400.02.00,Рибарство и аквакултури (субсидии),252374,left out,mostly a transfer to municipalities (VAT on fisheries projects); small
+budget-2025,ministries-2025,moc,,Министерство на културата,233744190,split,
+budget-2025,ministries-2025,moc-contemporary-arts-theatres-operas-orchestras,1800.02.00,"Съвременно изкуство (театри, опери, оркестри)",205600998,split,
+budget-2025,ministries-2025,p1800-02-03,1800.02.03,Сценични изкуства,113179162,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-08,1800.02.08,Обучение на кадри в изкуството и културата,44983306,ed-other,state schools of art and culture: ЕБК 323 (education)
+budget-2025,ministries-2025,p1800-02-02,1800.02.02,Филмово изкуство,28736700,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-06,1800.02.06,"Българска култура, книжен сектор, библиотеки и читалища",7339033,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-01,1800.02.01,Национален фонд „Култура“,5047831,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-07,1800.02.07,Популяризиране на българската култура в чужбина,3156665,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-04,1800.02.04,"Фестивали, конкурси, събития и чествания",2808526,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,p1800-02-05,1800.02.05,Авторско право и сродните му права,349775,c-culture-other,"arts: ЕБК 732–748, 751 (theatres, operas, orchestras, film, libraries, the National Culture Fund, festivals)"
+budget-2025,ministries-2025,moc-cultural-heritage,1800.01.00,Културно наследство,23604352,c-culture-other,"museums, heritage protection and restoration: ЕБК 739/740/755"
+budget-2025,ministries-2025,moc-administration,1800.03.00,Администрация,4538840,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,mafood,,Министерство на земеделието и храните,188837885,split,
+budget-2025,ministries-2025,mafood-agriculture-and-rural-areas,2200.01.00,Земеделие и селски райони,141346436,e-agriculture,"farming, food-chain safety and veterinary services, irrigation: ЕБК 811–829"
+budget-2025,ministries-2025,mafood-forests-and-wildlife,2200.03.00,Гори и дивеч,23768886,e-agriculture,forests and game: ЕБК 814
+budget-2025,ministries-2025,mafood-administration,2200.04.00,Администрация,19009986,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,mafood-fisheries-and-aquaculture,2200.02.00,Рибарство и аквакултури,4712577,e-agriculture,fisheries agency: ЕБК 815/826
+budget-2025,ministries-2025,dans,,ДАНС (Държавна агенция „Национална сигурност“),142580081,o-police,state security: ЕБК 239 other internal security
+budget-2025,ministries-2025,council-of-ministers,,Министерски съвет,124668044,split,
+budget-2025,ministries-2025,council-of-ministers-religious-denominations,0300.04.00,Вероизповедания,40069229,c-religion,subsidies to religious denominations: ЕБК 762
+budget-2025,ministries-2025,council-of-ministers-regional-governors-administrations,0300.03.00,Областни администрации,37065389,g-executive-other,regional governors: ЕБК 121
+budget-2025,ministries-2025,council-of-ministers-other-programmes,0300.07.00,Други програми,21389333,g-services,refugees agency (ЕБК 145) and other services (149): general services; in the 2025 actual they fit its state-budget column
+budget-2025,ministries-2025,council-of-ministers-running-the-council-of-ministers,0300.01.00,Работа на Министерския съвет,11275009,g-executive-other,the government itself: ЕБК 101
+budget-2025,ministries-2025,council-of-ministers-administration,0300.06.00,Администрация,7583941,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,council-of-ministers-state-archives,0300.05.00,Държавни архиви,7028576,c-culture-other,state archives: ЕБК 747 (culture)
+budget-2025,ministries-2025,council-of-ministers-managing-eu-funds,0300.02.00,Управление на средствата от ЕС,256566,g-services,management of foreign aid: ЕБК 146 (general services)
+budget-2025,ministries-2025,mfa,,Министерство на външните работи,114425078,split,
+budget-2025,ministries-2025,mfa-diplomacy-embassies-and-missions,1100.01.00,Дипломация (посолства и представителства),112760516,g-executive-other,"foreign affairs and embassies: ЕБК 115/116; contributions and aid abroad 128 (all in function I, executive bodies)"
+budget-2025,ministries-2025,mfa-public-diplomacy,1100.02.00,Публична дипломация,897726,g-executive-other,public and cultural diplomacy: ЕБК 115
+budget-2025,ministries-2025,mfa-support-for-bulgarian-communities-abroad,1100.03.00,Подкрепа за българите в чужбина,766836,g-services,Bulgarians abroad: ЕБК 144 (general services)
+budget-2025,ministries-2025,moys,,Министерство на младежта и спорта,91761452,split,
+budget-2025,ministries-2025,moys-elite-sport,2500.02.00,Спорт за високи постижения,57256408,c-sport,elite sport and Olympic preparation: ЕБК 711–719
+budget-2025,ministries-2025,moys-sport-for-students-and-for-everyone,2500.01.00,Спорт за учащи и за всички,18458966,split,
+budget-2025,ministries-2025,p2500-01-01,2500.01.01,Спорт за учащи,14191060,left out,school and student sport: education (ЕБК 335/389) or sport (713); the 2025 actual leaves no room for all the ministry's sport in the sport column
+budget-2025,ministries-2025,p2500-01-02,2500.01.02,Спорт в свободното време,4267907,c-sport,sport for all: ЕБК 713
+budget-2025,ministries-2025,moys-sports-facilities,2500.03.00,Спортни бази и съоръжения,10292101,c-sport,sports facilities: ЕБК 714
+budget-2025,ministries-2025,moys-young-people,2500.05.00,Младежи,3288118,ed-other,"youth programmes: ЕБК 369 other youth activities (function 3, education)"
+budget-2025,ministries-2025,moys-administration,2500.06.00,Администрация,2080651,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,moys-international-good-practice-in-sport,2500.04.00,Международни практики в спорта,385207,c-sport,sport: ЕБК 719
+budget-2025,ministries-2025,technical-operations,,Държавна агенция „Технически операции“,76315989,o-police,special technical means for the security services: ЕБК 239
+budget-2025,ministries-2025,moew,,Министерство на околната среда и водите,75453030,split,
+budget-2025,ministries-2025,moew-environmental-protection,1900.01.00,Опазване на околната среда,31070901,c-environment,"water, waste, air, nature, climate: ЕБК 621–629"
+budget-2025,ministries-2025,moew-other-programmes,1900.03.00,Други програми,17685075,left out,meteorology and hydrology (НИМХ): ЕБК uncertain (science 163 or 149); the 2025 actual leaves no room for it in the environment column
+budget-2025,ministries-2025,moew-administration,1900.04.00,Администрация,16571941,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,moew-environmental-monitoring,1900.02.00,Мониторинг на околната среда,10125113,c-environment,environmental monitoring (Executive Environment Agency): ЕБК 621/629
+budget-2025,ministries-2025,parliament,,Народно събрание,67103838,g-executive-other,the National Assembly: ЕБК 101/139
+budget-2025,ministries-2025,moe,,Министерство на икономиката и индустрията,62586984,split,
+budget-2025,ministries-2025,moe-economic-development-and-competitiveness,2000.01.00,Икономическо развитие и конкурентоспособност,46330509,split,
+budget-2025,ministries-2025,p2000-01-04,2000.01.04,Инфраструктура по качеството,22656059,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-06,2000.01.06,Държавна собственост,11245507,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-07,2000.01.07,Защита на потребителите,5007388,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-01,2000.01.01,По-леки регулации и по-прости административни услуги,2852140,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-03,2000.01.03,Закрила на индустриалната собственост,2830665,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-05,2000.01.05,Участие в единния европейски пазар,884739,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,p2000-01-02,2000.01.02,Насърчаване на малките и средните предприятия и индустрията,854011,e-other,"standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column"
+budget-2025,ministries-2025,moe-foreign-economic-cooperation,2000.02.00,Външноикономическо сътрудничество,9628444,left out,economic offices abroad: ЕБК uncertain (116 or 898)
+budget-2025,ministries-2025,moe-administration,2000.03.00,Администрация,6628030,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,state-reserve,,Държавен резерв и военновременни запаси,51924707,g-services,state reserves and wartime stocks: ЕБК 147 (general services)
+budget-2025,ministries-2025,nso,,Национална служба за охрана,48890957,o-police,National Protection Service: ЕБК 222
+budget-2025,ministries-2025,moen,,Министерство на енергетиката,43181974,split,
+budget-2025,ministries-2025,moen-energy,2400.01.00,Енергетика,37922774,e-energy,"mining, fuel and energy: ЕБК 801–809 (first grafted in 2026, see data/sources/budget-2026/README.md)"
+budget-2025,ministries-2025,moen-administration,2400.02.00,Администрация,5259199,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,intelligence,,Държавна агенция „Разузнаване“,35499507,o-police,State Intelligence Agency: ЕБК 223
+budget-2025,ministries-2025,mig,,Министерство на иновациите и растежа,31207671,split,
+budget-2025,ministries-2025,mig-investment-and-innovation-for-growth,7400.01.00,Инвестиции и иновации за растеж,28736700,left out,investment promotion and innovation grants: ЕБК uncertain; the 2025 actual leaves no room for them in the economic column
+budget-2025,ministries-2025,mig-administration,7400.02.00,Администрация,2470971,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,meg,,Министерство на електронното управление,28620279,g-executive-other,e-government of the administration (Ministry of e-Government): ЕБК 101/139; the 2025 actual has room for it only in the executive-bodies column
+budget-2025,ministries-2025,nsi,,Национален статистически институт,23571067,g-services,statistics: ЕБК 141 (general services)
+budget-2025,ministries-2025,audit-office,,Сметна палата,17299714,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,mot,,Министерство на туризма,14734461,split,
+budget-2025,ministries-2025,mot-tourism-development,7100.01.00,Развитие на туризма,12298819,e-tourism,tourism policy and promotion: ЕБК 861/865
+budget-2025,ministries-2025,mot-administration,7100.02.00,Администрация,2435641,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2025,ministries-2025,fsc,,Комисия за финансов надзор,14335755,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,crc,,Комисия за регулиране на съобщенията,12864922,e-transport,regulation of communications: ЕБК 838
+budget-2025,ministries-2025,information-security,,Държавна комисия по сигурността на информацията,10400904,g-executive-other,control body: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2025,ministries-2025,anti-corruption,,Комисия за противодействие на корупцията,9115925,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,asset-forfeiture,,Комисия за отнемане на незаконно придобитото имущество,8173563,g-executive-other,independent commission: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2025,ministries-2025,kevr,,Комисия за енергийно и водно регулиране,7775267,left out,mixed: regulates energy (ЕБК 801) and water (603)
+budget-2025,ministries-2025,constitutional-court,,Конституционен съд,7167392,g-executive-other,not part of the judiciary: ЕБК 139
+budget-2025,ministries-2025,president,,Администрация на президента,7072854,g-executive-other,the Presidency: ЕБК 101
+budget-2025,ministries-2025,nuclear-regulator,,Агенция за ядрено регулиране,5235987,left out,"ЕБК 801 would put it in energy, but in the 2025 actual that sub-function's state-budget column is already smaller than the Ministry of Energy's area; not resolved"
+budget-2025,ministries-2025,cik,,Централна избирателна комисия,4054136,g-executive-other,elections: ЕБК 117
+budget-2025,ministries-2025,competition,,Комисия за защита на конкуренцията,3949679,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,data-protection,,Комисия за защита на личните данни,3440432,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,dossier-commission,,Комисия по досиетата,2710512,g-executive-other,independent body: ЕБК 139
+budget-2025,ministries-2025,ombudsman,,Омбудсман,2464631,g-executive-other,independent body: ЕБК 139
+budget-2025,ministries-2025,anti-discrimination,,Комисия за защита от дискриминация,2207400,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,cem,,Съвет за електронни медии,1761810,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,auditor-oversight,,Комисия за публичен надзор над регистрираните одитори,1460352,g-executive-other,control body: ЕБК 111
+budget-2025,ministries-2025,surveillance-oversight,,Бюро за контрол на специалните разузнавателни средства,1319491,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,mod,,Министерство на отбраната,2987033500,split,
+budget-2027,ministries-2027,mod-defence-capabilities,,Отбранителни способности,2884047100,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,mod-allied-and-international-security,,Съюзна и международна сигурност,102986400,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,molsp,,Министерство на труда и социалната политика,2357706100,split,
+budget-2027,ministries-2027,molsp-people-with-disabilities,,Хора с увреждания,1460375200,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,molsp-social-inclusion,,Социално включване,494577400,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,molsp-social-assistance-and-gender-equality,,Социално подпомагане и равнопоставеност,288141900,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,molsp-labour-market-and-employment,,Пазар на труда и заетост,86086000,s-svc-rest,employment programmes and the Employment Agency: ЕБК 532/533/559
+budget-2027,ministries-2027,molsp-labour-relations,,Трудови отношения,18704500,s-svc-rest,working conditions and labour inspection: ЕБК 531 (prevention of accidents at work and occupational diseases)
+budget-2027,ministries-2027,molsp-administration,,Администрация,9089700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,molsp-living-standards-and-demography,,Жизнено равнище и демография,731400,left out,"demography and incomes policy: small, ЕБК uncertain (142 planning or 559)"
+budget-2027,ministries-2027,moi,,Министерство на вътрешните работи,2104824300,split,
+budget-2027,ministries-2027,moi-fighting-crime-and-keeping-public-order,,Борба с престъпността и обществен ред,1211741100,o-police,police: ЕБК 221
+budget-2027,ministries-2027,moi-fire-safety-and-civil-protection,,Пожарна безопасност и защита при бедствия,351975200,o-police,"the fire service: ЕБК 224 (fire protection, in the police group); its civil-protection share is not separable and small (the state budget spent €13.5 m on civil protection in 2025)"
+budget-2027,ministries-2027,moi-border-protection-and-migration,,Охрана на границите и миграция,339674600,o-police,border police and migration: ЕБК 221/239
+budget-2027,ministries-2027,moi-running-and-developing-the-interior-ministry,,Управление и развитие на МВР,201433400,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,mrdpw,,Министерство на регионалното развитие и благоустройството,1210251600,split,
+budget-2027,ministries-2027,mrdpw-roads-and-technical-infrastructure,,Пътища и техническа инфраструктура,1186103700,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,mrdpw-administration-and-coordination,,Администрация и координация,17407700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,mrdpw-regional-development,,Регионално развитие,6740200,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,mes,,Министерство на образованието и науката,918253400,split,
+budget-2027,ministries-2027,mes-pre-school-and-school-education,,Предучилищно и училищно образование,794972900,ed-other,"state schools, national education programmes, textbooks, Bulgarian schools abroad: ЕБК 3xx; none of it is the delegated school funding shown by municipality"
+budget-2027,ministries-2027,mes-higher-education-and-research,,Висше образование и наука,116324800,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,mes-administration,,Администрация,6955700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,judiciary,,Съдебна власт,752184000,o-judiciary,"the judiciary (courts, prosecution, Supreme Judicial Council …): ЕБК 241–259"
+budget-2027,ministries-2027,moh,,Министерство на здравеопазването,724948700,split,
+budget-2027,ministries-2027,moh-diagnostics-and-treatment,,Диагностика и лечение,590264300,h-other,"emergency care, state hospitals, blood centres, homes for children: ЕБК 4xx; hospital subsidies go to hospitals (companies), not to the NHIF"
+budget-2027,ministries-2027,moh-public-health-and-prevention,,Обществено здраве и профилактика,86041800,h-other,"regional health inspectorates, national centres, prevention: ЕБК 430/436/467"
+budget-2027,ministries-2027,moh-medicines-and-medical-devices,,Лекарства и медицински изделия,25793900,h-other,"central purchase of medicines, drug agency: ЕБК 4xx"
+budget-2027,ministries-2027,moh-administration,,Администрация,22848700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,motc,,Министерство на транспорта и съобщенията,575982700,split,
+budget-2027,ministries-2027,motc-transport,,Транспорт,498576800,e-transport,"rail, ports, air and road transport: ЕБК 831–837; subsidies to state railway companies, which are outside the КФП"
+budget-2027,ministries-2027,motc-communications-and-digital-connectivity,,Съобщения и цифрова свързаност,59129900,e-transport,postal services: ЕБК 839
+budget-2027,ministries-2027,motc-administration-medical-and-psychological-assessm,,"Администрация, медицинска и психологическа експертиза",18276000,left out,"mixed: central administration (ЕБК 108, function I) and the medical and psychological assessment of transport staff"
+budget-2027,ministries-2027,mof,,Министерство на финансите,442821700,split,
+budget-2027,ministries-2027,mof-collecting-taxes-and-customs-duties,,"Събиране на данъци и мита (НАП, Митници)",314539700,g-executive-other,"the National Revenue Agency and Customs: central government bodies, ЕБК 101 (function I)"
+budget-2027,ministries-2027,mof-sustainable-and-transparent-public-finances,,Устойчиви и прозрачни публични финанси,56503700,g-executive-other,"budget, financial control, legal costs of the state: ЕБК 101/111"
+budget-2027,ministries-2027,mof-fighting-financial-fraud-smuggling-and-money-lau,,"Борба с финансови измами, контрабанда и пране на пари",45282400,g-executive-other,Customs' non-fiscal control and EU financial integration: ЕБК 101 (the Customs Agency is one body)
+budget-2027,ministries-2027,mof-administration,,Администрация,22470700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,mof-debt-management,,Управление на дълга,4025200,g-executive-other,debt management staff and credit-rating fees (not interest): ЕБК 101
+budget-2027,ministries-2027,moj,,Министерство на правосъдието,369566900,split,
+budget-2027,ministries-2027,moj-prisons-and-enforcement-of-sentences,,Затвори и изпълнение на наказанията,226557600,o-prisons,all its 2026 programmes go to this box (ПМС № 102/2026); the draft gives the area only
+budget-2027,ministries-2027,moj-justice,,Правосъдие,135288100,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,moj-administration,,Администрация,7721200,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,moc,,Министерство на културата,285724800,split,
+budget-2027,ministries-2027,moc-contemporary-arts-theatres-operas-orchestras,,"Съвременно изкуство (театри, опери, оркестри)",253397100,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,moc-cultural-heritage,,Културно наследство,28547000,c-culture-other,"museums, heritage protection and restoration: ЕБК 739/740/755"
+budget-2027,ministries-2027,moc-administration,,Администрация,3780700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,state-fund-agriculture,,Държавен фонд „Земеделие“,276560100,split,
+budget-2027,ministries-2027,state-fund-agriculture-agriculture-and-rural-areas-subsidies,,Земеделие и селски райони (субсидии),257853500,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,state-fund-agriculture-administration,,Администрация,18441200,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,state-fund-agriculture-fisheries-and-aquaculture-subsidies,,Рибарство и аквакултури (субсидии),265400,left out,mostly a transfer to municipalities (VAT on fisheries projects); small
+budget-2027,ministries-2027,mafood,,Министерство на земеделието и храните,200754800,split,
+budget-2027,ministries-2027,mafood-agriculture-and-rural-areas,,Земеделие и селски райони,150733400,e-agriculture,"farming, food-chain safety and veterinary services, irrigation: ЕБК 811–829"
+budget-2027,ministries-2027,mafood-forests-and-wildlife,,Гори и дивеч,26520800,e-agriculture,forests and game: ЕБК 814
+budget-2027,ministries-2027,mafood-administration,,Администрация,18239600,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,mafood-fisheries-and-aquaculture,,Рибарство и аквакултури,5261000,e-agriculture,fisheries agency: ЕБК 815/826
+budget-2027,ministries-2027,mfa,,Министерство на външните работи,146085500,split,
+budget-2027,ministries-2027,mfa-diplomacy-embassies-and-missions,,Дипломация (посолства и представителства),144260600,g-executive-other,"foreign affairs and embassies: ЕБК 115/116; contributions and aid abroad 128 (all in function I, executive bodies)"
+budget-2027,ministries-2027,mfa-public-diplomacy,,Публична дипломация,984500,g-executive-other,public and cultural diplomacy: ЕБК 115
+budget-2027,ministries-2027,mfa-support-for-bulgarian-communities-abroad,,Подкрепа за българите в чужбина,840400,g-services,Bulgarians abroad: ЕБК 144 (general services)
+budget-2027,ministries-2027,dans,,ДАНС (Държавна агенция „Национална сигурност“),131917800,o-police,state security: ЕБК 239 other internal security
+budget-2027,ministries-2027,council-of-ministers,,Министерски съвет,115622000,split,
+budget-2027,ministries-2027,council-of-ministers-religious-denominations,,Вероизповедания,36744200,c-religion,subsidies to religious denominations: ЕБК 762
+budget-2027,ministries-2027,council-of-ministers-regional-governors-administrations,,Областни администрации,28337000,g-executive-other,regional governors: ЕБК 121
+budget-2027,ministries-2027,council-of-ministers-other-programmes,,Други програми,21709900,g-services,refugees agency (ЕБК 145) and other services (149): general services; in the 2025 actual they fit its state-budget column
+budget-2027,ministries-2027,council-of-ministers-running-the-council-of-ministers,,Работа на Министерския съвет,11757500,g-executive-other,the government itself: ЕБК 101
+budget-2027,ministries-2027,council-of-ministers-administration,,Администрация,8628700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,council-of-ministers-state-archives,,Държавни архиви,8143200,c-culture-other,state archives: ЕБК 747 (culture)
+budget-2027,ministries-2027,council-of-ministers-managing-eu-funds,,Управление на средствата от ЕС,301500,g-services,management of foreign aid: ЕБК 146 (general services)
+budget-2027,ministries-2027,moys,,Министерство на младежта и спорта,107032900,split,
+budget-2027,ministries-2027,moys-elite-sport,,Спорт за високи постижения,69823300,c-sport,elite sport and Olympic preparation: ЕБК 711–719
+budget-2027,ministries-2027,moys-sport-for-students-and-for-everyone,,Спорт за учащи и за всички,20463900,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,moys-sports-facilities,,Спортни бази и съоръжения,8360300,c-sport,sports facilities: ЕБК 714
+budget-2027,ministries-2027,moys-young-people,,Младежи,5854100,ed-other,"youth programmes: ЕБК 369 other youth activities (function 3, education)"
+budget-2027,ministries-2027,moys-administration,,Администрация,2183700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,moys-international-good-practice-in-sport,,Международни практики в спорта,347600,c-sport,sport: ЕБК 719
+budget-2027,ministries-2027,moew,,Министерство на околната среда и водите,78272300,split,
+budget-2027,ministries-2027,moew-environmental-protection,,Опазване на околната среда,30372400,c-environment,"water, waste, air, nature, climate: ЕБК 621–629"
+budget-2027,ministries-2027,moew-other-programmes,,Други програми,20935600,left out,meteorology and hydrology (НИМХ): ЕБК uncertain (science 163 or 149); the 2025 actual leaves no room for it in the environment column
+budget-2027,ministries-2027,moew-administration,,Администрация,16587200,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,moew-environmental-monitoring,,Мониторинг на околната среда,10377100,c-environment,environmental monitoring (Executive Environment Agency): ЕБК 621/629
+budget-2027,ministries-2027,moe,,"Министерство на икономиката, инвестициите и индустрията",72137600,split,
+budget-2027,ministries-2027,moe-economic-development-and-competitiveness,,Икономическо развитие и конкурентоспособност,57348300,left out,"in 2026 its programmes go to different boxes or are left out; the draft gives the area only, so it waits for the 2027 programme budgets"
+budget-2027,ministries-2027,moe-foreign-economic-cooperation,,Външноикономическо сътрудничество,7880400,left out,economic offices abroad: ЕБК uncertain (116 or 898)
+budget-2027,ministries-2027,moe-administration,,Администрация,6908900,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,technical-operations,,Държавна агенция „Технически операции“,71196900,o-police,special technical means for the security services: ЕБК 239
+budget-2027,ministries-2027,parliament,,Народно събрание,69657000,g-executive-other,the National Assembly: ЕБК 101/139
+budget-2027,ministries-2027,state-reserve,,Държавен резерв и военновременни запаси,46733500,g-services,state reserves and wartime stocks: ЕБК 147 (general services)
+budget-2027,ministries-2027,nso,,Национална служба за охрана,45950900,o-police,National Protection Service: ЕБК 222
+budget-2027,ministries-2027,mid,,Министерство на иновациите и дигиталната трансформация,45787100,split,
+budget-2027,ministries-2027,mid-digitalising-the-public-sector,,Дигитализация на държавата,21749900,g-executive-other,the administration's e-government and network security (the former e-Government ministry): ЕБК 101/139; the 2025 actual has room for it only in the executive-bodies column
+budget-2027,ministries-2027,mid-innovation-and-technology,,Иновации и технологии,17258100,left out,innovation grants: ЕБК uncertain (science or other economic activities); the 2025 actual leaves no room for it in the economic column
+budget-2027,ministries-2027,mid-administration,,Администрация,6779100,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,moen,,Министерство на енергетиката,41401000,split,
+budget-2027,ministries-2027,moen-energy,,Енергетика,36783300,e-energy,"mining, fuel and energy: ЕБК 801–809 (first grafted in 2026, see data/sources/budget-2026/README.md)"
+budget-2027,ministries-2027,moen-administration,,Администрация,4617700,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,intelligence,,Държавна агенция „Разузнаване“,33831800,o-police,State Intelligence Agency: ЕБК 223
+budget-2027,ministries-2027,mot,,Министерство на туризма,23858500,split,
+budget-2027,ministries-2027,mot-tourism-development,,Развитие на туризма,21483400,e-tourism,tourism policy and promotion: ЕБК 861/865
+budget-2027,ministries-2027,mot-administration,,Администрация,2375100,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2027,ministries-2027,nsi,,Национален статистически институт,23534500,g-services,statistics: ЕБК 141 (general services)
+budget-2027,ministries-2027,audit-office,,Сметна палата,17436200,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,fsc,,Комисия за финансов надзор,15746000,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,crc,,Комисия за регулиране на съобщенията,14124700,e-transport,regulation of communications: ЕБК 838
+budget-2027,ministries-2027,anti-corruption,,Комисия за противодействие на корупцията,12957000,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,information-security,,Държавна комисия по сигурността на информацията,10556900,g-executive-other,control body: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2027,ministries-2027,constitutional-court,,Конституционен съд,9991600,g-executive-other,not part of the judiciary: ЕБК 139
+budget-2027,ministries-2027,asset-forfeiture,,Комисия за отнемане на незаконно придобитото имущество,7760300,g-executive-other,independent commission: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2027,ministries-2027,nuclear-regulator,,Агенция за ядрено регулиране,7754400,left out,"ЕБК 801 would put it in energy, but in the 2025 actual that sub-function's state-budget column is already smaller than the Ministry of Energy's area; not resolved"
+budget-2027,ministries-2027,kevr,,Комисия за енергийно и водно регулиране,7599900,left out,mixed: regulates energy (ЕБК 801) and water (603)
+budget-2027,ministries-2027,president,,Администрация на президента,6623500,g-executive-other,the Presidency: ЕБК 101
+budget-2027,ministries-2027,competition,,Комисия за защита на конкуренцията,5345900,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,cik,,Централна избирателна комисия,3972400,g-executive-other,elections: ЕБК 117
+budget-2027,ministries-2027,data-protection,,Комисия за защита на личните данни,3727600,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,ombudsman,,Омбудсман,2747400,g-executive-other,independent body: ЕБК 139
+budget-2027,ministries-2027,anti-discrimination,,Комисия за защита от дискриминация,2468300,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,cem,,Съвет за електронни медии,2058300,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,dossier-commission,,Комисия по досиетата,1833300,g-executive-other,independent body: ЕБК 139
+budget-2027,ministries-2027,auditor-oversight,,Комисия за публичен надзор над регистрираните одитори,1489900,g-executive-other,control body: ЕБК 111
+budget-2027,ministries-2027,surveillance-oversight,,Бюро за контрол на специалните разузнавателни средства,1167500,g-executive-other,control body: ЕБК 111
+report-2025,ministries-report-2025,mod,,Министерство на отбраната,2334007844,split,
+report-2025,ministries-report-2025,mod-defence-capabilities,1200.01.00,Отбранителни способности,2258078462,left out,"mixed: in the 2025 plan its programmes go to defence.state, education.state, health.other and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,mod-allied-and-international-security,1200.02.00,Съюзна и международна сигурност,75929382,left out,mixed: in the 2025 plan its programmes go to defence.state and some are left out; the report gives the area only
+report-2025,ministries-report-2025,moi,,Министерство на вътрешните работи,2181304597,split,
+report-2025,ministries-report-2025,moi-fighting-crime-and-keeping-public-order,1300.01.00,Борба с престъпността и обществен ред,1283465775,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moi-fire-safety-and-civil-protection,1300.03.00,Пожарна безопасност и защита при бедствия,339512505,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moi-border-protection-and-migration,1300.02.00,Охрана на границите и миграция,328183423,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moi-running-and-developing-the-interior-ministry,1300.04.00,Управление и развитие на МВР,230142894,left out,"mixed: in the 2025 plan its programmes go to health.other, o-police.state and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,mrdpw,,Министерство на регионалното развитие и благоустройството,1213635423,split,
+report-2025,ministries-report-2025,mrdpw-roads-and-technical-infrastructure,2100.02.00,Пътища и техническа инфраструктура,1197699199,left out,"mixed: in the 2025 plan its programmes go to c-housing.state, e-transport.state and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,mrdpw-administration-and-coordination,2100.03.00,Администрация и координация,13878055,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mrdpw-regional-development,2100.01.00,Регионално развитие,2058169,left out,mixed: in the 2025 plan its programmes go to c-housing.state and some are left out; the report gives the area only
+report-2025,ministries-report-2025,molsp,,Министерство на труда и социалната политика,1187498809,split,
+report-2025,ministries-report-2025,molsp-people-with-disabilities,1500.04.00,Хора с увреждания,467681414,left out,"mixed: in the 2025 plan its programmes go to s-benefits.state, s-services.state and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,molsp-social-inclusion,1500.05.00,Социално включване,400567318,left out,"mixed: in the 2025 plan its programmes go to s-benefits.state, s-services.state and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,molsp-social-assistance-and-gender-equality,1500.03.00,Социално подпомагане и равнопоставеност,231263613,left out,"mixed: in the 2025 plan its programmes go to s-benefits.state, s-services.state and some are left out; the report gives the area only"
+report-2025,ministries-report-2025,molsp-labour-market-and-employment,1500.01.00,Пазар на труда и заетост,60582057,left out,→ s-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,molsp-labour-relations,1500.02.00,Трудови отношения,17590494,left out,→ s-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,molsp-administration,1500.07.00,Администрация,9321107,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,molsp-living-standards-and-demography,1500.06.00,Жизнено равнище и демография,492806,left out,"demography and incomes policy: small, ЕБК uncertain (142 planning or 559)"
+report-2025,ministries-report-2025,motc,,Министерство на транспорта и съобщенията,731847460,split,
+report-2025,ministries-report-2025,motc-transport,2300.01.00,Транспорт,653174774,left out,→ e-transport.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,motc-communications-and-digital-connectivity,2300.02.00,Съобщения и цифрова свързаност,54250134,left out,→ e-transport.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,motc-administration-medical-and-psychological-assessm,2300.03.00,"Администрация, медицинска и психологическа експертиза",24422552,left out,"mixed: central administration (ЕБК 108, function I) and the medical and psychological assessment of transport staff"
+report-2025,ministries-report-2025,judiciary,,Съдебна власт,694634434,left out,→ o-judiciary.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moh,,Министерство на здравеопазването,613599651,split,
+report-2025,ministries-report-2025,moh-diagnostics-and-treatment,1600.02.00,Диагностика и лечение,475776816,health.other,"emergency care, state hospitals, blood centres, homes for children: ЕБК 4xx; hospital subsidies go to hospitals (companies), not to the NHIF"
+report-2025,ministries-report-2025,moh-public-health-and-prevention,1600.01.00,Обществено здраве и профилактика,88074015,health.other,"regional health inspectorates, national centres, prevention: ЕБК 430/436/467"
+report-2025,ministries-report-2025,moh-administration,1600.04.00,Администрация,25388847,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moh-medicines-and-medical-devices,1600.03.00,Лекарства и медицински изделия,24359973,health.other,"central purchase of medicines, drug agency: ЕБК 4xx"
+report-2025,ministries-report-2025,mes,,Министерство на образованието и науката,525414755,split,
+report-2025,ministries-report-2025,mes-pre-school-and-school-education,1700.01.00,Предучилищно и училищно образование,483286234,left out,→ education.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mes-higher-education-and-research,1700.02.00,Висше образование и наука,35505486,left out,"mixed: in the 2025 plan its programmes go to education.state, g-science.state; the report gives the area only"
+report-2025,ministries-report-2025,mes-administration,1700.03.00,Администрация,6623034,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mof,,Министерство на финансите,501933588,split,
+report-2025,ministries-report-2025,mof-collecting-taxes-and-customs-duties,1000.02.00,"Събиране на данъци и мита (НАП, Митници)",374521286,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mof-fighting-financial-fraud-smuggling-and-money-lau,1000.03.00,"Борба с финансови измами, контрабанда и пране на пари",68393037,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mof-sustainable-and-transparent-public-finances,1000.01.00,Устойчиви и прозрачни публични финанси,32425478,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mof-administration,1000.06.00,Администрация,23865026,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mof-debt-management,1000.04.00,Управление на дълга,2728761,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moj,,Министерство на правосъдието,344206020,split,
+report-2025,ministries-report-2025,moj-prisons-and-enforcement-of-sentences,1400.02.00,Затвори и изпълнение на наказанията,215779503,left out,→ o-prisons.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moj-justice,1400.01.00,Правосъдие,121115640,left out,mixed: in the 2025 plan its programmes go to o-judiciary.state and some are left out; the report gives the area only
+report-2025,ministries-report-2025,moj-administration,1400.03.00,Администрация,7310877,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moc,,Министерство на културата,262017466,split,
+report-2025,ministries-report-2025,moc-contemporary-arts-theatres-operas-orchestras,1800.02.00,"Съвременно изкуство (театри, опери, оркестри)",235640267,left out,"mixed: in the 2025 plan its programmes go to c-culture-culture.state, education.state; the report gives the area only"
+report-2025,ministries-report-2025,moc-cultural-heritage,1800.01.00,Културно наследство,19383249,left out,→ c-culture-culture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moc-administration,1800.03.00,Администрация,6993950,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mafood,,Министерство на земеделието и храните,250923831,split,
+report-2025,ministries-report-2025,mafood-agriculture-and-rural-areas,2200.01.00,Земеделие и селски райони,199374574,left out,→ e-agriculture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mafood-forests-and-wildlife,2200.03.00,Гори и дивеч,27621371,left out,→ e-agriculture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mafood-administration,2200.04.00,Администрация,18784331,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mafood-fisheries-and-aquaculture,2200.02.00,Рибарство и аквакултури,5143555,left out,→ e-agriculture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,state-fund-agriculture,,Държавен фонд „Земеделие“,235221695,split,
+report-2025,ministries-report-2025,state-fund-agriculture-agriculture-and-rural-areas-subsidies,8400.01.00,Земеделие и селски райони (субсидии),214670857,left out,→ e-agriculture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,state-fund-agriculture-administration,8400.03.00,Администрация,20299876,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,state-fund-agriculture-fisheries-and-aquaculture-subsidies,8400.02.00,Рибарство и аквакултури (субсидии),250961,left out,mostly a transfer to municipalities (VAT on fisheries projects); small
+report-2025,ministries-report-2025,dans,,ДАНС (Държавна агенция „Национална сигурност“),139243307,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mfa,,Министерство на външните работи,121230401,split,
+report-2025,ministries-report-2025,mfa-diplomacy-embassies-and-missions,1100.01.00,Дипломация (посолства и представителства),119437197,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mfa-public-diplomacy,1100.02.00,Публична дипломация,1037490,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mfa-support-for-bulgarian-communities-abroad,1100.03.00,Подкрепа за българите в чужбина,755714,left out,→ g-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers,,Министерски съвет,119987802,split,
+report-2025,ministries-report-2025,council-of-ministers-religious-denominations,0300.04.00,Вероизповедания,44630385,left out,→ c-religion.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-regional-governors-administrations,0300.03.00,Областни администрации,29543415,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-other-programmes,0300.07.00,Други програми,18200702,left out,→ g-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-running-the-council-of-ministers,0300.01.00,Работа на Министерския съвет,10390893,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-administration,0300.06.00,Администрация,9954152,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-state-archives,0300.05.00,Държавни архиви,6986260,left out,→ c-culture-culture.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,council-of-ministers-managing-eu-funds,0300.02.00,Управление на средствата от ЕС,281995,left out,→ g-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moys,,Министерство на младежта и спорта,85084014,split,
+report-2025,ministries-report-2025,moys-elite-sport,2500.02.00,Спорт за високи постижения,56792793,left out,"→ c-sport.state (a leaf), but this area alone (€56.8 m) is larger than the box (€53.3 m): the КФП books part of it elsewhere; linked instead"
+report-2025,ministries-report-2025,moys-sport-for-students-and-for-everyone,2500.01.00,Спорт за учащи и за всички,22216478,left out,mixed: in the 2025 plan its programmes go to c-sport.state and some are left out; the report gives the area only
+report-2025,ministries-report-2025,moys-young-people,2500.05.00,Младежи,3027654,left out,→ education.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moys-administration,2500.06.00,Администрация,2109884,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moys-sports-facilities,2500.03.00,Спортни бази и съоръжения,555465,left out,"→ c-sport.state, but the sport areas together are larger than the box (elite sport alone €56.8 m of €53.3 m), so which of them it holds is unclear; not grafted"
+report-2025,ministries-report-2025,moys-international-good-practice-in-sport,2500.04.00,Международни практики в спорта,381740,left out,"→ c-sport.state, but the sport areas together are larger than the box (elite sport alone €56.8 m of €53.3 m), so which of them it holds is unclear; not grafted"
+report-2025,ministries-report-2025,technical-operations,,Държавна агенция „Технически операции“,75999755,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moew,,Министерство на околната среда и водите,72068875,split,
+report-2025,ministries-report-2025,moew-environmental-protection,1900.01.00,Опазване на околната среда,27831049,left out,→ c-environment.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moew-other-programmes,1900.03.00,Други програми,16635652,left out,meteorology and hydrology (НИМХ): ЕБК uncertain (science 163 or 149); the 2025 actual leaves no room for it in the environment column
+report-2025,ministries-report-2025,moew-administration,1900.04.00,Администрация,16017848,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moew-environmental-monitoring,1900.02.00,Мониторинг на околната среда,11584326,left out,→ c-environment.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moe,,Министерство на икономиката и индустрията,63195195,split,
+report-2025,ministries-report-2025,moe-economic-development-and-competitiveness,2000.01.00,Икономическо развитие и конкурентоспособност,48766208,left out,→ e-other.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moe-foreign-economic-cooperation,2000.02.00,Външноикономическо сътрудничество,7816812,left out,economic offices abroad: ЕБК uncertain (116 or 898)
+report-2025,ministries-report-2025,moe-administration,2000.03.00,Администрация,6612175,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moen,,Министерство на енергетиката,62966511,split,
+report-2025,ministries-report-2025,moen-energy,2400.01.00,Енергетика,58484742,left out,→ e-energy.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,moen-administration,2400.02.00,Администрация,4481769,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,parliament,,Народно събрание,58246663,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,nso,,Национална служба за охрана,50417200,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,state-reserve,,Държавен резерв и военновременни запаси,45963440,left out,→ g-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,meg,,Министерство на електронното управление,35627418,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,intelligence,,Държавна агенция „Разузнаване“,30660110,left out,→ o-police.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mig,,Министерство на иновациите и растежа,28975945,split,
+report-2025,ministries-report-2025,mig-investment-and-innovation-for-growth,7400.01.00,Инвестиции и иновации за растеж,25951052,left out,investment promotion and innovation grants: ЕБК uncertain; the 2025 actual leaves no room for them in the economic column
+report-2025,ministries-report-2025,mig-administration,7400.02.00,Администрация,3024893,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,nsi,,Национален статистически институт,23286078,left out,→ g-services.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mot,,Министерство на туризма,20165994,split,
+report-2025,ministries-report-2025,mot-tourism-development,7100.01.00,Развитие на туризма,17893345,left out,→ e-tourism.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,mot-administration,7100.02.00,Администрация,2272649,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,audit-office,,Сметна палата,17024701,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,fsc,,Комисия за финансов надзор,14326561,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,crc,,Комисия за регулиране на съобщенията,12841448,left out,→ e-transport.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,information-security,,Държавна комисия по сигурността на информацията,10128660,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,anti-corruption,,Комисия за противодействие на корупцията,9298682,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,asset-forfeiture,,Комисия за отнемане на незаконно придобитото имущество,7587532,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,kevr,,Комисия за енергийно и водно регулиране,7208233,left out,mixed: regulates energy (ЕБК 801) and water (603)
+report-2025,ministries-report-2025,president,,Администрация на президента,6268005,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,nuclear-regulator,,Агенция за ядрено регулиране,4976422,left out,"ЕБК 801 would put it in energy, but in the 2025 actual that sub-function's state-budget column is already smaller than the Ministry of Energy's area; not resolved"
+report-2025,ministries-report-2025,competition,,Комисия за защита на конкуренцията,4215420,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,cik,,Централна избирателна комисия,3705977,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,constitutional-court,,Конституционен съд,3679844,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,data-protection,,Комисия за защита на личните данни,3352712,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,dossier-commission,,Комисия по досиетата,2628730,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,anti-discrimination,,Комисия за защита от дискриминация,2571171,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,ombudsman,,Омбудсман,2361527,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,cem,,Съвет за електронни медии,1668531,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,auditor-oversight,,Комисия за публичен надзор над регистрираните одитори,1364048,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+report-2025,ministries-report-2025,surveillance-oversight,,Бюро за контрол на специалните разузнавателни средства,1099611,left out,→ g-executive.state: that box has only a current/capital split; grafting would replace it (left open)
+budget-2024,ministries-2024,molsp,,Министерство на труда и социалната политика,1463430359,split,
+budget-2024,ministries-2024,molsp-people-with-disabilities,1500.04.00,Хора с увреждания,764329006,left out,"mixed: in 2025 its programmes go to s-ben-assistance, s-svc-other and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,molsp-social-inclusion,1500.05.00,Социално включване,392418973,left out,"mixed: in 2025 its programmes go to s-ben-assistance, s-svc-other and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,molsp-social-assistance-and-gender-equality,1500.03.00,Социално подпомагане и равнопоставеност,203880501,left out,"mixed: in 2025 its programmes go to s-ben-assistance, s-svc-other and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,molsp-labour-market-and-employment,1500.01.00,Пазар на труда и заетост,79171145,s-svc-other,employment programmes and the Employment Agency: ЕБК 532/533/559
+budget-2024,ministries-2024,molsp-labour-relations,1500.02.00,Трудови отношения,16420855,s-svc-other,working conditions and labour inspection: ЕБК 531 (prevention of accidents at work and occupational diseases)
+budget-2024,ministries-2024,molsp-administration,1500.07.00,Администрация,6583241,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,molsp-living-standards-and-demography,1500.06.00,Жизнено равнище и демография,626639,left out,"demography and incomes policy: small, ЕБК uncertain (142 planning or 559)"
+budget-2024,ministries-2024,moi,,Министерство на вътрешните работи,1414912237,split,
+budget-2024,ministries-2024,moi-fighting-crime-and-keeping-public-order,1300.01.00,Борба с престъпността и обществен ред,857068303,o-police,police: ЕБК 221
+budget-2024,ministries-2024,moi-fire-safety-and-civil-protection,1300.03.00,Пожарна безопасност и защита при бедствия,229319522,o-police,"the fire service: ЕБК 224 (fire protection, in the police group); its civil-protection share is not separable and small (the state budget spent €13.5 m on civil protection in 2025)"
+budget-2024,ministries-2024,moi-border-protection-and-migration,1300.02.00,Охрана на границите и миграция,198345920,o-police,border police and migration: ЕБК 221/239
+budget-2024,ministries-2024,moi-running-and-developing-the-interior-ministry,1300.04.00,Управление и развитие на МВР,130178492,left out,"mixed: in 2025 its programmes go to h-other, o-police and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,mod,,Министерство на отбраната,1088639606,split,
+budget-2024,ministries-2024,mod-defence-capabilities,1200.01.00,Отбранителни способности,1025412178,left out,"mixed: in 2025 its programmes go to defence, ed-other, h-other and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,mod-allied-and-international-security,1200.02.00,Съюзна и международна сигурност,63227428,left out,mixed: in 2025 its programmes go to defence and some are left out; 2024 gives the area only
+budget-2024,ministries-2024,judiciary,,Съдебна власт,624453506,o-judiciary,"the judiciary (courts, prosecution, Supreme Judicial Council …): ЕБК 241–259"
+budget-2024,ministries-2024,mes,,Министерство на образованието и науката,579408844,split,
+budget-2024,ministries-2024,mes-pre-school-and-school-education,1700.01.00,Предучилищно и училищно образование,528842537,ed-other,"state schools, national education programmes, textbooks, Bulgarian schools abroad: ЕБК 3xx; none of it is the delegated school funding shown by municipality"
+budget-2024,ministries-2024,mes-higher-education-and-research,1700.02.00,Висше образование и наука,44445427,left out,"mixed: in 2025 its programmes go to ed-other, g-science; 2024 gives the area only"
+budget-2024,ministries-2024,mes-administration,1700.03.00,Администрация,6120880,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mrdpw,,Министерство на регионалното развитие и благоустройството,567582817,split,
+budget-2024,ministries-2024,mrdpw-roads-and-technical-infrastructure,2100.02.00,Пътища и техническа инфраструктура,550229468,left out,"mixed: in 2025 its programmes go to c-housing, e-transport and some are left out; 2024 gives the area only"
+budget-2024,ministries-2024,mrdpw-administration-and-coordination,2100.03.00,Администрация и координация,12224580,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mrdpw-regional-development,2100.01.00,Регионално развитие,5128769,left out,mixed: in 2025 its programmes go to c-housing and some are left out; 2024 gives the area only
+budget-2024,ministries-2024,moh,,Министерство на здравеопазването,541316679,split,
+budget-2024,ministries-2024,moh-diagnostics-and-treatment,1600.02.00,Диагностика и лечение,402945757,h-other,"emergency care, state hospitals, blood centres, homes for children: ЕБК 4xx; hospital subsidies go to hospitals (companies), not to the NHIF"
+budget-2024,ministries-2024,moh-public-health-and-prevention,1600.01.00,Обществено здраве и профилактика,93910667,h-other,"regional health inspectorates, national centres, prevention: ЕБК 430/436/467"
+budget-2024,ministries-2024,moh-medicines-and-medical-devices,1600.03.00,Лекарства и медицински изделия,24785334,h-other,"central purchase of medicines, drug agency: ЕБК 4xx"
+budget-2024,ministries-2024,moh-administration,1600.04.00,Администрация,19674921,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mof,,Министерство на финансите,375345710,split,
+budget-2024,ministries-2024,mof-collecting-taxes-and-customs-duties,1000.02.00,"Събиране на данъци и мита (НАП, Митници)",270435979,g-executive-other,"the National Revenue Agency and Customs: central government bodies, ЕБК 101 (function I)"
+budget-2024,ministries-2024,mof-sustainable-and-transparent-public-finances,1000.01.00,Устойчиви и прозрачни публични финанси,49922335,g-executive-other,"budget, financial control, legal costs of the state: ЕБК 101/111"
+budget-2024,ministries-2024,mof-fighting-financial-fraud-smuggling-and-money-lau,1000.03.00,"Борба с финансови измами, контрабанда и пране на пари",33747412,g-executive-other,Customs' non-fiscal control and EU financial integration: ЕБК 101 (the Customs Agency is one body)
+budget-2024,ministries-2024,mof-administration,1000.06.00,Администрация,17698011,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mof-debt-management,1000.04.00,Управление на дълга,3541975,g-executive-other,debt management staff and credit-rating fees (not interest): ЕБК 101
+budget-2024,ministries-2024,motc,,Министерство на транспорта и съобщенията,356013457,split,
+budget-2024,ministries-2024,motc-transport,2300.01.00,Транспорт,297744078,e-transport,"rail, ports, air and road transport: ЕБК 831–837; subsidies to state railway companies, which are outside the КФП"
+budget-2024,ministries-2024,motc-communications-and-digital-connectivity,2300.02.00,Съобщения и цифрова свързаност,45052637,e-transport,postal services: ЕБК 839
+budget-2024,ministries-2024,motc-administration-medical-and-psychological-assessm,2300.03.00,"Администрация, медицинска и психологическа експертиза",13216742,left out,"mixed: central administration (ЕБК 108, function I) and the medical and psychological assessment of transport staff"
+budget-2024,ministries-2024,state-fund-agriculture,,Държавен фонд „Земеделие“,270375186,split,
+budget-2024,ministries-2024,state-fund-agriculture-agriculture-and-rural-areas-subsidies,8400.01.00,Земеделие и селски райони (субсидии),253515132,left out,"in 2025 all its programmes go to e-agriculture, but in 2026 programme 8400.01.01 also carries VAT refunds to municipalities (a transfer, left out); 2024 gives the area only, so this cannot be ruled out"
+budget-2024,ministries-2024,state-fund-agriculture-administration,8400.03.00,Администрация,16638665,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,state-fund-agriculture-fisheries-and-aquaculture-subsidies,8400.02.00,Рибарство и аквакултури (субсидии),221389,left out,mostly a transfer to municipalities (VAT on fisheries projects); small
+budget-2024,ministries-2024,moj,,Министерство на правосъдието,248994340,split,
+budget-2024,ministries-2024,moj-prisons-and-enforcement-of-sentences,1400.02.00,Затвори и изпълнение на наказанията,149738883,o-prisons,in 2025 all its programmes go here (prisons: ЕБК 261); 2024 gives the area only
+budget-2024,ministries-2024,moj-justice,1400.01.00,Правосъдие,93598268,left out,mixed: in 2025 its programmes go to o-judiciary and some are left out; 2024 gives the area only
+budget-2024,ministries-2024,moj-administration,1400.03.00,Администрация,5657189,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,moc,,Министерство на културата,206229836,split,
+budget-2024,ministries-2024,moc-contemporary-arts-theatres-operas-orchestras,1800.02.00,"Съвременно изкуство (театри, опери, оркестри)",189529254,left out,"mixed: in 2025 its programmes go to c-culture-other, ed-other; 2024 gives the area only"
+budget-2024,ministries-2024,moc-cultural-heritage,1800.01.00,Културно наследство,14208904,c-culture-other,"museums, heritage protection and restoration: ЕБК 739/740/755"
+budget-2024,ministries-2024,moc-administration,1800.03.00,Администрация,2491679,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mafood,,Министерство на земеделието и храните,155301688,split,
+budget-2024,ministries-2024,mafood-agriculture-and-rural-areas,2200.01.00,Земеделие и селски райони,119842011,e-agriculture,"farming, food-chain safety and veterinary services, irrigation: ЕБК 811–829"
+budget-2024,ministries-2024,mafood-forests-and-wildlife,2200.03.00,Гори и дивеч,20585736,e-agriculture,forests and game: ЕБК 814
+budget-2024,ministries-2024,mafood-administration,2200.04.00,Администрация,11208489,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,mafood-fisheries-and-aquaculture,2200.02.00,Рибарство и аквакултури,3665451,e-agriculture,fisheries agency: ЕБК 815/826
+budget-2024,ministries-2024,mfa,,Министерство на външните работи,91566138,split,
+budget-2024,ministries-2024,mfa-diplomacy-embassies-and-missions,1100.01.00,Дипломация (посолства и представителства),90178441,g-executive-other,"foreign affairs and embassies: ЕБК 115/116; contributions and aid abroad 128 (all in function I, executive bodies)"
+budget-2024,ministries-2024,mfa-public-diplomacy,1100.02.00,Публична дипломация,769341,g-executive-other,public and cultural diplomacy: ЕБК 115
+budget-2024,ministries-2024,mfa-support-for-bulgarian-communities-abroad,1100.03.00,Подкрепа за българите в чужбина,618356,g-services,Bulgarians abroad: ЕБК 144 (general services)
+budget-2024,ministries-2024,dans,,ДАНС (Държавна агенция „Национална сигурност“),87449063,o-police,state security: ЕБК 239 other internal security
+budget-2024,ministries-2024,council-of-ministers,,Министерски съвет,82034379,split,
+budget-2024,ministries-2024,council-of-ministers-religious-denominations,0300.04.00,Вероизповедания,25071709,left out,equal to the box c-religion (€25.07 m of €25.05 m; the КФП is rounded to 0.1 m BGN): one part would split nothing
+budget-2024,ministries-2024,council-of-ministers-regional-governors-administrations,0300.03.00,Областни администрации,19830098,g-executive-other,regional governors: ЕБК 121
+budget-2024,ministries-2024,council-of-ministers-other-programmes,0300.07.00,Други програми,15584177,g-services,refugees agency (ЕБК 145) and other services (149): general services; in the 2025 actual they fit its state-budget column
+budget-2024,ministries-2024,council-of-ministers-running-the-council-of-ministers,0300.01.00,Работа на Министерския съвет,9962982,g-executive-other,the government itself: ЕБК 101
+budget-2024,ministries-2024,council-of-ministers-administration,0300.06.00,Администрация,5773048,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,council-of-ministers-state-archives,0300.05.00,Държавни архиви,5768855,c-culture-other,state archives: ЕБК 747 (culture)
+budget-2024,ministries-2024,council-of-ministers-managing-eu-funds,0300.02.00,Управление на средствата от ЕС,43511,g-services,management of foreign aid: ЕБК 146 (general services)
+budget-2024,ministries-2024,moys,,Министерство на младежта и спорта,70274206,split,
+budget-2024,ministries-2024,moys-elite-sport,2500.02.00,Спорт за високи постижения,46696901,c-sport,elite sport and Olympic preparation: ЕБК 711–719
+budget-2024,ministries-2024,moys-sport-for-students-and-for-everyone,2500.01.00,Спорт за учащи и за всички,15433652,left out,mixed: in 2025 its programmes go to c-sport and some are left out; 2024 gives the area only
+budget-2024,ministries-2024,moys-young-people,2500.05.00,Младежи,4802923,ed-other,"youth programmes: ЕБК 369 other youth activities (function 3, education)"
+budget-2024,ministries-2024,moys-administration,2500.06.00,Администрация,1985807,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,moys-sports-facilities,2500.03.00,Спортни бази и съоръжения,1046461,c-sport,sports facilities: ЕБК 714
+budget-2024,ministries-2024,moys-international-good-practice-in-sport,2500.04.00,Международни практики в спорта,308462,c-sport,sport: ЕБК 719
+budget-2024,ministries-2024,parliament,,Народно събрание,61443428,g-executive-other,the National Assembly: ЕБК 101/139
+budget-2024,ministries-2024,moew,,Министерство на околната среда и водите,60325488,split,
+budget-2024,ministries-2024,moew-environmental-protection,1900.01.00,Опазване на околната среда,25591897,c-environment,"water, waste, air, nature, climate: ЕБК 621–629"
+budget-2024,ministries-2024,moew-administration,1900.04.00,Администрация,15468113,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,moew-other-programmes,1900.03.00,Други програми,13799972,left out,meteorology and hydrology (НИМХ): ЕБК uncertain (science 163 or 149); the 2025 actual leaves no room for it in the environment column
+budget-2024,ministries-2024,moew-environmental-monitoring,1900.02.00,Мониторинг на околната среда,5465506,c-environment,environmental monitoring (Executive Environment Agency): ЕБК 621/629
+budget-2024,ministries-2024,moe,,Министерство на икономиката и индустрията,47279007,split,
+budget-2024,ministries-2024,moe-economic-development-and-competitiveness,2000.01.00,Икономическо развитие и конкурентоспособност,33576129,e-other,"in 2025 all its programmes go here (standardisation and metrology, patents, state property, consumer protection, SMEs, the single market: ЕБК 866–898; in the 2025 actual the area (without investment promotion) equals the sub-function's state-budget column); 2024 gives the area only"
+budget-2024,ministries-2024,moe-foreign-economic-cooperation,2000.02.00,Външноикономическо сътрудничество,9011980,left out,economic offices abroad: ЕБК uncertain (116 or 898)
+budget-2024,ministries-2024,moe-administration,2000.03.00,Администрация,4690898,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,technical-operations,,Държавна агенция „Технически операции“,43778805,o-police,special technical means for the security services: ЕБК 239
+budget-2024,ministries-2024,moen,,Министерство на енергетиката,34324302,split,
+budget-2024,ministries-2024,moen-energy,2400.01.00,Енергетика,30857794,e-energy,"mining, fuel and energy: ЕБК 801–809 (first grafted in 2026, see data/sources/budget-2026/README.md)"
+budget-2024,ministries-2024,moen-administration,2400.02.00,Администрация,3466508,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,nso,,Национална служба за охрана,34061447,o-police,National Protection Service: ЕБК 222
+budget-2024,ministries-2024,mig,,Министерство на иновациите и растежа,29820434,split,
+budget-2024,ministries-2024,mig-investment-and-innovation-for-growth,7400.01.00,Инвестиции и иновации за растеж,27910452,left out,investment promotion and innovation grants: ЕБК uncertain; the 2025 actual leaves no room for them in the economic column
+budget-2024,ministries-2024,mig-administration,7400.02.00,Администрация,1909982,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,state-reserve,,Държавен резерв и военновременни запаси,29789092,g-services,state reserves and wartime stocks: ЕБК 147 (general services)
+budget-2024,ministries-2024,intelligence,,Държавна агенция „Разузнаване“,25292075,o-police,State Intelligence Agency: ЕБК 223
+budget-2024,ministries-2024,meg,,Министерство на електронното управление,21952624,g-executive-other,e-government of the administration (Ministry of e-Government): ЕБК 101/139; the 2025 actual has room for it only in the executive-bodies column
+budget-2024,ministries-2024,audit-office,,Сметна палата,17011601,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,nsi,,Национален статистически институт,14938210,g-services,statistics: ЕБК 141 (general services)
+budget-2024,ministries-2024,mot,,Министерство на туризма,14491188,split,
+budget-2024,ministries-2024,mot-tourism-development,7100.01.00,Развитие на туризма,12691747,e-tourism,tourism policy and promotion: ЕБК 861/865
+budget-2024,ministries-2024,mot-administration,7100.02.00,Администрация,1799441,g-executive-other,"administration programme of a central body: ЕБК 101–108 (function I, executive bodies)"
+budget-2024,ministries-2024,fsc,,Комисия за финансов надзор,10762899,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,crc,,Комисия за регулиране на съобщенията,7907794,e-transport,regulation of communications: ЕБК 838
+budget-2024,ministries-2024,asset-forfeiture,,Комисия за отнемане на незаконно придобитото имущество,7267758,g-executive-other,independent commission: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2024,ministries-2024,information-security,,Държавна комисия по сигурността на информацията,7020498,g-executive-other,control body: ЕБК 111; not police — the 2025 actual leaves no room for it in that column
+budget-2024,ministries-2024,kevr,,Комисия за енергийно и водно регулиране,6683710,left out,mixed: regulates energy (ЕБК 801) and water (603)
+budget-2024,ministries-2024,anti-corruption,,Комисия за противодействие на корупцията,5566486,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,president,,Администрация на президента,5481458,g-executive-other,the Presidency: ЕБК 101
+budget-2024,ministries-2024,constitutional-court,,Конституционен съд,4529023,g-executive-other,not part of the judiciary: ЕБК 139
+budget-2024,ministries-2024,nuclear-regulator,,Агенция за ядрено регулиране,4209466,left out,"ЕБК 801 would put it in energy, but in the 2025 actual that sub-function's state-budget column is already smaller than the Ministry of Energy's area; not resolved"
+budget-2024,ministries-2024,cik,,Централна избирателна комисия,3763517,g-executive-other,elections: ЕБК 117
+budget-2024,ministries-2024,competition,,Комисия за защита на конкуренцията,3558847,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,data-protection,,Комисия за защита на личните данни,2970043,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,dossier-commission,,Комисия по досиетата,2482322,g-executive-other,independent body: ЕБК 139
+budget-2024,ministries-2024,ombudsman,,Омбудсман,2387477,g-executive-other,independent body: ЕБК 139
+budget-2024,ministries-2024,anti-discrimination,,Комисия за защита от дискриминация,1855938,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,cem,,Съвет за електронни медии,1487706,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,auditor-oversight,,Комисия за публичен надзор над регистрираните одитори,1184663,g-executive-other,control body: ЕБК 111
+budget-2024,ministries-2024,surveillance-oversight,,Бюро за контрол на специалните разузнавателни средства,1095392,g-executive-other,control body: ЕБК 111

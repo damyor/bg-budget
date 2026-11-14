@@ -57,7 +57,7 @@ Most of this can be downloaded by a script.
 | 2 | Sub-function = ЕБК group (23–24; the site shows the КФП's 23) or COFOG group (~70) × budget (state / municipal / social security / EU funds) × current/capital; Eurostat × transaction | Same, plus Eurostat **by subsector** (S1311 central, S1313 local, S1314 social security) [S] | Same | Yes | Used, except the subsector split |
 | 3a | Spending unit: 46 State Budget Act units, NHIF, ДОО funds | ЗДБ art. 2–47; NHIF and ДОО budget acts; **2025 actuals per unit, by economic category, with named subsidy recipients** (execution report annex pr.4) | 2025 actual, 2026 plan | Yes (XLSX, State Gazette HTML) | Plan used (2024–2026, and the 2027 draft); 2025 actuals by policy area used ("Ministries 2025 (actual)", from pr.4); per-unit actuals by economic category are new |
 | 3b | Municipality (265) × transfer type | ЗДБ art. 51 and 52 (2024/2025: art. 53 and 54): delegated-activities subsidy (by function), equalising subsidy, capital subsidy, winter roads, other targeted transfers (for the minimum wage); MoF "ФО" letters with per-municipality XLS annexes for transfers added during the year (browser) | 2024–2026 plan | Yes | Used ("Municipalities" 2024–2026 and the 2027 draft); ФО letters are new |
-| 4 | Policy area (80 areas + 2 "other programmes" groups + 17 programmes at area level) → budget programme (203 in 44 units) | **ПМС № 102/2026, Annex 1** covers all 44 programme-format units; draft programme budgets attached to the bill (45 PDFs) | 2026; 2025 via ПМС № 28/2025 (same structure, 46 units) | Yes: DOCX on strategy.bg, PDF on dv.parliament.bg; 2025 as .doc | Used: all units, 2025 and 2026 plans |
+| 4 | Policy area (80 areas + 2 "other programmes" groups + 17 programmes at area level) → budget programme (203 in 44 units) | **ПМС № 102/2026, Annex 1** covers all 44 programme-format units; draft programme budgets attached to the bill (45 PDFs) | 2026; 2025 via ПМС № 28/2025 (same structure, 46 units) | Yes: DOCX on strategy.bg, PDF on dv.parliament.bg; 2025 as .doc | Used: all units, 2025 and 2026 plans; since 14.11.2026 also grafted into the КФП boxes of Budget 2025/2026 (and the areas of the 2027 draft, of "Ministries 2024" and of the 2025 actual) by an ЕБК-based map (`data/drilldown/programme-map.csv`) |
 | 5 | Programme × economic element: staff / running costs / capital + **named "administered" items** (e.g. monthly social assistance €78.6m, heating aid €49.5m); whole КФП by **ЕБК paragraph (42) and sub-paragraph (179)** × budget | ПМС 102 Annex 1 (plan); ministries' quarterly programme reports, forms Б.1/Б.2 (actuals); annex pr.5 of the 2025 report (КФП by paragraph) | 2026 plan; 2026 quarterly actuals; 2025 actual | Yes (DOCX, XLSX/XLSM) | Plan used (2025, 2026); actuals and ЕБК paragraphs are new |
 | 6 | ЕБК **activity** (298 3-digit codes) × paragraph | Only each municipality's own monthly/quarterly cash reports (MoF forms B1/B3, sheet "OTCHET", once for the budget and once for each kind of EU-funds account) and each school's own budget. No central table found | Sofia 2018–2026, Burgas back to 2007, Plovdiv 2017–2026 (checked for 2024–2026) | Yes for Sofia, Plovdiv (in ZIPs) and Burgas (.xls); PDF for Varna | Used for Sofia, Plovdiv and Burgas, 2024 and 2025 outturn ("Big cities", October 2026); other municipalities and the 2026 plans (not yet in the reports) are new |
 | 7 | Institution / entity: each university (33 + Academy of Sciences); each hospital (~382); each SEBRA payer unit (3,697 in July 2022 – June 2026, 2,611 in Q2 2026 alone; incl. Sofia's schools); per-school allocations (Plovdiv); cost standards per pupil/class/school | ЗДБ art. 16(4) and 11(4); NHIF monthly per hospital [S]; Ministry of Health quarterly hospital finances [S]; SEBRA individual payments; РМС 497/2026 standards [S] | 2026 (universities); 2015–2026 (NHIF); 2019–Q3 2025 (Ministry of Health) | Yes (HTML, PDF with text, XLSX, CSV) | Universities and the Academy used (2026); SEBRA payer units used (3,697 units, 2022–2026, "Who gets paid — by paying unit"); hospitals used (390, NHIF Jan 2024 – Aug 2026, Ministry of Health finances for 165, "Lists" › "Health", and in the 2024/2025 actuals); Plovdiv's per-school allocations (2024–2026) and the 2026 education standards used ("Lists" › "City budgets", October 2026); other cities' per-school data and the other standards are new |
@@ -67,7 +67,7 @@ Most of this can be downloaded by a script.
 
 The site's tree is built on the КФП functions (levels 0–2). Levels 3–5 follow a different, organisational tree: spending unit → programme → economic element. Programme codes come from РМС № 478/24.06.2026 and are stable for 2026–2030. Levels 8–10 are "examples inside" a slice rather than parts that add up to it, because project and payment amounts are commitments or cash flows that do not map onto КФП functions.
 
-**Using these sources box by box (since 13 October 2026).** The drill-down mechanism ([`docs/drilldown.md`](drilldown.md)) puts parts from any of the sources below into a КФП box — as a parts file, or as a graft of a subtree another dataset already has (e.g. a ministry's programmes) — with the rest as an explicit remainder. `data/drilldown/ledger.json` records, for every box that cannot be split yet, its leads (from this inventory) and what was tried, and `data/drilldown/frontier.md` lists the largest open boxes after each `npm run data`. Payments (levels 9–10) become parts only when they cover 95–100% of a box for the same payer and period, e.g. the Electricity System Security Fund's SEBRA payments, 99.8% of its 2025 box.
+**Using these sources box by box (since 13 October 2026).** The drill-down mechanism ([`docs/drilldown.md`](drilldown.md)) puts parts from any of the sources below into a КФП box — as a parts file, or as a graft of a subtree another dataset already has (e.g. a ministry's programmes) — with the rest as an explicit remainder. `data/drilldown/ledger.json` records, for every box that cannot be split yet, its leads (from this inventory) and what was tried, and `data/drilldown/frontier.md` lists the largest open boxes after each `npm run data`. Payments (levels 9–10) become parts only when they cover 95–100% of a box for the same payer and period, e.g. the Electricity System Security Fund's SEBRA payments, 99.8% of its 2025 box and, after a payment returned to the fund and the codes that are not spending are left out, 99.97% of its 2024 box: both are split into their recipients since 14 November 2026 (`data/sources/sebra/sebra-fses.parts.csv`). The same fund's planned spending (the forecasts' annex 8, "Размери на разходите и трансферите (нето) по други икономически обособени лица … включени в КФП") is a part of the plans' energy box in 2026 and 2027, with the Ministry of Energy's energy programmes grafted under the 2026 box; since the same day every ministry's areas and programmes are grafted into the boxes they belong to (`data/drilldown/programme-map.csv`).
 
 ---
 
@@ -361,7 +361,7 @@ and caveats in `data/sources/projects/README.md`.
 | 16 | Municipal debt register (4230) | Debt per municipality | uri ee08391e-be09-44c1-b278-b4af8b62a147 | CSV | 2015–2026 | Quarterly | Script [S] |
 | 17 | Municipal cash reports (B1/B3) | Activity × paragraph, plan vs actual | sofia.bg/bg/budget; burgas.bg/bg/2026-1; plovdiv.bg/item/budget-and-finance/ | XLS / ZIP / PDF | Varies | Monthly / quarterly | Script, municipality by municipality; on the site for Sofia, Plovdiv and Burgas (2024–2025 year-end) |
 | 18 | SEBRA daily totals (7806; 4225; 4224) | Day × spending unit × payment code | data.egov.bg uri 01293990-7330-49c6-92a2-cc73db73ec24 | CSV via API | May 2015–today | Daily | Script; 7806 on the site (2024 – June 2026) |
-| 19 | **SEBRA individual payments (20439)** | Each payment ≥ 5,000 lv: payee, IBAN, payer unit, code, purpose | data.egov.bg uri 57f1e2e7-b235-45e8-94c4-4d69f0b1a690 | CSV (ZIP for 2022–23) | 07.2022–06.2026 | Quarterly (~3–7 weeks after quarter end) | Script (ZIP too); on the site |
+| 19 | **SEBRA individual payments (20439)** | Each payment ≥ 5,000 lv: payee, IBAN, payer unit, code, purpose | data.egov.bg uri 57f1e2e7-b235-45e8-94c4-4d69f0b1a690 | CSV (ZIP for 2022–23) | 07.2022–06.2026 | Quarterly (~3–7 weeks after quarter end) | Script (ZIP too); on the site (lists; and the ФСЕС box of the 2024–2025 reports split by recipient) |
 | 20 | SEBRA history 2006–2022 | Same fields as row 19 | data.egov.bg 18232 (download broken); mirror register-sebra.acstre.com | ZIP / web grid | 06.2006–06.2022 | One-off | Official broken; mirror browser |
 | 21 | MoF SEBRA page | Daily publication, payment-code list | minfin.bg/bg/transparency | HTML | Current year | Daily | Browser |
 | 22 | NHIF payments per hospital | Hospital × month, 3 series | nhif.bg/bg/hospitals/bmp/2026 | PDF (text) | 2015–Aug 2026 | Monthly | Script; on the site (2024–2026) |
@@ -490,11 +490,26 @@ and caveats in `data/sources/projects/README.md`.
      the open boxes. The ledger's first fill covers every open box of €250 m or more in Budget 2026, the 2027
      forecast and the 2025 actual (78 entries).
    - Next rounds, largest first: the ministries' programmes (ПМС № 102/2026) mapped to the КФП sub-functions and
-     grafted (state-budget part of almost every box; Budget 2026 has €9.4 bn in remainders); the Electricity System
-     Security Fund in Energy (MTBF 2026–2028 annex 8 for the plans, €1.49 bn of €2.80 bn in 2026; its SEBRA payments,
-     99.8% of the 2025 box, for the actual); the 2027 draft budget (due 31.10.2026); the ДОО execution data
-     (pensions, €12.4 bn in the 2025 actual, are one box); the 2025 actuals by policy area (pr.4) mapped to the
-     report's state-budget boxes.
+     grafted (done 14.11.2026: €12.94 bn of the ministries' €13.33 bn in 21 boxes of Budget 2026, €12.08 bn in Budget
+     2025 and the areas that fit wholly in one box, €6.85 bn, in the 2027 draft and €4.91 bn in Budget 2024; the 2025
+     actual's health ministry areas, €0.59 bn, with links from the actual's other state-budget boxes, whose
+     current/capital split parts would replace — left open; `data/drilldown/programme-map.csv`, docs/drilldown.md ›
+     "The programme map"; what is left are EU funds, municipalities and other budgets, see the ledger; next: the 2024
+     decree on the programme budgets, for the 2024 areas that are mixed, €3.83 bn); the Electricity System
+     Security Fund in Energy (the forecasts' annex 8 for the plans, €1.49 bn of €2.80 bn in 2026; for 2024 and 2025
+     too since 14.11.2026; its SEBRA payments,
+     99.8% of the 2025 box, for the actual); the forecasts' other annex 7 and 8 entities (done 14.11.2026 for 2024,
+     2025, 2026 and the 2027 draft; for 2026 and 2027: State Fund Agriculture's EU account in agriculture, €693.0 m / €615.7 m; ПУДООС, the
+     Agricultural Academy and two state enterprises in the boxes their 2024–2025 report columns name; the National
+     Fund's account spans many functions and stays unmapped); the 2027 draft budget (due 31.10.2026); the ДОО execution data
+     (done 14.11.2026: noi.bg answers scripts, and its yearbook „Пенсии“, table 6.3, splits the 2024 and 2025 actual
+     pensions by fund and kind of pension, `data/sources/pensions/`; the plans give pensions by fund only; its
+     statistical report on the ДОО budget, by ЕБК paragraph, splits the actual benefits by kind, the plans' ids,
+     `data/sources/doo-benefits/`); interest and the EU contribution (done 14.11.2026, `data/sources/interest-eu/`:
+     the MoF execution reports split the State Budget's interest into external and domestic debt and the
+     contribution by own resource, law and actual, for 2024 and 2025; the Acts' line 1.3 is the State Budget's
+     interest in the plans, and the 2027–2029 forecast splits the 2027 plan by kind of debt); the 2025 actuals by
+     policy area (pr.4) mapped to the report's state-budget boxes.
 
 Smaller items:
 - Eurostat subsector split (central / local / social security): about half a day.
@@ -517,5 +532,4 @@ Smaller items:
   - the EU Recovery Scoreboard "top 100 recipients";
   - an Excel export in ИСУН's web pages;
   - the OECD per-municipality files;
-  - NOI/ДОО execution data (not researched).
 - **Checked only by sub-agents ([S] in the text):** the health activity counts, schools' own budgets, municipal details other than the big cities' reports, Plovdiv's school allocations and the cost standards (checked in October 2026; so were the hospital payments, medicine reports and Ministry of Health hospital finances, the EU-funds and CAP sources of §2.6 and the procurement sources of §2.7 were checked in October 2026). Spot-checks of key URLs (nhif.bg, mh.government.bg, ipop.mrrb.bg, www2.aop.bg, seu.dfz.bg) returned HTTP 200 on 4 Oct 2026.
